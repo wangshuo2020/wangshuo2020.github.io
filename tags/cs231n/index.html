@@ -6,7 +6,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    系列(二)：线性分类器 |  畅院士的开山大弟子的博客
+    Tag: cs231n |  畅院士的开山大弟子的博客
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -30,235 +30,55 @@
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-系列-二-：线性分类器" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
+  <article class="articles">
     
-    <header class="article-header">
+    
+    <h1 class="page-type-title">#&nbspcs231n</h1>
+    
+    
+  
+  
+  
+  
+  
+  
+  <div class="archives-wrap">
+    <div class="archive-year-wrap">
+      <a href="/archives/2020" class="archive-year">2020</a>
+    </div>
+    <div class="archives">
+      
+      <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2020/03/15/%E7%B3%BB%E5%88%97-%E4%BA%8C-%EF%BC%9A%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8/" class="archive-article-date">
+  <time datetime="2020-03-15T03:53:43.000Z" itemprop="datePublished">03/15</time>
+</a>
        
-<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  系列(二)：线性分类器
-</h1>
+<h2 itemprop="name">
+  <a class="archive-article-title" href="/2020/03/15/%E7%B3%BB%E5%88%97-%E4%BA%8C-%EF%BC%9A%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8/"
+    >系列(二)：线性分类器</a
+  >
+</h2>
   
 
     </header>
     
-
     
-    <div class="article-meta">
-      <a href="/2020/03/15/%E7%B3%BB%E5%88%97-%E4%BA%8C-%EF%BC%9A%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8/" class="article-date">
-  <time datetime="2020-03-15T03:53:43.000Z" itemprop="datePublished">2020-03-15</time>
-</a>
-      
-      
-      
-<div class="word_count">
-    <span class="post-time">
-        <span class="post-meta-item-icon">
-            <i class="ri-quill-pen-line"></i>
-            <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">481字</span>
-        </span>
-    </span>
-
-    <span class="post-time">
-        &nbsp; | &nbsp;
-        <span class="post-meta-item-icon">
-            <i class="ri-book-open-line"></i>
-            <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1分钟</span>
-        </span>
-    </span>
-</div>
-
-      
-    </div>
-    
-
-    
-    
-
-
-
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>神经网络就像乐高玩具，搭积木，非线性神经元就是一块块积木。再比如设计一个输入图片输出描述性语言的系统，我们就可以用一个CNN和一个RNN作为基本组件来搭建。<br>Y=WX+b中的b是怎么起作用的，有时候你的数据集是不平衡的，比如猫的个数多于狗的个数。个数更多的类别往往有更大的偏置项。[1]<br>线性分类器的工作方式就是X是一个图像，把X展平成一个列向量，W是一个以列向量的长度与分类的个数为维度的二维向量，b是一个长度为类别个数的列向量。经过运算后会得到列向量Y，Y的元素就是每个类别的得分。<br>哪个类别的得分越高就被划分为哪类。W的每一行就是每一种类别的模板，模板与图像的点乘结果大，就说这个模板匹配了图像，也就意味着这个图像中包含模板想要寻找的特征。<br>把这些模板可视化，找到模板中的特征，就是这个分类器在分类时想要寻找的特征。<br>线性分类器的缺点，模板是在数据集上训练得到的，所以如果某个类别的图像是对称过来的双份数据，那么这个类别训练出的模板可视化之后的结果可能会很奇怪，比如有两个头的马。再比如开向不同方向的火车，模板想要<br>在一张图像上把所有的方向特征都表现出来，就会看起来很奇怪，甚至表现出来的类似一张噪声图片。线性分类器只能绘制出一条线性边界，这就是它的局限性。</p>
-
-      
-      <!-- reward -->
-      
-      <div id="reward-btn">
-        打赏
-      </div>
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-        <div class="declare">
-          <ul class="post-copyright">
-            <li>
-              <i class="ri-copyright-line"></i>
-              <strong>版权声明： </strong s>
-              本博客所有文章除特别声明外，均采用 <a href="https://www.apache.org/licenses/LICENSE-2.0.html" rel="external nofollow"
-                target="_blank">Apache License 2.0</a> 许可协议。转载请注明出处！
-            </li>
-          </ul>
-        </div>
-        
-    <footer class="article-footer">
-      
-          
-<div class="share-btn">
-      <span class="share-sns share-outer">
-        <i class="ri-share-forward-line"></i>
-        分享
-      </span>
-      <div class="share-wrap">
-        <i class="arrow"></i>
-        <div class="share-icons">
-          
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="ri-weibo-fill"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="ri-wechat-fill"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="ri-qq-fill"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="ri-douban-line"></i>
-          </a>
-          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a> -->
-          
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="ri-facebook-circle-fill"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="ri-twitter-fill"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="ri-google-fill"></i>
-          </a>
-        </div>
-      </div>
-</div>
-
-<div class="wx-share-modal">
-    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/03/15/%E7%B3%BB%E5%88%97-%E4%BA%8C-%EF%BC%9A%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div id="share-mask"></div>
-      
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cs231n/" rel="tag">cs231n</a></li></ul>
 
-
-    </footer>
-
+    
   </div>
-
-  
-  
-  <nav class="article-nav">
-    
-      <a href="/2020/03/16/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%B8%80/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            tensorflow2.0系列(一)
-          
-        </div>
-      </a>
-    
-    
-      <a href="/2020/03/15/%E7%B3%BB%E5%88%97-%E4%B8%80-%EF%BC%9AK%E6%9C%80%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/" class="article-nav-link">
-        <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">系列(一)：K最近邻算法</div>
-      </a>
-    
-  </nav>
-
-
-  
-
-  
-  
-<!-- valine评论 -->
-<div id="vcomments-box">
-    <div id="vcomments">
-    </div>
-</div>
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
-<script>
-    new Valine({
-        el: '#vcomments',
-        app_id: '',
-        app_key: '',
-        path: window.location.pathname,
-        notify: 'false',
-        verify: 'false',
-        avatar: 'mp',
-        placeholder: '给我的文章加点评论吧~',
-        recordIP: true
-    });
-    const infoEle = document.querySelector('#vcomments .info');
-    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
-        infoEle.childNodes.forEach(function (item) {
-            item.parentNode.removeChild(item);
-        });
-    }
-</script>
-<style>
-    #vcomments-box {
-        padding: 5px 30px;
-    }
-
-    @media screen and (max-width: 800px) {
-        #vcomments-box {
-            padding: 5px 0px;
-        }
-    }
-
-    #vcomments-box #vcomments {
-        background-color: #fff;
-    }
-
-    .v .vlist .vcard .vh {
-        padding-right: 20px;
-    }
-
-    .v .vlist .vcard {
-        padding-left: 10px;
-    }
-</style>
-
-  
-
-  
-  
-  
-
 </article>
+      
+      
+    </div>
+  </div>
+  
+  
+
+  
 </section>
       <footer class="footer">
   <div class="outer">
@@ -413,30 +233,6 @@
 </script>
 
 
-
-
-<script src="/js/tocbot.min.js"></script>
-
-<script>
-  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
-  tocbot.init({
-    tocSelector: '.tocbot',
-    contentSelector: '.article-entry',
-    headingSelector: 'h1, h2, h3, h4, h5, h6',
-    hasInnerContainers: true,
-    scrollSmooth: true,
-    scrollContainer: 'main',
-    positionFixedSelector: '.tocbot',
-    positionFixedClass: 'is-position-fixed',
-    fixedSidebarOffset: 'auto',
-    onClick: (e) => {
-      $('.toc-link').removeClass('is-active-link');
-      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
-      $(e.target.hash).scrollIntoView();
-      return false;
-    }
-  });
-</script>
 
 
 
