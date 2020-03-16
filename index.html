@@ -69,6 +69,75 @@
     
     
     
+    <article id="post-tensorflow2-0系列-一" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/16/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%B8%80/"
+    >tensorflow2.0系列(一)</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/16/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%B8%80/" class="article-date">
+  <time datetime="2020-03-16T04:40:17.000Z" itemprop="datePublished">2020-03-16</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>tensorflow安装：<br>      1、Anaconda<br>      2、conda create –name tf2 python=3.7      # “tf2”是你建立的conda虚拟环境的名字<br>         conda activate tf2                      # 进入名为“tf2”的conda虚拟环境<br>      3、pip install tensorflow -i <a href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/help/pypi/</a><br>注：<br>      1、也可以使用 conda install tensorflow 来安装 TensorFlow，但是conda源的版本更新较慢<br>      2、从tensorflow2.1开始，tensorflow包就是gpu版本，不需要安装tensorflow-gpu包，<br>         如果需要安装cpu版本，则安装tensorflow-cpu<br>pip常用命令：<br>      pip install [package-name]              # 安装名为[package-name]的包<br>      pip install [package-name]==X.X         # 安装名为[package-name]的包并指定版本X.X<br>      pip install [package-name] –proxy=代理服务器IP:端口号         # 使用代理服务器安装<br>      pip install [package-name] –upgrade    # 更新名为[package-name]的包<br>      pip uninstall [package-name]            # 删除名为[package-name]的包<br>      pip list                                # 列出当前环境下已安装的所有包<br>conda常用命令：<br>      conda install [package-name]        # 安装名为[package-name]的包<br>      conda install [package-name]=X.X    # 安装名为[package-name]的包并指定版本X.X<br>      conda update [package-name]         # 更新名为[package-name]的包<br>      conda remove [package-name]         # 删除名为[package-name]的包<br>      conda list                          # 列出当前环境下已安装的所有包<br>      conda search [package-name]         # 列出名为[package-name]的包在conda源中的所有可用版本<br>conda包管理器相比pip的优点是可以安装更多的包，但是缺点是版本更新较慢<br>创建虚拟环境命令：<br>      conda create –name [env-name]      # 建立名为[env-name]的Conda虚拟环境<br>      conda activate [env-name]           # 进入名为[env-name]的Conda虚拟环境<br>      conda deactivate                    # 退出当前的Conda虚拟环境<br>      conda env remove –name [env-name]  # 删除名为[env-name]的Conda虚拟环境<br>      conda env list                      # 列出所有Conda虚拟环境<br>tensorflowgpu版本安装：<br>      conda install cudatoolkit=X.X<br>      conda install cudnn=X.X.X<br>      cuda与cudnn，tensorflow-gpu包的版本一定要对应的上<br>      也可以手动去官网下载cuda和cudnn<br>      另外，在用conda包管理器安装tensorflow-gpu版本时会自动安装对应版本的cuda与cudnn，<br>      缺点是tensorflow-gpu的版本可能较低，因为conda源里的包更新的比较慢。<br>reference:<a href="https://tf.wiki/" target="_blank" rel="noopener">https://tf.wiki/</a></p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-系列-二-：线性分类器" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
