@@ -69,6 +69,84 @@
     
     
     
+    <article id="post-tensorflow2-0系列-二" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/16/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%BA%8C/"
+    >tensorflow2.0系列(二)</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/16/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%BA%8C/" class="article-date">
+  <time datetime="2020-03-16T05:55:04.000Z" itemprop="datePublished">2020-03-16</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h1 id="定义一个随机数（标量）"><a href="#定义一个随机数（标量）" class="headerlink" title="定义一个随机数（标量）"></a>定义一个随机数（标量）</h1><p>random_float = tf.random.uniform(shape=())</p>
+<h1 id="定义一个有2个元素的零向量"><a href="#定义一个有2个元素的零向量" class="headerlink" title="定义一个有2个元素的零向量"></a>定义一个有2个元素的零向量</h1><p>zero_vector = tf.zeros(shape=(2))</p>
+<h1 id="定义两个2×2的常量矩阵"><a href="#定义两个2×2的常量矩阵" class="headerlink" title="定义两个2×2的常量矩阵"></a>定义两个2×2的常量矩阵</h1><p>A = tf.constant([[1., 2.], [3., 4.]])<br>B = tf.constant([[5., 6.], [7., 8.]])<br>注意shape的值，shape括号里数字的个数就是生成的张量的维度，没有数字就是0维，也就是标量。<br>张量一般关注三个地方：形状、类型和值。通过张量的 shape 、 dtype 属性和 numpy() 方法获得。</p>
+<h1 id="查看矩阵A的形状、类型和值"><a href="#查看矩阵A的形状、类型和值" class="headerlink" title="查看矩阵A的形状、类型和值"></a>查看矩阵A的形状、类型和值</h1><p>print(A.shape)      # 输出(2, 2)，即矩阵的长和宽均为2<br>print(A.dtype)      # 输出&lt;dtype: ‘float32’&gt;<br>print(A.numpy())    # 输出[[1. 2.]<br>                    #      [3. 4.]]<br>张量通过numpy方法取出张量的值。<br>在tensorflow1.x版本中，要开启即时执行模式要在开启的位置调用tf.enable_eager_execution() 函数，在tensorflow2.x版本<br>中，即时执行模式是默认开启的。另外，关闭即时执行模式就是调用tf.compat.v1.disable_eager_execution() 函数。不清楚<br>是不是在1.x、2.x版本中都是这么来关闭这种模式。2.x版本里是可行的。<br>即时执行模式和图执行模式的区别就是进行运算不用调用会话了，直接就可以计算。<br>tensorflow的自动求导功能：<br>例：使用 tf.GradientTape() 计算函数 y(x) = x^2 在 x = 3 时的导数<br>import tensorflow as tf</p>
+<p>x = tf.Variable(initial_value=3.)<br>with tf.GradientTape() as tape:     # 在 tf.GradientTape() 的上下文内，所有计算步骤都会被记录以用于求导<br>    y = tf.square(x)<br>y_grad = tape.gradient(y, x)        # 计算y关于x的导数<br>print([y, y_grad])<br>例：使用 tf.GradientTape() 计算函数 L(w, b) = (Xw + b - y)^2 在 w = (1, 2)^T, b = 1 时分别对 w, b 的偏导数。<br>其中 X = [[1.,2.],[3.,4.]],y = [[1.],[2.]]<br>X = tf.constant([[1., 2.], [3., 4.]])<br>y = tf.constant([[1.], [2.]])<br>w = tf.Variable(initial_value=[[1.], [2.]])<br>b = tf.Variable(initial_value=1.)<br>with tf.GradientTape() as tape:<br>    L = 0.5 * tf.reduce_sum(tf.square(tf.matmul(X, w) + b - y))<br>w_grad, b_grad = tape.gradient(L, [w, b])        # 计算L(w, b)关于w, b的偏导数<br>print([L.numpy(), w_grad.numpy(), b_grad.numpy()])<br>#tf.reduce_sum() 操作是对输入张量的所有元素求和，输出一个形状为空的纯量张量（可以通过 axis 参数来指定求和的维度，<br>不指定则默认对所有元素求和）。<br>波士顿房价问题，什么时候要进行归一化操作，归一化的方式是唯一的吗？<br>import numpy as np</p>
+<p>X_raw = np.array([2013, 2014, 2015, 2016, 2017], dtype=np.float32)<br>y_raw = np.array([12000, 14000, 15000, 16500, 17500], dtype=np.float32)</p>
+<p>X = (X_raw - X_raw.min()) / (X_raw.max() - X_raw.min())<br>y = (y_raw - y_raw.min()) / (y_raw.max() - y_raw.min())<br>使用tensorflow实现城市房价问题的参数求解：<br>X = tf.constant(X)<br>y = tf.constant(y)</p>
+<p>a = tf.Variable(initial_value=0.)<br>b = tf.Variable(initial_value=0.)<br>variables = [a, b]</p>
+<p>num_epoch = 10000<br>optimizer = tf.keras.optimizers.SGD(learning_rate=1e-3)<br>for e in range(num_epoch):<br>    # 使用tf.GradientTape()记录损失函数的梯度信息<br>    with tf.GradientTape() as tape:<br>        y_pred = a * X + b<br>        loss = 0.5 * tf.reduce_sum(tf.square(y_pred - y))<br>    # TensorFlow自动计算损失函数关于自变量（模型参数）的梯度<br>    grads = tape.gradient(loss, variables)<br>    # TensorFlow自动根据梯度更新参数<br>    optimizer.apply_gradients(grads_and_vars=zip(grads, variables))</p>
+<p>print(a, b)<br>Python 的 zip() 函数：<br>如果 a = [1, 3, 5]， b = [2, 4, 6]，那么 zip(a, b) = [(1, 2), (3, 4), …, (5, 6)]。</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-tensorflow2-0系列-一" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
