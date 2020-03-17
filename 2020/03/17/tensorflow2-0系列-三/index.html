@@ -58,7 +58,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">750字</span>
+            <span class="post-count">757字</span>
         </span>
     </span>
 
@@ -92,14 +92,21 @@
       
 
       
-      <p>在kera中，通过继承tf.keras.Model来定义自己的模型。在继承类中，需要重写<strong>init</strong>()和和call(input)两个方法，也可以根据需要增加自定义的方法。<br>‘’’<br>class MyModel(tf.keras.Model):<br>    def “‘<strong>init</strong>‘“(self):<br>        super().”‘<strong>init</strong>‘“()     # Python 2 下使用 super(MyModel, self).<strong>init</strong>()<br>        // 此处添加初始化代码（包含 call 方法中会用到的层），例如<br>        // layer1 = tf.keras.layers.BuiltInLayer(…)<br>        // layer2 = MyCustomLayer(…)</p>
+      <p>在kera中，通过继承tf.keras.Model来定义自己的模型。在继承类中，需要重写<strong>init</strong>()和和call(input)两个方法，也可以根据需要增加自定义的方法。<br>‘’’js</p>
+<p>class MyModel(tf.keras.Model):
+    def \_\_init\_\_(self):
+        super()."'__init__'"()     # Python 2 下使用 super(MyModel, self).__init__()
+        // 此处添加初始化代码（包含 call 方法中会用到的层），例如
+        // layer1 = tf.keras.layers.BuiltInLayer(...)
+        // layer2 = MyCustomLayer(...)
+
 <pre><code>def call(self, input):
     // 此处添加模型调用的代码（处理输入并返回输出），例如
     // x = layer1(input)
     // output = layer2(x)
     return output
 
-// 还可以添加自定义的方法</code></pre><p>‘’’<br>继承 tf.keras.Model 后，就以使用父类的方法和属性，比如在实例化类model = Model()后，就可以通过model.variables这一属性直接获得模型中的所有变量，而不需要我们一个个显式地指定变量。<br>用keras实现线性回归：<br>import tensorflow as tf</p>
+// 还可以添加自定义的方法&lt;/p&gt;</code></pre><p>‘’’<br>继承 tf.keras.Model 后，就以使用父类的方法和属性，比如在实例化类model = Model()后，就可以通过model.variables这一属性直接获得模型中的所有变量，而不需要我们一个个显式地指定变量。<br>用keras实现线性回归：<br>import tensorflow as tf</p>
 <p>X = tf.constant([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]])<br>y = tf.constant([[10.0], [20.0]])</p>
 <p>class Linear(tf.keras.Model):<br>    def “‘<strong>init</strong>‘“(self):<br>        super().”‘<strong>init</strong>‘“()<br>        self.dense = tf.keras.layers.Dense(<br>            units=1,<br>            activation=None,<br>            kernel_initializer=tf.zeros_initializer(),<br>            bias_initializer=tf.zeros_initializer()<br>        )</p>
 <pre><code>def call(self, input):
