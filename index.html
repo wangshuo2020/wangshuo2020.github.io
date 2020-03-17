@@ -69,6 +69,87 @@
     
     
     
+    <article id="post-tensorflow2-0系列-三" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/17/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%B8%89/"
+    >tensorflow2.0系列(三)</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/17/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%B8%89/" class="article-date">
+  <time datetime="2020-03-17T04:58:42.000Z" itemprop="datePublished">2020-03-17</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>在kera中，通过继承tf.keras.Model来定义自己的模型。在继承类中，需要重写<strong>init</strong>()和和call(input)两个方法，也可以根据需要增加自定义的方法。<br>class MyModel(tf.keras.Model):<br>    def <strong>init</strong>(self):<br>        super().<strong>init</strong>()     # Python 2 下使用 super(MyModel, self).<strong>init</strong>()<br>        // 此处添加初始化代码（包含 call 方法中会用到的层），例如<br>        // layer1 = tf.keras.layers.BuiltInLayer(…)<br>        // layer2 = MyCustomLayer(…)</p>
+<pre><code>def call(self, input):
+    // 此处添加模型调用的代码（处理输入并返回输出），例如
+    // x = layer1(input)
+    // output = layer2(x)
+    return output
+
+// 还可以添加自定义的方法</code></pre><p>继承 tf.keras.Model 后，就以使用父类的方法和属性，比如在实例化类model = Model()后，就可以通过model.variables这一属性直接获得模型中的所有变量，而不需要我们一个个显式地指定变量。<br>用keras实现线性回归：<br>import tensorflow as tf</p>
+<p>X = tf.constant([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]])<br>y = tf.constant([[10.0], [20.0]])</p>
+<p>class Linear(tf.keras.Model):<br>    def <strong>init</strong>(self):<br>        super().<strong>init</strong>()<br>        self.dense = tf.keras.layers.Dense(<br>            units=1,<br>            activation=None,<br>            kernel_initializer=tf.zeros_initializer(),<br>            bias_initializer=tf.zeros_initializer()<br>        )</p>
+<pre><code>def call(self, input):
+    output = self.dense(input)
+    return output</code></pre><p>// 以下代码结构与前节类似<br>model = Linear()<br>optimizer = tf.keras.optimizers.SGD(learning_rate=0.01)<br>for i in range(100):<br>    with tf.GradientTape() as tape:<br>        y_pred = model(X)      # 调用模型 y_pred = model(X) 而不是显式写出 y_pred = a * X + b<br>        loss = tf.reduce_mean(tf.square(y_pred - y))<br>    grads = tape.gradient(loss, model.variables)    # 使用 model.variables 这一属性直接获得模型中的所有变量<br>    optimizer.apply_gradients(grads_and_vars=zip(grads, model.variables))<br>print(model.variables)<br>tf.keras.layers.Dense类的作用是实例化生成全连接层，它的参数有：<br>units ：输出张量的维度<br>activation ：激活函数，对应于f(AW + b)中的f，默认为无激活函数(a(x) = x)。常用的激活函数包括 tf.nn.relu、tf.nn.tanh和tf.nn.sigmoid；<br>use_bias ：是否加入偏置向量bias，即f(AW + b)中的b。默认为True；<br>kernel_initializer、bias_initializer：权重矩阵kernel和偏置向量bias两个变量的初始化器。默认为tf.glorot_uniform_initializer。设置为tf.zeros_initializer表示将两个变量均初始化为全0；<br>该层包含权重矩阵kernel=[input_dim,units]和偏置向量bias=[units]两个可训练变量，对应于f(AW+b)中的W和b。<br>tf.matmul(input, kernel) 的结果是一个形状为 [batch_size, units] 的二维矩阵，而bias是一个形状为[units]的一维向量，它们是怎么相加的呢？<br>这里用到的是python的广播机制。<br>为什么模型类是重写call()方法而不是<strong>call</strong>()方法？<br>实例化也可以理解为调用这个类。<br>在python中，myClass()==myClass.<strong>call</strong>()。重写call()方法而不是<strong>call</strong>()方法是因为在keras中call()方法是在<strong>call</strong>()方法中被调用的，也就是说，在keras框架下，在调用某个模型时，keras要执行的不仅仅是用户定义的call()方法，还有一些每个模型在调用时都要进行的处理，而这些东西就写在了<strong>call</strong>()方法下。因此用户重写的只能是call()方法。</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-白板推导系列-一-：SVM定义" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
