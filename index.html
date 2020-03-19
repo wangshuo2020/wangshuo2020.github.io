@@ -69,6 +69,72 @@
     
     
     
+    <article id="post-tensorflow2-0系列-七-：变量的保存与恢复" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/19/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%B8%83-%EF%BC%9A%E5%8F%98%E9%87%8F%E7%9A%84%E4%BF%9D%E5%AD%98%E4%B8%8E%E6%81%A2%E5%A4%8D/"
+    >tensorflow2.0系列(七)：变量的保存与恢复</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/19/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%B8%83-%EF%BC%9A%E5%8F%98%E9%87%8F%E7%9A%84%E4%BF%9D%E5%AD%98%E4%B8%8E%E6%81%A2%E5%A4%8D/" class="article-date">
+  <time datetime="2020-03-19T09:12:05.000Z" itemprop="datePublished">2020-03-19</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-tensorflow2-0系列-六-：灵活建立模型" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -791,75 +857,6 @@
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-系列-二-：线性分类器" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/15/%E7%B3%BB%E5%88%97-%E4%BA%8C-%EF%BC%9A%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8/"
-    >系列(二)：线性分类器</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/15/%E7%B3%BB%E5%88%97-%E4%BA%8C-%EF%BC%9A%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8/" class="article-date">
-  <time datetime="2020-03-15T03:53:43.000Z" itemprop="datePublished">2020-03-15</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>神经网络就像乐高玩具，搭积木，非线性神经元就是一块块积木。再比如设计一个输入图片输出描述性语言的系统，我们就可以用一个CNN和一个RNN作为基本组件来搭建。<br>Y=WX+b中的b是怎么起作用的，有时候你的数据集是不平衡的，比如猫的个数多于狗的个数。个数更多的类别往往有更大的偏置项。[1]<br>线性分类器的工作方式就是X是一个图像，把X展平成一个列向量，W是一个以列向量的长度与分类的个数为维度的二维向量，b是一个长度为类别个数的列向量。经过运算后会得到列向量Y，Y的元素就是每个类别的得分。<br>哪个类别的得分越高就被划分为哪类。W的每一行就是每一种类别的模板，模板与图像的点乘结果大，就说这个模板匹配了图像，也就意味着这个图像中包含模板想要寻找的特征。<br>把这些模板可视化，找到模板中的特征，就是这个分类器在分类时想要寻找的特征。<br>线性分类器的缺点，模板是在数据集上训练得到的，所以如果某个类别的图像是对称过来的双份数据，那么这个类别训练出的模板可视化之后的结果可能会很奇怪，比如有两个头的马。再比如开向不同方向的火车，模板想要<br>在一张图像上把所有的方向特征都表现出来，就会看起来很奇怪，甚至看起来像一张由噪声生成的图片。线性分类器只能绘制出一条线性边界，这就是它的局限性。</p>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cs231n/" rel="tag">cs231n</a></li></ul>
 
 
     </footer>
