@@ -113,14 +113,11 @@
 <p>以多层感知机模型为例展示模型变量的保存和载入：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[2]</span><br></pre></td></tr></table></figure>
 
-<p>使用tf.train.CheckpointManager删除旧的Checkpoint以及自定义文件编号:<br>在模型的训练过程中，我们往往每隔一定步数保存一个Checkpoint并进行编号。不过很多时候我们会有这样的需求：</p>
-<ul>
-<li>在长时间的训练后，程序会保存大量的 Checkpoint，但我们只想保留最后的几个 Checkpoint；</li>
-<li>Checkpoint默认从1开始编号，每次累加1，但我们可能希望使用别的编号方式(例如使用当前Batch的编号作为文件编号)。<br>这时，我们可以使用TensorFlow的tf.train.CheckpointManager来实现以上需求。具体的说，就是在定义Checkpoint后接着定义一个CheckpointManager：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">checkpoint &#x3D; tf.train.Checkpoint(model&#x3D;model)</span><br><span class="line">manager &#x3D; tf.train.CheckpointManager(checkpoint, directory&#x3D;&#39;.&#x2F;save&#39;, checkpoint_name&#x3D;&#39;model.ckpt&#39;, max_to_keep&#x3D;k)</span><br></pre></td></tr></table></figure>
-此处，directory参数为文件保存的路径，checkpoint_name为文件名前缀(不提供则默认为ckpt)，max_to_keep为保留的Checkpoint数目。在需要保存模型的时候，我们直接使用manager.save()即可。如果我们希望指定保存的Checkpoint的编号，则可以在保存时传入checkpoint_number参数。例如：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">manager.save(checkpoint_number&#x3D;100)</span><br></pre></td></tr></table></figure>
+<p>使用tf.train.CheckpointManager删除旧的Checkpoint以及自定义文件编号:<br>在模型的训练过程中，我们往往每隔一定步数保存一个Checkpoint并进行编号。不过很多时候我们会有这样的需求：<br>在长时间的训练后，程序会保存大量的 Checkpoint，但我们只想保留最后的几个 Checkpoint；<br>Checkpoint默认从1开始编号，每次累加1，但我们可能希望使用别的编号方式(例如使用当前Batch的编号作为文件编号)。<br>这时，我们可以使用TensorFlow的tf.train.CheckpointManager来实现以上需求。具体的说，就是在定义Checkpoint后接着定义一个CheckpointManager：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">checkpoint &#x3D; tf.train.Checkpoint(model&#x3D;model)</span><br><span class="line">manager &#x3D; tf.train.CheckpointManager(checkpoint, directory&#x3D;&#39;.&#x2F;save&#39;, checkpoint_name&#x3D;&#39;model.ckpt&#39;, max_to_keep&#x3D;k)</span><br></pre></td></tr></table></figure>
+<p>此处，directory参数为文件保存的路径，checkpoint_name为文件名前缀(不提供则默认为ckpt)，max_to_keep为保留的Checkpoint数目。在需要保存模型的时候，我们直接使用manager.save()即可。如果我们希望指定保存的Checkpoint的编号，则可以在保存时传入checkpoint_number参数。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">manager.save(checkpoint_number&#x3D;100)</span><br></pre></td></tr></table></figure>
 
-</li>
-</ul>
 <p>以下提供一个实例，展示使用CheckpointManager限制仅保留最后三个Checkpoint文件，并使用batch的编号作为Checkpoint的文件编号。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[3]</span><br></pre></td></tr></table></figure>
       
