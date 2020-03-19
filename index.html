@@ -69,6 +69,111 @@
     
     
     
+    <article id="post-tensorflow2-0系列-八-：训练过程可视化" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/19/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%85%AB-%EF%BC%9A%E8%AE%AD%E7%BB%83%E8%BF%87%E7%A8%8B%E5%8F%AF%E8%A7%86%E5%8C%96/"
+    >tensorflow2.0系列(八)：训练过程可视化</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/19/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%85%AB-%EF%BC%9A%E8%AE%AD%E7%BB%83%E8%BF%87%E7%A8%8B%E5%8F%AF%E8%A7%86%E5%8C%96/" class="article-date">
+  <time datetime="2020-03-19T15:54:37.000Z" itemprop="datePublished">2020-03-19</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>有时，你希望查看模型训练过程中各个参数的变化情况(例如损失函数loss的值)。虽然可以通过命令行输出来查看，但有时显得不够直观。而TensorBoard就是一个能够帮助我们将训练过程可视化的工具。<br>实时查看参数变化情况:<br>首先在代码目录下建立一个文件夹(如./tensorboard)存放TensorBoard的记录文件，并在代码中实例化一个记录器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">summary_writer &#x3D; tf.summary.create_file_writer(&#39;.&#x2F;tensorboard&#39;)     # 参数为记录文件所保存的目录</span><br></pre></td></tr></table></figure>
+
+<p>接下来，当需要记录训练过程中的参数时，通过with语句指定希望使用的记录器，并对需要记录的参数(一般是scalar)运行tf.summary.scalar(name,tensor,step=batch_index),即可将训练过程中参数在step时候的值记录下来。这里的 step 参数可根据自己的需要自行制定，一般可设置为当前训练过程中的batch序号。整体框架如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">summary_writer &#x3D; tf.summary.create_file_writer(&#39;.&#x2F;tensorboard&#39;)</span><br><span class="line"># 开始模型训练</span><br><span class="line">for batch_index in range(num_batches):</span><br><span class="line">    # ...（训练代码，当前batch的损失值放入变量loss中）</span><br><span class="line">    with summary_writer.as_default():                               # 希望使用的记录器</span><br><span class="line">        tf.summary.scalar(&quot;loss&quot;, loss, step&#x3D;batch_index)</span><br><span class="line">        tf.summary.scalar(&quot;MyScalar&quot;, my_scalar, step&#x3D;batch_index)  # 还可以添加其他自定义的变量</span><br></pre></td></tr></table></figure>
+<p>每运行一次tf.summary.scalar()，记录器就会向记录文件中写入一条记录。除了最简单的标量(scalar)以外，TensorBoard还可以对其他类型的数据(如图像，音频等)进行可视化，详见<a href="http://www.tensorfly.cn/tfdoc/how_tos/summaries_and_tensorboard.html" target="_blank" rel="noopener">TensorBoard文档</a>。<br>当我们要对训练过程可视化时，在代码目录打开终端（如需要的话进入TensorFlow的conda环境），运行:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tensorboard --logdir&#x3D;.&#x2F;tensorboard</span><br></pre></td></tr></table></figure>
+<p>然后使用浏览器访问命令行程序所输出的网址（一般是http://计算机名称：6006），即可访问TensorBoard的可视界面。默认情况下，TensorBoard 每30秒更新一次数据。不过也可以点击右上角的刷新按钮手动刷新。TensorBoard的使用有以下注意事项：<br>[1]<br>记录文件夹目录保持全英文。</p>
+<p>查看Graph和Profile:<br>除此以外，我们可以在训练时使用tf.summary.trace_on开启Trace，此时TensorFlow会将训练时的大量信息（如计算图的结构，每个操作所耗费的时间等）记录下来。在训练完成后，使用tf.summary.trace_export将记录结果输出到文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tf.summary.trace_on(graph&#x3D;True, profiler&#x3D;True)  # 开启Trace，可以记录图结构和profile信息</span><br><span class="line"># 进行训练</span><br><span class="line">with summary_writer.as_default():</span><br><span class="line">    tf.summary.trace_export(name&#x3D;&quot;model_trace&quot;, step&#x3D;0, profiler_outdir&#x3D;log_dir)    # 保存Trace信息到文件</span><br></pre></td></tr></table></figure>
+<p>之后，我们就可以在TensorBoard中选择“Profile”，以时间轴的方式查看各操作的耗时情况。如果使用了tf.function建立了计算图，也可以点击“Graphs”查看图结构。</p>
+<p>可视化多层感知机模型的训练过程：</p>
+<pre><code>import tensorflow as tf
+from zh.model.mnist.mlp import MLP
+from zh.model.utils import MNISTLoader
+
+num_batches = 1000
+batch_size = 50
+learning_rate = 0.001
+log_dir = &apos;tensorboard&apos;
+model = MLP()
+data_loader = MNISTLoader()
+optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate)
+summary_writer = tf.summary.create_file_writer(log_dir)     # 实例化记录器
+tf.summary.trace_on(profiler=True)  # 开启Trace（可选）
+for batch_index in range(num_batches):
+    X, y = data_loader.get_batch(batch_size)
+    with tf.GradientTape() as tape:
+        y_pred = model(X)
+        loss = tf.keras.losses.sparse_categorical_crossentropy(y_true=y, y_pred=y_pred)
+        loss = tf.reduce_mean(loss)
+        print(&quot;batch %d: loss %f&quot; % (batch_index, loss.numpy()))
+        with summary_writer.as_default():                           # 指定记录器
+            tf.summary.scalar(&quot;loss&quot;, loss, step=batch_index)       # 将当前损失函数的值写入记录器
+    grads = tape.gradient(loss, model.variables)
+    optimizer.apply_gradients(grads_and_vars=zip(grads, model.variables))
+with summary_writer.as_default():
+    tf.summary.trace_export(name=&quot;model_trace&quot;, step=0, profiler_outdir=log_dir)    # 保存Trace信息到文件（可选）</code></pre>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-tensorflow2-0系列-七-：变量的保存与恢复" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -804,75 +909,6 @@
 <p>a = tf.Variable(initial_value=0.)<br>b = tf.Variable(initial_value=0.)<br>variables = [a, b]</p>
 <p>num_epoch = 10000<br>optimizer = tf.keras.optimizers.SGD(learning_rate=1e-3)<br>for e in range(num_epoch):<br>    # 使用tf.GradientTape()记录损失函数的梯度信息<br>    with tf.GradientTape() as tape:<br>        y_pred = a * X + b<br>        loss = 0.5 * tf.reduce_sum(tf.square(y_pred - y))<br>    # TensorFlow自动计算损失函数关于自变量（模型参数）的梯度<br>    grads = tape.gradient(loss, variables)<br>    # TensorFlow自动根据梯度更新参数<br>    optimizer.apply_gradients(grads_and_vars=zip(grads, variables))</p>
 <p>print(a, b)<br>Python 的 zip() 函数：<br>如果 a = [1, 3, 5]， b = [2, 4, 6]，那么 zip(a, b) = [(1, 2), (3, 4), …, (5, 6)]。</p>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-tensorflow2-0系列-一" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/16/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%B8%80/"
-    >tensorflow2.0系列(一)</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/16/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%B8%80/" class="article-date">
-  <time datetime="2020-03-16T04:40:17.000Z" itemprop="datePublished">2020-03-16</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>tensorflow安装：<br>      1、Anaconda<br>      2、conda create –name tf2 python=3.7      # “tf2”是你建立的conda虚拟环境的名字<br>         conda activate tf2                      # 进入名为“tf2”的conda虚拟环境<br>      3、pip install tensorflow -i <a href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/help/pypi/</a><br>注：<br>      1、也可以使用 conda install tensorflow 来安装 TensorFlow，但是conda源的版本更新较慢<br>      2、从tensorflow2.1开始，tensorflow包就是gpu版本，不需要安装tensorflow-gpu包，<br>         如果需要安装cpu版本，则安装tensorflow-cpu<br>pip常用命令：<br>      pip install [package-name]              # 安装名为[package-name]的包<br>      pip install [package-name]==X.X         # 安装名为[package-name]的包并指定版本X.X<br>      pip install [package-name] –proxy=代理服务器IP:端口号         # 使用代理服务器安装<br>      pip install [package-name] –upgrade    # 更新名为[package-name]的包<br>      pip uninstall [package-name]            # 删除名为[package-name]的包<br>      pip list                                # 列出当前环境下已安装的所有包<br>conda常用命令：<br>      conda install [package-name]        # 安装名为[package-name]的包<br>      conda install [package-name]=X.X    # 安装名为[package-name]的包并指定版本X.X<br>      conda update [package-name]         # 更新名为[package-name]的包<br>      conda remove [package-name]         # 删除名为[package-name]的包<br>      conda list                          # 列出当前环境下已安装的所有包<br>      conda search [package-name]         # 列出名为[package-name]的包在conda源中的所有可用版本<br>conda包管理器相比pip的优点是可以安装更多的包，但是缺点是版本更新较慢<br>创建虚拟环境命令：<br>      conda create –name [env-name]      # 建立名为[env-name]的Conda虚拟环境<br>      conda activate [env-name]           # 进入名为[env-name]的Conda虚拟环境<br>      conda deactivate                    # 退出当前的Conda虚拟环境<br>      conda env remove –name [env-name]  # 删除名为[env-name]的Conda虚拟环境<br>      conda env list                      # 列出所有Conda虚拟环境<br>tensorflowgpu版本安装：<br>      conda install cudatoolkit=X.X<br>      conda install cudnn=X.X.X<br>      cuda与cudnn，tensorflow-gpu包的版本一定要对应的上<br>      也可以手动去官网下载cuda和cudnn<br>      另外，在用conda包管理器安装tensorflow-gpu版本时会自动安装对应版本的cuda与cudnn，<br>      缺点是tensorflow-gpu的版本可能较低，因为conda源里的包更新的比较慢。<br>reference:<a href="https://tf.wiki/" target="_blank" rel="noopener">https://tf.wiki/</a></p>
 
       
       <!-- reward -->
