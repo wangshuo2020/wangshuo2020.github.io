@@ -69,6 +69,94 @@
     
     
     
+    <article id="post-tensorflow2-0系列-十一-：GPU的使用与分配" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/20/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%8D%81%E4%B8%80-%EF%BC%9AGPU%E7%9A%84%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%88%86%E9%85%8D/"
+    >tensorflow2.0系列(十一)：GPU的使用与分配</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/20/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%8D%81%E4%B8%80-%EF%BC%9AGPU%E7%9A%84%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%88%86%E9%85%8D/" class="article-date">
+  <time datetime="2020-03-20T10:04:26.000Z" itemprop="datePublished">2020-03-20</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>指定当前程序使用的GPU：<br>很多时候的场景是：实验室/公司研究组里有许多学生/研究员需要共同使用一台多GPU的工作站，而默认情况下TensorFlow会使用其所能够使用的所有GPU，这时就需要合理分配显卡资源。<br>首先，通过tf.config.experimental.list_physical_devices，我们可以获得当前主机上某种特定运算设备类型（如GPU或CPU）的列表，例如，在一台具有4块GPU和一个CPU的工作站上运行以下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gpus &#x3D; tf.config.experimental.list_physical_devices(device_type&#x3D;&#39;GPU&#39;)</span><br><span class="line">cpus &#x3D; tf.config.experimental.list_physical_devices(device_type&#x3D;&#39;CPU&#39;)</span><br><span class="line">print(gpus, cpus)</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[PhysicalDevice(name&#x3D;&#39;&#x2F;physical_device:GPU:0&#39;, device_type&#x3D;&#39;GPU&#39;),</span><br><span class="line"> PhysicalDevice(name&#x3D;&#39;&#x2F;physical_device:GPU:1&#39;, device_type&#x3D;&#39;GPU&#39;),</span><br><span class="line"> PhysicalDevice(name&#x3D;&#39;&#x2F;physical_device:GPU:2&#39;, device_type&#x3D;&#39;GPU&#39;),</span><br><span class="line"> PhysicalDevice(name&#x3D;&#39;&#x2F;physical_device:GPU:3&#39;, device_type&#x3D;&#39;GPU&#39;)]</span><br><span class="line">[PhysicalDevice(name&#x3D;&#39;&#x2F;physical_device:CPU:0&#39;, device_type&#x3D;&#39;CPU&#39;)]</span><br></pre></td></tr></table></figure>
+<p>可见，该工作站具有4块GPU：GPU:0、GPU:1、GPU:2、GPU:3，以及一个CPU：CPU:0。<br>然后，通过tf.config.experimental.set_visible_devices，可以设置当前程序可见的设备范围（当前程序只会使用自己可见的设备，不可见的设备不会被当前程序使用）。例如，如果在上述4卡的机器中我们需要限定当前程序只使用下标为0、1的两块显卡（GPU:0和GPU:1），可以使用以下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gpus &#x3D; tf.config.experimental.list_physical_devices(device_type&#x3D;&#39;GPU&#39;)</span><br><span class="line">tf.config.experimental.set_visible_devices(devices&#x3D;gpus[0:2], device_type&#x3D;&#39;GPU&#39;)</span><br></pre></td></tr></table></figure>
+<p>设置显存使用策略：<br>默认情况下，TensorFlow将使用几乎所有可用的显存，以避免内存碎片化所带来的性能损失。不过，TensorFlow提供两种显存使用策略，让我们能够更灵活地控制程序的显存使用方式：<br>仅在需要时申请显存空间（程序初始运行时消耗很少的显存，随着程序的运行而动态申请显存）；<br>限制消耗固定大小的显存（程序不会超出限定的显存大小，若超出则报错）。<br>可以通过tf.config.experimental.set_memory_growth将GPU的显存使用策略设置为 “仅在需要时申请显存空间”。以下代码将所有GPU设置为仅在需要时申请显存空间：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gpus &#x3D; tf.config.experimental.list_physical_devices(device_type&#x3D;&#39;GPU&#39;)</span><br><span class="line">for gpu in gpus:</span><br><span class="line">    tf.config.experimental.set_memory_growth(device&#x3D;gpu, enable&#x3D;True)</span><br></pre></td></tr></table></figure>
+
+<p>以下代码通过tf.config.experimental.set_virtual_device_configuration选项并传入tf.config.experimental.VirtualDeviceConfiguration实例，设置TensorFlow固定消耗GPU:0的1GB显存（其实可以理解为建立了一个显存大小为1GB的“虚拟 GPU”）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">gpus &#x3D; tf.config.experimental.list_physical_devices(device_type&#x3D;&#39;GPU&#39;)</span><br><span class="line">tf.config.experimental.set_virtual_device_configuration(</span><br><span class="line">    gpus[0],</span><br><span class="line">    [tf.config.experimental.VirtualDeviceConfiguration(memory_limit&#x3D;1024)])</span><br></pre></td></tr></table></figure>
+
+<p>TensorFlow1.X的图执行模式下，可以在实例化新的session时传入tf.compat.v1.ConfigPhoto类来设置TensorFlow使用显存的策略。具体方式是实例化一个tf.ConfigProto类，设置参数，并在创建tf.compat.v1.Session 时指定Config参数。以下代码通过allow_growth选项设置TensorFlow仅在需要时申请显存空间：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">config &#x3D; tf.compat.v1.ConfigProto()</span><br><span class="line">config.gpu_options.allow_growth &#x3D; True</span><br><span class="line">sess &#x3D; tf.compat.v1.Session(config&#x3D;config)</span><br></pre></td></tr></table></figure>
+<p>以下代码通过per_process_gpu_memory_fraction选项设置TensorFlow固定消耗40%的GPU显存：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">config &#x3D; tf.compat.v1.ConfigProto()</span><br><span class="line">config.gpu_options.per_process_gpu_memory_fraction &#x3D; 0.4</span><br><span class="line">tf.compat.v1.Session(config&#x3D;config)</span><br></pre></td></tr></table></figure>
+
+<p>单GPU模拟多GPU环境：<br>当我们的本地开发环境只有一个GPU，但却需要编写多GPU的程序在工作站上进行训练任务时，TensorFlow为我们提供了一个方便的功能，可以让我们在本地开发环境中建立多个模拟GPU，从而让多 GPU 的程序调试变得更加方便。以下代码在实体GPU：GPU:0的基础上建立了两个显存均为2GB的虚拟GPU。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">gpus &#x3D; tf.config.experimental.list_physical_devices(&#39;GPU&#39;)</span><br><span class="line">tf.config.experimental.set_virtual_device_configuration(</span><br><span class="line">    gpus[0],</span><br><span class="line">    [tf.config.experimental.VirtualDeviceConfiguration(memory_limit&#x3D;2048),</span><br><span class="line">     tf.config.experimental.VirtualDeviceConfiguration(memory_limit&#x3D;2048)])</span><br></pre></td></tr></table></figure>
+<p>我们在单机多卡训练的代码前加入以上代码，即可让原本为多GPU设计的代码在单GPU环境下运行。当输出设备数量时，程序会输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Number of devices: 2</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-tensorflow2-0系列-十-：TFRecord" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -874,79 +962,6 @@ with summary_writer.as_default():
 <p>在这里，我们没有显式地写出一个损失函数，而是使用了tf.keras.losses中的sparse_categorical_crossentropy(交叉熵)函数，将模型的预测值y_pred与真实的标签值y作为函数参数传入，由Keras帮助我们计算损失函数的值。<br>交叉熵作为损失函数，在分类问题中被广泛应用。<br>第四步，评估模型。keras在metrics模块中封装了不同的评估器用于适应不同的需求。在这里我们使用的是SparseCategoricalAccuracy评估器来评估模型在测试集上的性能，该评估器输出的是预测正确的样本数占总样本数的比例。<br>在每次迭代测试集的时候，都会通过update_state()方法向评估器输入两个参数：y_pred和y_true，即模型预测出的结果和真实结果。评估器定义了内部变量来保存当前评估指标相关的参数数值(例如当前已传入的累计样本数和当前预测正确的样本数)。迭代结束后，我们使用result()方法输出最终的评估指标值(预测正确的样本数占总样本数的比例)。<br>代码如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sparse_categorical_accuracy &#x3D; tf.keras.metrics.SparseCategoricalAccuracy()</span><br><span class="line">num_batches &#x3D; int(data_loader.num_test_data &#x2F;&#x2F; batch_size)</span><br><span class="line">for batch_index in range(num_batches):</span><br><span class="line">    start_index, end_index &#x3D; batch_index * batch_size, (batch_index + 1) * batch_size</span><br><span class="line">    y_pred &#x3D; model.predict(data_loader.test_data[start_index: end_index])</span><br><span class="line">    sparse_categorical_accuracy.update_state(y_true&#x3D;data_loader.test_label[start_index: end_index], y_pred&#x3D;y_pred)</span><br><span class="line">print(&quot;test accuracy: %f&quot; % sparse_categorical_accuracy.result())</span><br></pre></td></tr></table></figure>
 <p>在这里我们首先实例化了一个 tf.keras.metrics.SparseCategoricalAccuracy 评估器，并且使用For循环迭代分批次传入了测试集数据的预测结果与真实结果，并调用result()方法输出了训练后的模型在测试数据集上的准确率。<br>但是同样可以看到keras的缺点就是啥都帮你做了你就很难知道背后的机理是怎么实现的了。</p>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-tensorflow2-0系列-三" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/17/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%B8%89/"
-    >tensorflow2.0系列(三)</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/17/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%B8%89/" class="article-date">
-  <time datetime="2020-03-17T04:58:42.000Z" itemprop="datePublished">2020-03-17</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>在keras中，通过继承tf.keras.Model来定义自己的模型。在继承类中，需要重写”<del><strong>init</strong></del>“()和和call(input)两个方法，也可以根据需要增加自定义的方法。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class MyModel(tf.keras.Model):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super().__init__()     # Python 2 下使用 super(MyModel, self).__init__()</span><br><span class="line">        &#x2F;&#x2F; 此处添加初始化代码（包含 call 方法中会用到的层），例如</span><br><span class="line">        &#x2F;&#x2F; layer1 &#x3D; tf.keras.layers.BuiltInLayer(...)</span><br><span class="line">        &#x2F;&#x2F; layer2 &#x3D; MyCustomLayer(...)</span><br><span class="line"></span><br><span class="line">    def call(self, input):</span><br><span class="line">        &#x2F;&#x2F; 此处添加模型调用的代码（处理输入并返回输出），例如</span><br><span class="line">        &#x2F;&#x2F; x &#x3D; layer1(input)</span><br><span class="line">        &#x2F;&#x2F; output &#x3D; layer2(x)</span><br><span class="line">        return output</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 还可以添加自定义的方法</span><br></pre></td></tr></table></figure>
-<p>继承 tf.keras.Model 后，就以使用父类的方法和属性，比如在实例化类model = Model()后，就可以通过model.variables这一属性直接获得模型中的所有变量，而不需要我们一个个显式地指定变量。<br>用keras实现线性回归：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line"></span><br><span class="line">X &#x3D; tf.constant([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]])</span><br><span class="line">y &#x3D; tf.constant([[10.0], [20.0]])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Linear(tf.keras.Model):</span><br><span class="line">    def &quot;&#39;__init__&#39;&quot;(self):</span><br><span class="line">        super().&quot;&#39;__init__&#39;&quot;()</span><br><span class="line">        self.dense &#x3D; tf.keras.layers.Dense(</span><br><span class="line">            units&#x3D;1,</span><br><span class="line">            activation&#x3D;None,</span><br><span class="line">            kernel_initializer&#x3D;tf.zeros_initializer(),</span><br><span class="line">            bias_initializer&#x3D;tf.zeros_initializer()</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    def call(self, input):</span><br><span class="line">        output &#x3D; self.dense(input)</span><br><span class="line">        return output</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 以下代码结构与前节类似</span><br><span class="line">model &#x3D; Linear()</span><br><span class="line">optimizer &#x3D; tf.keras.optimizers.SGD(learning_rate&#x3D;0.01)</span><br><span class="line">for i in range(100):</span><br><span class="line">    with tf.GradientTape() as tape:</span><br><span class="line">        y_pred &#x3D; model(X)      # 调用模型 y_pred &#x3D; model(X) 而不是显式写出 y_pred &#x3D; a * X + b</span><br><span class="line">        loss &#x3D; tf.reduce_mean(tf.square(y_pred - y))</span><br><span class="line">    grads &#x3D; tape.gradient(loss, model.variables)    # 使用 model.variables 这一属性直接获得模型中的所有变量</span><br><span class="line">    optimizer.apply_gradients(grads_and_vars&#x3D;zip(grads, model.variables))</span><br><span class="line">print(model.variables)</span><br></pre></td></tr></table></figure>
-<p>tf.keras.layers.Dense类的作用是实例化生成全连接层，它的参数有：<br>units ：输出张量的维度<br>activation ：激活函数，对应于f(AW + b)中的f，默认为无激活函数(a(x) = x)。常用的激活函数包括 tf.nn.relu、tf.nn.tanh和tf.nn.sigmoid；<br>use_bias ：是否加入偏置向量bias，即f(AW + b)中的b。默认为True；<br>kernel_initializer、bias_initializer：权重矩阵kernel和偏置向量bias两个变量的初始化器。默认为tf.glorot_uniform_initializer。设置为tf.zeros_initializer表示将两个变量均初始化为全0；<br>该层包含权重矩阵kernel=[input_dim,units]和偏置向量bias=[units]两个可训练变量，对应于f(AW+b)中的W和b。<br>tf.matmul(input, kernel) 的结果是一个形状为 [batch_size, units] 的二维矩阵，而bias是一个形状为[units]的一维向量，它们是怎么相加的呢？<br>这里用到的是python的广播机制。<br>为什么模型类是重写call()方法而不是”‘<strong>call</strong>‘“()方法？<br>实例化也可以理解为调用这个类。<br>在python中，myClass()==myClass.”‘<strong>call</strong>‘“()。重写call()方法而不是”‘<strong>call</strong>‘“()方法是因为在keras中call()方法是在”‘<strong>call</strong>‘“()方法中被调用的，也就是说，在keras框架下，在调用某个模型时，keras要执行的不仅仅是用户定义的call()方法，还有一些每个模型在调用时都要进行的处理，而这些东西就写在了””<strong>call</strong>‘“()方法下。因此用户重写的只能是call()方法。</p>
 
       
       <!-- reward -->

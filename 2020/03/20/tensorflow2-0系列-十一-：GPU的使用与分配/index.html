@@ -6,7 +6,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    tensorflow2.0系列(十)：TFRecord |  畅院士的开山大弟子的博客
+    tensorflow2.0系列(十一)：GPU的使用与分配 |  畅院士的开山大弟子的博客
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -30,7 +30,7 @@
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-tensorflow2-0系列-十-：TFRecord" class="article article-type-post" itemscope
+  <article id="post-tensorflow2-0系列-十一-：GPU的使用与分配" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -38,7 +38,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  tensorflow2.0系列(十)：TFRecord
+  tensorflow2.0系列(十一)：GPU的使用与分配
 </h1>
   
 
@@ -47,8 +47,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/03/20/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%8D%81-%EF%BC%9ATFRecord/" class="article-date">
-  <time datetime="2020-03-20T09:27:17.000Z" itemprop="datePublished">2020-03-20</time>
+      <a href="/2020/03/20/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%8D%81%E4%B8%80-%EF%BC%9AGPU%E7%9A%84%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%88%86%E9%85%8D/" class="article-date">
+  <time datetime="2020-03-20T10:04:26.000Z" itemprop="datePublished">2020-03-20</time>
 </a>
       
       
@@ -58,7 +58,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1.3k字</span>
+            <span class="post-count">1k字</span>
         </span>
     </span>
 
@@ -67,7 +67,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">5分钟</span>
+            <span class="post-count">4分钟</span>
         </span>
     </span>
 </div>
@@ -92,24 +92,27 @@
       
 
       
-      <p>TFRecord是TensorFlow中的数据集存储格式。当我们将数据集整理成TFRecord格式后，TensorFlow就可以高效地读取和处理这些数据集，从而帮助我们更高效地进行大规模的模型训练。<br>TFRecord可以理解为一系列序列化的tf.train.Example元素所组成的列表文件，而每一个tf.train.Example又由若干个tf.train.Feature的字典组成。形式如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># dataset.tfrecords</span><br><span class="line">[</span><br><span class="line">    &#123;   # example 1 (tf.train.Example)</span><br><span class="line">        &#39;feature_1&#39;: tf.train.Feature,</span><br><span class="line">        ...</span><br><span class="line">        &#39;feature_k&#39;: tf.train.Feature</span><br><span class="line">    &#125;,</span><br><span class="line">    ...</span><br><span class="line">    &#123;   # example N (tf.train.Example)</span><br><span class="line">        &#39;feature_1&#39;: tf.train.Feature,</span><br><span class="line">        ...</span><br><span class="line">        &#39;feature_k&#39;: tf.train.Feature</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+      <p>指定当前程序使用的GPU：<br>很多时候的场景是：实验室/公司研究组里有许多学生/研究员需要共同使用一台多GPU的工作站，而默认情况下TensorFlow会使用其所能够使用的所有GPU，这时就需要合理分配显卡资源。<br>首先，通过tf.config.experimental.list_physical_devices，我们可以获得当前主机上某种特定运算设备类型（如GPU或CPU）的列表，例如，在一台具有4块GPU和一个CPU的工作站上运行以下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gpus &#x3D; tf.config.experimental.list_physical_devices(device_type&#x3D;&#39;GPU&#39;)</span><br><span class="line">cpus &#x3D; tf.config.experimental.list_physical_devices(device_type&#x3D;&#39;CPU&#39;)</span><br><span class="line">print(gpus, cpus)</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[PhysicalDevice(name&#x3D;&#39;&#x2F;physical_device:GPU:0&#39;, device_type&#x3D;&#39;GPU&#39;),</span><br><span class="line"> PhysicalDevice(name&#x3D;&#39;&#x2F;physical_device:GPU:1&#39;, device_type&#x3D;&#39;GPU&#39;),</span><br><span class="line"> PhysicalDevice(name&#x3D;&#39;&#x2F;physical_device:GPU:2&#39;, device_type&#x3D;&#39;GPU&#39;),</span><br><span class="line"> PhysicalDevice(name&#x3D;&#39;&#x2F;physical_device:GPU:3&#39;, device_type&#x3D;&#39;GPU&#39;)]</span><br><span class="line">[PhysicalDevice(name&#x3D;&#39;&#x2F;physical_device:CPU:0&#39;, device_type&#x3D;&#39;CPU&#39;)]</span><br></pre></td></tr></table></figure>
+<p>可见，该工作站具有4块GPU：GPU:0、GPU:1、GPU:2、GPU:3，以及一个CPU：CPU:0。<br>然后，通过tf.config.experimental.set_visible_devices，可以设置当前程序可见的设备范围（当前程序只会使用自己可见的设备，不可见的设备不会被当前程序使用）。例如，如果在上述4卡的机器中我们需要限定当前程序只使用下标为0、1的两块显卡（GPU:0和GPU:1），可以使用以下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gpus &#x3D; tf.config.experimental.list_physical_devices(device_type&#x3D;&#39;GPU&#39;)</span><br><span class="line">tf.config.experimental.set_visible_devices(devices&#x3D;gpus[0:2], device_type&#x3D;&#39;GPU&#39;)</span><br></pre></td></tr></table></figure>
+<p>设置显存使用策略：<br>默认情况下，TensorFlow将使用几乎所有可用的显存，以避免内存碎片化所带来的性能损失。不过，TensorFlow提供两种显存使用策略，让我们能够更灵活地控制程序的显存使用方式：<br>仅在需要时申请显存空间（程序初始运行时消耗很少的显存，随着程序的运行而动态申请显存）；<br>限制消耗固定大小的显存（程序不会超出限定的显存大小，若超出则报错）。<br>可以通过tf.config.experimental.set_memory_growth将GPU的显存使用策略设置为 “仅在需要时申请显存空间”。以下代码将所有GPU设置为仅在需要时申请显存空间：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gpus &#x3D; tf.config.experimental.list_physical_devices(device_type&#x3D;&#39;GPU&#39;)</span><br><span class="line">for gpu in gpus:</span><br><span class="line">    tf.config.experimental.set_memory_growth(device&#x3D;gpu, enable&#x3D;True)</span><br></pre></td></tr></table></figure>
 
-<p>为了将形式各样的数据集整理为TFRecord格式，我们可以对数据集中的每个元素进行以下步骤：<br>读取该数据元素到内存；<br>将该元素转换为tf.train.Example对象（每一个tf.train.Example由若干个tf.train.Feature的字典组成，因此需要先建立Feature的字典）；<br>将该tf.train.Example对象序列化为字符串，并通过一个预先定义的tf.io.TFRecordWriter写入TFRecord文件。</p>
-<p>而读取TFRecord数据则可按照以下步骤：<br>通过tf.data.TFRecordDataset读入原始的TFRecord文件,获得一个tf.data.Dataset数据集对象(此时该数据集对象中的tf.train.Example对象尚未被反序列化)；<br>通过Dataset.map方法，对该数据集对象中的每一个序列化的tf.train.Example字符串执行tf.io.parse_single_example函数，从而实现反序列化。</p>
-<p>以下我们通过一个实例，展示将上一节中使用的cats_vs_dogs二分类数据集的训练集部分转换为TFRecord文件，并读取该文件的过程。<br>将数据集存储为 TFRecord 文件：<br>首先，与上一节类似，我们进行一些准备工作，下载数据集并解压到data_dir，初始化数据集的图片文件名列表及标签。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line">import os</span><br><span class="line"></span><br><span class="line">data_dir &#x3D; &#39;C:&#x2F;datasets&#x2F;cats_vs_dogs&#39;</span><br><span class="line">train_cats_dir &#x3D; data_dir + &#39;&#x2F;train&#x2F;cats&#x2F;&#39;</span><br><span class="line">train_dogs_dir &#x3D; data_dir + &#39;&#x2F;train&#x2F;dogs&#x2F;&#39;</span><br><span class="line">tfrecord_file &#x3D; data_dir + &#39;&#x2F;train&#x2F;train.tfrecords&#39;</span><br><span class="line"></span><br><span class="line">train_cat_filenames &#x3D; [train_cats_dir + filename for filename in os.listdir(train_cats_dir)]</span><br><span class="line">train_dog_filenames &#x3D; [train_dogs_dir + filename for filename in os.listdir(train_dogs_dir)]</span><br><span class="line">train_filenames &#x3D; train_cat_filenames + train_dog_filenames</span><br><span class="line">train_labels &#x3D; [0] * len(train_cat_filenames) + [1] * len(train_dog_filenames)  # 将 cat 类的标签设为0，dog 类的标签设为1</span><br></pre></td></tr></table></figure>
+<p>以下代码通过tf.config.experimental.set_virtual_device_configuration选项并传入tf.config.experimental.VirtualDeviceConfiguration实例，设置TensorFlow固定消耗GPU:0的1GB显存（其实可以理解为建立了一个显存大小为1GB的“虚拟 GPU”）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">gpus &#x3D; tf.config.experimental.list_physical_devices(device_type&#x3D;&#39;GPU&#39;)</span><br><span class="line">tf.config.experimental.set_virtual_device_configuration(</span><br><span class="line">    gpus[0],</span><br><span class="line">    [tf.config.experimental.VirtualDeviceConfiguration(memory_limit&#x3D;1024)])</span><br></pre></td></tr></table></figure>
 
-<p>然后，通过以下代码，迭代读取每张图片，建立tf.train.Feature字典和tf.train.Example对象，序列化并写入TFRecord文件。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">with tf.io.TFRecordWriter(tfrecord_file) as writer:</span><br><span class="line">    for filename, label in zip(train_filenames, train_labels):</span><br><span class="line">        image &#x3D; open(filename, &#39;rb&#39;).read()     # 读取数据集图片到内存，image 为一个 Byte 类型的字符串</span><br><span class="line">        feature &#x3D; &#123;                             # 建立 tf.train.Feature 字典</span><br><span class="line">            &#39;image&#39;: tf.train.Feature(bytes_list&#x3D;tf.train.BytesList(value&#x3D;[image])),  # 图片是一个 Bytes 对象</span><br><span class="line">            &#39;label&#39;: tf.train.Feature(int64_list&#x3D;tf.train.Int64List(value&#x3D;[label]))   # 标签是一个 Int 对象</span><br><span class="line">        &#125;</span><br><span class="line">        example &#x3D; tf.train.Example(features&#x3D;tf.train.Features(feature&#x3D;feature)) # 通过字典建立 Example</span><br><span class="line">        writer.write(example.SerializeToString())   # 将Example序列化并写入 TFRecord 文件</span><br></pre></td></tr></table></figure>
+<p>TensorFlow1.X的图执行模式下，可以在实例化新的session时传入tf.compat.v1.ConfigPhoto类来设置TensorFlow使用显存的策略。具体方式是实例化一个tf.ConfigProto类，设置参数，并在创建tf.compat.v1.Session 时指定Config参数。以下代码通过allow_growth选项设置TensorFlow仅在需要时申请显存空间：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">config &#x3D; tf.compat.v1.ConfigProto()</span><br><span class="line">config.gpu_options.allow_growth &#x3D; True</span><br><span class="line">sess &#x3D; tf.compat.v1.Session(config&#x3D;config)</span><br></pre></td></tr></table></figure>
+<p>以下代码通过per_process_gpu_memory_fraction选项设置TensorFlow固定消耗40%的GPU显存：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">config &#x3D; tf.compat.v1.ConfigProto()</span><br><span class="line">config.gpu_options.per_process_gpu_memory_fraction &#x3D; 0.4</span><br><span class="line">tf.compat.v1.Session(config&#x3D;config)</span><br></pre></td></tr></table></figure>
 
-<p>值得注意的是，tf.train.Feature支持三种数据格式：<br>tf.train.BytesList：字符串或原始Byte文件（如图片），通过bytes_list参数传入一个由字符串数组初始化的tf.train.BytesList对象；tf.train.FloatList ：浮点数，通过float_list参数传入一个由浮点数数组初始化的tf.train.FloatList对象；tf.train.Int64List ：整数，通过int64_list参数传入一个由整数数组初始化的tf.train.Int64List对象。如果只希望保存一个元素而非数组，传入一个只有一个元素的数组即可。运行以上代码，不出片刻，我们即可在tfrecord_file所指向的文件地址获得一个500MB左右的train.tfrecords文件。<br>读取TFRecord文件：<br>我们可以通过以下代码，读取之前建立的train.tfrecords文件，并通过Dataset.map方法，使用tf.io.parse_single_example函数对数据集中的每一个序列化的tf.train.Example对象解码。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">raw_dataset &#x3D; tf.data.TFRecordDataset(tfrecord_file)    # 读取 TFRecord 文件</span><br><span class="line"></span><br><span class="line">feature_description &#x3D; &#123; # 定义Feature结构，告诉解码器每个Feature的类型是什么</span><br><span class="line">    &#39;image&#39;: tf.io.FixedLenFeature([], tf.string),</span><br><span class="line">    &#39;label&#39;: tf.io.FixedLenFeature([], tf.int64),</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">def _parse_example(example_string): # 将 TFRecord 文件中的每一个序列化的 tf.train.Example 解码</span><br><span class="line">    feature_dict &#x3D; tf.io.parse_single_example(example_string, feature_description)</span><br><span class="line">    feature_dict[&#39;image&#39;] &#x3D; tf.io.decode_jpeg(feature_dict[&#39;image&#39;])    # 解码JPEG图片</span><br><span class="line">    return feature_dict[&#39;image&#39;], feature_dict[&#39;label&#39;]</span><br><span class="line"></span><br><span class="line">dataset &#x3D; raw_dataset.map(_parse_example)</span><br></pre></td></tr></table></figure>
-<p>这里的feature_description类似于一个数据集的“描述文件”，通过一个由键值对组成的字典，告知tf.io.parse_single_example函数每个tf.train.Example数据项有哪些Feature，以及这些Feature的类型、形状等属性。tf.io.FixedLenFeature的三个输入参数shape、dtype和default_value（可省略）为每个Feature的形状、类型和默认值。这里我们的数据项都是单个的数值或者字符串，所以shape为空数组。</p>
-<p>运行以上代码后，我们获得一个数据集对象dataset，这已经是一个可以用于训练的tf.data.Dataset对象了！我们从该数据集中读取元素并输出验证：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import matplotlib.pyplot as plt </span><br><span class="line"></span><br><span class="line">for image, label in dataset:</span><br><span class="line">    plt.title(&#39;cat&#39; if label &#x3D;&#x3D; 0 else &#39;dog&#39;)</span><br><span class="line">    plt.imshow(image.numpy())</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
-<p>经验证，图片和标签都正确显示，数据集构建成功。</p>
-
+<p>单GPU模拟多GPU环境：<br>当我们的本地开发环境只有一个GPU，但却需要编写多GPU的程序在工作站上进行训练任务时，TensorFlow为我们提供了一个方便的功能，可以让我们在本地开发环境中建立多个模拟GPU，从而让多 GPU 的程序调试变得更加方便。以下代码在实体GPU：GPU:0的基础上建立了两个显存均为2GB的虚拟GPU。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">gpus &#x3D; tf.config.experimental.list_physical_devices(&#39;GPU&#39;)</span><br><span class="line">tf.config.experimental.set_virtual_device_configuration(</span><br><span class="line">    gpus[0],</span><br><span class="line">    [tf.config.experimental.VirtualDeviceConfiguration(memory_limit&#x3D;2048),</span><br><span class="line">     tf.config.experimental.VirtualDeviceConfiguration(memory_limit&#x3D;2048)])</span><br></pre></td></tr></table></figure>
+<p>我们在单机多卡训练的代码前加入以上代码，即可让原本为多GPU设计的代码在单GPU环境下运行。当输出设备数量时，程序会输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Number of devices: 2</span><br></pre></td></tr></table></figure>
       
       <!-- reward -->
       
@@ -178,7 +181,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/03/20/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%8D%81-%EF%BC%9ATFRecord/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/03/20/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%8D%81%E4%B8%80-%EF%BC%9AGPU%E7%9A%84%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%88%86%E9%85%8D/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -196,19 +199,10 @@
   
   <nav class="article-nav">
     
-      <a href="/2020/03/20/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%8D%81%E4%B8%80-%EF%BC%9AGPU%E7%9A%84%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%88%86%E9%85%8D/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            tensorflow2.0系列(十一)：GPU的使用与分配
-          
-        </div>
-      </a>
     
-    
-      <a href="/2020/03/20/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%B9%9D-%EF%BC%9A%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E6%9E%84%E5%BB%BA%E4%B8%8E%E9%A2%84%E5%A4%84%E7%90%86/" class="article-nav-link">
+      <a href="/2020/03/20/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%8D%81-%EF%BC%9ATFRecord/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">tensorflow2.0系列(九)：数据集的构建与预处理</div>
+        <div class="article-nav-title">tensorflow2.0系列(十)：TFRecord</div>
       </a>
     
   </nav>
