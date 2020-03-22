@@ -69,6 +69,97 @@
     
     
     
+    <article id="post-VOC数据集" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/22/VOC%E6%95%B0%E6%8D%AE%E9%9B%86/"
+    >VOC数据集</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/22/VOC%E6%95%B0%E6%8D%AE%E9%9B%86/" class="article-date">
+  <time datetime="2020-03-22T01:54:51.000Z" itemprop="datePublished">2020-03-22</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>数据集的标注：<br>数据集的标注很谨慎，有专门的标注团队，并遵从统一的标注标准。<br>VOC数据集的标注信息是用xml文件组织的，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;annotation&gt;</span><br><span class="line">	&lt;folder&gt;Desktop&lt;&#x2F;folder&gt;</span><br><span class="line">	&lt;filename&gt;fd3f06748e6cb31a564800c740ec8ce.png&lt;&#x2F;filename&gt;</span><br><span class="line">	&lt;path&gt;C:\Users\Administrator\Desktop\fd3f06748e6cb31a564800c740ec8ce.png&lt;&#x2F;path&gt;</span><br><span class="line">	&lt;source&gt;</span><br><span class="line">		&lt;database&gt;Unknown&lt;&#x2F;database&gt;</span><br><span class="line">	&lt;&#x2F;source&gt;</span><br><span class="line">	&lt;size&gt;</span><br><span class="line">		&lt;width&gt;1920&lt;&#x2F;width&gt;</span><br><span class="line">		&lt;height&gt;943&lt;&#x2F;height&gt;</span><br><span class="line">		&lt;depth&gt;3&lt;&#x2F;depth&gt;</span><br><span class="line">	&lt;&#x2F;size&gt;</span><br><span class="line">	&lt;segmented&gt;0&lt;&#x2F;segmented&gt;</span><br><span class="line">	&lt;object&gt;</span><br><span class="line">		&lt;name&gt;dog&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;pose&gt;Unspecified&lt;&#x2F;pose&gt;</span><br><span class="line">		&lt;truncated&gt;0&lt;&#x2F;truncated&gt;</span><br><span class="line">		&lt;difficult&gt;0&lt;&#x2F;difficult&gt;</span><br><span class="line">		&lt;bndbox&gt;</span><br><span class="line">			&lt;xmin&gt;440&lt;&#x2F;xmin&gt;</span><br><span class="line">			&lt;ymin&gt;142&lt;&#x2F;ymin&gt;</span><br><span class="line">			&lt;xmax&gt;1231&lt;&#x2F;xmax&gt;</span><br><span class="line">			&lt;ymax&gt;612&lt;&#x2F;ymax&gt;</span><br><span class="line">		&lt;&#x2F;bndbox&gt;</span><br><span class="line">	&lt;&#x2F;object&gt;</span><br><span class="line">&lt;&#x2F;annotation&gt;</span><br></pre></td></tr></table></figure>
+<p>filename ：文件名<br>source，owner：图片来源，及拥有者(现在版本的labelImg好像不标注owner了)<br>size：图片大小<br>segmented：是否分割<br>object：目标的相关信息<br>        name：object名称，20个类别<br>        pose：拍摄角度：front, rear, left, right, unspecified<br>        truncated：目标是否被截断（比如在图片之外），或者被遮挡（超过15%）<br>        difficult：检测难易程度，这个主要是根据目标的大小，光照变化，图片质量来判断<br>        bndbox：bounding box的左上角点和右下角点的4个坐标值。</p>
+<p>数据集组织结构：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">├── Annotations 进行detection 任务时的 标签文件，xml文件形式</span><br><span class="line">├── ImageSets 存放数据集的分割文件，比如train，val，test</span><br><span class="line">├── JPEGImages 存放.jpg格式的图片文件</span><br><span class="line">├── SegmentationClass 存放按照class分割的图片</span><br><span class="line">└── SegmentationObject 存放按照object分割的图片</span><br></pre></td></tr></table></figure>
+
+<p>Annotations文件夹：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">├── 000001.xml</span><br><span class="line">├── 000002.xml</span><br><span class="line">├── 000003.xml</span><br><span class="line">├── 000004.xml</span><br><span class="line">……</span><br><span class="line">……</span><br><span class="line">……</span><br><span class="line">├── 009962.xml</span><br><span class="line">└── 009963.xml</span><br></pre></td></tr></table></figure>
+
+<p>ImageSets文件夹：<br>存放数据集的分割文件，包含三个子文件夹Layout，Main，Segmentation，其中Main文件夹存放的是用于分类和检测的数据集分割文件，Layout文件夹用于person layout任务，Segmentation用于分割任务。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line">├── Layout</span><br><span class="line">│   ├── test.txt</span><br><span class="line">│   ├── train.txt</span><br><span class="line">│   ├── trainval.txt</span><br><span class="line">│   └── val.txt</span><br><span class="line">├── Main</span><br><span class="line">│   ├── aeroplane_test.txt</span><br><span class="line">│   ├── aeroplane_train.txt</span><br><span class="line">│   ├── aeroplane_trainval.txt</span><br><span class="line">│   ├── aeroplane_val.txt</span><br><span class="line">│   ├── bicycle_test.txt</span><br><span class="line">│   ├── bicycle_train.txt</span><br><span class="line">│   ├── bicycle_trainval.txt</span><br><span class="line">│   ├── bicycle_val.txt</span><br><span class="line">│   ├── bird_test.txt</span><br><span class="line">│   ├── bird_train.txt</span><br><span class="line">│   ├── bird_trainval.txt</span><br><span class="line">│   ├── bird_val.txt</span><br><span class="line">│   ├── boat_test.txt</span><br><span class="line">│   ├── boat_train.txt</span><br><span class="line">│   ├── boat_trainval.txt</span><br><span class="line">│   ├── boat_val.txt</span><br><span class="line">│   ├── bottle_test.txt</span><br><span class="line">│   ├── bottle_train.txt</span><br><span class="line">│   ├── bottle_trainval.txt</span><br><span class="line">│   ├── bottle_val.txt</span><br><span class="line">│   ├── bus_test.txt</span><br><span class="line">│   ├── bus_train.txt</span><br><span class="line">│   ├── bus_trainval.txt</span><br><span class="line">│   ├── bus_val.txt</span><br><span class="line">│   ├── car_test.txt</span><br><span class="line">│   ├── car_train.txt</span><br><span class="line">│   ├── car_trainval.txt</span><br><span class="line">│   ├── car_val.txt</span><br><span class="line">│   ├── cat_test.txt</span><br><span class="line">│   ├── cat_train.txt</span><br><span class="line">│   ├── cat_trainval.txt</span><br><span class="line">│   ├── cat_val.txt</span><br><span class="line">│   ├── chair_test.txt</span><br><span class="line">│   ├── chair_train.txt</span><br><span class="line">│   ├── chair_trainval.txt</span><br><span class="line">│   ├── chair_val.txt</span><br><span class="line">│   ├── cow_test.txt</span><br><span class="line">│   ├── cow_train.txt</span><br><span class="line">│   ├── cow_trainval.txt</span><br><span class="line">│   ├── cow_val.txt</span><br><span class="line">│   ├── diningtable_test.txt</span><br><span class="line">│   ├── diningtable_train.txt</span><br><span class="line">│   ├── diningtable_trainval.txt</span><br><span class="line">│   ├── diningtable_val.txt</span><br><span class="line">│   ├── dog_test.txt</span><br><span class="line">│   ├── dog_train.txt</span><br><span class="line">│   ├── dog_trainval.txt</span><br><span class="line">│   ├── dog_val.txt</span><br><span class="line">│   ├── horse_test.txt</span><br><span class="line">│   ├── horse_train.txt</span><br><span class="line">│   ├── horse_trainval.txt</span><br><span class="line">│   ├── horse_val.txt</span><br><span class="line">│   ├── motorbike_test.txt</span><br><span class="line">│   ├── motorbike_train.txt</span><br><span class="line">│   ├── motorbike_trainval.txt</span><br><span class="line">│   ├── motorbike_val.txt</span><br><span class="line">│   ├── person_test.txt</span><br><span class="line">│   ├── person_train.txt</span><br><span class="line">│   ├── person_trainval.txt</span><br><span class="line">│   ├── person_val.txt</span><br><span class="line">│   ├── pottedplant_test.txt</span><br><span class="line">│   ├── pottedplant_train.txt</span><br><span class="line">│   ├── pottedplant_trainval.txt</span><br><span class="line">│   ├── pottedplant_val.txt</span><br><span class="line">│   ├── sheep_test.txt</span><br><span class="line">│   ├── sheep_train.txt</span><br><span class="line">│   ├── sheep_trainval.txt</span><br><span class="line">│   ├── sheep_val.txt</span><br><span class="line">│   ├── sofa_test.txt</span><br><span class="line">│   ├── sofa_train.txt</span><br><span class="line">│   ├── sofa_trainval.txt</span><br><span class="line">│   ├── sofa_val.txt</span><br><span class="line">│   ├── test.txt</span><br><span class="line">│   ├── train_test.txt</span><br><span class="line">│   ├── train_train.txt</span><br><span class="line">│   ├── train_trainval.txt</span><br><span class="line">│   ├── train.txt</span><br><span class="line">│   ├── train_val.txt</span><br><span class="line">│   ├── trainval.txt</span><br><span class="line">│   ├── tvmonitor_test.txt</span><br><span class="line">│   ├── tvmonitor_train.txt</span><br><span class="line">│   ├── tvmonitor_trainval.txt</span><br><span class="line">│   ├── tvmonitor_val.txt</span><br><span class="line">│   └── val.txt</span><br><span class="line">└── Segmentation</span><br><span class="line">    ├── test.txt</span><br><span class="line">    ├── train.txt</span><br><span class="line">    ├── trainval.txt</span><br><span class="line">    └── val.txt</span><br></pre></td></tr></table></figure>
+
+<p>主要介绍一下Main文件夹中的组织结构，先来看以下这几个文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">├── Main</span><br><span class="line">│   ├── train.txt 写着用于训练的图片名称 共2501个</span><br><span class="line">│   ├── val.txt 写着用于验证的图片名称 共2510个</span><br><span class="line">│   ├── trainval.txt train与val的合集 共5011个</span><br><span class="line">│   ├── test.txt 写着用于测试的图片名称 共4952个</span><br></pre></td></tr></table></figure>
+
+<p>里面的文件内容是下面这样的：以train.txt文件为例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">000012</span><br><span class="line">000017</span><br><span class="line">000023</span><br><span class="line">000026</span><br><span class="line">000032</span><br><span class="line">000033</span><br><span class="line">000034</span><br><span class="line">000035</span><br><span class="line">000036</span><br><span class="line">000042</span><br><span class="line">……</span><br><span class="line">……</span><br><span class="line">009949</span><br><span class="line">009959</span><br><span class="line">009961</span><br></pre></td></tr></table></figure>
+<p>就是对数据库的分割，这一部分图片用于train，其他的用作val，test等。</p>
+<p>Main中剩下的文件就是每一类别在train或val或test中的ground truth，这个ground truth是为了方便classification任务而提供的；如果是detection的话，使用的是上面的xml标签文件。<br>ground truth的意思是经过正确标注的数据。因此不严谨标注的数据不能称为ground truth。可以理解为标注的标准答案。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">├── Main</span><br><span class="line">│   ├── aeroplane_test.txt 写着用于训练的图片名称 共2501个，指定正负样本</span><br><span class="line">│   ├── aeroplane_train.txt 写着用于验证的图片名称 共2510个，指定正负样本</span><br><span class="line">│   ├── aeroplane_trainval.txt train与val的合集 共5011个，指定正负样本</span><br><span class="line">│   ├── aeroplane_val.txt 写着用于测试的图片名称 共4952个，指定正负样本</span><br><span class="line">……</span><br><span class="line">……</span><br></pre></td></tr></table></figure>
+
+<p>里面文件是这样的（以aeroplane_train.txt为例）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">000012 -1</span><br><span class="line">000017 -1</span><br><span class="line">000023 -1</span><br><span class="line">000026 -1</span><br><span class="line">000032  1</span><br><span class="line">000033  1</span><br><span class="line">000034 -1</span><br><span class="line">000035 -1</span><br><span class="line">000036 -1</span><br><span class="line">000042 -1</span><br><span class="line">……</span><br><span class="line">……</span><br><span class="line">009949 -1</span><br><span class="line">009959 -1</span><br><span class="line">009961 -1</span><br></pre></td></tr></table></figure>
+
+<p>前面一列是训练集中的图片名称，这一列跟train.txt文件中的内容是一样的，后面一列是标签，即训练集中这张图片是不是aeroplane，是的话为1，否则为-1.<br>其他所有的(class)_(imgset).txt文件都是类似的。<br>    (class)_train存放的是训练使用的数据，每一个class都有2501个train数据。<br>    (class)_val 存放的是验证使用的数据，每一个class都有2510个val数据。<br>    (class)_trainval 将上面两个进行了合并，每一个class有5011个数据。<br>    (class)_test 存放的是测试使用的数据，每一个class有4952个test数据。</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-LabelImg" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -840,75 +931,6 @@ with summary_writer.as_default():
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-北师大图论系列-一" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/19/%E5%8C%97%E5%B8%88%E5%A4%A7%E5%9B%BE%E8%AE%BA%E7%B3%BB%E5%88%97-%E4%B8%80/"
-    >北师大图论系列(一)</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/19/%E5%8C%97%E5%B8%88%E5%A4%A7%E5%9B%BE%E8%AE%BA%E7%B3%BB%E5%88%97-%E4%B8%80/" class="article-date">
-  <time datetime="2020-03-19T03:30:05.000Z" itemprop="datePublished">2020-03-19</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p><img src="/images/tulun/p1.jpg" alt=""></p>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tulun/" rel="tag">tulun</a></li></ul>
 
 
     </footer>
