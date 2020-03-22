@@ -69,6 +69,93 @@
     
     
     
+    <article id="post-tensorflow2-0系列-六-：灵活建立模型" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/19/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%85%AD-%EF%BC%9A%E7%81%B5%E6%B4%BB%E5%BB%BA%E7%AB%8B%E6%A8%A1%E5%9E%8B/"
+    >tensorflow2.0系列(六)：灵活建立模型</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/19/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%85%AD-%EF%BC%9A%E7%81%B5%E6%B4%BB%E5%BB%BA%E7%AB%8B%E6%A8%A1%E5%9E%8B/" class="article-date">
+  <time datetime="2020-03-19T06:32:30.000Z" itemprop="datePublished">2020-03-19</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>两种非继承类建立模型的方法：<br>sequential和functional<br>sequential：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">model &#x3D; tf.keras.models.Sequential([</span><br><span class="line">    tf.keras.layers.Flatten(),</span><br><span class="line">    tf.keras.layers.Dense(100, activation&#x3D;tf.nn.relu),</span><br><span class="line">    tf.keras.layers.Dense(10),</span><br><span class="line">    tf.keras.layers.Softmax()</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+
+<p>functional：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">inputs &#x3D; tf.keras.Input(shape&#x3D;(28, 28, 1))</span><br><span class="line">x &#x3D; tf.keras.layers.Flatten()(inputs)</span><br><span class="line">x &#x3D; tf.keras.layers.Dense(units&#x3D;100, activation&#x3D;tf.nn.relu)(x)</span><br><span class="line">x &#x3D; tf.keras.layers.Dense(units&#x3D;10)(x)</span><br><span class="line">outputs &#x3D; tf.keras.layers.Softmax()(x)</span><br><span class="line">model &#x3D; tf.keras.Model(inputs&#x3D;inputs, outputs&#x3D;outputs)</span><br></pre></td></tr></table></figure>
+
+<p>通过这两种方式建立的模型要通过tf.keras.Model的compile方法配置训练过程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">model.compile(</span><br><span class="line">    optimizer&#x3D;tf.keras.optimizers.Adam(learning_rate&#x3D;0.001),</span><br><span class="line">    loss&#x3D;tf.keras.losses.sparse_categorical_crossentropy,</span><br><span class="line">    metrics&#x3D;[tf.keras.metrics.sparse_categorical_accuracy]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>tf.keras.Model.compile接受3个重要的参数：<br>oplimizer：优化器，从tf.keras.optimizers中选择；loss：损失函数，从tf.keras.losses中选择；metrics：评估指标，从tf.keras.metrics中选择。</p>
+<p>接下来，使用tf.keras.Model的fit方法训练模型：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.fit(data_loader.train_data, data_loader.train_label, epochs&#x3D;num_epochs, batch_size&#x3D;batch_size)</span><br></pre></td></tr></table></figure>
+<p>tf.keras.Model.fit接受5个重要的参数：x：训练数据；y：目标数据(数据标签)；epochs：将训练数据迭代多少遍；batch_size：批次的大小；validation_data：验证数据，可用于在训练过程中监控模型的性能。<br>最后，使用tf.keras.Model.evaluate评估训练效果，提供测试数据及标签即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(model.evaluate(data_loader.test_data, data_loader.test_label))</span><br></pre></td></tr></table></figure>
+
+<p>自定义层：不会</p>
+<p>自定义损失函数和评估指标：<br>自定义损失函数需要继承tf.keras.losses.Loss类，重写call方法即可，传入真实值y_true和模型预测值 y_pred，输出模型预测值和真实值之间通过自定义的损失函数计算出的损失值。<br>下面的示例为均方差损失函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class MeanSquaredError(tf.keras.losses.Loss):</span><br><span class="line">    def call(self, y_true, y_pred):</span><br><span class="line">        return tf.reduce_mean(tf.square(y_pred - y_true))</span><br></pre></td></tr></table></figure>
+
+<p>自定义评估指标：不会</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-北师大图论系列-一" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -773,75 +860,6 @@
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cs231n/" rel="tag">cs231n</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-系列-一-：K最近邻算法" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/15/%E7%B3%BB%E5%88%97-%E4%B8%80-%EF%BC%9AK%E6%9C%80%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/"
-    >系列(一)：K最近邻算法</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/15/%E7%B3%BB%E5%88%97-%E4%B8%80-%EF%BC%9AK%E6%9C%80%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/" class="article-date">
-  <time datetime="2020-03-15T02:26:21.000Z" itemprop="datePublished">2020-03-15</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>L1距离：又叫曼哈顿距离，用来衡量两张图片的距离就是矩阵作差，取绝对值，再将所有元素加起来的值。<br>L2距离：欧氏距离，两个矩阵作差对每个元素平方后求和开根号。<br>L2距离并不适合来描述视觉上的差异。相同的L2距离可能产生差异很大的视觉效果。<br>K最近邻算法是一种基于有标签数据的算法。K越大，决策边界越平滑。平滑可以理解为线性性更好，<br>更接近于线性边界。有时候会给离最近的点的距离一个阈值，如果离这个点最近的有类别的点的距离<br>大于某一数值，那么就认为这个点是无类别点。如果我们用颜色来区分类别，那么这个点所在的区域就是<br>白色。选择哪一种距离度量属于超参数。都去试一下看哪一种度量下分类的效果更好。<br>数据集被划分为训练集、验证集和测试集。交叉验证：把训练集+验证集分为N份，每次在其中的N-1份上<br>训练，在最后一份上验证，将所有在验证集上的结果加起来，取最小的超参数。验证集的作用是选取最好<br>的超参数。<br>如何去建立一个数据集？按照同样的方式去收集每一份数据，再将收集到的数据随机打乱划分为训练集、<br>验证集和测试集。对于K最近邻算法来说，或者所有有超参数的学习算法来说，画出以超参数为横轴，<br>在验证集上的距离度量为纵轴的图像都是有必要的，这是挑选合适的超参数的方法。K最近邻算法并不<br>适合用来分类图像。如果有时间，有计算资源，在挑选出最优的超参数后会重新用这个超参数来训练模型。<br>也就是在训练集和验证集上共同训练模型。</p>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/KNN/" rel="tag">KNN</a></li></ul>
 
 
     </footer>
