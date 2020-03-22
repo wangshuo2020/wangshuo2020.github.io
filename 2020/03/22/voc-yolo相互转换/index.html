@@ -6,7 +6,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    gpu cdnnn cuda版本对应关系 |  畅院士的开山大弟子的博客
+    voc/yolo相互转换 |  畅院士的开山大弟子的博客
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -30,7 +30,7 @@
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-gpu-cdnnn-cuda版本对应关系" class="article article-type-post" itemscope
+  <article id="post-voc-yolo相互转换" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -38,7 +38,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  gpu cdnnn cuda版本对应关系
+  voc/yolo相互转换
 </h1>
   
 
@@ -47,8 +47,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/03/22/gpu-cdnnn-cuda%E7%89%88%E6%9C%AC%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB/" class="article-date">
-  <time datetime="2020-03-22T10:05:14.000Z" itemprop="datePublished">2020-03-22</time>
+      <a href="/2020/03/22/voc-yolo%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2/" class="article-date">
+  <time datetime="2020-03-22T13:46:13.000Z" itemprop="datePublished">2020-03-22</time>
 </a>
       
       
@@ -58,7 +58,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">0字</span>
+            <span class="post-count">309字</span>
         </span>
     </span>
 
@@ -92,7 +92,11 @@
       
 
       
-      
+      <p>voc转yolo：<br>在目录下新建VOC2007，并在VOC2007下新建Annotations，ImageSets和JPEGImages三个文件夹。在ImageSets下新建Main文件夹。文件目录如下所示：<br>|——VOC2007<br>|————Annotations<br>|————ImageSets<br>|——————Main<br>|————JPEGImages<br>将自己的数据集图片拷贝到JPEGImages目录下。将数据集label文件拷贝到Annotations目录下。在VOC2007下新建voc_to_yolo.py文件夹，将下面代码拷贝进去运行，将生成四个文件：train.txt,val.txt,test.txt和trainval.txt。数据集label文件就是图片对应的xml文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">import random</span><br><span class="line"></span><br><span class="line">trainval_percent &#x3D; 0.1</span><br><span class="line">train_percent &#x3D; 0.9</span><br><span class="line">xmlfilepath &#x3D; &#39;Annotations&#39;</span><br><span class="line">txtsavepath &#x3D; &#39;ImageSets\Main&#39;</span><br><span class="line">total_xml &#x3D; os.listdir(xmlfilepath)</span><br><span class="line"></span><br><span class="line">num &#x3D; len(total_xml)</span><br><span class="line">list &#x3D; range(num)</span><br><span class="line">tv &#x3D; int(num * trainval_percent)</span><br><span class="line">tr &#x3D; int(tv * train_percent)</span><br><span class="line">trainval &#x3D; random.sample(list, tv)</span><br><span class="line">train &#x3D; random.sample(trainval, tr)</span><br><span class="line"></span><br><span class="line">ftrainval &#x3D; open(&#39;ImageSets&#x2F;Main&#x2F;trainval.txt&#39;, &#39;w&#39;)</span><br><span class="line">ftest &#x3D; open(&#39;ImageSets&#x2F;Main&#x2F;test.txt&#39;, &#39;w&#39;)</span><br><span class="line">ftrain &#x3D; open(&#39;ImageSets&#x2F;Main&#x2F;train.txt&#39;, &#39;w&#39;)</span><br><span class="line">fval &#x3D; open(&#39;ImageSets&#x2F;Main&#x2F;val.txt&#39;, &#39;w&#39;)</span><br><span class="line"></span><br><span class="line">for i in list:</span><br><span class="line">    name &#x3D; total_xml[i][:-4] + &#39;\n&#39;</span><br><span class="line">    if i in trainval:</span><br><span class="line">        ftrainval.write(name)</span><br><span class="line">        if i in train:</span><br><span class="line">            ftest.write(name)</span><br><span class="line">        else:</span><br><span class="line">            fval.write(name)</span><br><span class="line">    else:</span><br><span class="line">        ftrain.write(name)</span><br><span class="line"></span><br><span class="line">ftrainval.close()</span><br><span class="line">ftrain.close()</span><br><span class="line">fval.close()</span><br><span class="line">ftest.close()</span><br></pre></td></tr></table></figure>
+<p>代码执行结果会在Main文件夹下生成四个txt文件，分别是test.txt,train.txt,trainval.txt,val.txt。</p>
+<p>yolo转voc：<br>未完待续</p>
+
       
       <!-- reward -->
       
@@ -161,7 +165,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/03/22/gpu-cdnnn-cuda%E7%89%88%E6%9C%AC%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/03/22/voc-yolo%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -177,19 +181,10 @@
   
   <nav class="article-nav">
     
-      <a href="/2020/03/22/voc-yolo%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            voc/yolo相互转换
-          
-        </div>
-      </a>
     
-    
-      <a href="/2020/03/22/object-detection-api/" class="article-nav-link">
+      <a href="/2020/03/22/gpu-cdnnn-cuda%E7%89%88%E6%9C%AC%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">object detection api</div>
+        <div class="article-nav-title">gpu cdnnn cuda版本对应关系</div>
       </a>
     
   </nav>

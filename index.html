@@ -69,6 +69,76 @@
     
     
     
+    <article id="post-voc-yolo相互转换" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/22/voc-yolo%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2/"
+    >voc/yolo相互转换</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/22/voc-yolo%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2/" class="article-date">
+  <time datetime="2020-03-22T13:46:13.000Z" itemprop="datePublished">2020-03-22</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>voc转yolo：<br>在目录下新建VOC2007，并在VOC2007下新建Annotations，ImageSets和JPEGImages三个文件夹。在ImageSets下新建Main文件夹。文件目录如下所示：<br>|——VOC2007<br>|————Annotations<br>|————ImageSets<br>|——————Main<br>|————JPEGImages<br>将自己的数据集图片拷贝到JPEGImages目录下。将数据集label文件拷贝到Annotations目录下。在VOC2007下新建voc_to_yolo.py文件夹，将下面代码拷贝进去运行，将生成四个文件：train.txt,val.txt,test.txt和trainval.txt。数据集label文件就是图片对应的xml文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">import random</span><br><span class="line"></span><br><span class="line">trainval_percent &#x3D; 0.1</span><br><span class="line">train_percent &#x3D; 0.9</span><br><span class="line">xmlfilepath &#x3D; &#39;Annotations&#39;</span><br><span class="line">txtsavepath &#x3D; &#39;ImageSets\Main&#39;</span><br><span class="line">total_xml &#x3D; os.listdir(xmlfilepath)</span><br><span class="line"></span><br><span class="line">num &#x3D; len(total_xml)</span><br><span class="line">list &#x3D; range(num)</span><br><span class="line">tv &#x3D; int(num * trainval_percent)</span><br><span class="line">tr &#x3D; int(tv * train_percent)</span><br><span class="line">trainval &#x3D; random.sample(list, tv)</span><br><span class="line">train &#x3D; random.sample(trainval, tr)</span><br><span class="line"></span><br><span class="line">ftrainval &#x3D; open(&#39;ImageSets&#x2F;Main&#x2F;trainval.txt&#39;, &#39;w&#39;)</span><br><span class="line">ftest &#x3D; open(&#39;ImageSets&#x2F;Main&#x2F;test.txt&#39;, &#39;w&#39;)</span><br><span class="line">ftrain &#x3D; open(&#39;ImageSets&#x2F;Main&#x2F;train.txt&#39;, &#39;w&#39;)</span><br><span class="line">fval &#x3D; open(&#39;ImageSets&#x2F;Main&#x2F;val.txt&#39;, &#39;w&#39;)</span><br><span class="line"></span><br><span class="line">for i in list:</span><br><span class="line">    name &#x3D; total_xml[i][:-4] + &#39;\n&#39;</span><br><span class="line">    if i in trainval:</span><br><span class="line">        ftrainval.write(name)</span><br><span class="line">        if i in train:</span><br><span class="line">            ftest.write(name)</span><br><span class="line">        else:</span><br><span class="line">            fval.write(name)</span><br><span class="line">    else:</span><br><span class="line">        ftrain.write(name)</span><br><span class="line"></span><br><span class="line">ftrainval.close()</span><br><span class="line">ftrain.close()</span><br><span class="line">fval.close()</span><br><span class="line">ftest.close()</span><br></pre></td></tr></table></figure>
+<p>代码执行结果会在Main文件夹下生成四个txt文件，分别是test.txt,train.txt,trainval.txt,val.txt。</p>
+<p>yolo转voc：<br>未完待续</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-gpu-cdnnn-cuda版本对应关系" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -773,111 +843,6 @@
 <p>[2]</p>
 <p>实例：cats_vs_dogs图像分类:<br>以下代码以猫狗图片二分类任务为示例，展示了使用tf.data结合tf.io和tf.image建立tf.data.Dataset数据集，并进行训练和测试的完整过程。数据集可至<a href="https://www.floydhub.com/fastai/datasets/cats-vs-dogs" target="_blank" rel="noopener">这里</a>下载。使用前须将数据集解压到代码中data_dir所设置的目录（此处默认设置为C:/datasets/cats_vs_dogs，可根据自己的需求进行修改）。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line">import os</span><br><span class="line"></span><br><span class="line">num_epochs &#x3D; 10</span><br><span class="line">batch_size &#x3D; 32</span><br><span class="line">learning_rate &#x3D; 0.001</span><br><span class="line">data_dir &#x3D; &#39;C:&#x2F;datasets&#x2F;cats_vs_dogs&#39;</span><br><span class="line">train_cats_dir &#x3D; data_dir + &#39;&#x2F;train&#x2F;cats&#x2F;&#39;</span><br><span class="line">train_dogs_dir &#x3D; data_dir + &#39;&#x2F;train&#x2F;dogs&#x2F;&#39;</span><br><span class="line">test_cats_dir &#x3D; data_dir + &#39;&#x2F;valid&#x2F;cats&#x2F;&#39;</span><br><span class="line">test_dogs_dir &#x3D; data_dir + &#39;&#x2F;valid&#x2F;dogs&#x2F;&#39;</span><br><span class="line"></span><br><span class="line">未完待续</span><br></pre></td></tr></table></figure>
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-tensorflow2-0系列-八-：训练过程可视化" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/19/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%85%AB-%EF%BC%9A%E8%AE%AD%E7%BB%83%E8%BF%87%E7%A8%8B%E5%8F%AF%E8%A7%86%E5%8C%96/"
-    >tensorflow2.0系列(八)：训练过程可视化</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/19/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%85%AB-%EF%BC%9A%E8%AE%AD%E7%BB%83%E8%BF%87%E7%A8%8B%E5%8F%AF%E8%A7%86%E5%8C%96/" class="article-date">
-  <time datetime="2020-03-19T15:54:37.000Z" itemprop="datePublished">2020-03-19</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>有时，你希望查看模型训练过程中各个参数的变化情况(例如损失函数loss的值)。虽然可以通过命令行输出来查看，但有时显得不够直观。而TensorBoard就是一个能够帮助我们将训练过程可视化的工具。<br>实时查看参数变化情况:<br>首先在代码目录下建立一个文件夹(如./tensorboard)存放TensorBoard的记录文件，并在代码中实例化一个记录器：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">summary_writer &#x3D; tf.summary.create_file_writer(&#39;.&#x2F;tensorboard&#39;)     # 参数为记录文件所保存的目录</span><br></pre></td></tr></table></figure>
-
-<p>接下来，当需要记录训练过程中的参数时，通过with语句指定希望使用的记录器，并对需要记录的参数(一般是scalar)运行tf.summary.scalar(name,tensor,step=batch_index),即可将训练过程中参数在step时候的值记录下来。这里的 step 参数可根据自己的需要自行制定，一般可设置为当前训练过程中的batch序号。整体框架如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">summary_writer &#x3D; tf.summary.create_file_writer(&#39;.&#x2F;tensorboard&#39;)</span><br><span class="line"># 开始模型训练</span><br><span class="line">for batch_index in range(num_batches):</span><br><span class="line">    # ...（训练代码，当前batch的损失值放入变量loss中）</span><br><span class="line">    with summary_writer.as_default():                               # 希望使用的记录器</span><br><span class="line">        tf.summary.scalar(&quot;loss&quot;, loss, step&#x3D;batch_index)</span><br><span class="line">        tf.summary.scalar(&quot;MyScalar&quot;, my_scalar, step&#x3D;batch_index)  # 还可以添加其他自定义的变量</span><br></pre></td></tr></table></figure>
-<p>每运行一次tf.summary.scalar()，记录器就会向记录文件中写入一条记录。除了最简单的标量(scalar)以外，TensorBoard还可以对其他类型的数据(如图像，音频等)进行可视化，详见<a href="http://www.tensorfly.cn/tfdoc/how_tos/summaries_and_tensorboard.html" target="_blank" rel="noopener">TensorBoard文档</a>。<br>当我们要对训练过程可视化时，在代码目录打开终端（如需要的话进入TensorFlow的conda环境），运行:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tensorboard --logdir&#x3D;.&#x2F;tensorboard</span><br></pre></td></tr></table></figure>
-<p>然后使用浏览器访问命令行程序所输出的网址（一般是http://计算机名称：6006），即可访问TensorBoard的可视界面。默认情况下，TensorBoard 每30秒更新一次数据。不过也可以点击右上角的刷新按钮手动刷新。TensorBoard的使用有以下注意事项：<br>[1]<br>记录文件夹目录保持全英文。</p>
-<p>查看Graph和Profile:<br>除此以外，我们可以在训练时使用tf.summary.trace_on开启Trace，此时TensorFlow会将训练时的大量信息（如计算图的结构，每个操作所耗费的时间等）记录下来。在训练完成后，使用tf.summary.trace_export将记录结果输出到文件。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tf.summary.trace_on(graph&#x3D;True, profiler&#x3D;True)  # 开启Trace，可以记录图结构和profile信息</span><br><span class="line"># 进行训练</span><br><span class="line">with summary_writer.as_default():</span><br><span class="line">    tf.summary.trace_export(name&#x3D;&quot;model_trace&quot;, step&#x3D;0, profiler_outdir&#x3D;log_dir)    # 保存Trace信息到文件</span><br></pre></td></tr></table></figure>
-<p>之后，我们就可以在TensorBoard中选择“Profile”，以时间轴的方式查看各操作的耗时情况。如果使用了tf.function建立了计算图，也可以点击“Graphs”查看图结构。</p>
-<p>可视化多层感知机模型的训练过程：</p>
-<pre><code>import tensorflow as tf
-from zh.model.mnist.mlp import MLP
-from zh.model.utils import MNISTLoader
-
-num_batches = 1000
-batch_size = 50
-learning_rate = 0.001
-log_dir = &apos;tensorboard&apos;
-model = MLP()
-data_loader = MNISTLoader()
-optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate)
-summary_writer = tf.summary.create_file_writer(log_dir)     # 实例化记录器
-tf.summary.trace_on(profiler=True)  # 开启Trace（可选）
-for batch_index in range(num_batches):
-    X, y = data_loader.get_batch(batch_size)
-    with tf.GradientTape() as tape:
-        y_pred = model(X)
-        loss = tf.keras.losses.sparse_categorical_crossentropy(y_true=y, y_pred=y_pred)
-        loss = tf.reduce_mean(loss)
-        print(&quot;batch %d: loss %f&quot; % (batch_index, loss.numpy()))
-        with summary_writer.as_default():                           # 指定记录器
-            tf.summary.scalar(&quot;loss&quot;, loss, step=batch_index)       # 将当前损失函数的值写入记录器
-    grads = tape.gradient(loss, model.variables)
-    optimizer.apply_gradients(grads_and_vars=zip(grads, model.variables))
-with summary_writer.as_default():
-    tf.summary.trace_export(name=&quot;model_trace&quot;, step=0, profiler_outdir=log_dir)    # 保存Trace信息到文件（可选）</code></pre>
       
       <!-- reward -->
       
