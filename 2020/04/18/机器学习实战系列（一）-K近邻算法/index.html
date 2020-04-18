@@ -6,7 +6,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    linux简单命令 |  畅院士的开山大弟子的博客
+    机器学习实战系列（一）:K近邻算法 |  畅院士的开山大弟子的博客
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -30,7 +30,7 @@
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-linux简单命令" class="article article-type-post" itemscope
+  <article id="post-机器学习实战系列（一）-K近邻算法" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -38,7 +38,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  linux简单命令
+  机器学习实战系列（一）:K近邻算法
 </h1>
   
 
@@ -47,8 +47,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/03/23/linux%E7%AE%80%E5%8D%95%E5%91%BD%E4%BB%A4/" class="article-date">
-  <time datetime="2020-03-23T06:28:07.000Z" itemprop="datePublished">2020-03-23</time>
+      <a href="/2020/04/18/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%80%EF%BC%89-K%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/" class="article-date">
+  <time datetime="2020-04-18T13:48:59.000Z" itemprop="datePublished">2020-04-18</time>
 </a>
       
       
@@ -58,7 +58,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1k字</span>
+            <span class="post-count">877字</span>
         </span>
     </span>
 
@@ -67,7 +67,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">5分钟</span>
+            <span class="post-count">4分钟</span>
         </span>
     </span>
 </div>
@@ -92,10 +92,31 @@
       
 
       
-      <p>1、安装VMwaretools：虚拟机-&gt;安装VMwaretools。注意安装ubuntu后不能直接安装VMtools，要先重启一下虚拟机。<br>2、换清华源：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim&#x2F;vi &#x2F;etc&#x2F;apt&#x2F;sources.list</span><br></pre></td></tr></table></figure><br>    没有vim就用vi。<br>    把source.list文件中的文本换成下面代码：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-updates main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-updates main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-backports main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-backports main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-security main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-security main restricted universe multiverse</span><br><span class="line"></span><br><span class="line"># 预发布软件源，不建议启用</span><br><span class="line"># deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-proposed main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-proposed main restricted universe multiverse</span><br></pre></td></tr></table></figure><br>    使用update命令更新：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure><br>3、安装vim：<br>    输入命令：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install vim-gtk</span><br></pre></td></tr></table></figure><br>    安装完成之后，在命令行敲入vi，按“tab”键。可以看到，已经有vim命令的存在。<br>4、配置vim:<br>    刚安装的VIM，界面并不是十分友好，这就需要我们去更改vim的配置文件，按照我们的需求去修改它。<br>    输入命令：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim &#x2F;etc&#x2F;vim&#x2F;vimrc</span><br></pre></td></tr></table></figure><br>    将syntax on的注释标记去掉，在最后面加上set number,作用是显示行号。(慢慢补充一些常用的配置)<br>5、配置git：<br>    顺序执行以下代码：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install git</span><br><span class="line">git --version</span><br><span class="line">git config --global user.name &quot;linuxidc&quot;</span><br><span class="line">git config --global user.email &quot;root@linuxidc.net&quot;</span><br><span class="line">git config --list</span><br></pre></td></tr></table></figure><br>6、安装anaconda：<br>    到(<a href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/)下载Anaconda3-5.2.0-Linux-x86_64.sh。" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/)下载Anaconda3-5.2.0-Linux-x86_64.sh。</a><br>    在cmd中cd到/home/Download，执行如下代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">$ sudo sh Anaconda3-5.2.0-Linux-x86_64.sh </span><br><span class="line">[sudo] andrew 的密码： </span><br><span class="line">Welcome to Anaconda3 5.2.0</span><br><span class="line">In order to continue the installation process, please review the license</span><br><span class="line">agreement.</span><br><span class="line">Please, press ENTER to continue</span><br><span class="line">&gt;&gt;&gt; # 按下回车</span><br><span class="line">... # 多次按空格读完license。</span><br><span class="line">Do you accept the license terms? [yes|no]</span><br><span class="line">[no] &gt;&gt;&gt; yes # 输入yes</span><br><span class="line"> - Press ENTER to confirm the location</span><br><span class="line"> - Press CTRL-C to abort the installation</span><br><span class="line"> - Or specify a different location below</span><br><span class="line">...</span><br><span class="line">[&#x2F;home&#x2F;andrew&#x2F;anaconda3] &gt;&gt;&gt; &#x2F;usr&#x2F;local&#x2F;anaconda3 # 输入自定义目录</span><br><span class="line">... # 安装根据机器性能，通常需要持续几分钟。</span><br><span class="line">Do you wish to proceed with the installation of Microsoft VSCode? [yes|no] #选择no，一般来说自带的spyder和专业IDE wingIDE更好用。</span><br><span class="line">...</span><br><span class="line">Do you wish the installer to initialize Anaconda3</span><br><span class="line">in your &#x2F;home&#x2F;andrew&#x2F;.bashrc ? [yes|no]</span><br><span class="line">[no] &gt;&gt;&gt; # 选择yes</span><br><span class="line">Initializing Anaconda3 in &#x2F;home&#x2F;andrew&#x2F;.bashrc</span><br><span class="line">A backup will be made to: &#x2F;home&#x2F;andrew&#x2F;.bashrc-anaconda3.bak</span><br><span class="line">For this change to become active, you have to open a new terminal.</span><br><span class="line">Thank you for installing Anaconda3!</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">Anaconda is partnered with Microsoft! Microsoft VSCode is a streamlined</span><br><span class="line">code editor with support for development operations like debugging, task</span><br><span class="line">running and version control.</span><br><span class="line">To install Visual Studio Code, you will need:</span><br><span class="line"> - Administrator Privileges</span><br><span class="line"> - Internet connectivity</span><br><span class="line">Visual Studio Code License: https:&#x2F;&#x2F;code.visualstudio.com&#x2F;license</span><br><span class="line">Do you wish to proceed with the installation of Microsoft VSCode? [yes|no]</span><br><span class="line">&gt;&gt;&gt; no</span><br></pre></td></tr></table></figure>
-<pre><code>要注意的是安装成功后要退出cmd，再打开，路径配置才起作用。</code></pre><p>7、vim使用：<br>    删除：1、连续删除多行时，使用n1,n2 d命令；比如删除第2到第10行，则在命令行模式下输入2,10 d即可<br>          2、删除零星的行，移到指定行，然后d，删除此行。<br>    复制：1、将第9行至第15行的数据，复制到第16行；9,15 copy 16或9,15 co 16<br>          2、同理9,15 move 16或9,15 m 16将第9行到第15行的文本内容移动到第16行的后面</p>
+      <p>以电影分类为例：<br>提取出电影的特征，将每部电影表示成一个向量。样本集就对应向量空间中的一些点。新的电影同样表示成向量，新的向量离哪个向量最近，这个电影就被分类到这个类。<br>创建一个knn.py文件，在文件中增加下列代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">from numpy import *</span><br><span class="line">import operator</span><br><span class="line"></span><br><span class="line">def createDataSet():</span><br><span class="line">	group &#x3D; array([[1.0,1.1],[1.0,1.0],[0,0],[0,0.1]])</span><br><span class="line">	labels &#x3D; [&#39;A&#39;,&#39;A&#39;,&#39;B&#39;,&#39;B&#39;]</span><br><span class="line">	return group, labels</span><br></pre></td></tr></table></figure>
+<p>在命令行中输入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import knn</span><br><span class="line">group, labels &#x3D; knn.createDataSet()</span><br><span class="line">group</span><br><span class="line">labels</span><br></pre></td></tr></table></figure>
+<p>实现knn算法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">def classify0(inX, dataSet, labels, k): &#x2F;&#x2F;inX 新电影对应的向量 dataSet 向量列表 labels 类别列表</span><br><span class="line">	dataSetSize &#x3D; dataSet.shape[0] &#x2F;&#x2F;dataSet的每一行是一个向量，因此shape[0]就是向量的个数</span><br><span class="line">	diffMat &#x3D; tile(inX，(dataSetSize,1)) - dataSet &#x2F;&#x2F;生成一个和dataSet相同行数的矩阵，每一行都是inX</span><br><span class="line">	sqDiffMat &#x3D; diffMat**2</span><br><span class="line">	sqDistances &#x3D; sqDiffMat.sum(axis&#x3D;1) &#x2F;&#x2F;对应距离公式的求和</span><br><span class="line">	distances &#x3D; sqDistances**0.5 </span><br><span class="line">	sortedDistIndicies &#x3D; distances.argsort() &#x2F;&#x2F;返回距离排序从小到大的下标</span><br><span class="line">	classCount&#x3D;&#123;&#125;</span><br><span class="line">	for i in range(k) :</span><br><span class="line">		voteIlabel &#x3D; labels[sortedDistIndicies[i]] &#x2F;&#x2F;给标签类别计数</span><br><span class="line">		classCount[voteIlabel] &#x3D; classCount.get(voteIlabel,0) + 1 &#x2F;&#x2F;在字典中计数</span><br><span class="line">		sortedClassCount &#x3D; sorted(classCount.items(), key&#x3D;operator.itemgetter(1), reverse&#x3D;True) &#x2F;&#x2F;从每个元组中取出下标为1的项，基于该项的大小进行排序</span><br><span class="line">		return sortedClassCount[0][0] &#x2F;&#x2F;sortedClassCount是一个元组列表</span><br></pre></td></tr></table></figure>
+<p>numpy.tile用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a &#x3D; np.array([0, 1, 2])</span><br><span class="line">&gt;&gt;&gt; np.tile(a, 2)</span><br><span class="line">array([0, 1, 2, 0, 1, 2])</span><br><span class="line">&gt;&gt;&gt; np.tile(a, (2, 2))</span><br><span class="line">array([[0, 1, 2, 0, 1, 2],</span><br><span class="line">       [0, 1, 2, 0, 1, 2]])</span><br></pre></td></tr></table></figure>
+<p>numpy.argsort用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; x &#x3D; np.array([3, 1, 2])</span><br><span class="line">&gt;&gt;&gt; np.argsort(x)</span><br><span class="line">array([1, 2, 0])</span><br></pre></td></tr></table></figure>
+<p>字典get用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;car &#x3D; &#123;</span><br><span class="line">  &quot;brand&quot;: &quot;Ford&quot;,</span><br><span class="line">  &quot;model&quot;: &quot;Mustang&quot;,</span><br><span class="line">  &quot;year&quot;: 1964</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;x &#x3D; car.get(&quot;model&quot;)</span><br><span class="line">Mustang</span><br></pre></td></tr></table></figure>
+<p>sorted用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;a &#x3D; [5,7,6,3,4,1,2]</span><br><span class="line">&gt;&gt;&gt; b &#x3D; sorted(a)       # 保留原列表</span><br><span class="line">&gt;&gt;&gt; a </span><br><span class="line">[5, 7, 6, 3, 4, 1, 2]</span><br><span class="line">&gt;&gt;&gt; b</span><br><span class="line">[1, 2, 3, 4, 5, 6, 7]</span><br></pre></td></tr></table></figure>
+<p>sorted语法：<br>sorted(iterable, cmp=None, key=None, reverse=False)<br>iterable – 可迭代对象。<br>key – 主要是用来进行比较的元素，只有一个参数，具体的函数的参数就是取自于可迭代对象中，指定可迭代对象中的一个元素来进行排序。<br>reverse – 排序规则，reverse = True 降序 ， reverse = False 升序（默认）。<br>items语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;d &#x3D; &#123;&#39;one&#39;: 1, &#39;two&#39;: 2, &#39;three&#39;: 3&#125;</span><br><span class="line">&gt;&gt;&gt; d.items()</span><br><span class="line">dict_items([(&#39;one&#39;, 1), (&#39;two&#39;, 2), (&#39;three&#39;, 3)])</span><br></pre></td></tr></table></figure>
+<p>items() 方法把字典中每对key和value组成一个元组，并把这些元组放在列表中返回。<br>itemgetter用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;a &#x3D; [1,2,3] </span><br><span class="line">&gt;&gt;&gt; b&#x3D;operator.itemgetter(1)      &#x2F;&#x2F;定义函数b，获取对象的第1个域的值</span><br><span class="line">&gt;&gt;&gt; b(a) </span><br><span class="line">2 </span><br><span class="line">&gt;&gt;&gt; b&#x3D;operator.itemgetter(1,0)   &#x2F;&#x2F;定义函数b，获取对象的第1个域和第0个的值</span><br><span class="line">&gt;&gt;&gt; b(a) </span><br><span class="line">(2, 1)</span><br></pre></td></tr></table></figure>
+<p>测试代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">knn.classify0([0,0], group, labels, 3)</span><br></pre></td></tr></table></figure>
 
+<p>从文本文件中解析数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">def file2matrix(filename) :</span><br><span class="line">    fr &#x3D; open(filename)</span><br><span class="line">    array0Lines &#x3D; fr.readlines()</span><br><span class="line">    numberOfLines &#x3D; len(arrayOLines)</span><br><span class="line">    returnMat &#x3D; zeros((numberOfLines,3))</span><br><span class="line">    classLabelVector &#x3D; []</span><br><span class="line">    index &#x3D; 0</span><br><span class="line">    for line in arrayOLines :</span><br><span class="line">        line &#x3D; line.strip()</span><br><span class="line">        listFromLine &#x3D; line.split(&#39;\t&#39;)</span><br><span class="line">        returnMat [index,:] &#x3D; listFromLine[0:3]</span><br><span class="line">        classLabelVector.append(int(listFromLine[-1]))</span><br><span class="line">        index +&#x3D; 1</span><br><span class="line">        return returnMat, classLabelVector</span><br></pre></td></tr></table></figure>
+<p>测试代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; reload(kNN)</span><br><span class="line">&gt;&gt;&gt; datingDataMat,datingLabels &#x3D; kNN.file2matrix(1datingTestSet.txt1)</span><br></pre></td></tr></table></figure>
       
       <!-- reward -->
       
@@ -164,7 +185,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/03/23/linux%E7%AE%80%E5%8D%95%E5%91%BD%E4%BB%A4/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/04/18/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%80%EF%BC%89-K%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -180,19 +201,10 @@
   
   <nav class="article-nav">
     
-      <a href="/2020/04/18/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%80%EF%BC%89-K%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            机器学习实战系列（一）:K近邻算法
-          
-        </div>
-      </a>
     
-    
-      <a href="/2020/03/22/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/" class="article-nav-link">
+      <a href="/2020/03/23/linux%E7%AE%80%E5%8D%95%E5%91%BD%E4%BB%A4/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">虚拟机安装</div>
+        <div class="article-nav-title">linux简单命令</div>
       </a>
     
   </nav>
