@@ -69,6 +69,72 @@
     
     
     
+    <article id="post-机器学习实战系列（二）-决策树" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/04/19/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97%EF%BC%88%E4%BA%8C%EF%BC%89-%E5%86%B3%E7%AD%96%E6%A0%91/"
+    >机器学习实战系列（二）:决策树</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/04/19/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97%EF%BC%88%E4%BA%8C%EF%BC%89-%E5%86%B3%E7%AD%96%E6%A0%91/" class="article-date">
+  <time datetime="2020-04-19T12:26:11.000Z" itemprop="datePublished">2020-04-19</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-机器学习实战系列（一）-K近邻算法" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -770,93 +836,6 @@
     <footer class="article-footer">
       
       
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-tensorflow2-0系列-十二-：模型导出" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/20/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%8D%81%E4%BA%8C-%EF%BC%9A%E6%A8%A1%E5%9E%8B%E5%AF%BC%E5%87%BA/"
-    >tensorflow2.0系列(十二)：模型导出</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/20/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%8D%81%E4%BA%8C-%EF%BC%9A%E6%A8%A1%E5%9E%8B%E5%AF%BC%E5%87%BA/" class="article-date">
-  <time datetime="2020-03-20T12:45:42.000Z" itemprop="datePublished">2020-03-20</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>使用SavedModel完整导出模型：<br>在部署模型时，我们的第一步往往是将训练好的整个模型完整导出为一系列标准格式的文件，然后即可在不同的平台上部署模型文件。这时，TensorFlow为我们提供了SavedModel这一格式。与前面介绍的Checkpoint不同，SavedModel包含了一个TensorFlow程序的完整信息：不仅包含参数的权值，还包含计算的流程（即计算图）。当模型导出为 SavedModel 文件时，无需建立模型的源代码即可再次运行模型，这使得SavedModel尤其适用于模型的分享和部署。后文的TensorFlow Serving（服务器端部署模型）、TensorFlow Lite（移动端部署模型）以及TensorFlow.js都会用到这一格式。<br>Keras模型均可方便地导出为SavedModel格式。不过需要注意的是，因为 SavedModel基于计算图，所以对于使用继承tf.keras.Model类建立的Keras模型，其需要导出到 SavedModel 格式的方法（比如call）都需要使用@tf.function修饰。然后，假设我们有一个名为model的Keras模型，使用下面的代码即可将模型导出为SavedModel：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tf.saved_model.save(model, &quot;保存的目标文件夹名称&quot;)</span><br></pre></td></tr></table></figure>
-
-<p>在需要载入 SavedModel 文件时，使用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model &#x3D; tf.saved_model.load(&quot;保存的目标文件夹名称&quot;)</span><br></pre></td></tr></table></figure>
-<p>即可。</p>
-<p>对于使用继承tf.keras.Model类建立的Keras模型model，使用SavedModel载入后将无法使用 model()直接进行推断，而需要使用model.call()。<br>以下是一个简单的示例，将前文MNIST手写体识别的模型进行导出和导入。导出模型到saved/1文件夹：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line">from zh.model.utils import MNISTLoader</span><br><span class="line"></span><br><span class="line">num_epochs &#x3D; 1</span><br><span class="line">batch_size &#x3D; 50</span><br><span class="line">learning_rate &#x3D; 0.001</span><br><span class="line"></span><br><span class="line">model &#x3D; tf.keras.models.Sequential([</span><br><span class="line">    tf.keras.layers.Flatten(),</span><br><span class="line">    tf.keras.layers.Dense(100, activation&#x3D;tf.nn.relu),</span><br><span class="line">    tf.keras.layers.Dense(10),</span><br><span class="line">    tf.keras.layers.Softmax()</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line">data_loader &#x3D; MNISTLoader()</span><br><span class="line">model.compile(</span><br><span class="line">    optimizer&#x3D;tf.keras.optimizers.Adam(learning_rate&#x3D;0.001),</span><br><span class="line">    loss&#x3D;tf.keras.losses.sparse_categorical_crossentropy,</span><br><span class="line">    metrics&#x3D;[tf.keras.metrics.sparse_categorical_accuracy]</span><br><span class="line">)</span><br><span class="line">model.fit(data_loader.train_data, data_loader.train_label, epochs&#x3D;num_epochs, batch_size&#x3D;batch_size)</span><br><span class="line">tf.saved_model.save(model, &quot;saved&#x2F;1&quot;)</span><br></pre></td></tr></table></figure>
-
-<p>将saved/1中的模型导入并测试性能：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line">from zh.model.utils import MNISTLoader</span><br><span class="line"></span><br><span class="line">batch_size &#x3D; 50</span><br><span class="line"></span><br><span class="line">model &#x3D; tf.saved_model.load(&quot;saved&#x2F;1&quot;)</span><br><span class="line">data_loader &#x3D; MNISTLoader()</span><br><span class="line">sparse_categorical_accuracy &#x3D; tf.keras.metrics.SparseCategoricalAccuracy()</span><br><span class="line">num_batches &#x3D; int(data_loader.num_test_data &#x2F;&#x2F; batch_size)</span><br><span class="line">for batch_index in range(num_batches):</span><br><span class="line">    start_index, end_index &#x3D; batch_index * batch_size, (batch_index + 1) * batch_size</span><br><span class="line">    y_pred &#x3D; model(data_loader.test_data[start_index: end_index])</span><br><span class="line">    sparse_categorical_accuracy.update_state(y_true&#x3D;data_loader.test_label[start_index: end_index], y_pred&#x3D;y_pred)</span><br><span class="line">print(&quot;test accuracy: %f&quot; % sparse_categorical_accuracy.result())</span><br></pre></td></tr></table></figure>
-
-<p>输出:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">test accuracy: 0.952000</span><br></pre></td></tr></table></figure>
-
-<p>使用继承tf.keras.Model类建立的Keras模型同样可以以相同方法导出，唯须注意call方法需要以@tf.function修饰，以转化为SavedModel支持的计算图，代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class MLP(tf.keras.Model):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.flatten &#x3D; tf.keras.layers.Flatten()</span><br><span class="line">        self.dense1 &#x3D; tf.keras.layers.Dense(units&#x3D;100, activation&#x3D;tf.nn.relu)</span><br><span class="line">        self.dense2 &#x3D; tf.keras.layers.Dense(units&#x3D;10)</span><br><span class="line"></span><br><span class="line">    @tf.function</span><br><span class="line">    def call(self, inputs):         # [batch_size, 28, 28, 1]</span><br><span class="line">        x &#x3D; self.flatten(inputs)    # [batch_size, 784]</span><br><span class="line">        x &#x3D; self.dense1(x)          # [batch_size, 100]</span><br><span class="line">        x &#x3D; self.dense2(x)          # [batch_size, 10]</span><br><span class="line">        output &#x3D; tf.nn.softmax(x)</span><br><span class="line">        return output</span><br><span class="line"></span><br><span class="line">model &#x3D; MLP()</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
-<p>模型导入并测试性能的过程也相同，唯须注意模型推断时需要显式调用call方法，即使用：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">y_pred &#x3D; model.call(data_loader.test_data[start_index: end_index])</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
-
 
     </footer>
 
