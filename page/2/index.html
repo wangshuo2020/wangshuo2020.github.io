@@ -69,81 +69,6 @@
     
     
     
-    <article id="post-LabelImg" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/21/LabelImg/"
-    >LabelImg</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/21/LabelImg/" class="article-date">
-  <time datetime="2020-03-21T03:24:52.000Z" itemprop="datePublished">2020-03-21</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>安装：<br>1.安装anaconda(python3.6);<br>2.到<a href="https://github.com/tzutalin/labelImg" target="_blank" rel="noopener">labelImg</a> download zip;<br>3.打开Anaconda Prompt，进入labelImg根目录，输入命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">conda install pyqt&#x3D;5 </span><br><span class="line">pyrcc5 -o libs&#x2F;resources.py resources.qrc</span><br><span class="line">python labelImg.py</span><br></pre></td></tr></table></figure>
-<p>conda国内源的配置：<br>只需要修改C:\Users\Administrator目录下的.condarc文件。Windows用户无法直接创建名为.condarc的文件，先执行conda config –set show_channel_urls yes生成该文件之后再修改。<br>将.condarc文件中的代码修改为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">channels:</span><br><span class="line">  - defaults</span><br><span class="line">show_channel_urls: true</span><br><span class="line">channel_alias: https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;anaconda</span><br><span class="line">default_channels:</span><br><span class="line">  - https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;anaconda&#x2F;pkgs&#x2F;main</span><br><span class="line">  - https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;anaconda&#x2F;pkgs&#x2F;free</span><br><span class="line">  - https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;anaconda&#x2F;pkgs&#x2F;r</span><br><span class="line">  - https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;anaconda&#x2F;pkgs&#x2F;pro</span><br><span class="line">  - https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;anaconda&#x2F;pkgs&#x2F;msys2</span><br><span class="line">custom_channels:</span><br><span class="line">  conda-forge: https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;anaconda&#x2F;cloud</span><br><span class="line">  msys2: https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;anaconda&#x2F;cloud</span><br><span class="line">  bioconda: https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;anaconda&#x2F;cloud</span><br><span class="line">  menpo: https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;anaconda&#x2F;cloud</span><br><span class="line">  pytorch: https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;anaconda&#x2F;cloud</span><br><span class="line">  simpleitk: https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;anaconda&#x2F;cloud</span><br></pre></td></tr></table></figure>
-<p>如果输入conda指令显示solve environment,在cmd输入下行代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda update -n base conda</span><br></pre></td></tr></table></figure>
-
-<p>运行conda clean -i清除索引缓存，保证用的是镜像站提供的索引。<br>运行conda create -n myenv numpy测试一下。<br>这些命令都是在cmd中输入的。</p>
-<p>使用：<br>1.点击Open Dir(打开图片所在文件夹).<br>2.点击Change Save Dir修改生成xml文件存储位置。<br>3.在edit里面找到create RectBox，或者右键选定create RectBox。<br>4.选取矩形框后可以自定义标签名字，也可以使用已经定义好的。<br>5.再按ctrl+s，就可以在save dir路径下找到这张图片对应的xml文件。<br>6.next image对下一张照片进行处理。<br>注：1.xml文件的名字默认是图片的名字<br>    2.不同版本的labelImg在界面上会有稍微的区别<br>    3.标注过程中可随时返回进行修改，后保存的文件会覆盖之前的。<br>    4.labelImg既可以标注VOC格式的数据集，也可以标注YOLO格式的数据集。</p>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
     <article id="post-制作tensorflow数据集：xml转csv到tfrecord" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -933,13 +858,95 @@ with summary_writer.as_default():
 
 </article>
     
+    <article id="post-tensorflow2-0系列-五-：卷积神经网络" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/18/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%BA%94-%EF%BC%9A%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"
+    >tensorflow2.0系列(五)：卷积神经网络</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/18/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%BA%94-%EF%BC%9A%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="article-date">
+  <time datetime="2020-03-18T11:53:59.000Z" itemprop="datePublished">2020-03-18</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>卷积神经网络的搭建：<br>卷积神经网络实际上是对大脑视觉皮层的神经元进行的建模，灵感来自于视觉皮层神经元每次只与前一层某个区域内神经元相连的现象。<br>代码示范：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">class CNN(tf.keras.Model):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.conv1 &#x3D; tf.keras.layers.Conv2D(</span><br><span class="line">            filters&#x3D;32,             # 卷积层神经元（卷积核）数目</span><br><span class="line">            kernel_size&#x3D;[5, 5],     # 感受野大小</span><br><span class="line">            padding&#x3D;&#39;same&#39;,         # padding策略（vaild 或 same）</span><br><span class="line">            activation&#x3D;tf.nn.relu   # 激活函数</span><br><span class="line">        )</span><br><span class="line">        self.pool1 &#x3D; tf.keras.layers.MaxPool2D(pool_size&#x3D;[2, 2], strides&#x3D;2)</span><br><span class="line">        self.conv2 &#x3D; tf.keras.layers.Conv2D(</span><br><span class="line">            filters&#x3D;64,</span><br><span class="line">            kernel_size&#x3D;[5, 5],</span><br><span class="line">            padding&#x3D;&#39;same&#39;,</span><br><span class="line">            activation&#x3D;tf.nn.relu</span><br><span class="line">        )</span><br><span class="line">        self.pool2 &#x3D; tf.keras.layers.MaxPool2D(pool_size&#x3D;[2, 2], strides&#x3D;2)</span><br><span class="line">        self.flatten &#x3D; tf.keras.layers.Reshape(target_shape&#x3D;(7 * 7 * 64,))</span><br><span class="line">        self.dense1 &#x3D; tf.keras.layers.Dense(units&#x3D;1024, activation&#x3D;tf.nn.relu)</span><br><span class="line">        self.dense2 &#x3D; tf.keras.layers.Dense(units&#x3D;10)</span><br><span class="line"></span><br><span class="line">    def call(self, inputs):</span><br><span class="line">        x &#x3D; self.conv1(inputs)                  # [batch_size, 28, 28, 32]</span><br><span class="line">        x &#x3D; self.pool1(x)                       # [batch_size, 14, 14, 32]</span><br><span class="line">        x &#x3D; self.conv2(x)                       # [batch_size, 14, 14, 64]</span><br><span class="line">        x &#x3D; self.pool2(x)                       # [batch_size, 7, 7, 64]</span><br><span class="line">        x &#x3D; self.flatten(x)                     # [batch_size, 7 * 7 * 64]</span><br><span class="line">        x &#x3D; self.dense1(x)                      # [batch_size, 1024]</span><br><span class="line">        x &#x3D; self.dense2(x)                      # [batch_size, 10]</span><br><span class="line">        output &#x3D; tf.nn.softmax(x)</span><br><span class="line">        return output</span><br></pre></td></tr></table></figure>
+<p>感受野大小该怎么去理解。[3]<br>将上一节的model = MLP()换成 model = CNN()，可以发现准确率得到了显著的提高。</p>
+<p>tf.keras.applications 中有一些预定义好的经典卷积神经网络结构，比如VGG16、VGG19 、ResNet、MobileNet等。我们可以直接调用这些经典的卷积神经网络结构（甚至载入预训练的参数），而无需手动定义网络结构。<br>比如，我们可以使用下列代码实例化一个MobileNetV2网络：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model &#x3D; tf.keras.applications.MobileNetV2()</span><br></pre></td></tr></table></figure>
+<p>这行代码就相当于自己按照MobileNetV2的网络结构手写了一个类并且实例化:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class MobileNetV2():</span><br><span class="line">	pass</span><br><span class="line">model &#x3D; MobileNetV2()</span><br></pre></td></tr></table></figure>
+<p>每个网络结构具有自己特定的详细参数设置,一些共通的常用参数如下：<br>input_shape：输入张量的形状(不含第一维的Batch)，大多默认为224×224×3。一般而言，模型对输入张量的大小有下限，长和宽至少为32×32或75×75。include_top:在网络的最后是否包含全连接层，默认为True；weights ：预训练权值，默认为’imagenet’，即为当前模型载入在ImageNet数据集上预训练的权值。如需随机初始化变量可设为None；classes：分类数，默认为1000。修改该参数需要include_top参数为True且weights参数为None。<br>下面展示一个例子，使用 MobileNetV2网络在tf_flowers五分类数据集上训练。通过将 weights设置为None，我们随机初始化变量而不使用预训练权值。同时将classes设置为5，对应于5分类的数据集。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line">import tensorflow_datasets as tfds</span><br><span class="line"></span><br><span class="line">num_batches &#x3D; 1000</span><br><span class="line">batch_size &#x3D; 50</span><br><span class="line">learning_rate &#x3D; 0.001</span><br><span class="line"></span><br><span class="line">dataset &#x3D; tfds.load(&quot;tf_flowers&quot;, split&#x3D;tfds.Split.TRAIN, as_supervised&#x3D;True)</span><br><span class="line">dataset &#x3D; dataset.map(lambda img, label: (tf.image.resize(img, [224, 224]) &#x2F; 255.0, label)).shuffle(1024).batch(32)</span><br><span class="line">model &#x3D; tf.keras.applications.MobileNetV2(weights&#x3D;None, classes&#x3D;5)</span><br><span class="line">optimizer &#x3D; tf.keras.optimizers.Adam(learning_rate&#x3D;learning_rate)</span><br><span class="line">for images, labels in dataset:</span><br><span class="line">    with tf.GradientTape() as tape:</span><br><span class="line">        labels_pred &#x3D; model(images)</span><br><span class="line">        loss &#x3D; tf.keras.losses.sparse_categorical_crossentropy(y_true&#x3D;labels, y_pred&#x3D;labels_pred)</span><br><span class="line">        loss &#x3D; tf.reduce_mean(loss)</span><br><span class="line">        print(&quot;loss %f&quot; % loss.numpy())</span><br><span class="line">    grads &#x3D; tape.gradient(loss, model.trainable_variables)</span><br><span class="line">    optimizer.apply_gradients(grads_and_vars&#x3D;zip(grads, model.trainable_variables))</span><br></pre></td></tr></table></figure>
+<p>有一个小的区别是model.variables与model.trainable_variables。<br>加载数据和预处理数据的那两行代码没看懂。[1]</p>
+<p>用tensorflow验证手推的卷积层运算：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"># TensorFlow 的图像表示为 [图像数目，长，宽，色彩通道数] 的四维张量</span><br><span class="line"># 这里我们的输入图像 image 的张量形状为 [1, 7, 7, 1]</span><br><span class="line">image &#x3D; np.array([[</span><br><span class="line">    [0, 0, 0, 0, 0, 0, 0],</span><br><span class="line">    [0, 1, 0, 1, 2, 1, 0],</span><br><span class="line">    [0, 0, 2, 2, 0, 1, 0],</span><br><span class="line">    [0, 1, 1, 0, 2, 1, 0],</span><br><span class="line">    [0, 0, 2, 1, 1, 0, 0],</span><br><span class="line">    [0, 2, 1, 1, 2, 0, 0],</span><br><span class="line">    [0, 0, 0, 0, 0, 0, 0]</span><br><span class="line">]], dtype&#x3D;np.float32)</span><br><span class="line">image &#x3D; np.expand_dims(image, axis&#x3D;-1)  </span><br><span class="line">W &#x3D; np.array([[</span><br><span class="line">    [ 0, 0, -1], </span><br><span class="line">    [ 0, 1, 0 ], </span><br><span class="line">    [-2, 0, 2 ]</span><br><span class="line">]], dtype&#x3D;np.float32)</span><br><span class="line">b &#x3D; np.array([1], dtype&#x3D;np.float32)</span><br><span class="line"></span><br><span class="line">model &#x3D; tf.keras.models.Sequential([</span><br><span class="line">    tf.keras.layers.Conv2D(</span><br><span class="line">        filters&#x3D;1,              # 卷积层神经元（卷积核）数目</span><br><span class="line">        kernel_size&#x3D;[3, 3],     # 感受野大小</span><br><span class="line">        kernel_initializer&#x3D;tf.constant_initializer(W),</span><br><span class="line">        bias_initializer&#x3D;tf.constant_initializer(b)</span><br><span class="line">    )]</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">output &#x3D; model(image)</span><br><span class="line">print(tf.squeeze(output))</span><br></pre></td></tr></table></figure>
+<p>tf.squeeze()方法的作用很有意思<br>有一个疑惑的地方就是一个四维的张量通过卷积层的输出是什么。[2]</p>
+<p>如果图像是彩色的(即三通道)，这时我们就要为每个通道准备一个3×3的权值矩阵，即一共有3×3×3=27个权值。对于每个通道，均使用自己的权值矩阵进行处理，输出时将多个通道所输出的值进行加和。<br>在上面的代码中，每次卷积的结果都会丢掉一部分大小，有时这会为后面的工作带来麻烦。我们可以通过将tf.keras.layers.Conv2D中的padding参数设为same，从而使输出的矩阵大小和输入一致。<br>我们使用的是滑动窗口的方式进行卷积，所以可以设置每次滑动的步长。通过tf.keras.layers.Conv2D的strides参数即可设置步长（默认为1）。池化层现在一般用的都是max pooling，average pooling已经很少用了。</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
   </article>
   
 
   
   <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">下一页</a>
+    <a class="extend prev" rel="prev" href="/">上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">下一页</a>
   </nav>
   
 </section>

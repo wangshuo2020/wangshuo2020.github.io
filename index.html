@@ -69,7 +69,7 @@
     
     
     
-    <article id="post-机器学习实战系列（二）-决策树-2" class="article article-type-post" itemscope
+    <article id="post-机器学习实战系列-二-决策树-1" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -77,8 +77,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2020/04/26/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97%EF%BC%88%E4%BA%8C%EF%BC%89-%E5%86%B3%E7%AD%96%E6%A0%91-2/"
-    >机器学习实战系列（二）-决策树-2</a
+  <a class="article-title" href="/2020/04/26/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97-%E4%BA%8C-%E5%86%B3%E7%AD%96%E6%A0%91-1/"
+    >机器学习实战系列(二)-决策树-1</a
   >
 </h2>
   
@@ -88,105 +88,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/04/26/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97%EF%BC%88%E4%BA%8C%EF%BC%89-%E5%86%B3%E7%AD%96%E6%A0%91-2/" class="article-date">
-  <time datetime="2020-04-26T13:19:15.000Z" itemprop="datePublished">2020-04-26</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>字典树函数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def retrieveTree(i):</span><br><span class="line">    listOfTrees &#x3D;[&#123;&#39;no surfacing&#39;: &#123;0: &#39;no&#39;, 1: &#123;&#39;flippers&#39;: &#123;0: &#39;no&#39;, 1: &#39;yes&#39;&#125;&#125;&#125;&#125;,</span><br><span class="line">                  &#123;&#39;no surfacing&#39;: &#123;0: &#39;no&#39;, 1: &#123;&#39;flippers&#39;: &#123;0: &#123;&#39;head&#39;: &#123;0: &#39;no&#39;, 1: &#39;yes&#39;&#125;&#125;, 1: &#39;no&#39;&#125;&#125;&#125;&#125;</span><br><span class="line">                  ]</span><br><span class="line">    return listOfTrees[i]    &#x2F;&#x2F;由传入的参数决定返回的值</span><br></pre></td></tr></table></figure>
-
-<p>测试函数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;reload(treePlotter)</span><br><span class="line">&lt;module &#39;treePlotter&#39; from &#39;treePlotter.py&#39;&gt;</span><br><span class="line">&gt;&gt;&gt;treePlotter.retrieveTree(1)</span><br><span class="line">&#123;&#39;no surfacing&#39;: &#123;0: &#39;no&#39;, 1: &#123;&#39;flippers&#39;: &#123;0: &#123;&#39;head&#39;: &#123;0: &#39;no&#39;, 1: &#39;yes&#39;&#125;&#125;, 1: &#39;no&#39;&#125;&#125;&#125;&#125;</span><br><span class="line">&gt;&gt;&gt;myTree &#x3D; treePlotter.retrieveTree(0)    &#x2F;&#x2F;画树状图时一层key在框里，一层key在线上，从框里出发</span><br><span class="line">&gt;&gt;&gt;treePlotter.getNumLeafs(myTree)   </span><br><span class="line">3 </span><br><span class="line">&gt;&gt;&gt;treePlotter.getTreeDepth(myTree)   &#x2F;&#x2F;为什么要确定子节点个数和树的深度？###############################</span><br><span class="line">2</span><br></pre></td></tr></table></figure>
-
-<p>plotTree函数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">def plotMidText(cntrPt, parentPt, txtString):</span><br><span class="line">    xMid &#x3D; (parentPt[0]-cntrPt[0])&#x2F;2.0 + cntrPt[0]</span><br><span class="line">    yMid &#x3D; (parentPt[1]-cntrPt[1])&#x2F;2.0 + cntrPt[1]</span><br><span class="line">    createPlot.ax1.text(xMid, yMid, txtString, va&#x3D;&quot;center&quot;, ha&#x3D;&quot;center&quot;, rotation&#x3D;30)</span><br><span class="line"></span><br><span class="line">def plotTree(myTree, parentPt, nodeTxt):#if the first key tells you what feat was split on</span><br><span class="line">    numLeafs &#x3D; getNumLeafs(myTree)  #this determines the x width of this tree</span><br><span class="line">    depth &#x3D; getTreeDepth(myTree)</span><br><span class="line">    firstStr &#x3D; myTree.keys()[0]     #the text label for this node should be this</span><br><span class="line">    cntrPt &#x3D; (plotTree.xOff + (1.0 + float(numLeafs))&#x2F;2.0&#x2F;plotTree.totalW, plotTree.yOff)</span><br><span class="line">    plotMidText(cntrPt, parentPt, nodeTxt)</span><br><span class="line">    plotNode(firstStr, cntrPt, parentPt, decisionNode)</span><br><span class="line">    secondDict &#x3D; myTree[firstStr]</span><br><span class="line">    plotTree.yOff &#x3D; plotTree.yOff - 1.0&#x2F;plotTree.totalD</span><br><span class="line">    for key in secondDict.keys():</span><br><span class="line">        if type(secondDict[key]).__name__&#x3D;&#x3D;&#39;dict&#39;:#test to see if the nodes are dictonaires, if not they are leaf nodes   </span><br><span class="line">            plotTree(secondDict[key],cntrPt,str(key))        #recursion</span><br><span class="line">        else:   #it&#39;s a leaf node print the leaf node</span><br><span class="line">            plotTree.xOff &#x3D; plotTree.xOff + 1.0&#x2F;plotTree.totalW</span><br><span class="line">            plotNode(secondDict[key], (plotTree.xOff, plotTree.yOff), cntrPt, leafNode)</span><br><span class="line">            plotMidText((plotTree.xOff, plotTree.yOff), cntrPt, str(key))</span><br><span class="line">    plotTree.yOff &#x3D; plotTree.yOff + 1.0&#x2F;plotTree.totalD</span><br><span class="line">#if you do get a dictonary you know it&#39;s a tree, and the first element will be another dict</span><br><span class="line"></span><br><span class="line">def createPlot(inTree):</span><br><span class="line">    fig &#x3D; plt.figure(1, facecolor&#x3D;&#39;white&#39;)</span><br><span class="line">    fig.clf()</span><br><span class="line">    axprops &#x3D; dict(xticks&#x3D;[], yticks&#x3D;[])</span><br><span class="line">    createPlot.ax1 &#x3D; plt.subplot(111, frameon&#x3D;False, **axprops)    #no ticks</span><br><span class="line">    #createPlot.ax1 &#x3D; plt.subplot(111, frameon&#x3D;False) #ticks for demo puropses </span><br><span class="line">    plotTree.totalW &#x3D; float(getNumLeafs(inTree))</span><br><span class="line">    plotTree.totalD &#x3D; float(getTreeDepth(inTree))</span><br><span class="line">    plotTree.xOff &#x3D; -0.5&#x2F;plotTree.totalW; plotTree.yOff &#x3D; 1.0;</span><br><span class="line">    plotTree(inTree, (0.5,1.0), &#39;&#39;)</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
-
-<p>测试函数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;reload(treePlotter)</span><br><span class="line">&lt;module &#39;treePlotter&#39; from &#39;treePlotter.pyc&#39;&gt;</span><br><span class="line">&gt;&gt;&gt;myTree&#x3D;treePlotter.retrieveTree(0)</span><br><span class="line">&gt;&gt;&gt;treePlotter.createPlot(myTree)</span><br></pre></td></tr></table></figure>
-
-<p>使用决策树的分类函数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">def classify(inputTree,featLabels,testVec):  &#x2F;&#x2F;字典树，标签，测试特征向量</span><br><span class="line">    firstStr &#x3D; list(inputTree.keys())[0]   &#x2F;&#x2F;最外层字典的key值 </span><br><span class="line">    secondDict &#x3D; inputTree[firstStr]   &#x2F;&#x2F;第二层字典</span><br><span class="line">    featIndex &#x3D; featLabels.index(firstStr)   &#x2F;&#x2F;返回firstStr的索引值</span><br><span class="line">    key &#x3D; testVec[featIndex]  &#x2F;&#x2F;</span><br><span class="line">    valueOfFeat &#x3D; secondDict[key]</span><br><span class="line">    if isinstance(valueOfFeat, dict): </span><br><span class="line">        classLabel &#x3D; classify(valueOfFeat, featLabels, testVec)</span><br><span class="line">    else: classLabel &#x3D; valueOfFeat</span><br><span class="line">    return classLabel                                      #######################################</span><br><span class="line">~~~                                 </span><br><span class="line"></span><br><span class="line">测试函数：</span><br></pre></td></tr></table></figure>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>myDat, labels = trees.createDataSet()<br>labels<br>[‘no surfacing’, ‘flippers’]<br>myTree=treePlotter.retrieveTree(0)<br>myTree<br>{‘no surfacing’:{0:’no’, 1:{‘flippers’:{0:’no’, 1:’yes’}}}}<br>trees.classify(myTree,labels,[1,0])<br>‘no’<br>trees.classify(myTree,labels,[1,1])<br>‘yes’</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">使用pickle模块存储决策树： </span><br><span class="line">~~~              &#x2F;&#x2F;省的每次都要训练决策树浪费时间</span><br><span class="line">def storeTree(inputTree,filename):</span><br><span class="line">    import pickle</span><br><span class="line">    fw &#x3D; open(filename,&#39;w&#39;)   &#x2F;&#x2F;打开一个文件</span><br><span class="line">    pickle.dump(inputTree,fw)   &#x2F;&#x2F;把字典存到文件中，所有的对象都可以这样来保存</span><br><span class="line">    fw.close()  &#x2F;&#x2F;关闭文件</span><br><span class="line">    </span><br><span class="line">def grabTree(filename):       &#x2F;&#x2F;打开文件关闭文件不能忘</span><br><span class="line">    import pickle</span><br><span class="line">    fr &#x3D; open(filename)  </span><br><span class="line">    return pickle.load(fr)  &#x2F;&#x2F;要先打开文件才能从文件中加载对象</span><br></pre></td></tr></table></figure>
-
-<p>测试函数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;trees.storeTree(myTree,&#39;classifierStorage.txt&#39;)</span><br><span class="line">&gt;&gt;&gt;trees.grabTree(&#39;classifierStorage.txt&#39;)</span><br><span class="line">&#123;&#39;no surfacing&#39;:&#123;0:&#39;no&#39;, 1:&#123;&#39;flippers&#39;:&#123;0:&#39;no&#39;, 1:&#39;yes&#39;&#125;&#125;&#125;&#125;</span><br></pre></td></tr></table></figure>
-
-<p>使用决策树预测隐形眼镜类型：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;fr&#x3D;open(&#39;lenses.txt&#39;)</span><br><span class="line">&gt;&gt;&gt;lenses&#x3D;[inst.strip().split(&#39;\t&#39;) for inst in fr.readlines()]</span><br><span class="line">&gt;&gt;&gt;lensesLabels&#x3D;[&#39;age&#39;,&#39;prescript&#39;,&#39;astigmatic&#39;,&#39;tearRate&#39;]</span><br><span class="line">&gt;&gt;&gt;lensesTree&#x3D;trees.createTree(lenses,lensesLabels)</span><br><span class="line">&gt;&gt;&gt;lensesTree</span><br><span class="line">&#x2F;&#x2F;一个很长的字典树</span><br><span class="line">&gt;&gt;&gt;treePlotter.createPlot(lensesTree) &#x2F;&#x2F;把这个字典树画出来</span><br></pre></td></tr></table></figure>
-<p>strip函数用法：<br>默认删除字符串头和尾的\n，\r，\t。从文本文件中读取数据时经常用strip函数预处理，再用split函数取出数值。</p>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97/" rel="tag">机器学习实战系列</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-机器学习实战系列（二）-决策树-1" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/04/26/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97%EF%BC%88%E4%BA%8C%EF%BC%89-%E5%86%B3%E7%AD%96%E6%A0%91-1/"
-    >机器学习实战系列（二）-决策树-1</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/04/26/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97%EF%BC%88%E4%BA%8C%EF%BC%89-%E5%86%B3%E7%AD%96%E6%A0%91-1/" class="article-date">
-  <time datetime="2020-04-26T13:13:38.000Z" itemprop="datePublished">2020-04-26</time>
+      <a href="/2020/04/26/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97-%E4%BA%8C-%E5%86%B3%E7%AD%96%E6%A0%91-1/" class="article-date">
+  <time datetime="2020-04-26T15:15:53.000Z" itemprop="datePublished">2020-04-26</time>
 </a>
       
       
@@ -231,40 +134,26 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;reload(trees)</span><br><span class="line">&lt;module &#39;trees&#39; from &#39;trees.pyc&#39;&gt;</span><br><span class="line">&gt;&gt;&gt;myDat, labels&#x3D;trees.createDataSet()</span><br><span class="line">&gt;&gt;&gt;trees.chooseBestFeatureToSplit(myDat)</span><br><span class="line">0</span><br><span class="line">&gt;&gt;&gt;myDat</span><br><span class="line">[[1, 1, &#39;yes&#39;], [1, 1, &#39;yes&#39;], [1, 0, &#39;no&#39;], [0, 1, &#39;no&#39;], [0, 1, &#39;no&#39;]]</span><br></pre></td></tr></table></figure>
 
 <p>类别列表中数目最多的类别：                                          </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def majorityCnt(classList):</span><br><span class="line">    classCount&#x3D;&#123;&#125;</span><br><span class="line">    for vote in classList:</span><br><span class="line">        if vote not in classCount.keys(): classCount[vote] &#x3D; 0     &#x2F;&#x2F;当对有多个键值对的多个字典进行排序时，也可以指定按照哪个键的值进行排序，改变itemgetter的参数就行了</span><br><span class="line">        classCount[vote] +&#x3D; 1   &#x2F;&#x2F;同样是用字典来计数</span><br><span class="line">    sortedClassCount &#x3D; sorted(classCount.items(), key&#x3D;operator.itemgetter(1), reverse&#x3D;True)  &#x2F;&#x2F;operator.itemgetter(1)就是按照value的值进行排序</span><br><span class="line">    return sortedClassCount[0][0]  &#x2F;&#x2F;operator.itemgetter(0)就是按照key的值进行排序，参数用0和1就不用考虑key和value的内容，默认为升序</span><br><span class="line">~~~  </span><br><span class="line"></span><br><span class="line">创建树的函数代码：</span><br></pre></td></tr></table></figure>
-<p>def createTree(dataSet,labels):   //返回一个树的字典<br>    classList = [example[-1] for example in dataSet]  //从数据集中取出类别列表<br>    if classList.count(classList[0]) == len(classList):   //类别列表中只有类别classList[0]<br>        return classList[0]   #stop splitting when all of the classes are equal<br>    if len(dataSet[0]) == 1:    #stop splitting when there are no more features in dataSet   //dataSet中元素的长度为1<br>        return majorityCnt(classList)    //上面两个条件就是数据集递归的终止条件，因为每分类一次数据集中元素长度就会减1<br>    bestFeat = chooseBestFeatureToSplit(dataSet)<br>    bestFeatLabel = labels[bestFeat]  //找出分类的最好的特征<br>    myTree = {bestFeatLabel:{}}   //建立一个空值的字典<br>    del(labels[bestFeat])  //删掉分类最好的那个特征<br>    featValues = [example[bestFeat] for example in dataSet]  //取出所有最好特征的值<br>    uniqueVals = set(featValues)  //去掉重复的元素<br>    for value in uniqueVals:<br>        subLabels = labels[:]       #copy all of labels, so trees don’t mess up existing labels<br>        myTree[bestFeatLabel][value] = createTree(splitDataSet(dataSet, bestFeat, value),subLabels)  //在子数据集和子标签列表上递归调用createTree函数<br>    return myTree  //嵌套的字典怎么索引？字典的值可以是一个字典。myTree[bestFeatLabel]是一个字典。索引嵌套字典值的方法与索引一个二维数组的元素相同。                         </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">测试函数：</span><br></pre></td></tr></table></figure>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>reload(trees)<br>&lt;module ‘trees’ from ‘trees.pyc’&gt;<br>myDat, labels=trees.createDataSet()<br>myTree=trees.createTree(myDat, labels)<br>myTree<br>{‘no surfacing’:{0:’no’, 1:{‘flippers’:{0:’no’, 1:’yes’}}}}</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">使用文本注解绘制树节点[1]：</span><br></pre></td></tr></table></figure>
-<p>import matplotlib.pyplot as plt</p>
-<p>decisionNode = dict(boxstyle=”sawtooth”, fc=”0.8”)<br>leafNode = dict(boxstyle=”round4”, fc=”0.8”)<br>arrow_args = dict(arrowstyle=”&lt;-“)</p>
-<p>def plotNode(nodeTxt, centerPt, parentPt, nodeType):<br>    createPlot.ax1.annotate(nodeTxt, xy=parentPt,  xycoords=’axes fraction’,<br>             xytext=centerPt, textcoords=’axes fraction’,<br>             va=”center”, ha=”center”, bbox=nodeType, arrowprops=arrow_args )</p>
-<p>def createPlot():<br>    fig = plt.figure(1, facecolor=’white’)<br>    fig.clf()<br>    createPlot.ax1 = plt.subplot(111, frameon=False)    #no ticks<br>    plotNode(‘决策节点’, (0.5, 0.1), (0.1, 0.5), decisionNode)<br>    plotNode(‘叶节点’, (0.8, 0.1), (0.3, 0.8), leafNode)<br>    plt.show()</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dict函数用法：</span><br></pre></td></tr></table></figure>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>dict(a=’a’, b=’b’, t=’t’)     # 传入关键字<br>{‘a’: ‘a’, ‘b’: ‘b’, ‘t’: ‘t’}</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">annotate函数用法：</span><br></pre></td></tr></table></figure>
-<p>annotate(nodeTxt, xy=parentPt,  xycoords=’axes fraction’,<br>             xytext=centerPt, textcoords=’axes fraction’,<br>             va=”center”, ha=”center”, bbox=nodeType, arrowprops=arrow_args)<br>nodeTx：注释的内容<br>xy: 箭头的出发点<br>xytext: 箭头指向的位置<br>bbox：设置方框的外观 sawtooth锯齿形 round4 就是一种样式 fc方框内部背景颜色 bbox的值要以字典的形式传入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">测试代码：</span><br></pre></td></tr></table></figure>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>import treePlotter<br>treePlotter.createPlot()</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">获取叶节点的数目和树的层数：              </span><br><span class="line">~~~                               </span><br><span class="line">def getNumLeafs(myTree):</span><br><span class="line">    numLeafs &#x3D; 0</span><br><span class="line">    firstStr &#x3D; list(myTree.keys())[0]    &#x2F;&#x2F;dict_key不能直接被索引，要先处理成list再索引</span><br><span class="line">    secondDict &#x3D; myTree[firstStr]</span><br><span class="line">    for key in secondDict.keys():      &#x2F;&#x2F;遍历每一层字典中所有的key</span><br><span class="line">        if type(secondDict[key]).__name__&#x3D;&#x3D;&#39;dict&#39;:#test to see if the nodes are dictonaires, if not they are leaf nodes</span><br><span class="line">            numLeafs +&#x3D; getNumLeafs(secondDict[key]) </span><br><span class="line">        else:   numLeafs +&#x3D;1   </span><br><span class="line">    return numLeafs        &#x2F;&#x2F;从外层到内层，value不是字典就给numLeafs加一，是字典就进入下一层，继续在子字典上判断value是不是字典，不是就给numLeafs加一，是就进入下一层，以此类推，直到没有值为字典</span><br><span class="line"></span><br><span class="line">def getTreeDepth(myTree):          这个地方有问题？</span><br><span class="line">    maxDepth &#x3D; 0</span><br><span class="line">    firstStr &#x3D; list(myTree.keys())[0]    &#x2F;&#x2F;对一个嵌套字典使用keys()函数，只会返回最外层的key</span><br><span class="line">    secondDict &#x3D; myTree[firstStr]       </span><br><span class="line">    for key in secondDict.keys():</span><br><span class="line">        if type(secondDict[key]).__name__&#x3D;&#x3D;&#39;dict&#39;:#test to see if the nodes are dictonaires, if not they are leaf nodes</span><br><span class="line">            thisDepth &#x3D; 1 + getTreeDepth(secondDict[key])</span><br><span class="line">        else:   thisDepth &#x3D; 1        &#x2F;&#x2F;进入一层字典就给深度加1，直到没有字典时令深度为1</span><br><span class="line">        if thisDepth &gt; maxDepth: maxDepth &#x3D; thisDepth      &#x2F;&#x2F;对于每一个中间节点而言，选取不同的key值时，取到的深度是不同的，选取最大的那个值</span><br><span class="line">    return maxDepth</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">def majorityCnt(classList):</span><br><span class="line">    classCount&#x3D;&#123;&#125;</span><br><span class="line">    for vote in classList:</span><br><span class="line">        if vote not in classCount.keys(): classCount[vote] &#x3D; 0     &#x2F;&#x2F;当对有多个键值对的多个字典进行排序时，也可以指定按照哪个键的值进行排序，改变itemgetter的参数就行了</span><br><span class="line">        classCount[vote] +&#x3D; 1   &#x2F;&#x2F;同样是用字典来计数</span><br><span class="line">    sortedClassCount &#x3D; sorted(classCount.items(), key&#x3D;operator.itemgetter(1), reverse&#x3D;True)  &#x2F;&#x2F;operator.itemgetter(1)就是按照value的值进行排序</span><br><span class="line">    return sortedClassCount[0][0]  &#x2F;&#x2F;operator.itemgetter(0)就是按照key的值进行排序，参数用0和1就不用考虑key和value的内容，默认为升序</span><br></pre></td></tr></table></figure>
+
+<p>创建树的函数代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">def createTree(dataSet,labels):   &#x2F;&#x2F;返回一个树的字典</span><br><span class="line">    classList &#x3D; [example[-1] for example in dataSet]  &#x2F;&#x2F;从数据集中取出类别列表</span><br><span class="line">    if classList.count(classList[0]) &#x3D;&#x3D; len(classList):   &#x2F;&#x2F;类别列表中只有类别classList[0]</span><br><span class="line">        return classList[0]   #stop splitting when all of the classes are equal</span><br><span class="line">    if len(dataSet[0]) &#x3D;&#x3D; 1:    #stop splitting when there are no more features in dataSet   &#x2F;&#x2F;dataSet中元素的长度为1  </span><br><span class="line">        return majorityCnt(classList)    &#x2F;&#x2F;上面两个条件就是数据集递归的终止条件，因为每分类一次数据集中元素长度就会减1</span><br><span class="line">    bestFeat &#x3D; chooseBestFeatureToSplit(dataSet)   </span><br><span class="line">    bestFeatLabel &#x3D; labels[bestFeat]  &#x2F;&#x2F;找出分类的最好的特征</span><br><span class="line">    myTree &#x3D; &#123;bestFeatLabel:&#123;&#125;&#125;   &#x2F;&#x2F;建立一个空值的字典</span><br><span class="line">    del(labels[bestFeat])  &#x2F;&#x2F;删掉分类最好的那个特征</span><br><span class="line">    featValues &#x3D; [example[bestFeat] for example in dataSet]  &#x2F;&#x2F;取出所有最好特征的值</span><br><span class="line">    uniqueVals &#x3D; set(featValues)  &#x2F;&#x2F;去掉重复的元素</span><br><span class="line">    for value in uniqueVals:</span><br><span class="line">        subLabels &#x3D; labels[:]       #copy all of labels, so trees don&#39;t mess up existing labels  </span><br><span class="line">        myTree[bestFeatLabel][value] &#x3D; createTree(splitDataSet(dataSet, bestFeat, value),subLabels)  &#x2F;&#x2F;在子数据集和子标签列表上递归调用createTree函数</span><br><span class="line">    return myTree  &#x2F;&#x2F;嵌套的字典怎么索引？字典的值可以是一个字典。myTree[bestFeatLabel]是一个字典。索引嵌套字典值的方法与索引一个二维数组的元素相同。</span><br></pre></td></tr></table></figure>
+
+<p>测试函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;reload(trees)</span><br><span class="line">&lt;module &#39;trees&#39; from &#39;trees.pyc&#39;&gt;</span><br><span class="line">&gt;&gt;&gt;myDat, labels&#x3D;trees.createDataSet()</span><br><span class="line">&gt;&gt;&gt;myTree&#x3D;trees.createTree(myDat, labels)</span><br><span class="line">&gt;&gt;&gt;myTree</span><br><span class="line">&#123;&#39;no surfacing&#39;:&#123;0:&#39;no&#39;, 1:&#123;&#39;flippers&#39;:&#123;0:&#39;no&#39;, 1:&#39;yes&#39;&#125;&#125;&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用文本注解绘制树节点[1]：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"></span><br><span class="line">decisionNode &#x3D; dict(boxstyle&#x3D;&quot;sawtooth&quot;, fc&#x3D;&quot;0.8&quot;)</span><br><span class="line">leafNode &#x3D; dict(boxstyle&#x3D;&quot;round4&quot;, fc&#x3D;&quot;0.8&quot;)</span><br><span class="line">arrow_args &#x3D; dict(arrowstyle&#x3D;&quot;&lt;-&quot;)</span><br><span class="line"></span><br><span class="line">def plotNode(nodeTxt, centerPt, parentPt, nodeType):</span><br><span class="line">    createPlot.ax1.annotate(nodeTxt, xy&#x3D;parentPt,  xycoords&#x3D;&#39;axes fraction&#39;,</span><br><span class="line">             xytext&#x3D;centerPt, textcoords&#x3D;&#39;axes fraction&#39;,</span><br><span class="line">             va&#x3D;&quot;center&quot;, ha&#x3D;&quot;center&quot;, bbox&#x3D;nodeType, arrowprops&#x3D;arrow_args )</span><br><span class="line"></span><br><span class="line">def createPlot():</span><br><span class="line">    fig &#x3D; plt.figure(1, facecolor&#x3D;&#39;white&#39;)</span><br><span class="line">    fig.clf()</span><br><span class="line">    createPlot.ax1 &#x3D; plt.subplot(111, frameon&#x3D;False)    #no ticks</span><br><span class="line">	plotNode(&#39;决策节点&#39;, (0.5, 0.1), (0.1, 0.5), decisionNode)</span><br><span class="line">	plotNode(&#39;叶节点&#39;, (0.8, 0.1), (0.3, 0.8), leafNode)</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
+<p>dict函数用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; dict(a&#x3D;&#39;a&#39;, b&#x3D;&#39;b&#39;, t&#x3D;&#39;t&#39;)     # 传入关键字</span><br><span class="line">&#123;&#39;a&#39;: &#39;a&#39;, &#39;b&#39;: &#39;b&#39;, &#39;t&#39;: &#39;t&#39;&#125;</span><br></pre></td></tr></table></figure>
+<p>annotate函数用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">annotate(nodeTxt, xy&#x3D;parentPt,  xycoords&#x3D;&#39;axes fraction&#39;,</span><br><span class="line">             xytext&#x3D;centerPt, textcoords&#x3D;&#39;axes fraction&#39;,</span><br><span class="line">             va&#x3D;&quot;center&quot;, ha&#x3D;&quot;center&quot;, bbox&#x3D;nodeType, arrowprops&#x3D;arrow_args)</span><br><span class="line">nodeTx：注释的内容</span><br><span class="line">xy: 箭头的出发点</span><br><span class="line">xytext: 箭头指向的位置</span><br><span class="line">bbox：设置方框的外观 sawtooth锯齿形 round4 就是一种样式 fc方框内部背景颜色 bbox的值要以字典的形式传入</span><br></pre></td></tr></table></figure>
+
+<p>测试代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;import treePlotter</span><br><span class="line">&gt;&gt;&gt;treePlotter.createPlot()</span><br></pre></td></tr></table></figure>
+
+<p>获取叶节点的数目和树的层数：              </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">def getNumLeafs(myTree):</span><br><span class="line">    numLeafs &#x3D; 0</span><br><span class="line">    firstStr &#x3D; list(myTree.keys())[0]    &#x2F;&#x2F;dict_key不能直接被索引，要先处理成list再索引</span><br><span class="line">    secondDict &#x3D; myTree[firstStr]</span><br><span class="line">    for key in secondDict.keys():      &#x2F;&#x2F;遍历每一层字典中所有的key</span><br><span class="line">        if type(secondDict[key]).__name__&#x3D;&#x3D;&#39;dict&#39;:#test to see if the nodes are dictonaires, if not they are leaf nodes</span><br><span class="line">            numLeafs +&#x3D; getNumLeafs(secondDict[key]) </span><br><span class="line">        else:   numLeafs +&#x3D;1   </span><br><span class="line">    return numLeafs        &#x2F;&#x2F;从外层到内层，value不是字典就给numLeafs加一，是字典就进入下一层，继续在子字典上判断value是不是字典，不是就给numLeafs加一，是就进入下一层，以此类推，直到没有值为字典</span><br><span class="line"></span><br><span class="line">def getTreeDepth(myTree):          这个地方有问题？</span><br><span class="line">    maxDepth &#x3D; 0</span><br><span class="line">    firstStr &#x3D; list(myTree.keys())[0]    &#x2F;&#x2F;对一个嵌套字典使用keys()函数，只会返回最外层的key</span><br><span class="line">    secondDict &#x3D; myTree[firstStr]       </span><br><span class="line">    for key in secondDict.keys():</span><br><span class="line">        if type(secondDict[key]).__name__&#x3D;&#x3D;&#39;dict&#39;:#test to see if the nodes are dictonaires, if not they are leaf nodes</span><br><span class="line">            thisDepth &#x3D; 1 + getTreeDepth(secondDict[key])</span><br><span class="line">        else:   thisDepth &#x3D; 1        &#x2F;&#x2F;进入一层字典就给深度加1，直到没有字典时令深度为1</span><br><span class="line">        if thisDepth &gt; maxDepth: maxDepth &#x3D; thisDepth      &#x2F;&#x2F;对于每一个中间节点而言，选取不同的key值时，取到的深度是不同的，选取最大的那个值</span><br><span class="line">    return maxDepth</span><br></pre></td></tr></table></figure>
 <p>type().name用法：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;type(&#123;&#39;flippers&#39;: &#123;0: &#39;no&#39;, 1: &#39;yes&#39;&#125;&#125;).__name__&#x3D;&#x3D;&#39;dict&#39;</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt;type(&#123;&#39;flippers&#39;: &#123;0: &#39;no&#39;, 1: &#39;yes&#39;&#125;&#125;)&#x3D;&#x3D;&#39;dict&#39;</span><br><span class="line">False</span><br></pre></td></tr></table></figure>
       
@@ -278,6 +167,8 @@
     <footer class="article-footer">
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97/" rel="tag">机器学习实战系列</a></li></ul>
+
 
     </footer>
 
@@ -953,13 +844,88 @@
 
 </article>
     
+    <article id="post-LabelImg" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/21/LabelImg/"
+    >LabelImg</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/21/LabelImg/" class="article-date">
+  <time datetime="2020-03-21T03:24:52.000Z" itemprop="datePublished">2020-03-21</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>安装：<br>1.安装anaconda(python3.6);<br>2.到<a href="https://github.com/tzutalin/labelImg" target="_blank" rel="noopener">labelImg</a> download zip;<br>3.打开Anaconda Prompt，进入labelImg根目录，输入命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">conda install pyqt&#x3D;5 </span><br><span class="line">pyrcc5 -o libs&#x2F;resources.py resources.qrc</span><br><span class="line">python labelImg.py</span><br></pre></td></tr></table></figure>
+<p>conda国内源的配置：<br>只需要修改C:\Users\Administrator目录下的.condarc文件。Windows用户无法直接创建名为.condarc的文件，先执行conda config –set show_channel_urls yes生成该文件之后再修改。<br>将.condarc文件中的代码修改为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">channels:</span><br><span class="line">  - defaults</span><br><span class="line">show_channel_urls: true</span><br><span class="line">channel_alias: https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;anaconda</span><br><span class="line">default_channels:</span><br><span class="line">  - https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;anaconda&#x2F;pkgs&#x2F;main</span><br><span class="line">  - https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;anaconda&#x2F;pkgs&#x2F;free</span><br><span class="line">  - https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;anaconda&#x2F;pkgs&#x2F;r</span><br><span class="line">  - https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;anaconda&#x2F;pkgs&#x2F;pro</span><br><span class="line">  - https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;anaconda&#x2F;pkgs&#x2F;msys2</span><br><span class="line">custom_channels:</span><br><span class="line">  conda-forge: https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;anaconda&#x2F;cloud</span><br><span class="line">  msys2: https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;anaconda&#x2F;cloud</span><br><span class="line">  bioconda: https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;anaconda&#x2F;cloud</span><br><span class="line">  menpo: https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;anaconda&#x2F;cloud</span><br><span class="line">  pytorch: https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;anaconda&#x2F;cloud</span><br><span class="line">  simpleitk: https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;anaconda&#x2F;cloud</span><br></pre></td></tr></table></figure>
+<p>如果输入conda指令显示solve environment,在cmd输入下行代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda update -n base conda</span><br></pre></td></tr></table></figure>
+
+<p>运行conda clean -i清除索引缓存，保证用的是镜像站提供的索引。<br>运行conda create -n myenv numpy测试一下。<br>这些命令都是在cmd中输入的。</p>
+<p>使用：<br>1.点击Open Dir(打开图片所在文件夹).<br>2.点击Change Save Dir修改生成xml文件存储位置。<br>3.在edit里面找到create RectBox，或者右键选定create RectBox。<br>4.选取矩形框后可以自定义标签名字，也可以使用已经定义好的。<br>5.再按ctrl+s，就可以在save dir路径下找到这张图片对应的xml文件。<br>6.next image对下一张照片进行处理。<br>注：1.xml文件的名字默认是图片的名字<br>    2.不同版本的labelImg在界面上会有稍微的区别<br>    3.标注过程中可随时返回进行修改，后保存的文件会覆盖之前的。<br>    4.labelImg既可以标注VOC格式的数据集，也可以标注YOLO格式的数据集。</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
   </article>
   
 
   
   <nav class="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
   </nav>
   
 </section>
