@@ -69,6 +69,140 @@
     
     
     
+    <article id="post-C-Primer-第二章练习-1" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/04/29/C-Primer-%E7%AC%AC%E4%BA%8C%E7%AB%A0%E7%BB%83%E4%B9%A0-1/"
+    >C++ Primer 第二章练习-1</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/04/29/C-Primer-%E7%AC%AC%E4%BA%8C%E7%AB%A0%E7%BB%83%E4%B9%A0-1/" class="article-date">
+  <time datetime="2020-04-29T15:04:28.000Z" itemprop="datePublished">2020-04-29</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>练习2.1<br>C++规定编译器int最小占位数16位，short也是16位，long和long long分别最少占32位和64位。编译器可以分配给四种类型更多的位数，取决于编译器本身。四种类型都是整型的。<br>无符号类型只有0和正数。带符号类型有正有负有0。<br>float和double的区别在于会保留更多的有效数字。一个是6位，一个是8位。</p>
+<p>练习2.2<br>既然要在三者之间进行数值计算，那么最好声明成相同的数据类型。如果可能是小数，一般就声明为double类型。</p>
+<p>练习2.3</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;&gt;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	unsigned u &#x3D; 10, u2 &#x3D; 42;</span><br><span class="line">	std::cout &lt;&lt; u2 - u &lt;&lt; std::endl;</span><br><span class="line">	std::cout &lt;&lt; u - u2 &lt;&lt; std::endl;</span><br><span class="line">	</span><br><span class="line">	int i &#x3D; 10, i2 &#x3D; 42;</span><br><span class="line">	std::cout &lt;&lt; i2 - i &lt;&lt; std::endl;</span><br><span class="line">	std::cout &lt;&lt; i - i2 &lt;&lt; std::endl;</span><br><span class="line">	std::cout &lt;&lt; i - u &lt;&lt; std::endl;</span><br><span class="line">	std::cout &lt;&lt; u - i &lt;&lt; std::endl; 	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">32</span><br><span class="line">4294967264</span><br><span class="line">32</span><br><span class="line">-32</span><br><span class="line">0</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
+
+<p>练习2.5<br>‘a’: char L’a’:</p>
+<p>练习2.6</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int month &#x3D; 9, day &#x3D; 7;   &#x2F;&#x2F;定义正确</span><br><span class="line">int month &#x3D; 09,  day &#x3D; 07;  &#x2F;&#x2F;0是八进制的标志，因为八进制中没有9，所以会报错</span><br></pre></td></tr></table></figure>
+
+<p>练习2.7</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;Who goes with F\145rgus?\012&quot; &#x3D;&#x3D; &quot;Who goes with Fergus?&quot;</span><br></pre></td></tr></table></figure>
+<p>练习2.8</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	std::cout &lt;&lt; &quot;2\x4d\012&quot;;</span><br><span class="line">	std::cout &lt;&lt; &quot;2\tM\n&quot;;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>练习2.9</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">std::cin &gt;&gt; int input_value; &#x2F;&#x2F;错误，改为 int input_value; std::cin &gt;&gt; input_value;</span><br><span class="line">int i &#x3D; &#123;3.14&#125;;   &#x2F;&#x2F;类型不一致，会warning</span><br><span class="line">double salary &#x3D; wage &#x3D; 9999.99; &#x2F;&#x2F;错误，改为double salary, wage; salary &#x3D; wage &#x3D; 9999.99;</span><br><span class="line">int i &#x3D; 3.14; &#x2F;&#x2F;类型不一致，warning</span><br></pre></td></tr></table></figure>
+
+<p>练习2.10</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">std::string global_str;   &#x2F;&#x2F;string类型无论在函数内还是在函数外都默认初始化为空字符串</span><br><span class="line">int global_int;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int local_int;   &#x2F;&#x2F;int类型在函数外默认初始化为0，在函数内不被初始化，但是如果要拷贝或者输出这个变量，会出现一个未知的数。</span><br><span class="line">	std::string local_str;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>练习2.11</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">extern int ix &#x3D; 1024; &#x2F;&#x2F;定义</span><br><span class="line">int iy;  &#x2F;&#x2F;定义</span><br><span class="line">extern int iz; &#x2F;&#x2F;声明</span><br></pre></td></tr></table></figure>
+
+<p>练习2.12</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int double &#x3D; 3.14;  &#x2F;&#x2F;非法，double不能作为变量名</span><br><span class="line">int _; &#x2F;&#x2F;合法的</span><br><span class="line">int catch-22; &#x2F;&#x2F;非法，标识符中不能出现减号</span><br><span class="line">int 1_or_2 &#x3D; 1 &#x2F;&#x2F;非法，不能以数字开头</span><br><span class="line">double Double &#x3D; 3.14; &#x2F;&#x2F;合法</span><br></pre></td></tr></table></figure>
+
+<p>练习2.13</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int i &#x3D; 42;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int i &#x3D; 100;</span><br><span class="line">	int j &#x3D; i;   &#x2F;&#x2F;j&#x3D;100</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>练习2.14</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int i &#x3D; 100, sum &#x3D; 0;</span><br><span class="line">for(int i &#x3D; 0; i !&#x3D; 10; ++i)</span><br><span class="line">	sum +&#x3D; i;</span><br><span class="line">std::cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; sum &lt;&lt; std::endl;  &#x2F;&#x2F;i &#x3D; 100, sum &#x3D; 45</span><br></pre></td></tr></table></figure>
+
+<p>练习2.15</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int ival &#x3D; 1.01;  &#x2F;&#x2F;合法</span><br><span class="line">int &amp;rvall &#x3D; 1.01; &#x2F;&#x2F;非法</span><br><span class="line">int &amp;rvall2 &#x3D; ival;  &#x2F;&#x2F;合法</span><br><span class="line">int &amp;rval3;  &#x2F;&#x2F;非法，引用必须初始化</span><br></pre></td></tr></table></figure>
+
+<p>练习2.16</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int i &#x3D; 0, &amp;r1 &#x3D; i;</span><br><span class="line">double d &#x3D; 0, &amp;r2 &#x3D; d;</span><br><span class="line">r2 &#x3D; 3.14159; &#x2F;&#x2F;合法</span><br><span class="line">r2 &#x3D; r1; &#x2F;&#x2F;合法</span><br><span class="line">i &#x3D; r2; &#x2F;&#x2F;合法</span><br><span class="line">r1 &#x3D; d; &#x2F;&#x2F;合法</span><br></pre></td></tr></table></figure>
+
+<p>练习2.17</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int i, &amp;ri &#x3D; i;</span><br><span class="line">i &#x3D; 5; ri &#x3D; 10;</span><br><span class="line">std::cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; ri &lt;&lt; std::endl;   &#x2F;&#x2F;i &#x3D; 10, ri &#x3D; 10</span><br></pre></td></tr></table></figure>
+
+<p>练习2.18</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int i &#x3D; 5, j &#x3D; 10;</span><br><span class="line">	int *p &#x3D; &amp;i;</span><br><span class="line">	std::cout &lt;&lt; p &lt;&lt; &quot; &quot; &lt;&lt; *p &lt;&lt; std::endl;   &#x2F;&#x2F;p &#x3D; 0x6ffe04 *p&#x3D;5  </span><br><span class="line">	p &#x3D; &amp;j;</span><br><span class="line">	std::cout &lt;&lt; p &lt;&lt; &quot; &quot; &lt;&lt; *p &lt;&lt; std::endl;   &#x2F;&#x2F;p &#x3D; 0x6ffe00 *p&#x3D;10</span><br><span class="line">	*p &#x3D; 20;</span><br><span class="line">	std::cout &lt;&lt; p &lt;&lt; &quot; &quot; &lt;&lt; *p &lt;&lt; std::endl;   &#x2F;&#x2F;p &#x3D; 0x6ffe00 *p&#x3D;20</span><br><span class="line">	j &#x3D; 30;</span><br><span class="line">	std::cout &lt;&lt; p &lt;&lt; &quot; &quot; &lt;&lt; *p &lt;&lt; std::endl;   &#x2F;&#x2F;p &#x3D; 0x6ffe00 *p&#x3D;30</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>练习2.20</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int i &#x3D; 42;</span><br><span class="line">int *p1 &#x3D; &amp;i;    &#x2F;&#x2F;在定义语句中*只是一个指针的标志，除此之外没有别的含义</span><br><span class="line">*p1 &#x3D; *p1 * *p1;   &#x2F;&#x2F;在定义语句之外，再出现*p1就是i，直接替换</span><br></pre></td></tr></table></figure>
+
+<p>练习2.21</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int i &#x3D; 0;</span><br><span class="line">double* dp &#x3D;&amp;i;  &#x2F;&#x2F;非法，类型不匹配，double类型的指针不能指向整型对象，更不能指向一个具体的整数</span><br><span class="line">int *ip &#x3D; i;   &#x2F;&#x2F;用一个整数(除了0)或者一个整型变量初始化一个整型指针会报错，用0初始化一个指针就是初始化一个空指针</span><br><span class="line">int *p &#x3D; &amp;i;   &#x2F;&#x2F;合法，必须用一个指针变量或者&amp;符号来初始化一个指针</span><br></pre></td></tr></table></figure>
+
+<p>练习2.22</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">if (p)  &#x2F;&#x2F;...   </span><br><span class="line">if (*p)  &#x2F;&#x2F;...</span><br><span class="line"></span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int i &#x3D; 0;</span><br><span class="line">	int *p1 &#x3D; nullptr;</span><br><span class="line">	int *p &#x3D; &amp;i;</span><br><span class="line">	if (p1)     &#x2F;&#x2F;检验指针的值(即指针所指对象的地址)</span><br><span class="line">		std::cout &lt;&lt; &quot;p1 pass&quot; &lt;&lt; std::endl;</span><br><span class="line">	if (p)      &#x2F;&#x2F;检验指针的值(即指针所指对象的地址)</span><br><span class="line">		std::cout &lt;&lt; &quot;p pass&quot; &lt;&lt; std::endl;</span><br><span class="line">	if (*p)     &#x2F;&#x2F;检验指针所指对象的值</span><br><span class="line">		std::cout &lt;&lt; &quot;i pass&quot; &lt;&lt; std::endl;</span><br><span class="line">	return 0;   &#x2F;&#x2F;如果一个指针是用空指针初始化，那么这个指针的值就是0。只要指针指向对象值都不是0，只有什么对象都不指向时值才为0。</span><br><span class="line">&#125;          &#x2F;&#x2F;感觉这个知识点没啥卵用</span><br></pre></td></tr></table></figure>
+
+<p>练习2.24</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int i &#x3D; 42; void *p &#x3D; &amp;i; long *lp &#x3D; &amp;i;  &#x2F;&#x2F;定义指针时不存在类型转换，不一致就是不一致</span><br><span class="line">&#x2F;&#x2F;void指针可以指向任何类型的对象，但是long指针只能匹配long类型对象。</span><br></pre></td></tr></table></figure>
+
+<p>练习2.25</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int *ip, i, &amp;r &#x3D; i;   &#x2F;&#x2F;i: int r: int ip: int* 可以在定义指针时不初始化它，但是最好初始化</span><br><span class="line">int i, *ip &#x3D; 0;    &#x2F;&#x2F;i: int ip: int* ip是一个空指针</span><br><span class="line">int* ip, ip2;    &#x2F;&#x2F;ip: int* ip2: int</span><br></pre></td></tr></table></figure>
+
+<p>练习2.26</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const int buf;  &#x2F;&#x2F;非法，const必须初始化</span><br><span class="line">int cnt &#x3D; 0;  &#x2F;&#x2F;合法</span><br><span class="line">const int sz &#x3D; cnt;  &#x2F;&#x2F;合法</span><br><span class="line">++cnt; ++sz;  &#x2F;&#x2F;前半句合法，后半句非法</span><br></pre></td></tr></table></figure>
+
+<p>练习2.27</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int i &#x3D; -1, &amp;r &#x3D; 0;           &#x2F;&#x2F;非法，不能用一个数字初始化引用</span><br><span class="line">int *const p2 &#x3D; &amp;i2;           &#x2F;&#x2F;合法，定义了一个常量指针p2指向i2，即指针p2永远指向i2，指针指向对象是可以改变的</span><br><span class="line">const int i &#x3D; -1, &amp;r &#x3D; 0;        &#x2F;&#x2F;合法，可以用一个数字初始化常量引用</span><br><span class="line">const int *const p3 &#x3D; &amp;i2;        &#x2F;&#x2F;合法，定义了一个常量指针指向变量i2，i2的值可以改变，但是不能通过指针p3来改变</span><br><span class="line">const int *p1 &#x3D; &amp;i2;     &#x2F;&#x2F;合法，定义了一个指针指向常量i2，指针可以指向其它对象，但是在指向i2时不能通过p1来改变i2的值</span><br><span class="line">const int &amp;const r2;     &#x2F;&#x2F;？</span><br><span class="line">const int i2 &#x3D; i, &amp;r &#x3D; i;   &#x2F;&#x2F;合法，i2是一个常量，r是一个常量引用，不能通过r来改变i的值</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-Primer/" rel="tag">C++ Primer</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-机器学习实战系列-二-决策树-2" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -823,97 +957,6 @@
 
       
       <p>首先，建议一种配置环境：<br>    anaconda(python3.6)、tensorflow_gpu==1.14.0、cudnn 7.4、cuda 10。因为tensorflow(1.12/1.13/2.0)都存在不兼容问题。<br>    tensorflow1.12版本与cudnn7.4、cuda10不兼容。1.13版本v1模块中没有v2属性。2.x版本tensorflow没有contrib属性。原因是tensorflow更新的太快，object detection api跟不上tensorflow的更新速度。<br>安装流程：<br>    1、到(<a href="https://github.com/tensorflow/models" target="_blank" rel="noopener">https://github.com/tensorflow/models</a>) download zip。<br>    2、创建虚拟环境，执行如下指令。<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">··· conda create -n tensorflow1 pip python&#x3D;3.6</span><br></pre></td></tr></table></figure><br>    3、激活虚拟环境并安装tensorflow_gpu==1.14.0版本：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install --ignore-installed --upgrade tensorflow-gpu&#x3D;&#x3D;1.14.0</span><br></pre></td></tr></table></figure><br>    4、安装一些别的包，配置API的依赖项<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">pip install pillow</span><br><span class="line">pip install lxml</span><br><span class="line">pip install Cython</span><br><span class="line">pip install jupyter</span><br><span class="line">pip install matplotlib</span><br><span class="line">pip install pandas</span><br><span class="line">pip install opencv-python</span><br></pre></td></tr></table></figure><br>    5、到(<a href="https://github.com/protocolbuffers/protobuf/releases)下载protoc-x.xx.x-win64.zip。解压后将protoc.exe文件拷贝到C:\Windows路径下。" target="_blank" rel="noopener">https://github.com/protocolbuffers/protobuf/releases)下载protoc-x.xx.x-win64.zip。解压后将protoc.exe文件拷贝到C:\Windows路径下。</a><br>    6、配置API的环境变量，即在系统变量中新建一个名为PYTHONPATH的变量，值为.\models;.\models\research;.\models\research\slim。注意环境变量中反斜线的方向。<br>    7、编译Protobuf:<br>        在research目录下打开cmd，执行如下指令：<br>        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protoc --python_out&#x3D;. .\object_detection\protos\anchor_generator.proto .\object_detection\protos\argmax_matcher.proto .\object_detection\protos\bipartite_matcher.proto .\object_detection\protos\box_coder.proto .\object_detection\protos\box_predictor.proto .\object_detection\protos\eval.proto .\object_detection\protos\faster_rcnn.proto .\object_detection\protos\faster_rcnn_box_coder.proto .\object_detection\protos\grid_anchor_generator.proto .\object_detection\protos\hyperparams.proto .\object_detection\protos\image_resizer.proto .\object_detection\protos\input_reader.proto .\object_detection\protos\losses.proto .\object_detection\protos\matcher.proto .\object_detection\protos\mean_stddev_box_coder.proto .\object_detection\protos\model.proto .\object_detection\protos\optimizer.proto .\object_detection\protos\pipeline.proto .\object_detection\protos\post_processing.proto .\object_detection\protos\preprocessor.proto .\object_detection\protos\region_similarity_calculator.proto .\object_detection\protos\square_box_coder.proto .\object_detection\protos\ssd.proto .\object_detection\protos\ssd_anchor_generator.proto .\object_detection\protos\string_int_label_map.proto .\object_detection\protos\train.proto .\object_detection\protos\keypoint_box_coder.proto .\object_detection\protos\multiscale_anchor_generator.proto .\object_detection\protos\graph_rewriter.proto .\object_detection\protos\calibration.proto .\object_detection\protos\flexible_grid_anchor_generator.proto</span><br></pre></td></tr></table></figure><br>        注：在protos目录下的所有proto文件都要编译，否则就会报错，如果报错就检查哪个proto文件没有编译。<br>    8、执行如下指令:<br>       <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python setup.py build</span><br><span class="line">python setup.py install</span><br></pre></td></tr></table></figure><br>    9、判断API是否安装成功：<br>       在builders目录下打开cmd，执行指令：<br>       <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python model_builder_test.py</span><br></pre></td></tr></table></figure><br>       如果显示OK，说明安装成功。<br>    注：1、如果在升级tensorflow版本的时候出现Cannot uninstall ‘wrapt’的提示，直接去手动删除就可以了。<br>        2、如果想打开一个不在jupyter根目录的文件，那么就直接在这个目录进入cmd，输入jupyter notebook就可以了。</p>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-VOC数据集" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/22/VOC%E6%95%B0%E6%8D%AE%E9%9B%86/"
-    >VOC数据集</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/22/VOC%E6%95%B0%E6%8D%AE%E9%9B%86/" class="article-date">
-  <time datetime="2020-03-22T01:54:51.000Z" itemprop="datePublished">2020-03-22</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>数据集的标注：<br>数据集的标注很谨慎，有专门的标注团队，并遵从统一的标注标准。<br>VOC数据集的标注信息是用xml文件组织的，如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;annotation&gt;</span><br><span class="line">	&lt;folder&gt;Desktop&lt;&#x2F;folder&gt;</span><br><span class="line">	&lt;filename&gt;fd3f06748e6cb31a564800c740ec8ce.png&lt;&#x2F;filename&gt;</span><br><span class="line">	&lt;path&gt;C:\Users\Administrator\Desktop\fd3f06748e6cb31a564800c740ec8ce.png&lt;&#x2F;path&gt;</span><br><span class="line">	&lt;source&gt;</span><br><span class="line">		&lt;database&gt;Unknown&lt;&#x2F;database&gt;</span><br><span class="line">	&lt;&#x2F;source&gt;</span><br><span class="line">	&lt;size&gt;</span><br><span class="line">		&lt;width&gt;1920&lt;&#x2F;width&gt;</span><br><span class="line">		&lt;height&gt;943&lt;&#x2F;height&gt;</span><br><span class="line">		&lt;depth&gt;3&lt;&#x2F;depth&gt;</span><br><span class="line">	&lt;&#x2F;size&gt;</span><br><span class="line">	&lt;segmented&gt;0&lt;&#x2F;segmented&gt;</span><br><span class="line">	&lt;object&gt;</span><br><span class="line">		&lt;name&gt;dog&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;pose&gt;Unspecified&lt;&#x2F;pose&gt;</span><br><span class="line">		&lt;truncated&gt;0&lt;&#x2F;truncated&gt;</span><br><span class="line">		&lt;difficult&gt;0&lt;&#x2F;difficult&gt;</span><br><span class="line">		&lt;bndbox&gt;</span><br><span class="line">			&lt;xmin&gt;440&lt;&#x2F;xmin&gt;</span><br><span class="line">			&lt;ymin&gt;142&lt;&#x2F;ymin&gt;</span><br><span class="line">			&lt;xmax&gt;1231&lt;&#x2F;xmax&gt;</span><br><span class="line">			&lt;ymax&gt;612&lt;&#x2F;ymax&gt;</span><br><span class="line">		&lt;&#x2F;bndbox&gt;</span><br><span class="line">	&lt;&#x2F;object&gt;</span><br><span class="line">&lt;&#x2F;annotation&gt;</span><br></pre></td></tr></table></figure>
-<p>filename ：文件名<br>source，owner：图片来源，及拥有者(现在版本的labelImg好像不标注owner了)<br>size：图片大小<br>segmented：是否分割<br>object：目标的相关信息<br>        name：object名称，20个类别<br>        pose：拍摄角度：front, rear, left, right, unspecified<br>        truncated：目标是否被截断（比如在图片之外），或者被遮挡（超过15%）<br>        difficult：检测难易程度，这个主要是根据目标的大小，光照变化，图片质量来判断<br>        bndbox：bounding box的左上角点和右下角点的4个坐标值。</p>
-<p>数据集组织结构：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">├── Annotations 进行detection 任务时的 标签文件，xml文件形式</span><br><span class="line">├── ImageSets 存放数据集的分割文件，比如train，val，test</span><br><span class="line">├── JPEGImages 存放.jpg格式的图片文件</span><br><span class="line">├── SegmentationClass 存放按照class分割的图片</span><br><span class="line">└── SegmentationObject 存放按照object分割的图片</span><br></pre></td></tr></table></figure>
-
-<p>Annotations文件夹：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">├── 000001.xml</span><br><span class="line">├── 000002.xml</span><br><span class="line">├── 000003.xml</span><br><span class="line">├── 000004.xml</span><br><span class="line">……</span><br><span class="line">……</span><br><span class="line">……</span><br><span class="line">├── 009962.xml</span><br><span class="line">└── 009963.xml</span><br></pre></td></tr></table></figure>
-
-<p>ImageSets文件夹：<br>存放数据集的分割文件，包含三个子文件夹Layout，Main，Segmentation，其中Main文件夹存放的是用于分类和检测的数据集分割文件，Layout文件夹用于person layout任务，Segmentation用于分割任务。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line">├── Layout</span><br><span class="line">│   ├── test.txt</span><br><span class="line">│   ├── train.txt</span><br><span class="line">│   ├── trainval.txt</span><br><span class="line">│   └── val.txt</span><br><span class="line">├── Main</span><br><span class="line">│   ├── aeroplane_test.txt</span><br><span class="line">│   ├── aeroplane_train.txt</span><br><span class="line">│   ├── aeroplane_trainval.txt</span><br><span class="line">│   ├── aeroplane_val.txt</span><br><span class="line">│   ├── bicycle_test.txt</span><br><span class="line">│   ├── bicycle_train.txt</span><br><span class="line">│   ├── bicycle_trainval.txt</span><br><span class="line">│   ├── bicycle_val.txt</span><br><span class="line">│   ├── bird_test.txt</span><br><span class="line">│   ├── bird_train.txt</span><br><span class="line">│   ├── bird_trainval.txt</span><br><span class="line">│   ├── bird_val.txt</span><br><span class="line">│   ├── boat_test.txt</span><br><span class="line">│   ├── boat_train.txt</span><br><span class="line">│   ├── boat_trainval.txt</span><br><span class="line">│   ├── boat_val.txt</span><br><span class="line">│   ├── bottle_test.txt</span><br><span class="line">│   ├── bottle_train.txt</span><br><span class="line">│   ├── bottle_trainval.txt</span><br><span class="line">│   ├── bottle_val.txt</span><br><span class="line">│   ├── bus_test.txt</span><br><span class="line">│   ├── bus_train.txt</span><br><span class="line">│   ├── bus_trainval.txt</span><br><span class="line">│   ├── bus_val.txt</span><br><span class="line">│   ├── car_test.txt</span><br><span class="line">│   ├── car_train.txt</span><br><span class="line">│   ├── car_trainval.txt</span><br><span class="line">│   ├── car_val.txt</span><br><span class="line">│   ├── cat_test.txt</span><br><span class="line">│   ├── cat_train.txt</span><br><span class="line">│   ├── cat_trainval.txt</span><br><span class="line">│   ├── cat_val.txt</span><br><span class="line">│   ├── chair_test.txt</span><br><span class="line">│   ├── chair_train.txt</span><br><span class="line">│   ├── chair_trainval.txt</span><br><span class="line">│   ├── chair_val.txt</span><br><span class="line">│   ├── cow_test.txt</span><br><span class="line">│   ├── cow_train.txt</span><br><span class="line">│   ├── cow_trainval.txt</span><br><span class="line">│   ├── cow_val.txt</span><br><span class="line">│   ├── diningtable_test.txt</span><br><span class="line">│   ├── diningtable_train.txt</span><br><span class="line">│   ├── diningtable_trainval.txt</span><br><span class="line">│   ├── diningtable_val.txt</span><br><span class="line">│   ├── dog_test.txt</span><br><span class="line">│   ├── dog_train.txt</span><br><span class="line">│   ├── dog_trainval.txt</span><br><span class="line">│   ├── dog_val.txt</span><br><span class="line">│   ├── horse_test.txt</span><br><span class="line">│   ├── horse_train.txt</span><br><span class="line">│   ├── horse_trainval.txt</span><br><span class="line">│   ├── horse_val.txt</span><br><span class="line">│   ├── motorbike_test.txt</span><br><span class="line">│   ├── motorbike_train.txt</span><br><span class="line">│   ├── motorbike_trainval.txt</span><br><span class="line">│   ├── motorbike_val.txt</span><br><span class="line">│   ├── person_test.txt</span><br><span class="line">│   ├── person_train.txt</span><br><span class="line">│   ├── person_trainval.txt</span><br><span class="line">│   ├── person_val.txt</span><br><span class="line">│   ├── pottedplant_test.txt</span><br><span class="line">│   ├── pottedplant_train.txt</span><br><span class="line">│   ├── pottedplant_trainval.txt</span><br><span class="line">│   ├── pottedplant_val.txt</span><br><span class="line">│   ├── sheep_test.txt</span><br><span class="line">│   ├── sheep_train.txt</span><br><span class="line">│   ├── sheep_trainval.txt</span><br><span class="line">│   ├── sheep_val.txt</span><br><span class="line">│   ├── sofa_test.txt</span><br><span class="line">│   ├── sofa_train.txt</span><br><span class="line">│   ├── sofa_trainval.txt</span><br><span class="line">│   ├── sofa_val.txt</span><br><span class="line">│   ├── test.txt</span><br><span class="line">│   ├── train_test.txt</span><br><span class="line">│   ├── train_train.txt</span><br><span class="line">│   ├── train_trainval.txt</span><br><span class="line">│   ├── train.txt</span><br><span class="line">│   ├── train_val.txt</span><br><span class="line">│   ├── trainval.txt</span><br><span class="line">│   ├── tvmonitor_test.txt</span><br><span class="line">│   ├── tvmonitor_train.txt</span><br><span class="line">│   ├── tvmonitor_trainval.txt</span><br><span class="line">│   ├── tvmonitor_val.txt</span><br><span class="line">│   └── val.txt</span><br><span class="line">└── Segmentation</span><br><span class="line">    ├── test.txt</span><br><span class="line">    ├── train.txt</span><br><span class="line">    ├── trainval.txt</span><br><span class="line">    └── val.txt</span><br></pre></td></tr></table></figure>
-
-<p>主要介绍一下Main文件夹中的组织结构，先来看以下这几个文件：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">├── Main</span><br><span class="line">│   ├── train.txt 写着用于训练的图片名称 共2501个</span><br><span class="line">│   ├── val.txt 写着用于验证的图片名称 共2510个</span><br><span class="line">│   ├── trainval.txt train与val的合集 共5011个</span><br><span class="line">│   ├── test.txt 写着用于测试的图片名称 共4952个</span><br></pre></td></tr></table></figure>
-
-<p>里面的文件内容是下面这样的：以train.txt文件为例</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">000012</span><br><span class="line">000017</span><br><span class="line">000023</span><br><span class="line">000026</span><br><span class="line">000032</span><br><span class="line">000033</span><br><span class="line">000034</span><br><span class="line">000035</span><br><span class="line">000036</span><br><span class="line">000042</span><br><span class="line">……</span><br><span class="line">……</span><br><span class="line">009949</span><br><span class="line">009959</span><br><span class="line">009961</span><br></pre></td></tr></table></figure>
-<p>就是对数据库的分割，这一部分图片用于train，其他的用作val，test等。</p>
-<p>Main中剩下的文件就是每一类别在train或val或test中的ground truth，这个ground truth是为了方便classification任务而提供的；如果是detection的话，使用的是上面的xml标签文件。<br>ground truth的意思是经过正确标注的数据。因此不严谨标注的数据不能称为ground truth。可以理解为标注的标准答案。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">├── Main</span><br><span class="line">│   ├── aeroplane_test.txt 写着用于训练的图片名称 共2501个，指定正负样本</span><br><span class="line">│   ├── aeroplane_train.txt 写着用于验证的图片名称 共2510个，指定正负样本</span><br><span class="line">│   ├── aeroplane_trainval.txt train与val的合集 共5011个，指定正负样本</span><br><span class="line">│   ├── aeroplane_val.txt 写着用于测试的图片名称 共4952个，指定正负样本</span><br><span class="line">……</span><br><span class="line">……</span><br></pre></td></tr></table></figure>
-
-<p>里面文件是这样的（以aeroplane_train.txt为例）：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">000012 -1</span><br><span class="line">000017 -1</span><br><span class="line">000023 -1</span><br><span class="line">000026 -1</span><br><span class="line">000032  1</span><br><span class="line">000033  1</span><br><span class="line">000034 -1</span><br><span class="line">000035 -1</span><br><span class="line">000036 -1</span><br><span class="line">000042 -1</span><br><span class="line">……</span><br><span class="line">……</span><br><span class="line">009949 -1</span><br><span class="line">009959 -1</span><br><span class="line">009961 -1</span><br></pre></td></tr></table></figure>
-
-<p>前面一列是训练集中的图片名称，这一列跟train.txt文件中的内容是一样的，后面一列是标签，即训练集中这张图片是不是aeroplane，是的话为1，否则为-1.<br>其他所有的(class)_(imgset).txt文件都是类似的。<br>    (class)_train存放的是训练使用的数据，每一个class都有2501个train数据。<br>    (class)_val 存放的是验证使用的数据，每一个class都有2510个val数据。<br>    (class)_trainval 将上面两个进行了合并，每一个class有5011个数据。<br>    (class)_test 存放的是测试使用的数据，每一个class有4952个test数据。</p>
 
       
       <!-- reward -->
