@@ -69,6 +69,148 @@
     
     
     
+    <article id="post-C-Primer中级-二-this指针" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/04/C-Primer%E4%B8%AD%E7%BA%A7-%E4%BA%8C-this%E6%8C%87%E9%92%88/"
+    >C++ Primer中级(二)-this指针</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/04/C-Primer%E4%B8%AD%E7%BA%A7-%E4%BA%8C-this%E6%8C%87%E9%92%88/" class="article-date">
+  <time datetime="2020-05-04T15:59:40.000Z" itemprop="datePublished">2020-05-04</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class Person&#123;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line">	Person(const string &amp;nm, const string &amp;addr)</span><br><span class="line">	&#123;</span><br><span class="line">		this-&gt;name &#x3D; nm;</span><br><span class="line">		this-&gt;address &#x3D; addr;	</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	string getName() const</span><br><span class="line">	&#123;</span><br><span class="line">		return this-&gt;name;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	string getAddress() const</span><br><span class="line">	&#123;</span><br><span class="line">		return this-&gt;address;</span><br><span class="line">	&#125;</span><br><span class="line">private:</span><br><span class="line">	string name;</span><br><span class="line">	string address;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class Screen  &#x2F;&#x2F;屏幕上的窗口 </span><br><span class="line">&#123;</span><br><span class="line">	</span><br><span class="line">public:</span><br><span class="line">	typedef string::size_type index;</span><br><span class="line"></span><br><span class="line">	Screen(index ht&#x3D;0, index wd&#x3D;0):contents(ht*wd,&#39;A&#39;), cursor(0), height(ht), width(wd),access_ctr(0)&#123;</span><br><span class="line">	&#125;</span><br><span class="line">	char get() const</span><br><span class="line">	&#123;</span><br><span class="line">		return contents[cursor];</span><br><span class="line">	&#125;</span><br><span class="line">	char get(index r, index c) const</span><br><span class="line">	&#123;</span><br><span class="line">		index row &#x3D; r * width;</span><br><span class="line">		return contents[row+c];</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	Screen&amp; move(index r, index c);</span><br><span class="line">	Screen&amp; set(index,index,char);</span><br><span class="line">	Screen&amp; set(char);</span><br><span class="line">	const Screen&amp; display(ostream &amp;os) const</span><br><span class="line">	&#123;</span><br><span class="line">		++access_ctr;</span><br><span class="line">		do_display(os);</span><br><span class="line">		return *this;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	Screen&amp; display(ostream &amp;os)</span><br><span class="line">	&#123;</span><br><span class="line">		++access_ctr;  &#x2F;&#x2F;display被调用的次数 </span><br><span class="line">		do_display(os);</span><br><span class="line">		return *this;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">private:</span><br><span class="line">	string contents;</span><br><span class="line">	index cursor;</span><br><span class="line">	index height, width;</span><br><span class="line">	mutable size_t access_ctr;  &#x2F;&#x2F;计数 </span><br><span class="line">	</span><br><span class="line">	void do_display(ostream &amp;os) const</span><br><span class="line">	&#123;</span><br><span class="line">		os &lt;&lt; contents;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line">Screen&amp; Screen::move(index r, index c)</span><br><span class="line">&#123;</span><br><span class="line">	index row &#x3D; r * width;</span><br><span class="line">	cursor &#x3D; row + c;</span><br><span class="line">	</span><br><span class="line">	return *this;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Screen&amp; Screen::set(index r, index c, char ch)</span><br><span class="line">&#123;</span><br><span class="line">	index row &#x3D; r * width;</span><br><span class="line">	contents[row+c] &#x3D; ch;</span><br><span class="line">	</span><br><span class="line">	return *this;	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Screen&amp; Screen::set(char ch)</span><br><span class="line">&#123;</span><br><span class="line">	contents[cursor] &#x3D; ch;</span><br><span class="line">	return *this;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	Person p(&quot;zhangfei&quot;, &quot;huayuanjie&quot;);</span><br><span class="line">	Person p2(&quot;liubei&quot;, &quot;huayuanjie6&quot;);</span><br><span class="line">	</span><br><span class="line">	cout &lt;&lt; p.getName() &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; p2.getName() &lt;&lt; endl;</span><br><span class="line">	</span><br><span class="line">	Screen myScreen(5,3);</span><br><span class="line">	cout &lt;&lt; myScreen.get() &lt;&lt; endl;</span><br><span class="line">	myScreen.set(3,2,&#39;B&#39;); </span><br><span class="line">	cout &lt;&lt; myScreen.get(3,2) &lt;&lt; endl;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;这两行是重点 </span><br><span class="line">	myScreen.move(2,3);</span><br><span class="line">	myScreen.set(&#39;C&#39;);</span><br><span class="line">	&#x2F;&#x2F;更简单的写法 </span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">	myScreen.move(2,3).set(&#39;C&#39;).display(cout).set(&#39;K&#39;).display(cout); &#x2F;&#x2F;这个写法太漂亮了 </span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">	myScreen.move(4,0).set(&#39;X&#39;).move(4,2).set(&#39;Y&#39;).move(4,2).set(&#39;Z&#39;).display(cout);</span><br><span class="line">	cout &lt;&lt; myScreen.get() &lt;&lt; endl;</span><br><span class="line">	</span><br><span class="line">	myScreen.display(cout);</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-Primer%E4%B8%AD%E7%BA%A7/" rel="tag">C++ Primer中级</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-C-Primer中级-一-类定义" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/04/C-Primer%E4%B8%AD%E7%BA%A7-%E4%B8%80-%E7%B1%BB%E5%AE%9A%E4%B9%89/"
+    >C++ Primer中级(一)-类定义</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/04/C-Primer%E4%B8%AD%E7%BA%A7-%E4%B8%80-%E7%B1%BB%E5%AE%9A%E4%B9%89/" class="article-date">
+  <time datetime="2020-05-04T15:58:23.000Z" itemprop="datePublished">2020-05-04</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;销售 项目 </span><br><span class="line">class Sales_item</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line">	Sales_item(string &amp;book, unsigned units, double amount)</span><br><span class="line">	:isbn(book), units_sold(units), revenue(amount)</span><br><span class="line">	&#123;</span><br><span class="line">		&#125;</span><br><span class="line">	</span><br><span class="line">	double avg_price() const</span><br><span class="line">	&#123;</span><br><span class="line">		if(units_sold)</span><br><span class="line">			return revenue&#x2F;units_sold;</span><br><span class="line">		else</span><br><span class="line">			return 0;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	bool same_isbn(const Sales_item &amp;rhs) const</span><br><span class="line">	&#123;</span><br><span class="line">		return isbn &#x3D;&#x3D; rhs.isbn;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	void add(const Sales_item &amp;rhs)</span><br><span class="line">	&#123;</span><br><span class="line">		units_sold +&#x3D; rhs.units_sold;</span><br><span class="line">		revenue +&#x3D; rhs.revenue;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">private:</span><br><span class="line">	string isbn; &#x2F;&#x2F;书号</span><br><span class="line">	unsigned units_sold;  &#x2F;&#x2F;销售数量 </span><br><span class="line">	double revenue;  &#x2F;&#x2F;总金额 </span><br><span class="line">	</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class Person&#123;</span><br><span class="line">	&#x2F;&#x2F;成员</span><br><span class="line">public: </span><br><span class="line">	Person(const string &amp;nm, const string &amp;addr):name(nm),address(addr)</span><br><span class="line">	&#123;</span><br><span class="line">		&#x2F;&#x2F;name &#x3D; nm;</span><br><span class="line">		&#x2F;&#x2F;address &#x3D; addr;</span><br><span class="line">	&#125;</span><br><span class="line">	string getName() const</span><br><span class="line">	&#123;</span><br><span class="line">		return name;</span><br><span class="line">	&#125;</span><br><span class="line">	string getAddress() const</span><br><span class="line">	&#123;</span><br><span class="line">		return address;</span><br><span class="line">	&#125;</span><br><span class="line">private:  </span><br><span class="line">		string name;</span><br><span class="line">		string address;</span><br><span class="line">&#125;; </span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	Person a(&quot;Bill&quot;,&quot;花园&quot;);</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;cout &lt;&lt; a.name &lt;&lt; a.address;</span><br><span class="line">	a.getName();</span><br><span class="line">	a.getAddress();</span><br><span class="line">	cout &lt;&lt; a.getName() &lt;&lt; endl &lt;&lt;a.getAddress() &lt;&lt; endl;</span><br><span class="line">	string c &#x3D; &quot;0-399&quot;;</span><br><span class="line">	Sales_item x(c, 2, 20.0);</span><br><span class="line">	Sales_item y(c, 6, 48.0);</span><br><span class="line">	if (x.same_isbn(y))</span><br><span class="line">		x.add(y);</span><br><span class="line">	cout &lt;&lt; &quot;两个销售单的平均价&quot; &lt;&lt; x.avg_price() &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; x.avg_price() &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; y.avg_price() &lt;&lt; endl;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class Screen&#123;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line">	</span><br><span class="line">	typedef string::size_type index;</span><br><span class="line">	</span><br><span class="line">	Screen(index ht &#x3D; 0, index wd &#x3D; 0):contents(ht*wd,&#39;A&#39;), cursor(0), height(ht), width(wd)</span><br><span class="line">	&#123;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	Screen(index ht, index wd, const string &amp;contens);</span><br><span class="line">	</span><br><span class="line">	char get() const;</span><br><span class="line">	&#x2F;&#x2F;&#123;</span><br><span class="line">		&#x2F;&#x2F;return contents[cursor];</span><br><span class="line">	&#x2F;&#x2F;&#125;</span><br><span class="line"></span><br><span class="line">	inline char get(index r, index c) const;</span><br><span class="line">	&#x2F;&#x2F;&#123;</span><br><span class="line">		&#x2F;&#x2F;index row &#x3D; r * width;</span><br><span class="line">		&#x2F;&#x2F;return contents[row+c];</span><br><span class="line">	&#x2F;&#x2F;&#125;</span><br><span class="line">private:</span><br><span class="line">	string contents;</span><br><span class="line">	index cursor;</span><br><span class="line">	index height, width;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">inline char Screen::get() const</span><br><span class="line">&#123;</span><br><span class="line">	return contents[cursor];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">char Screen::get(index r, index c) const</span><br><span class="line">&#123;</span><br><span class="line">	index row &#x3D; r * width;</span><br><span class="line">	return contents[row+c];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">inline Screen::Screen(index ht, index wd, const string &amp;conts)</span><br><span class="line">	: contents(conts), cursor(0), height(ht), width(wd)</span><br><span class="line">		&#123;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	Screen a(10, 100);</span><br><span class="line">	Screen b(3, 6 , &quot;hello screen class&quot;);</span><br><span class="line">	</span><br><span class="line">	cout &lt;&lt; b.get() &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; b.get(0, 4) &lt;&lt; endl;</span><br><span class="line">	</span><br><span class="line">	Screen::index idx;</span><br><span class="line">		</span><br><span class="line">	cout &lt;&lt; a.get() &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; a.get(2,8) &lt;&lt; endl;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class Screen;  &#x2F;&#x2F;类声明 </span><br><span class="line"></span><br><span class="line">class LinkScreen&#123;</span><br><span class="line">	Screen *window;</span><br><span class="line">	LinkScreen *next;</span><br><span class="line">	LinkScreen *prev;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class Y;</span><br><span class="line"></span><br><span class="line">class X</span><br><span class="line">&#123;</span><br><span class="line">	&#x2F;&#x2F;各种成员</span><br><span class="line">private:</span><br><span class="line">	Y *ptr;	 </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class Y</span><br><span class="line">&#123;</span><br><span class="line">	&#x2F;&#x2F;各种成员 </span><br><span class="line">private:</span><br><span class="line">	X *ptr;</span><br><span class="line">	X obj;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">struct Record     &#x2F;&#x2F;这是一个完整的类，既是类定义，也是类声明 </span><br><span class="line">&#123;	</span><br><span class="line">public:</span><br><span class="line">	typedef size_t size;	</span><br><span class="line">	</span><br><span class="line">	Record(): byte_count(0)&#123;</span><br><span class="line">	&#125;</span><br><span class="line">	Record(size s): byte_count(s)&#123;</span><br><span class="line">	&#125;</span><br><span class="line">	Record(string s): name(s), byte_count(0)&#123;</span><br><span class="line">	&#125;</span><br><span class="line">	size get_count()  const &#123; return byte_count;&#125;</span><br><span class="line">	string get_name() const &#123; return name;&#125;</span><br><span class="line">	</span><br><span class="line">private:</span><br><span class="line">	size byte_count;</span><br><span class="line">	string name; &#x2F;&#x2F;记录名称 </span><br><span class="line">&#125;r3;</span><br><span class="line"></span><br><span class="line">class Person</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">	Person(const string &amp;nm, const string &amp;addr):name(nm),address(addr)&#123;</span><br><span class="line">	&#125;</span><br><span class="line">	string getName() const</span><br><span class="line">	&#123;</span><br><span class="line">		return name;</span><br><span class="line">		&#125;	</span><br><span class="line">	</span><br><span class="line">	string getAddress() const</span><br><span class="line">	&#123;</span><br><span class="line">		return address;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">private:</span><br><span class="line">	string name;</span><br><span class="line">	string address;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class Dog</span><br><span class="line">&#123;</span><br><span class="line">	&#x2F;&#x2F;各种成员 </span><br><span class="line">&#125; dog;</span><br><span class="line"></span><br><span class="line">struct Cat</span><br><span class="line">&#123;</span><br><span class="line">	&#x2F;&#x2F;各种成员 </span><br><span class="line">&#125; cat;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	Record r;  &#x2F;&#x2F;在堆栈上创建类的对象</span><br><span class="line">	class Record r2;</span><br><span class="line">	</span><br><span class="line">	Person per(&quot;Bill&quot;, &quot;花园&quot;);</span><br><span class="line">	cout &lt;&lt; per.getName() &lt;&lt; per.getAddress() &lt;&lt; endl;</span><br><span class="line">	</span><br><span class="line">	Record *p &#x3D; new Record; &#x2F;&#x2F;在堆上动态的创建对象</span><br><span class="line">	</span><br><span class="line">	delete p; </span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;Screen scr;</span><br><span class="line">	Screen *scr;</span><br><span class="line">	&#x2F;&#x2F;Screen &amp;scr;</span><br><span class="line">	cout &lt;&lt; &quot;hello&quot; &lt;&lt; endl; </span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line"></span><br><span class="line">struct Person</span><br><span class="line">&#123;</span><br><span class="line">	char name[30];</span><br><span class="line">	char address[100];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	struct Person p;</span><br><span class="line">	</span><br><span class="line">	strcpy(p.name, &quot;Bill&quot;);</span><br><span class="line">	strcpy(p.address, &quot;花园&quot;);</span><br><span class="line">	</span><br><span class="line">	printf(&quot;%s %s&quot;, p.name, p.address);</span><br><span class="line">	</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-Primer%E4%B8%AD%E7%BA%A7/" rel="tag">C++ Primer中级</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-北师大图论系列（三）" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -824,143 +966,6 @@
       <p>1、安装VMwaretools：虚拟机-&gt;安装VMwaretools。注意安装ubuntu后不能直接安装VMtools，要先重启一下虚拟机。<br>2、换清华源：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim&#x2F;vi &#x2F;etc&#x2F;apt&#x2F;sources.list</span><br></pre></td></tr></table></figure><br>    没有vim就用vi。<br>    把source.list文件中的文本换成下面代码：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-updates main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-updates main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-backports main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-backports main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-security main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-security main restricted universe multiverse</span><br><span class="line"></span><br><span class="line"># 预发布软件源，不建议启用</span><br><span class="line"># deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-proposed main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-proposed main restricted universe multiverse</span><br></pre></td></tr></table></figure><br>    使用update命令更新：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure><br>3、安装vim：<br>    输入命令：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install vim-gtk</span><br></pre></td></tr></table></figure><br>    安装完成之后，在命令行敲入vi，按“tab”键。可以看到，已经有vim命令的存在。<br>4、配置vim:<br>    刚安装的VIM，界面并不是十分友好，这就需要我们去更改vim的配置文件，按照我们的需求去修改它。<br>    输入命令：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim &#x2F;etc&#x2F;vim&#x2F;vimrc</span><br></pre></td></tr></table></figure><br>    将syntax on的注释标记去掉，在最后面加上set number,作用是显示行号。(慢慢补充一些常用的配置)<br>5、配置git：<br>    顺序执行以下代码：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install git</span><br><span class="line">git --version</span><br><span class="line">git config --global user.name &quot;linuxidc&quot;</span><br><span class="line">git config --global user.email &quot;root@linuxidc.net&quot;</span><br><span class="line">git config --list</span><br></pre></td></tr></table></figure><br>6、安装anaconda：<br>    到(<a href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/)下载Anaconda3-5.2.0-Linux-x86_64.sh。" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/)下载Anaconda3-5.2.0-Linux-x86_64.sh。</a><br>    在cmd中cd到/home/Download，执行如下代码：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">$ sudo sh Anaconda3-5.2.0-Linux-x86_64.sh </span><br><span class="line">[sudo] andrew 的密码： </span><br><span class="line">Welcome to Anaconda3 5.2.0</span><br><span class="line">In order to continue the installation process, please review the license</span><br><span class="line">agreement.</span><br><span class="line">Please, press ENTER to continue</span><br><span class="line">&gt;&gt;&gt; # 按下回车</span><br><span class="line">... # 多次按空格读完license。</span><br><span class="line">Do you accept the license terms? [yes|no]</span><br><span class="line">[no] &gt;&gt;&gt; yes # 输入yes</span><br><span class="line"> - Press ENTER to confirm the location</span><br><span class="line"> - Press CTRL-C to abort the installation</span><br><span class="line"> - Or specify a different location below</span><br><span class="line">...</span><br><span class="line">[&#x2F;home&#x2F;andrew&#x2F;anaconda3] &gt;&gt;&gt; &#x2F;usr&#x2F;local&#x2F;anaconda3 # 输入自定义目录</span><br><span class="line">... # 安装根据机器性能，通常需要持续几分钟。</span><br><span class="line">Do you wish to proceed with the installation of Microsoft VSCode? [yes|no] #选择no，一般来说自带的spyder和专业IDE wingIDE更好用。</span><br><span class="line">...</span><br><span class="line">Do you wish the installer to initialize Anaconda3</span><br><span class="line">in your &#x2F;home&#x2F;andrew&#x2F;.bashrc ? [yes|no]</span><br><span class="line">[no] &gt;&gt;&gt; # 选择yes</span><br><span class="line">Initializing Anaconda3 in &#x2F;home&#x2F;andrew&#x2F;.bashrc</span><br><span class="line">A backup will be made to: &#x2F;home&#x2F;andrew&#x2F;.bashrc-anaconda3.bak</span><br><span class="line">For this change to become active, you have to open a new terminal.</span><br><span class="line">Thank you for installing Anaconda3!</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">Anaconda is partnered with Microsoft! Microsoft VSCode is a streamlined</span><br><span class="line">code editor with support for development operations like debugging, task</span><br><span class="line">running and version control.</span><br><span class="line">To install Visual Studio Code, you will need:</span><br><span class="line"> - Administrator Privileges</span><br><span class="line"> - Internet connectivity</span><br><span class="line">Visual Studio Code License: https:&#x2F;&#x2F;code.visualstudio.com&#x2F;license</span><br><span class="line">Do you wish to proceed with the installation of Microsoft VSCode? [yes|no]</span><br><span class="line">&gt;&gt;&gt; no</span><br></pre></td></tr></table></figure>
 <pre><code>要注意的是安装成功后要退出cmd，再打开，路径配置才起作用。</code></pre><p>7、vim使用：<br>    删除：1、连续删除多行时，使用n1,n2 d命令；比如删除第2到第10行，则在命令行模式下输入2,10 d即可<br>          2、删除零星的行，移到指定行，然后d，删除此行。<br>    复制：1、将第9行至第15行的数据，复制到第16行；9,15 copy 16或9,15 co 16<br>          2、同理9,15 move 16或9,15 m 16将第9行到第15行的文本内容移动到第16行的后面</p>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-虚拟机安装" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/22/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/"
-    >虚拟机安装</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/22/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/" class="article-date">
-  <time datetime="2020-03-22T15:46:40.000Z" itemprop="datePublished">2020-03-22</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>VMware Workstation Pro 14.1.1 for windows:<br>百度网盘：<a href="https://pan.baidu.com/s/1ei7oke" target="_blank" rel="noopener">https://pan.baidu.com/s/1ei7oke</a><br>注册码：AA702-81D8N-0817Y-75PQT-Q70A4<br>ubuntu-18.04.2-desktop-amd64.iso：<br>百度网盘：<a href="https://pan.baidu.com/s/1P4AOQhM7N451hgVQcQW-5g" target="_blank" rel="noopener">https://pan.baidu.com/s/1P4AOQhM7N451hgVQcQW-5g</a><br>VMware安装过程：<br>1、打开安装好的VMware,点击主页上的“创建新的虚拟机”<br>2、选择默认“典型（推荐）”点击下一步<br>3、一般情况选择“安装程序光盘映像文件（ios）”,选择Ubuntu镜像文件的路径。再点击下一步；<br>4、信息填写完整后点击下一步，内容可以随便填<br>5、选择安装路径后（推荐不要按在系统盘也就是C盘）。点击下一步<br>6、选择磁盘大小。一般如果学习Linux命令几个GB就行了，不需要太大。一般选择默认20GB,下面选择默认的“将虚拟磁盘拆分成对个文件”，点击下一步<br>7、根据自己需要可以自定义硬件，也就是系统配置。点击完成就进入安装Linux状态。等待安装成功，此时尽量不要动鼠标键盘。<br>注：在虚拟机-&gt;设置中将内存设为4g，将网络连接设为NAT模式。</p>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-voc-yolo相互转换" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/22/voc-yolo%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2/"
-    >voc/yolo相互转换</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/22/voc-yolo%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2/" class="article-date">
-  <time datetime="2020-03-22T13:46:13.000Z" itemprop="datePublished">2020-03-22</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>voc转yolo：<br>在目录下新建VOC2007，并在VOC2007下新建Annotations，ImageSets和JPEGImages三个文件夹。在ImageSets下新建Main文件夹。文件目录如下所示：<br>|——VOC2007<br>|————Annotations<br>|————ImageSets<br>|——————Main<br>|————JPEGImages<br>将自己的数据集图片拷贝到JPEGImages目录下。将数据集label文件拷贝到Annotations目录下。在VOC2007下新建voc_to_yolo.py文件夹，将下面代码拷贝进去运行，将生成四个文件：train.txt,val.txt,test.txt和trainval.txt。数据集label文件就是图片对应的xml文件。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">import random</span><br><span class="line"></span><br><span class="line">trainval_percent &#x3D; 0.1</span><br><span class="line">train_percent &#x3D; 0.9</span><br><span class="line">xmlfilepath &#x3D; &#39;Annotations&#39;</span><br><span class="line">txtsavepath &#x3D; &#39;ImageSets\Main&#39;</span><br><span class="line">total_xml &#x3D; os.listdir(xmlfilepath)</span><br><span class="line"></span><br><span class="line">num &#x3D; len(total_xml)</span><br><span class="line">list &#x3D; range(num)</span><br><span class="line">tv &#x3D; int(num * trainval_percent)</span><br><span class="line">tr &#x3D; int(tv * train_percent)</span><br><span class="line">trainval &#x3D; random.sample(list, tv)</span><br><span class="line">train &#x3D; random.sample(trainval, tr)</span><br><span class="line"></span><br><span class="line">ftrainval &#x3D; open(&#39;ImageSets&#x2F;Main&#x2F;trainval.txt&#39;, &#39;w&#39;)</span><br><span class="line">ftest &#x3D; open(&#39;ImageSets&#x2F;Main&#x2F;test.txt&#39;, &#39;w&#39;)</span><br><span class="line">ftrain &#x3D; open(&#39;ImageSets&#x2F;Main&#x2F;train.txt&#39;, &#39;w&#39;)</span><br><span class="line">fval &#x3D; open(&#39;ImageSets&#x2F;Main&#x2F;val.txt&#39;, &#39;w&#39;)</span><br><span class="line"></span><br><span class="line">for i in list:</span><br><span class="line">    name &#x3D; total_xml[i][:-4] + &#39;\n&#39;</span><br><span class="line">    if i in trainval:</span><br><span class="line">        ftrainval.write(name)</span><br><span class="line">        if i in train:</span><br><span class="line">            ftest.write(name)</span><br><span class="line">        else:</span><br><span class="line">            fval.write(name)</span><br><span class="line">    else:</span><br><span class="line">        ftrain.write(name)</span><br><span class="line"></span><br><span class="line">ftrainval.close()</span><br><span class="line">ftrain.close()</span><br><span class="line">fval.close()</span><br><span class="line">ftest.close()</span><br></pre></td></tr></table></figure>
-<p>代码执行结果会在Main文件夹下生成四个txt文件，分别是test.txt,train.txt,trainval.txt,val.txt。</p>
-<p>yolo转voc：<br>未完待续</p>
 
       
       <!-- reward -->
