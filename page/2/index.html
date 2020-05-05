@@ -69,6 +69,101 @@
     
     
     
+    <article id="post-机器学习实战系列（三）-朴素贝叶斯" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/04/26/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%89%EF%BC%89-%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF/"
+    >机器学习实战系列（三）-朴素贝叶斯</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/04/26/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%89%EF%BC%89-%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF/" class="article-date">
+  <time datetime="2020-04-26T13:03:17.000Z" itemprop="datePublished">2020-04-26</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>朴素贝叶斯就是在训练集上用某类中某个特征出现的次数除以某类出现的次数就是在该类中该特征出现的概率，根据这些概率就可以预测某类中某个特征向量的概率，概率最大对应的类别就是预类别。<br>使用朴素贝叶斯进行文本分类：<br>词表到向量的转换函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">def loadDataSet():     &#x2F;&#x2F;将文本文件中的每个单词提取出来，一句话提取为一个列表，即将文本文件处理成一个列表的列表</span><br><span class="line">    postingList&#x3D;[[&#39;my&#39;, &#39;dog&#39;, &#39;has&#39;, &#39;flea&#39;, &#39;problems&#39;, &#39;help&#39;, &#39;please&#39;],</span><br><span class="line">                 [&#39;maybe&#39;, &#39;not&#39;, &#39;take&#39;, &#39;him&#39;, &#39;to&#39;, &#39;dog&#39;, &#39;park&#39;, &#39;stupid&#39;],</span><br><span class="line">                 [&#39;my&#39;, &#39;dalmation&#39;, &#39;is&#39;, &#39;so&#39;, &#39;cute&#39;, &#39;I&#39;, &#39;love&#39;, &#39;him&#39;],</span><br><span class="line">                 [&#39;stop&#39;, &#39;posting&#39;, &#39;stupid&#39;, &#39;worthless&#39;, &#39;garbage&#39;],</span><br><span class="line">                 [&#39;mr&#39;, &#39;licks&#39;, &#39;ate&#39;, &#39;my&#39;, &#39;steak&#39;, &#39;how&#39;, &#39;to&#39;, &#39;stop&#39;, &#39;him&#39;],</span><br><span class="line">                 [&#39;quit&#39;, &#39;buying&#39;, &#39;worthless&#39;, &#39;dog&#39;, &#39;food&#39;, &#39;stupid&#39;]]</span><br><span class="line">    classVec &#x3D; [0,1,0,1,0,1]    #1 is abusive, 0 not</span><br><span class="line">    return postingList,classVec</span><br><span class="line">	</span><br><span class="line">def createVocabList(dataSet): </span><br><span class="line">    vocabSet &#x3D; set([])  #create empty set      &#x2F;&#x2F;创建一个空集，直接用set()也可以建立一个空集，加上[]表示set的参数是一个可迭代对象</span><br><span class="line">    for document in dataSet:       </span><br><span class="line">        vocabSet &#x3D; vocabSet | set(document) #union of the two sets  &#x2F;&#x2F;set()|set()就是集合或运算</span><br><span class="line">    return list(vocabSet)  &#x2F;&#x2F;返回一个列表而不是一个集合</span><br><span class="line"></span><br><span class="line">def setOfWords2Vec(vocabList, inputSet):</span><br><span class="line">    returnVec &#x3D; [0]*len(vocabList)    &#x2F;&#x2F;建立一个与字符串列表相同长度的0列表</span><br><span class="line">    for word in inputSet:           &#x2F;&#x2F;遍历输入的词向量中的元素</span><br><span class="line">        if word in vocabList:			&#x2F;&#x2F;若该元素在字符串列表中</span><br><span class="line">            returnVec[vocabList.index(word)] &#x3D; 1    &#x2F;&#x2F;取出该词的索引，将该索引对应returnVec的位置变为1</span><br><span class="line">        else: print &quot;the word: %s is not in my Vocabulary!&quot; % word   &#x2F;&#x2F;如果输入文本中多次出现某个单词，索引对应位置的值仍然为1</span><br><span class="line">    return returnVec</span><br></pre></td></tr></table></figure>
+
+<p>测试函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;import bayes</span><br><span class="line">&gt;&gt;&gt;listOposts, listClasses &#x3D; bayes.loadDataSet()</span><br><span class="line">&gt;&gt;&gt;myVocabList &#x3D; bayes.createVocabList(listOposts)</span><br><span class="line">&gt;&gt;&gt;myVocabList</span><br><span class="line">[&#39;cute&#39;,&#39;love&#39;,...,&#39;my&#39;]  &#x2F;&#x2F;不包含重复元素的一个列表</span><br><span class="line">&gt;&gt;&gt;bayes.setOfWords2Vec(myVocabList,listOposts[0]) &#x2F;&#x2F;listOposts[0]就是postingList[0]</span><br><span class="line">[0, 1, ..., 1]</span><br><span class="line">&gt;&gt;&gt;bayes.setOfWords2Vec(myVocabList,listOposts[3])</span><br><span class="line">[0, 0, ..., 0]  &#x2F;&#x2F;并不是全为1</span><br></pre></td></tr></table></figure>
+
+<p>朴素贝叶斯分类器训练函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">def trainNB0(trainMatrix,trainCategory):   &#x2F;&#x2F;trainMatrix就是以每句话为单位生成的与词汇表等长的0,1列表 trainCategory就是每句话对应的类别</span><br><span class="line">    numTrainDocs &#x3D; len(trainMatrix)   &#x2F;&#x2F;训练集中有几句话</span><br><span class="line">    numWords &#x3D; len(trainMatrix[0])  &#x2F;&#x2F;第一句话里有几个单词，每一句话的长度和词汇表的长度都是一致的</span><br><span class="line">    pAbusive &#x3D; sum(trainCategory)&#x2F;float(numTrainDocs)  &#x2F;&#x2F;pAb就是训练集中的话是1的概率</span><br><span class="line">    p0Num &#x3D; ones(numWords); p1Num &#x3D; ones(numWords)    &#x2F;&#x2F;zeros-&gt;ones  #change to ones()  &#x2F;&#x2F;ones(标量)：生成一个1行标量列的行向量 </span><br><span class="line">    p0Denom &#x3D; 2.0; p1Denom &#x3D; 2.0         &#x2F;&#x2F;0.0-&gt;2.0            #change to 2.0    </span><br><span class="line">    for i in range(numTrainDocs):   </span><br><span class="line">        if trainCategory[i] &#x3D;&#x3D; 1:    &#x2F;&#x2F;遍历训练集中的每句话，如果这句话是侮辱性文本</span><br><span class="line">            p1Num +&#x3D; trainMatrix[i]    统计侮辱性文本中某个单词出现的次数</span><br><span class="line">            p1Denom +&#x3D; sum(trainMatrix[i])    &#x2F;&#x2F;统计侮辱性文本出现的次数</span><br><span class="line">        else:            			&#x2F;&#x2F;这句话不是侮辱性文本</span><br><span class="line">            p0Num +&#x3D; trainMatrix[i]         &#x2F;&#x2F;统计非侮辱性文本中某个单词出现的次数  </span><br><span class="line">            p0Denom +&#x3D; sum(trainMatrix[i])    &#x2F;&#x2F;统计非侮辱性文本出现的次数</span><br><span class="line">    p1Vect &#x3D; log(p1Num&#x2F;p1Denom)          #change to log()  &#x2F;&#x2F;p1Num&#x2F;p1Denom-&gt;log(p1Num&#x2F;p1Denom)   </span><br><span class="line">    p0Vect &#x3D; log(p0Num&#x2F;p0Denom)          #change to log()  &#x2F;&#x2F;用某类中某个特征出现的次数除以某类出现的次数就是在该类中该特征出现的概率  </span><br><span class="line">    return p0Vect,p1Vect,pAbusive</span><br></pre></td></tr></table></figure>
+<p>为什么要有上面的三个改进？</p>
+<p>测试函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;from numpy import *</span><br><span class="line">&gt;&gt;&gt;reload(bayes)</span><br><span class="line">&lt;module &#39;bayes&#39; from &#39;bayes.py&#39;&gt;</span><br><span class="line">&gt;&gt;&gt;listOposts, listClasses &#x3D; bayes.loadDataSet()</span><br><span class="line">&gt;&gt;&gt;myVocabList &#x3D; bayes.createVocabList(listOposts)   &#x2F;&#x2F;用集合生成的字符串列表</span><br><span class="line">&gt;&gt;&gt;trainMat&#x3D;[]</span><br><span class="line">&gt;&gt;&gt;for postinDoc in listOposts:</span><br><span class="line">...		trainMat.append(bayes.setOfWords2Vec(myVocabList, postinDoc))  &#x2F;&#x2F;trainMat就是0，1列表</span><br><span class="line">&gt;&gt;&gt;p0v,p1v,pAb&#x3D;bayes.trainNB0(trainMat,listClasses)</span><br><span class="line">&gt;&gt;&gt;pAb        &#x2F;&#x2F;侮辱性文本的概率</span><br><span class="line">0.5</span><br><span class="line">&gt;&gt;&gt;p0v       </span><br><span class="line">array([0.04166667, ..., 0.125])           &#x2F;&#x2F;数组中的值就是侮辱性文本中词汇表所有单词依次出现的概率</span><br><span class="line">&gt;&gt;&gt;p1v       </span><br><span class="line">array([0., ..., 0.])               &#x2F;&#x2F;数组中的值就是非侮辱性文本中词汇表所有单词依次出现的概率</span><br></pre></td></tr></table></figure>
+
+<p>朴素贝叶斯分类函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">def classifyNB(vec2Classify, p0Vec, p1Vec, pClass1):</span><br><span class="line">    p1 &#x3D; sum(vec2Classify * p1Vec) + log(pClass1)    #element-wise mult</span><br><span class="line">    p0 &#x3D; sum(vec2Classify * p0Vec) + log(1.0 - pClass1)</span><br><span class="line">    if p1 &gt; p0:</span><br><span class="line">        return 1</span><br><span class="line">    else: </span><br><span class="line">        return 0</span><br><span class="line">		</span><br><span class="line">def testingNB():</span><br><span class="line">    listOPosts,listClasses &#x3D; loadDataSet()</span><br><span class="line">    myVocabList &#x3D; createVocabList(listOPosts)   &#x2F;&#x2F;词汇表</span><br><span class="line">    trainMat&#x3D;[]</span><br><span class="line">    for postinDoc in listOPosts:</span><br><span class="line">        trainMat.append(setOfWords2Vec(myVocabList, postinDoc))  </span><br><span class="line">    p0V,p1V,pAb &#x3D; trainNB0(array(trainMat),array(listClasses))</span><br><span class="line">    testEntry &#x3D; [&#39;love&#39;, &#39;my&#39;, &#39;dalmation&#39;]  &#x2F;&#x2F;测试文本</span><br><span class="line">    thisDoc &#x3D; array(setOfWords2Vec(myVocabList, testEntry)) &#x2F;&#x2F;将测试文本处理成0，1向量</span><br><span class="line">    print testEntry,&#39;classified as: &#39;,classifyNB(thisDoc,p0V,p1V,pAb)  &#x2F;&#x2F;传入分类函数</span><br><span class="line">    testEntry &#x3D; [&#39;stupid&#39;, &#39;garbage&#39;]</span><br><span class="line">    thisDoc &#x3D; array(setOfWords2Vec(myVocabList, testEntry))</span><br><span class="line">    print testEntry,&#39;classified as: &#39;,classifyNB(thisDoc,p0V,p1V,pAb)</span><br></pre></td></tr></table></figure>
+
+<p>测试代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;reload(bayes)</span><br><span class="line">&lt;module &#39;bayes&#39; from &#39;bayes.pyc&#39;&gt;</span><br><span class="line">&gt;&gt;&gt;bayes.testingNB()</span><br><span class="line">[&#39;love&#39;, &#39;my&#39;, &#39;dalmation&#39;] classified as: 0</span><br><span class="line">[&#39;stupid&#39;, &#39;garbage&#39;] classified as: 1</span><br></pre></td></tr></table></figure>
+
+<p>朴素贝叶斯词袋模型：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def bagOfWords2VecMN(vocabList, inputSet):</span><br><span class="line">    returnVec &#x3D; [0]*len(vocabList)           &#x2F;&#x2F;生成一个与词汇表等长的零向量</span><br><span class="line">    for word in inputSet:               </span><br><span class="line">        if word in vocabList:</span><br><span class="line">            returnVec[vocabList.index(word)] +&#x3D; 1   &#x2F;&#x2F;如果输入文本中出现某个单词，就先在词汇表中找这个单词所在的位置，再在零向量的这个位置加1，所以在一句话中出现多次同一个单词，就会加几次1</span><br><span class="line">    return returnVec</span><br></pre></td></tr></table></figure>
+
+<p>切分文本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;mySent&#x3D;&#39;This book is the best book on Python or M.L. I have ever laid eyes upon.&#39;</span><br><span class="line">&gt;&gt;&gt;mySent.split()</span><br><span class="line">[&#39;This&#39;, &#39;book&#39;, &#39;is&#39;, &#39;the&#39;, &#39;best&#39;, &#39;book&#39;, &#39;on&#39;, &#39;Python&#39;, &#39;or&#39;, &#39;M.L.&#39;, &#39;I&#39;, &#39;have&#39;, &#39;ever&#39;, &#39;laid&#39;, &#39;eyes&#39;, &#39;upon.&#39;]</span><br></pre></td></tr></table></figure>
+
+<p>去掉标点符号：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;import re</span><br><span class="line">&gt;&gt;&gt;regEx&#x3D;re.compile(&#39;\\W*&#39;)      &#x2F;&#x2F;正则表达式的用法</span><br><span class="line">&gt;&gt;&gt;listOfTokens&#x3D;regEx.split(mySent)</span><br><span class="line">&gt;&gt;&gt;listOftokens</span><br><span class="line">[&#39;This&#39;, &#39;book&#39;, &#39;is&#39;, &#39;the&#39;, &#39;best&#39;, &#39;book&#39;, &#39;on&#39;, &#39;Python&#39;, &#39;or&#39;, &#39;M&#39;, &#39;L&#39;, &#39;&#39;, &#39;I&#39;, &#39;have&#39;, &#39;ever&#39;, &#39;laid&#39;, &#39;eyes&#39;, &#39;upon&#39;, &#39;&#39;]</span><br><span class="line">&gt;&gt;&gt;[tok for tok in listOfTokens if len(tok) &gt; 0]   &#x2F;&#x2F;取出长度大于0的字符串</span><br><span class="line">&gt;&gt;&gt;[tok.lower() for tok in listOfTokens if len(tok) &gt; 0]</span><br><span class="line">[&#39;this&#39;, &#39;book&#39;, &#39;is&#39;, &#39;the&#39;, &#39;best&#39;, &#39;book&#39;, &#39;on&#39;, &#39;python&#39;, &#39;or&#39;, &#39;m&#39;, &#39;l&#39;, &#39;i&#39;, &#39;have&#39;, &#39;ever&#39;, &#39;laid&#39;, &#39;eyes&#39;, &#39;upon&#39;] &#x2F;&#x2F;把大写变成小写</span><br><span class="line">&gt;&gt;&gt;emailText&#x3D;open(&#39;email&#x2F;ham&#x2F;6.txt&#39;).read()</span><br><span class="line">&gt;&gt;&gt;listOfTokens&#x3D;regEx.split(emailText)</span><br></pre></td></tr></table></figure>
+<p>readlines与read的区别：<br>readlines返回的是一个字符串列表，每个字符串结尾是\n，每个字符串是文本文件的一行内容<br>read返回的是一个很长的字符串，包含着文本文件的全部内容，不同行由\n区分</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97/" rel="tag">机器学习实战系列</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-机器学习实战系列（一）-K近邻算法" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -770,93 +865,6 @@
     <footer class="article-footer">
       
       
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-tensorflow2-0系列-十二-：模型导出" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/20/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%8D%81%E4%BA%8C-%EF%BC%9A%E6%A8%A1%E5%9E%8B%E5%AF%BC%E5%87%BA/"
-    >tensorflow2.0系列(十二)：模型导出</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/20/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%8D%81%E4%BA%8C-%EF%BC%9A%E6%A8%A1%E5%9E%8B%E5%AF%BC%E5%87%BA/" class="article-date">
-  <time datetime="2020-03-20T12:45:42.000Z" itemprop="datePublished">2020-03-20</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>使用SavedModel完整导出模型：<br>在部署模型时，我们的第一步往往是将训练好的整个模型完整导出为一系列标准格式的文件，然后即可在不同的平台上部署模型文件。这时，TensorFlow为我们提供了SavedModel这一格式。与前面介绍的Checkpoint不同，SavedModel包含了一个TensorFlow程序的完整信息：不仅包含参数的权值，还包含计算的流程（即计算图）。当模型导出为 SavedModel 文件时，无需建立模型的源代码即可再次运行模型，这使得SavedModel尤其适用于模型的分享和部署。后文的TensorFlow Serving（服务器端部署模型）、TensorFlow Lite（移动端部署模型）以及TensorFlow.js都会用到这一格式。<br>Keras模型均可方便地导出为SavedModel格式。不过需要注意的是，因为 SavedModel基于计算图，所以对于使用继承tf.keras.Model类建立的Keras模型，其需要导出到 SavedModel 格式的方法（比如call）都需要使用@tf.function修饰。然后，假设我们有一个名为model的Keras模型，使用下面的代码即可将模型导出为SavedModel：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tf.saved_model.save(model, &quot;保存的目标文件夹名称&quot;)</span><br></pre></td></tr></table></figure>
-
-<p>在需要载入 SavedModel 文件时，使用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model &#x3D; tf.saved_model.load(&quot;保存的目标文件夹名称&quot;)</span><br></pre></td></tr></table></figure>
-<p>即可。</p>
-<p>对于使用继承tf.keras.Model类建立的Keras模型model，使用SavedModel载入后将无法使用 model()直接进行推断，而需要使用model.call()。<br>以下是一个简单的示例，将前文MNIST手写体识别的模型进行导出和导入。导出模型到saved/1文件夹：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line">from zh.model.utils import MNISTLoader</span><br><span class="line"></span><br><span class="line">num_epochs &#x3D; 1</span><br><span class="line">batch_size &#x3D; 50</span><br><span class="line">learning_rate &#x3D; 0.001</span><br><span class="line"></span><br><span class="line">model &#x3D; tf.keras.models.Sequential([</span><br><span class="line">    tf.keras.layers.Flatten(),</span><br><span class="line">    tf.keras.layers.Dense(100, activation&#x3D;tf.nn.relu),</span><br><span class="line">    tf.keras.layers.Dense(10),</span><br><span class="line">    tf.keras.layers.Softmax()</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line">data_loader &#x3D; MNISTLoader()</span><br><span class="line">model.compile(</span><br><span class="line">    optimizer&#x3D;tf.keras.optimizers.Adam(learning_rate&#x3D;0.001),</span><br><span class="line">    loss&#x3D;tf.keras.losses.sparse_categorical_crossentropy,</span><br><span class="line">    metrics&#x3D;[tf.keras.metrics.sparse_categorical_accuracy]</span><br><span class="line">)</span><br><span class="line">model.fit(data_loader.train_data, data_loader.train_label, epochs&#x3D;num_epochs, batch_size&#x3D;batch_size)</span><br><span class="line">tf.saved_model.save(model, &quot;saved&#x2F;1&quot;)</span><br></pre></td></tr></table></figure>
-
-<p>将saved/1中的模型导入并测试性能：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line">from zh.model.utils import MNISTLoader</span><br><span class="line"></span><br><span class="line">batch_size &#x3D; 50</span><br><span class="line"></span><br><span class="line">model &#x3D; tf.saved_model.load(&quot;saved&#x2F;1&quot;)</span><br><span class="line">data_loader &#x3D; MNISTLoader()</span><br><span class="line">sparse_categorical_accuracy &#x3D; tf.keras.metrics.SparseCategoricalAccuracy()</span><br><span class="line">num_batches &#x3D; int(data_loader.num_test_data &#x2F;&#x2F; batch_size)</span><br><span class="line">for batch_index in range(num_batches):</span><br><span class="line">    start_index, end_index &#x3D; batch_index * batch_size, (batch_index + 1) * batch_size</span><br><span class="line">    y_pred &#x3D; model(data_loader.test_data[start_index: end_index])</span><br><span class="line">    sparse_categorical_accuracy.update_state(y_true&#x3D;data_loader.test_label[start_index: end_index], y_pred&#x3D;y_pred)</span><br><span class="line">print(&quot;test accuracy: %f&quot; % sparse_categorical_accuracy.result())</span><br></pre></td></tr></table></figure>
-
-<p>输出:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">test accuracy: 0.952000</span><br></pre></td></tr></table></figure>
-
-<p>使用继承tf.keras.Model类建立的Keras模型同样可以以相同方法导出，唯须注意call方法需要以@tf.function修饰，以转化为SavedModel支持的计算图，代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class MLP(tf.keras.Model):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.flatten &#x3D; tf.keras.layers.Flatten()</span><br><span class="line">        self.dense1 &#x3D; tf.keras.layers.Dense(units&#x3D;100, activation&#x3D;tf.nn.relu)</span><br><span class="line">        self.dense2 &#x3D; tf.keras.layers.Dense(units&#x3D;10)</span><br><span class="line"></span><br><span class="line">    @tf.function</span><br><span class="line">    def call(self, inputs):         # [batch_size, 28, 28, 1]</span><br><span class="line">        x &#x3D; self.flatten(inputs)    # [batch_size, 784]</span><br><span class="line">        x &#x3D; self.dense1(x)          # [batch_size, 100]</span><br><span class="line">        x &#x3D; self.dense2(x)          # [batch_size, 10]</span><br><span class="line">        output &#x3D; tf.nn.softmax(x)</span><br><span class="line">        return output</span><br><span class="line"></span><br><span class="line">model &#x3D; MLP()</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
-<p>模型导入并测试性能的过程也相同，唯须注意模型推断时需要显式调用call方法，即使用：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">y_pred &#x3D; model.call(data_loader.test_data[start_index: end_index])</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
-
 
     </footer>
 
