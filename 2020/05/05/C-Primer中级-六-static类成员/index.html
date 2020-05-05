@@ -6,7 +6,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    C-Primer中级(五)-友元 |  畅院士的开山大弟子的博客
+    C-Primer中级(六)-static类成员 |  畅院士的开山大弟子的博客
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -30,7 +30,7 @@
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-C-Primer中级-五-友元" class="article article-type-post" itemscope
+  <article id="post-C-Primer中级-六-static类成员" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -38,7 +38,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  C-Primer中级(五)-友元
+  C-Primer中级(六)-static类成员
 </h1>
   
 
@@ -47,8 +47,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/05/05/C-Primer%E4%B8%AD%E7%BA%A7-%E4%BA%94-%E5%8F%8B%E5%85%83/" class="article-date">
-  <time datetime="2020-05-05T09:26:41.000Z" itemprop="datePublished">2020-05-05</time>
+      <a href="/2020/05/05/C-Primer%E4%B8%AD%E7%BA%A7-%E5%85%AD-static%E7%B1%BB%E6%88%90%E5%91%98/" class="article-date">
+  <time datetime="2020-05-05T10:24:20.000Z" itemprop="datePublished">2020-05-05</time>
 </a>
       
       
@@ -58,7 +58,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">252字</span>
+            <span class="post-count">282字</span>
         </span>
     </span>
 
@@ -92,7 +92,7 @@
       
 
       
-      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class Screen;</span><br><span class="line"></span><br><span class="line">class Dog</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">	int foo(Screen&amp; screen);</span><br><span class="line">	int koo(Screen&amp; screen);</span><br><span class="line">&#x2F;&#x2F;	int koo(Screen&amp; screen)</span><br><span class="line">&#x2F;&#x2F;	&#123;</span><br><span class="line">&#x2F;&#x2F;		return screen.height * screen.width;</span><br><span class="line">&#x2F;&#x2F;	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class Screen</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">	typedef string::size_type index;</span><br><span class="line">	Screen(int ht&#x3D;0, int wd&#x3D;0):contents(ht*wd,&#39; &#39;),height(ht),width(wd)&#123;&#125;</span><br><span class="line">	double area() const</span><br><span class="line">	&#123;</span><br><span class="line">		return height * width;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	friend int calcArea(Screen&amp;);</span><br><span class="line">	friend class Window_Mgr;</span><br><span class="line">	&#x2F;&#x2F;friend class Dog;</span><br><span class="line">	friend int Dog::foo(Screen&amp;);</span><br><span class="line">	</span><br><span class="line">private:</span><br><span class="line">	string contents;</span><br><span class="line">	index cursor;</span><br><span class="line">	int height, width;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class Window_Mgr  &#x2F;&#x2F;窗口管理类 - 对Screen进行管理 </span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">	void relocate(int r, int c, Screen&amp; s)</span><br><span class="line">	&#123;</span><br><span class="line">		s.height +&#x3D; r;</span><br><span class="line">		s.width +&#x3D; c; </span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int Dog::foo(Screen &amp;screen)</span><br><span class="line">&#123;</span><br><span class="line">	return screen.height * screen.width;	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int Dog::koo(Screen&amp; screen)</span><br><span class="line">&#123;</span><br><span class="line">	return screen.area();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;这个函数不是类的成员函数 </span><br><span class="line">int calcArea(Screen&amp; screen)</span><br><span class="line">&#123;</span><br><span class="line">	return screen.height * screen.width;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;	</span><br><span class="line">	Screen a(60, 100);</span><br><span class="line">	cout &lt;&lt; a.area() &lt;&lt;endl;</span><br><span class="line">	cout &lt;&lt; calcArea(a) &lt;&lt; endl;</span><br><span class="line">	</span><br><span class="line">	Window_Mgr wm;</span><br><span class="line">	wm.relocate(20, 100, a);</span><br><span class="line">	cout &lt;&lt; calcArea(a) &lt;&lt; endl;</span><br><span class="line">	</span><br><span class="line">	Dog dog;</span><br><span class="line">	cout &lt;&lt; dog.foo(a) &lt;&lt; endl;	</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;全局变量</span><br><span class="line">&#x2F;&#x2F;double interestRate; </span><br><span class="line"></span><br><span class="line">class Dog</span><br><span class="line">&#123;</span><br><span class="line">	static double interestRate;	</span><br><span class="line">&#125;;</span><br><span class="line">class Account</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">	Account(string name, double money):</span><br><span class="line">	owner(name), amount(money)&#123;&#125;</span><br><span class="line">	</span><br><span class="line">	double getAmount() const</span><br><span class="line">	&#123;</span><br><span class="line">		return this-&gt;amount; </span><br><span class="line">		&#125;	</span><br><span class="line">	</span><br><span class="line">	void applyint()</span><br><span class="line">	&#123;</span><br><span class="line">		amount +&#x3D; amount * interestRate;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	void deposit(double money)</span><br><span class="line">	&#123;</span><br><span class="line">		this-&gt;amount +&#x3D; money;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	static double rate()</span><br><span class="line">	&#123;</span><br><span class="line">		return interestRate;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	static void rate(double newRate)  &#x2F;&#x2F;静态成员函数不能使用this指针 </span><br><span class="line">	&#123;</span><br><span class="line">		interestRate &#x3D; newRate;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">private:</span><br><span class="line">	string owner;</span><br><span class="line">	double amount;</span><br><span class="line">	&#x2F;&#x2F;double interestRate;</span><br><span class="line">	static double interestRate ; &#x2F;&#x2F;只有一个，永远不会出现第二个 </span><br><span class="line">	static const int period &#x3D; 30; </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">double Account::interestRate &#x3D; 0.015;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	&#x2F;&#x2F;interestRate &#x3D; 0.015;</span><br><span class="line">	&#x2F;&#x2F;Account::interestRate &#x3D; 0.015;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;Account::rate(0.026);</span><br><span class="line">	</span><br><span class="line">	Account a(&quot;zhangsan&quot;, 1000);</span><br><span class="line">	Account b(&quot;Lisi&quot;, 2000); </span><br><span class="line">	a.deposit(500);</span><br><span class="line">	b.deposit(600);</span><br><span class="line">	</span><br><span class="line">	cout &lt;&lt; a.getAmount() &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; b.getAmount() &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; a.rate() &lt;&lt; endl;</span><br><span class="line">	a.rate(0.018);</span><br><span class="line">	cout &lt;&lt; b.rate() &lt;&lt;endl;</span><br><span class="line">	</span><br><span class="line">	Account::rate(0.02);</span><br><span class="line">	a.applyint();</span><br><span class="line">	b.applyint();</span><br><span class="line">	cout &lt;&lt; a.getAmount() &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; b.getAmount() &lt;&lt; endl;</span><br><span class="line">	</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;*静态成员的名字是在类的作用域中</span><br><span class="line"> 类的静态成员可以是私有的</span><br><span class="line"> 有明确的标志*&#x2F;</span><br></pre></td></tr></table></figure>
       
       <!-- reward -->
       
@@ -161,7 +161,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/05/05/C-Primer%E4%B8%AD%E7%BA%A7-%E4%BA%94-%E5%8F%8B%E5%85%83/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/05/05/C-Primer%E4%B8%AD%E7%BA%A7-%E5%85%AD-static%E7%B1%BB%E6%88%90%E5%91%98/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -179,19 +179,10 @@
   
   <nav class="article-nav">
     
-      <a href="/2020/05/05/C-Primer%E4%B8%AD%E7%BA%A7-%E5%85%AD-static%E7%B1%BB%E6%88%90%E5%91%98/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            C-Primer中级(六)-static类成员
-          
-        </div>
-      </a>
     
-    
-      <a href="/2020/05/05/C-Primer%E4%B8%AD%E7%BA%A7-%E5%9B%9B-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/" class="article-nav-link">
+      <a href="/2020/05/05/C-Primer%E4%B8%AD%E7%BA%A7-%E4%BA%94-%E5%8F%8B%E5%85%83/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">C-Primer中级(四)-构造函数</div>
+        <div class="article-nav-title">C-Primer中级(五)-友元</div>
       </a>
     
   </nav>

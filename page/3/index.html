@@ -69,6 +69,80 @@
     
     
     
+    <article id="post-制作tensorflow数据集：xml转csv到tfrecord" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/20/%E5%88%B6%E4%BD%9Ctensorflow%E6%95%B0%E6%8D%AE%E9%9B%86%EF%BC%9Axml%E8%BD%ACcsv%E5%88%B0tfrecord/"
+    >制作tensorflow数据集：xml转csv到tfrecord</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/20/%E5%88%B6%E4%BD%9Ctensorflow%E6%95%B0%E6%8D%AE%E9%9B%86%EF%BC%9Axml%E8%BD%ACcsv%E5%88%B0tfrecord/" class="article-date">
+  <time datetime="2020-03-20T13:48:06.000Z" itemprop="datePublished">2020-03-20</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>将xml文件转换成csv文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">import glob</span><br><span class="line">import pandas as pd</span><br><span class="line">import xml.etree.ElementTree as ET</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def xml_to_csv(path):</span><br><span class="line">    xml_list &#x3D; []</span><br><span class="line">    for xml_file in glob.glob(path + &#39;&#x2F;*.xml&#39;):</span><br><span class="line">        tree &#x3D; ET.parse(xml_file)</span><br><span class="line">        root &#x3D; tree.getroot()</span><br><span class="line">        for member in root.findall(&#39;object&#39;):</span><br><span class="line">            value &#x3D; (root.find(&#39;filename&#39;).text,</span><br><span class="line">                     int(root.find(&#39;size&#39;)[0].text),</span><br><span class="line">                     int(root.find(&#39;size&#39;)[1].text),</span><br><span class="line">                     member[0].text,</span><br><span class="line">                     int(member[4][0].text),</span><br><span class="line">                     int(member[4][1].text),</span><br><span class="line">                     int(member[4][2].text),</span><br><span class="line">                     int(member[4][3].text)</span><br><span class="line">                     )</span><br><span class="line">            xml_list.append(value)</span><br><span class="line">    column_name &#x3D; [&#39;filename&#39;, &#39;width&#39;, &#39;height&#39;, &#39;class&#39;, &#39;xmin&#39;, &#39;ymin&#39;, &#39;xmax&#39;, &#39;ymax&#39;]</span><br><span class="line">    xml_df &#x3D; pd.DataFrame(xml_list, columns&#x3D;column_name)</span><br><span class="line">    return xml_df</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    for folder in [&#39;train&#39;,&#39;test&#39;]:</span><br><span class="line">        image_path &#x3D; os.path.join(os.getcwd(), (&#39;images&#x2F;&#39; + folder))  # 这里就是需要访问的.xml的存放地址</span><br><span class="line">        xml_df &#x3D; xml_to_csv(image_path)                               # object_detection&#x2F;images&#x2F;train or test</span><br><span class="line">        xml_df.to_csv((&#39;images&#x2F;&#39; + folder + &#39;_labels.csv&#39;), index&#x3D;None)</span><br><span class="line">        print(&#39;Successfully converted xml to csv.&#39;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">main()</span><br></pre></td></tr></table></figure>
+<p>上述代码命名为xml_to_csv.py，在xml_to_csv.py同级目录下建立一个images文件夹，并且建立两个子文件夹train和test。train和test文件夹中放着jpg文件和对应的xml文件。运行上述代码，将在images文件夹下产生两个.csv文件，分别为train_labels.csv和test_labels.csv。</p>
+<p>将csv文件转换成TFRecord文件：<br>在上一步完成后，再运行下面代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line">&quot;&quot;&quot;</span><br><span class="line">Usage:</span><br><span class="line">  # From tensorflow&#x2F;models&#x2F;</span><br><span class="line">  # Create train data:</span><br><span class="line">  python generate_tfrecord.py --csv_input&#x3D;images&#x2F;train_labels.csv --image_dir&#x3D;images&#x2F;train --output_path&#x3D;train.record</span><br><span class="line"></span><br><span class="line">  # Create test data:</span><br><span class="line">  python generate_tfrecord.py --csv_input&#x3D;images&#x2F;test_labels.csv  --image_dir&#x3D;images&#x2F;test --output_path&#x3D;test.record</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">from __future__ import division</span><br><span class="line">from __future__ import print_function</span><br><span class="line">from __future__ import absolute_import</span><br><span class="line"></span><br><span class="line">import os</span><br><span class="line">import io</span><br><span class="line">import pandas as pd</span><br><span class="line">import tensorflow as tf</span><br><span class="line"></span><br><span class="line">from PIL import Image</span><br><span class="line">from object_detection.utils import dataset_util</span><br><span class="line">from collections import namedtuple, OrderedDict</span><br><span class="line"></span><br><span class="line">flags &#x3D; tf.app.flags</span><br><span class="line">flags.DEFINE_string(&#39;csv_input&#39;, &#39;&#39;, &#39;Path to the CSV input&#39;)</span><br><span class="line">flags.DEFINE_string(&#39;image_dir&#39;, &#39;&#39;, &#39;Path to the image directory&#39;)</span><br><span class="line">flags.DEFINE_string(&#39;output_path&#39;, &#39;&#39;, &#39;Path to output TFRecord&#39;)</span><br><span class="line">FLAGS &#x3D; flags.FLAGS</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># M1，this code part need to be modified according to your real situation</span><br><span class="line">def class_text_to_int(row_label):</span><br><span class="line">    if row_label &#x3D;&#x3D; &#39;nine&#39;:</span><br><span class="line">        return 1</span><br><span class="line">    elif row_label &#x3D;&#x3D; &#39;ten&#39;:</span><br><span class="line">        return 2</span><br><span class="line">    elif row_label &#x3D;&#x3D; &#39;jack&#39;:</span><br><span class="line">        return 3</span><br><span class="line">    elif row_label &#x3D;&#x3D; &#39;queen&#39;:</span><br><span class="line">        return 4</span><br><span class="line">    elif row_label &#x3D;&#x3D; &#39;king&#39;:</span><br><span class="line">        return 5</span><br><span class="line">    elif row_label &#x3D;&#x3D; &#39;ace&#39;:</span><br><span class="line">        return 6</span><br><span class="line">    else:</span><br><span class="line">        return 0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def split(df, group):</span><br><span class="line">    data &#x3D; namedtuple(&#39;data&#39;, [&#39;filename&#39;, &#39;object&#39;])</span><br><span class="line">    gb &#x3D; df.groupby(group)</span><br><span class="line">    return [data(filename, gb.get_group(x)) for filename, x in zip(gb.groups.keys(), gb.groups)]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def create_tf_example(group, path):</span><br><span class="line">    with tf.gfile.GFile(os.path.join(path, &#39;&#123;&#125;&#39;.format(group.filename)), &#39;rb&#39;) as fid:</span><br><span class="line">        encoded_jpg &#x3D; fid.read()</span><br><span class="line">    encoded_jpg_io &#x3D; io.BytesIO(encoded_jpg)</span><br><span class="line">    image &#x3D; Image.open(encoded_jpg_io)</span><br><span class="line">    width, height &#x3D; image.size</span><br><span class="line"></span><br><span class="line">    filename &#x3D; group.filename.encode(&#39;utf8&#39;)</span><br><span class="line">    image_format &#x3D; b&#39;jpg&#39;</span><br><span class="line">    xmins &#x3D; []</span><br><span class="line">    xmaxs &#x3D; []</span><br><span class="line">    ymins &#x3D; []</span><br><span class="line">    ymaxs &#x3D; []</span><br><span class="line">    classes_text &#x3D; []</span><br><span class="line">    classes &#x3D; []</span><br><span class="line"></span><br><span class="line">    for index, row in group.object.iterrows():</span><br><span class="line">        xmins.append(row[&#39;xmin&#39;] &#x2F; width)</span><br><span class="line">        xmaxs.append(row[&#39;xmax&#39;] &#x2F; width)</span><br><span class="line">        ymins.append(row[&#39;ymin&#39;] &#x2F; height)</span><br><span class="line">        ymaxs.append(row[&#39;ymax&#39;] &#x2F; height)</span><br><span class="line">        classes_text.append(row[&#39;class&#39;].encode(&#39;utf8&#39;))</span><br><span class="line">        classes.append(class_text_to_int(row[&#39;class&#39;]))</span><br><span class="line"></span><br><span class="line">    tf_example &#x3D; tf.train.Example(features&#x3D;tf.train.Features(feature&#x3D;&#123;</span><br><span class="line">        &#39;image&#x2F;height&#39;: dataset_util.int64_feature(height),</span><br><span class="line">        &#39;image&#x2F;width&#39;: dataset_util.int64_feature(width),</span><br><span class="line">        &#39;image&#x2F;filename&#39;: dataset_util.bytes_feature(filename),</span><br><span class="line">        &#39;image&#x2F;source_id&#39;: dataset_util.bytes_feature(filename),</span><br><span class="line">        &#39;image&#x2F;encoded&#39;: dataset_util.bytes_feature(encoded_jpg),</span><br><span class="line">        &#39;image&#x2F;format&#39;: dataset_util.bytes_feature(image_format),</span><br><span class="line">        &#39;image&#x2F;object&#x2F;bbox&#x2F;xmin&#39;: dataset_util.float_list_feature(xmins),</span><br><span class="line">        &#39;image&#x2F;object&#x2F;bbox&#x2F;xmax&#39;: dataset_util.float_list_feature(xmaxs),</span><br><span class="line">        &#39;image&#x2F;object&#x2F;bbox&#x2F;ymin&#39;: dataset_util.float_list_feature(ymins),</span><br><span class="line">        &#39;image&#x2F;object&#x2F;bbox&#x2F;ymax&#39;: dataset_util.float_list_feature(ymaxs),</span><br><span class="line">        &#39;image&#x2F;object&#x2F;class&#x2F;text&#39;: dataset_util.bytes_list_feature(classes_text),</span><br><span class="line">        &#39;image&#x2F;object&#x2F;class&#x2F;label&#39;: dataset_util.int64_list_feature(classes),</span><br><span class="line">    &#125;))</span><br><span class="line">    return tf_example</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def main(_):</span><br><span class="line">    writer &#x3D; tf.python_io.TFRecordWriter(FLAGS.output_path)</span><br><span class="line">    path &#x3D; os.path.join(os.getcwd(), FLAGS.image_dir)</span><br><span class="line">    examples &#x3D; pd.read_csv(FLAGS.csv_input)</span><br><span class="line">    grouped &#x3D; split(examples, &#39;filename&#39;)</span><br><span class="line">    for group in grouped:</span><br><span class="line">        tf_example &#x3D; create_tf_example(group, path)</span><br><span class="line">        writer.write(tf_example.SerializeToString())</span><br><span class="line"></span><br><span class="line">    writer.close()</span><br><span class="line">    output_path &#x3D; os.path.join(os.getcwd(), FLAGS.output_path)</span><br><span class="line">    print(&#39;Successfully created the TFRecords: &#123;&#125;&#39;.format(output_path))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &#39;__main__&#39;:</span><br><span class="line">    tf.app.run()</span><br></pre></td></tr></table></figure>
+
+<p>步骤如下：<br>    1.通过执行python xml_to_csv.py生成相应的.csv文件<br>    2.在同一目录下顺序执行下面两条语句<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python generate_tfrecord.py --csv_input&#x3D;images&#x2F;train_labels.csv --image_dir&#x3D;images&#x2F;train --output_path&#x3D;train.record</span><br><span class="line">python generate_tfrecord.py --csv_input&#x3D;images&#x2F;test_labels.csv  --image_dir&#x3D;images&#x2F;test --output_path&#x3D;test.record</span><br></pre></td></tr></table></figure></p>
+<p>最终会产生两个tfrecord格式的文件。其中generate_tfrecord.py是上述代码的命名，csv_input=images/train_labels.csv是输入的.csv文件的路径，图片的存储路径是image_dir=images/train or test，输出的文件在当前目录文件夹下名称为train.record以及test.record。</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-tensorflow2-0系列-十二-：模型导出" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -850,135 +924,6 @@ with summary_writer.as_default():
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Andrew课后作业系列（一）" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/17/Andrew%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%80%EF%BC%89/"
-    >Andrew课后作业系列（一）</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/17/Andrew%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%80%EF%BC%89/" class="article-date">
-  <time datetime="2020-03-17T12:46:07.000Z" itemprop="datePublished">2020-03-17</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>用python实现hello world</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">test &#x3D; &quot;Hello World&quot;</span><br><span class="line">print (&quot;test: &quot; + test)</span><br></pre></td></tr></table></figure>
-
-<p>用math实现sigmoid函数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import math</span><br><span class="line">def basic_sigmoid(x):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    Compute sigmoid of x.</span><br><span class="line">    Arguments:</span><br><span class="line">    x -- A scalar</span><br><span class="line">    Return:</span><br><span class="line">    s -- sigmoid(x)</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    s &#x3D; 1&#x2F;(1+math.exp(-x))</span><br><span class="line">    return s</span><br></pre></td></tr></table></figure>
-
-<p>basic_sigmoid()函数测试：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">### One reason why we use &quot;numpy&quot; instead of &quot;math&quot; in Deep Learning ###</span><br><span class="line">x &#x3D; [1, 2, 3]</span><br><span class="line">basic_sigmoid(x) # you will see this give an error when you run it, because x is a vector.</span><br></pre></td></tr></table></figure>
-
-<p>使用numpy而不是math库的一个很重要的原因就是math库不能传入一个向量，而numpy可以。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"># example of np.exp</span><br><span class="line">x &#x3D; np.array([1, 2, 3])</span><br><span class="line">print(np.exp(x)) # result is (exp(1), exp(2), exp(3))</span><br></pre></td></tr></table></figure>
-
-<p>在python中，向量同样可以与标量相加，因为python的广播机制</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># example of vector operation</span><br><span class="line">x &#x3D; np.array([1, 2, 3])</span><br><span class="line">print (x + 3)</span><br></pre></td></tr></table></figure>
-
-<p>用numpy实现sigmoid函数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># GRADED FUNCTION: sigmoid</span><br><span class="line">import numpy as np # this means you can access numpy functions by writing np.function() instead of numpy.function()</span><br><span class="line">def sigmoid(x):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    Compute the sigmoid of x</span><br><span class="line">    Arguments:</span><br><span class="line">    x -- A scalar or numpy array of any size</span><br><span class="line">    Return:</span><br><span class="line">    s -- sigmoid(x)</span><br><span class="line">    &quot;&quot;&quot; </span><br><span class="line">    s &#x3D; 1&#x2F;(1+np.exp(-x)) </span><br><span class="line">    return s</span><br></pre></td></tr></table></figure>
-
-<p>测试代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x &#x3D; np.array([1, 2, 3])</span><br><span class="line">sigmoid(x)</span><br></pre></td></tr></table></figure>
-
-<p>用numpy实现sigmoid的导数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">def sigmoid_derivative(x):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    Compute the gradient (also called the slope or derivative) of the sigmoid function with respect to its input x.</span><br><span class="line">    You can store the output of the sigmoid function into variables and then use it to calculate the gradient.</span><br><span class="line">    Arguments:</span><br><span class="line">    x -- A scalar or numpy array</span><br><span class="line">    Return:</span><br><span class="line">    ds -- Your computed gradient.</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    s &#x3D; 1&#x2F;(1+np.exp(-x))</span><br><span class="line">    ds &#x3D; s*(1-s)    </span><br><span class="line">    return ds</span><br></pre></td></tr></table></figure>
-
-<p>测试代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x &#x3D; np.array([1, 2, 3])</span><br><span class="line">print (&quot;sigmoid_derivative(x) &#x3D; &quot; + str(sigmoid_derivative(x)))</span><br></pre></td></tr></table></figure>
-
-<p>shape()和reshape()的使用：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def image2vector(image):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    Argument:</span><br><span class="line">    image -- a numpy array of shape (length, height, depth)</span><br><span class="line">    Returns:</span><br><span class="line">    v -- a vector of shape (length*height*depth, 1)</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    v &#x3D; image.reshape(image.shape[0]*image.shape[1],image.shape[2])</span><br><span class="line">    return v</span><br></pre></td></tr></table></figure>
-
-<p>测试代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># This is a 3 by 3 by 2 array, typically images will be (num_px_x, num_px_y,3) where 3 represents the RGB values</span><br><span class="line">image &#x3D; np.array([[[ 0.67826139,  0.29380381],</span><br><span class="line">        [ 0.90714982,  0.52835647],</span><br><span class="line">        [ 0.4215251 ,  0.45017551]],</span><br><span class="line"></span><br><span class="line">       [[ 0.92814219,  0.96677647],</span><br><span class="line">        [ 0.85304703,  0.52351845],</span><br><span class="line">        [ 0.19981397,  0.27417313]],</span><br><span class="line"></span><br><span class="line">       [[ 0.60659855,  0.00533165],</span><br><span class="line">        [ 0.10820313,  0.49978937],</span><br><span class="line">        [ 0.34144279,  0.94630077]]])</span><br><span class="line"></span><br><span class="line">print (&quot;image2vector(image) &#x3D; &quot; + str(image2vector(image)))</span><br></pre></td></tr></table></figure>
-
-<p>按行归一化：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">def normalizeRows(x):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    Implement a function that normalizes each row of the matrix x (to have unit length). </span><br><span class="line">    Argument:</span><br><span class="line">    x -- A numpy matrix of shape (n, m)</span><br><span class="line">    Returns:</span><br><span class="line">    x -- The normalized (by row) numpy matrix. You are allowed to modify x.</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    # Compute x_norm as the norm 2 of x. Use np.linalg.norm(..., ord &#x3D; 2, axis &#x3D; ..., keepdims &#x3D; True)</span><br><span class="line">    x_norm &#x3D; np.linalg.norm(x,ord&#x3D;2,axis&#x3D;1,keepdims&#x3D;True) </span><br><span class="line">    # Divide x by its norm.</span><br><span class="line">    x &#x3D; x&#x2F;x_norm</span><br><span class="line">    return x</span><br></pre></td></tr></table></figure>
-<p>np.linalg.norm()的使用还要查一下。[1]</p>
-<p>测试代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x &#x3D; np.array([</span><br><span class="line">    [0, 3, 4],</span><br><span class="line">    [1, 6, 4]])</span><br><span class="line">print(&quot;normalizeRows(x) &#x3D; &quot; + str(normalizeRows(x)))</span><br></pre></td></tr></table></figure>
-
-<p>定义softmax函数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">def softmax(x):</span><br><span class="line">    &quot;&quot;&quot;Calculates the softmax for each row of the input x.</span><br><span class="line">    Your code should work for a row vector and also for matrices of shape (n, m).</span><br><span class="line">    Argument:</span><br><span class="line">    x -- A numpy matrix of shape (n,m)</span><br><span class="line">    Returns:</span><br><span class="line">    s -- A numpy matrix equal to the softmax of x, of shape (n,m)</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    # Apply exp() element-wise to x. Use np.exp(...).</span><br><span class="line">    x_exp &#x3D; np.exp(x)</span><br><span class="line">    # Create a vector x_sum that sums each row of x_exp. Use np.sum(..., axis &#x3D; 1, keepdims &#x3D; True).</span><br><span class="line">    x_sum &#x3D; np.sum(x_exp,axis&#x3D;1,keepdims&#x3D;True)</span><br><span class="line">    # Compute softmax(x) by dividing x_exp by x_sum. It should automatically use numpy broadcasting.</span><br><span class="line">    s &#x3D; x_exp&#x2F;x_sum</span><br><span class="line">    return s</span><br></pre></td></tr></table></figure>
-<p>np.sum()中的axis和keepdim两个参数是啥意思？[2]</p>
-<p>测试代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x &#x3D; np.array([</span><br><span class="line">    [9, 2, 5, 0, 0],</span><br><span class="line">    [7, 5, 0, 0 ,0]])</span><br><span class="line">print(&quot;softmax(x) &#x3D; &quot; + str(softmax(x)))</span><br></pre></td></tr></table></figure>
-
-<p>向量化计算与for循环在时间上的比较：<br>用for循环实现向量之间的运算</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">import time</span><br><span class="line">x1 &#x3D; [9, 2, 5, 0, 0, 7, 5, 0, 0, 0, 9, 2, 5, 0, 0]</span><br><span class="line">x2 &#x3D; [9, 2, 2, 9, 0, 9, 2, 5, 0, 0, 9, 2, 5, 0, 0]</span><br><span class="line">### CLASSIC DOT PRODUCT OF VECTORS IMPLEMENTATION ###</span><br><span class="line">tic &#x3D; time.process_time()</span><br><span class="line">dot &#x3D; 0</span><br><span class="line">for i in range(len(x1)):</span><br><span class="line">    dot+&#x3D; x1[i]*x2[i]</span><br><span class="line">toc &#x3D; time.process_time()</span><br><span class="line">print (&quot;dot &#x3D; &quot; + str(dot) + &quot;\n ----- Computation time &#x3D; &quot; + str(1000*(toc - tic)) + &quot;ms&quot;)</span><br><span class="line">### CLASSIC OUTER PRODUCT IMPLEMENTATION ###</span><br><span class="line">tic &#x3D; time.process_time()</span><br><span class="line">outer &#x3D; np.zeros((len(x1),len(x2))) # we create a len(x1)*len(x2) matrix with only zeros</span><br><span class="line">for i in range(len(x1)):</span><br><span class="line">    for j in range(len(x2)):</span><br><span class="line">        outer[i,j] &#x3D; x1[i]*x2[j]</span><br><span class="line">toc &#x3D; time.process_time()</span><br><span class="line">print (&quot;outer &#x3D; &quot; + str(outer) + &quot;\n ----- Computation time &#x3D; &quot; + str(1000*(toc - tic)) + &quot;ms&quot;)</span><br><span class="line">### CLASSIC ELEMENTWISE IMPLEMENTATION ###</span><br><span class="line">tic &#x3D; time.process_time()</span><br><span class="line">mul &#x3D; np.zeros(len(x1))</span><br><span class="line">for i in range(len(x1)):</span><br><span class="line">    mul[i] &#x3D; x1[i]*x2[i]</span><br><span class="line">toc &#x3D; time.process_time()</span><br><span class="line">print (&quot;elementwise multiplication &#x3D; &quot; + str(mul) + &quot;\n ----- Computation time &#x3D; &quot; + str(1000*(toc - tic)) + &quot;ms&quot;)</span><br><span class="line">### CLASSIC GENERAL DOT PRODUCT IMPLEMENTATION ###</span><br><span class="line">W &#x3D; np.random.rand(3,len(x1)) # Random 3*len(x1) numpy array</span><br><span class="line">tic &#x3D; time.process_time()</span><br><span class="line">gdot &#x3D; np.zeros(W.shape[0])</span><br><span class="line">for i in range(W.shape[0]):</span><br><span class="line">    for j in range(len(x1)):</span><br><span class="line">        gdot[i] +&#x3D; W[i,j]*x1[j]</span><br><span class="line">toc &#x3D; time.process_time()</span><br><span class="line">print (&quot;gdot &#x3D; &quot; + str(gdot) + &quot;\n ----- Computation time &#x3D; &quot; + str(1000*(toc - tic)) + &quot;ms&quot;)</span><br></pre></td></tr></table></figure>
-
-<p>用numpy库直接进行向量计算：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">x1 &#x3D; [9, 2, 5, 0, 0, 7, 5, 0, 0, 0, 9, 2, 5, 0, 0]</span><br><span class="line">x2 &#x3D; [9, 2, 2, 9, 0, 9, 2, 5, 0, 0, 9, 2, 5, 0, 0]</span><br><span class="line">### VECTORIZED DOT PRODUCT OF VECTORS ###</span><br><span class="line">tic &#x3D; time.process_time()</span><br><span class="line">dot &#x3D; np.dot(x1,x2)</span><br><span class="line">toc &#x3D; time.process_time()</span><br><span class="line">print (&quot;dot &#x3D; &quot; + str(dot) + &quot;\n ----- Computation time &#x3D; &quot; + str(1000*(toc - tic)) + &quot;ms&quot;)</span><br><span class="line">### VECTORIZED OUTER PRODUCT ###</span><br><span class="line">tic &#x3D; time.process_time()</span><br><span class="line">outer &#x3D; np.outer(x1,x2)</span><br><span class="line">toc &#x3D; time.process_time()</span><br><span class="line">print (&quot;outer &#x3D; &quot; + str(outer) + &quot;\n ----- Computation time &#x3D; &quot; + str(1000*(toc - tic)) + &quot;ms&quot;)</span><br><span class="line">### VECTORIZED ELEMENTWISE MULTIPLICATION ###</span><br><span class="line">tic &#x3D; time.process_time()</span><br><span class="line">mul &#x3D; np.multiply(x1,x2)</span><br><span class="line">toc &#x3D; time.process_time()</span><br><span class="line">print (&quot;elementwise multiplication &#x3D; &quot; + str(mul) + &quot;\n ----- Computation time &#x3D; &quot; + str(1000*(toc - tic)) + &quot;ms&quot;)</span><br><span class="line">### VECTORIZED GENERAL DOT PRODUCT ###</span><br><span class="line">tic &#x3D; time.process_time()</span><br><span class="line">dot &#x3D; np.dot(W,x1)</span><br><span class="line">toc &#x3D; time.process_time()</span><br><span class="line">print (&quot;gdot &#x3D; &quot; + str(dot) + &quot;\n ----- Computation time &#x3D; &quot; + str(1000*(toc - tic)) + &quot;ms&quot;)</span><br></pre></td></tr></table></figure>
-
-<p>用L1范数作为损失函数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def L1(yhat, y):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    Arguments:</span><br><span class="line">    yhat -- vector of size m (predicted labels)</span><br><span class="line">    y -- vector of size m (true labels)</span><br><span class="line">    Returns:</span><br><span class="line">    loss -- the value of the L1 loss function defined above</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    loss &#x3D; np.sum(abs(y-yhat))</span><br><span class="line">    return loss</span><br></pre></td></tr></table></figure>
-
-<p>测试代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yhat &#x3D; np.array([.9, 0.2, 0.1, .4, .9])</span><br><span class="line">y &#x3D; np.array([1, 0, 0, 1, 1])</span><br><span class="line">print(&quot;L1 &#x3D; &quot; + str(L1(yhat,y)))</span><br></pre></td></tr></table></figure>
-
-<p>用L2范数作为损失函数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def L2(yhat, y):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    Arguments:</span><br><span class="line">    yhat -- vector of size m (predicted labels)</span><br><span class="line">    y -- vector of size m (true labels)</span><br><span class="line">    Returns:</span><br><span class="line">    loss -- the value of the L2 loss function defined above</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    loss &#x3D; np.sum(np.dot(y-yhat,y-yhat))</span><br><span class="line">    return loss</span><br></pre></td></tr></table></figure>
-
-<p>测试代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yhat &#x3D; np.array([.9, 0.2, 0.1, .4, .9])</span><br><span class="line">y &#x3D; np.array([1, 0, 0, 1, 1])</span><br><span class="line">print(&quot;L2 &#x3D; &quot; + str(L2(yhat,y)))</span><br></pre></td></tr></table></figure>
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Andrew/" rel="tag">Andrew</a></li></ul>
 
 
     </footer>
