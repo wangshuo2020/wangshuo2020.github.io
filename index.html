@@ -69,6 +69,142 @@
     
     
     
+    <article id="post-C-Primer中级-九-深复制、浅复制" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/15/C-Primer%E4%B8%AD%E7%BA%A7-%E4%B9%9D-%E6%B7%B1%E5%A4%8D%E5%88%B6%E3%80%81%E6%B5%85%E5%A4%8D%E5%88%B6/"
+    >C-Primer中级(九)-深复制、浅复制</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/15/C-Primer%E4%B8%AD%E7%BA%A7-%E4%B9%9D-%E6%B7%B1%E5%A4%8D%E5%88%B6%E3%80%81%E6%B5%85%E5%A4%8D%E5%88%B6/" class="article-date">
+  <time datetime="2020-05-15T07:44:30.000Z" itemprop="datePublished">2020-05-15</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;cstring&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class CDemo</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">	CDemo(int pa, char *cstr)</span><br><span class="line">	&#123;</span><br><span class="line">		this-&gt;a &#x3D; pa;</span><br><span class="line">		this-&gt;str &#x3D; new char[1024];</span><br><span class="line">		strcpy(this-&gt;str,cstr);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;没写复制构造函数，C++会自动帮写一个复制构造函数</span><br><span class="line">	CDemo(CDemo&amp; obj)</span><br><span class="line">	&#123;</span><br><span class="line">		this-&gt;a &#x3D; obj.a;</span><br><span class="line">		&#x2F;&#x2F;this-&gt;str &#x3D; obj;  &#x2F;&#x2F;这里不对，要深复制才行，这是浅复制</span><br><span class="line">		this-&gt;str &#x3D; new char[1024];</span><br><span class="line">		if(str!&#x3D;0)</span><br><span class="line">			strcpy(this-&gt;str,obj.str); </span><br><span class="line">	&#125;</span><br><span class="line">	~CDemo()</span><br><span class="line">	&#123;</span><br><span class="line">		delete str;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#x2F;&#x2F;private:应该是私有的，为了方便 </span><br><span class="line">public:</span><br><span class="line">	int a;</span><br><span class="line">	char *str;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	CDemo A(10, &quot;hello&quot;);</span><br><span class="line">	</span><br><span class="line">	CDemo B &#x3D; A; &#x2F;&#x2F;复制 </span><br><span class="line">	cout &lt;&lt; &quot;A&quot; &lt;&lt; A.a &lt;&lt; &quot; &quot; &lt;&lt; A.str &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;B&quot; &lt;&lt; B.a &lt;&lt; &quot; &quot; &lt;&lt; B.str &lt;&lt; endl;</span><br><span class="line">	B.a &#x3D; 8;</span><br><span class="line">	B.str[0] &#x3D; &#39;K&#39;; </span><br><span class="line">	cout &lt;&lt; &quot;修改以后&quot; &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;A&quot; &lt;&lt; A.a &lt;&lt; &quot; &quot; &lt;&lt; A.str &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;B&quot; &lt;&lt; B.a &lt;&lt; &quot; &quot; &lt;&lt; B.str &lt;&lt; endl;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-Primer%E4%B8%AD%E7%BA%A7/" rel="tag">C-Primer中级</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-C-Primer中级-八-析构函数" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/15/C-Primer%E4%B8%AD%E7%BA%A7-%E5%85%AB-%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0/"
+    >C-Primer中级(八)-析构函数</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/15/C-Primer%E4%B8%AD%E7%BA%A7-%E5%85%AB-%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0/" class="article-date">
+  <time datetime="2020-05-15T06:44:46.000Z" itemprop="datePublished">2020-05-15</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class Sales_item</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">	&#x2F;&#x2F;成员(略)	</span><br><span class="line">	</span><br><span class="line">private:</span><br><span class="line">	string isbn;</span><br><span class="line">	int units_sold;</span><br><span class="line">	double revenue;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class NoName</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">	&#x2F;&#x2F;打开文件</span><br><span class="line">	&#x2F;&#x2F;连接数据库 </span><br><span class="line">	&#x2F;&#x2F;动态分配内存 </span><br><span class="line">	NoName():pstring(new string), i(0), d(0)&#123;</span><br><span class="line">		cout &lt;&lt; &quot;构造函数被调用了&quot; &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">	~NoName();	</span><br><span class="line">	NoName(const NoName &amp; other);</span><br><span class="line">	NoName&amp; operator&#x3D;(const NoName &amp;rhs); </span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">	string *pstring;</span><br><span class="line">	int i;</span><br><span class="line">	double d;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">NoName::NoName(const NoName &amp; other)</span><br><span class="line">&#123;</span><br><span class="line">	pstring &#x3D; new string;</span><br><span class="line">	*pstring &#x3D; *(other.pstring);</span><br><span class="line">	i &#x3D; other.i;</span><br><span class="line">	d &#x3D; other.d;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">NoName&amp; NoName::operator&#x3D;(const NoName &amp;rhs)</span><br><span class="line">&#123;</span><br><span class="line">	pstring &#x3D; new string;</span><br><span class="line">	*pstring &#x3D; *(rhs.pstring);</span><br><span class="line">	i &#x3D; rhs.i;</span><br><span class="line">	d &#x3D; rhs.d;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">NoName::~NoName()</span><br><span class="line">&#123;</span><br><span class="line">	&#x2F;&#x2F;关闭文件</span><br><span class="line">	&#x2F;&#x2F;关闭数据库连接</span><br><span class="line">	&#x2F;&#x2F;回收动态分配的内存 </span><br><span class="line">	cout &lt;&lt; &quot;析构函数被调用了!&quot; &lt;&lt; endl;</span><br><span class="line">	delete pstring;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;三法则：如果写了析构函数，那就必须要写复制构造函数和赋值操作符。 </span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	NoName a;</span><br><span class="line">	</span><br><span class="line">	NoName *p &#x3D; new NoName;</span><br><span class="line">	cout &lt;&lt; &quot;Hello&quot; &lt;&lt; endl;</span><br><span class="line">	delete p;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-Primer%E4%B8%AD%E7%BA%A7/" rel="tag">C-Primer中级</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-C-Primer中级-七-复制构造函数和赋值操作符" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -604,209 +740,6 @@
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tulun/" rel="tag">tulun</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-北师大图论系列（二）" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/04/30/%E5%8C%97%E5%B8%88%E5%A4%A7%E5%9B%BE%E8%AE%BA%E7%B3%BB%E5%88%97%EF%BC%88%E4%BA%8C%EF%BC%89/"
-    >北师大图论系列（二）</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/04/30/%E5%8C%97%E5%B8%88%E5%A4%A7%E5%9B%BE%E8%AE%BA%E7%B3%BB%E5%88%97%EF%BC%88%E4%BA%8C%EF%BC%89/" class="article-date">
-  <time datetime="2020-04-30T12:33:38.000Z" itemprop="datePublished">2020-04-30</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p><img src="/images/tulun/p2.jpg" alt=""><br><img src="/images/tulun/p3.jpg" alt=""></p>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tulun/" rel="tag">tulun</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-C-Primer-第二章练习-1" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/04/29/C-Primer-%E7%AC%AC%E4%BA%8C%E7%AB%A0%E7%BB%83%E4%B9%A0-1/"
-    >C++ Primer 第二章练习-1</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/04/29/C-Primer-%E7%AC%AC%E4%BA%8C%E7%AB%A0%E7%BB%83%E4%B9%A0-1/" class="article-date">
-  <time datetime="2020-04-29T15:04:28.000Z" itemprop="datePublished">2020-04-29</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>练习2.1<br>C++规定编译器int最小占位数16位，short也是16位，long和long long分别最少占32位和64位。编译器可以分配给四种类型更多的位数，取决于编译器本身。四种类型都是整型的。<br>无符号类型只有0和正数。带符号类型有正有负有0。<br>float和double的区别在于会保留更多的有效数字。一个是6位，一个是8位。</p>
-<p>练习2.2<br>既然要在三者之间进行数值计算，那么最好声明成相同的数据类型。如果可能是小数，一般就声明为double类型。</p>
-<p>练习2.3</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;&gt;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	unsigned u &#x3D; 10, u2 &#x3D; 42;</span><br><span class="line">	std::cout &lt;&lt; u2 - u &lt;&lt; std::endl;</span><br><span class="line">	std::cout &lt;&lt; u - u2 &lt;&lt; std::endl;</span><br><span class="line">	</span><br><span class="line">	int i &#x3D; 10, i2 &#x3D; 42;</span><br><span class="line">	std::cout &lt;&lt; i2 - i &lt;&lt; std::endl;</span><br><span class="line">	std::cout &lt;&lt; i - i2 &lt;&lt; std::endl;</span><br><span class="line">	std::cout &lt;&lt; i - u &lt;&lt; std::endl;</span><br><span class="line">	std::cout &lt;&lt; u - i &lt;&lt; std::endl; 	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>运行结果：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">32</span><br><span class="line">4294967264</span><br><span class="line">32</span><br><span class="line">-32</span><br><span class="line">0</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
-
-<p>练习2.5<br>‘a’: char L’a’:</p>
-<p>练习2.6</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int month &#x3D; 9, day &#x3D; 7;   &#x2F;&#x2F;定义正确</span><br><span class="line">int month &#x3D; 09,  day &#x3D; 07;  &#x2F;&#x2F;0是八进制的标志，因为八进制中没有9，所以会报错</span><br></pre></td></tr></table></figure>
-
-<p>练习2.7</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;Who goes with F\145rgus?\012&quot; &#x3D;&#x3D; &quot;Who goes with Fergus?&quot;</span><br></pre></td></tr></table></figure>
-<p>练习2.8</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	std::cout &lt;&lt; &quot;2\x4d\012&quot;;</span><br><span class="line">	std::cout &lt;&lt; &quot;2\tM\n&quot;;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>练习2.9</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">std::cin &gt;&gt; int input_value; &#x2F;&#x2F;错误，改为 int input_value; std::cin &gt;&gt; input_value;</span><br><span class="line">int i &#x3D; &#123;3.14&#125;;   &#x2F;&#x2F;类型不一致，会warning</span><br><span class="line">double salary &#x3D; wage &#x3D; 9999.99; &#x2F;&#x2F;错误，改为double salary, wage; salary &#x3D; wage &#x3D; 9999.99;</span><br><span class="line">int i &#x3D; 3.14; &#x2F;&#x2F;类型不一致，warning</span><br></pre></td></tr></table></figure>
-
-<p>练习2.10</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">std::string global_str;   &#x2F;&#x2F;string类型无论在函数内还是在函数外都默认初始化为空字符串</span><br><span class="line">int global_int;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int local_int;   &#x2F;&#x2F;int类型在函数外默认初始化为0，在函数内不被初始化，但是如果要拷贝或者输出这个变量，会出现一个未知的数。</span><br><span class="line">	std::string local_str;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>练习2.11</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">extern int ix &#x3D; 1024; &#x2F;&#x2F;定义</span><br><span class="line">int iy;  &#x2F;&#x2F;定义</span><br><span class="line">extern int iz; &#x2F;&#x2F;声明</span><br></pre></td></tr></table></figure>
-
-<p>练习2.12</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int double &#x3D; 3.14;  &#x2F;&#x2F;非法，double不能作为变量名</span><br><span class="line">int _; &#x2F;&#x2F;合法的</span><br><span class="line">int catch-22; &#x2F;&#x2F;非法，标识符中不能出现减号</span><br><span class="line">int 1_or_2 &#x3D; 1 &#x2F;&#x2F;非法，不能以数字开头</span><br><span class="line">double Double &#x3D; 3.14; &#x2F;&#x2F;合法</span><br></pre></td></tr></table></figure>
-
-<p>练习2.13</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int i &#x3D; 42;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int i &#x3D; 100;</span><br><span class="line">	int j &#x3D; i;   &#x2F;&#x2F;j&#x3D;100</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>练习2.14</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int i &#x3D; 100, sum &#x3D; 0;</span><br><span class="line">for(int i &#x3D; 0; i !&#x3D; 10; ++i)</span><br><span class="line">	sum +&#x3D; i;</span><br><span class="line">std::cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; sum &lt;&lt; std::endl;  &#x2F;&#x2F;i &#x3D; 100, sum &#x3D; 45</span><br></pre></td></tr></table></figure>
-
-<p>练习2.15</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int ival &#x3D; 1.01;  &#x2F;&#x2F;合法</span><br><span class="line">int &amp;rvall &#x3D; 1.01; &#x2F;&#x2F;非法</span><br><span class="line">int &amp;rvall2 &#x3D; ival;  &#x2F;&#x2F;合法</span><br><span class="line">int &amp;rval3;  &#x2F;&#x2F;非法，引用必须初始化</span><br></pre></td></tr></table></figure>
-
-<p>练习2.16</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int i &#x3D; 0, &amp;r1 &#x3D; i;</span><br><span class="line">double d &#x3D; 0, &amp;r2 &#x3D; d;</span><br><span class="line">r2 &#x3D; 3.14159; &#x2F;&#x2F;合法</span><br><span class="line">r2 &#x3D; r1; &#x2F;&#x2F;合法</span><br><span class="line">i &#x3D; r2; &#x2F;&#x2F;合法</span><br><span class="line">r1 &#x3D; d; &#x2F;&#x2F;合法</span><br></pre></td></tr></table></figure>
-
-<p>练习2.17</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int i, &amp;ri &#x3D; i;</span><br><span class="line">i &#x3D; 5; ri &#x3D; 10;</span><br><span class="line">std::cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; ri &lt;&lt; std::endl;   &#x2F;&#x2F;i &#x3D; 10, ri &#x3D; 10</span><br></pre></td></tr></table></figure>
-
-<p>练习2.18</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int i &#x3D; 5, j &#x3D; 10;</span><br><span class="line">	int *p &#x3D; &amp;i;</span><br><span class="line">	std::cout &lt;&lt; p &lt;&lt; &quot; &quot; &lt;&lt; *p &lt;&lt; std::endl;   &#x2F;&#x2F;p &#x3D; 0x6ffe04 *p&#x3D;5  </span><br><span class="line">	p &#x3D; &amp;j;</span><br><span class="line">	std::cout &lt;&lt; p &lt;&lt; &quot; &quot; &lt;&lt; *p &lt;&lt; std::endl;   &#x2F;&#x2F;p &#x3D; 0x6ffe00 *p&#x3D;10</span><br><span class="line">	*p &#x3D; 20;</span><br><span class="line">	std::cout &lt;&lt; p &lt;&lt; &quot; &quot; &lt;&lt; *p &lt;&lt; std::endl;   &#x2F;&#x2F;p &#x3D; 0x6ffe00 *p&#x3D;20</span><br><span class="line">	j &#x3D; 30;</span><br><span class="line">	std::cout &lt;&lt; p &lt;&lt; &quot; &quot; &lt;&lt; *p &lt;&lt; std::endl;   &#x2F;&#x2F;p &#x3D; 0x6ffe00 *p&#x3D;30</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>练习2.20</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int i &#x3D; 42;</span><br><span class="line">int *p1 &#x3D; &amp;i;    &#x2F;&#x2F;在定义语句中*只是一个指针的标志，除此之外没有别的含义</span><br><span class="line">*p1 &#x3D; *p1 * *p1;   &#x2F;&#x2F;在定义语句之外，再出现*p1就是i，直接替换</span><br></pre></td></tr></table></figure>
-
-<p>练习2.21</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int i &#x3D; 0;</span><br><span class="line">double* dp &#x3D;&amp;i;  &#x2F;&#x2F;非法，类型不匹配，double类型的指针不能指向整型对象，更不能指向一个具体的整数</span><br><span class="line">int *ip &#x3D; i;   &#x2F;&#x2F;用一个整数(除了0)或者一个整型变量初始化一个整型指针会报错，用0初始化一个指针就是初始化一个空指针</span><br><span class="line">int *p &#x3D; &amp;i;   &#x2F;&#x2F;合法，必须用一个指针变量或者&amp;符号来初始化一个指针</span><br></pre></td></tr></table></figure>
-
-<p>练习2.22</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">if (p)  &#x2F;&#x2F;...   </span><br><span class="line">if (*p)  &#x2F;&#x2F;...</span><br><span class="line"></span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int i &#x3D; 0;</span><br><span class="line">	int *p1 &#x3D; nullptr;</span><br><span class="line">	int *p &#x3D; &amp;i;</span><br><span class="line">	if (p1)     &#x2F;&#x2F;检验指针的值(即指针所指对象的地址)</span><br><span class="line">		std::cout &lt;&lt; &quot;p1 pass&quot; &lt;&lt; std::endl;</span><br><span class="line">	if (p)      &#x2F;&#x2F;检验指针的值(即指针所指对象的地址)</span><br><span class="line">		std::cout &lt;&lt; &quot;p pass&quot; &lt;&lt; std::endl;</span><br><span class="line">	if (*p)     &#x2F;&#x2F;检验指针所指对象的值</span><br><span class="line">		std::cout &lt;&lt; &quot;i pass&quot; &lt;&lt; std::endl;</span><br><span class="line">	return 0;   &#x2F;&#x2F;如果一个指针是用空指针初始化，那么这个指针的值就是0。只要指针指向对象值都不是0，只有什么对象都不指向时值才为0。</span><br><span class="line">&#125;          &#x2F;&#x2F;感觉这个知识点没啥卵用</span><br></pre></td></tr></table></figure>
-
-<p>练习2.24</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int i &#x3D; 42; void *p &#x3D; &amp;i; long *lp &#x3D; &amp;i;  &#x2F;&#x2F;定义指针时不存在类型转换，不一致就是不一致</span><br><span class="line">&#x2F;&#x2F;void指针可以指向任何类型的对象，但是long指针只能匹配long类型对象。</span><br></pre></td></tr></table></figure>
-
-<p>练习2.25</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int *ip, i, &amp;r &#x3D; i;   &#x2F;&#x2F;i: int r: int ip: int* 可以在定义指针时不初始化它，但是最好初始化</span><br><span class="line">int i, *ip &#x3D; 0;    &#x2F;&#x2F;i: int ip: int* ip是一个空指针</span><br><span class="line">int* ip, ip2;    &#x2F;&#x2F;ip: int* ip2: int</span><br></pre></td></tr></table></figure>
-
-<p>练习2.26</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const int buf;  &#x2F;&#x2F;非法，const必须初始化</span><br><span class="line">int cnt &#x3D; 0;  &#x2F;&#x2F;合法</span><br><span class="line">const int sz &#x3D; cnt;  &#x2F;&#x2F;合法</span><br><span class="line">++cnt; ++sz;  &#x2F;&#x2F;前半句合法，后半句非法</span><br></pre></td></tr></table></figure>
-
-<p>练习2.27</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int i &#x3D; -1, &amp;r &#x3D; 0;           &#x2F;&#x2F;非法，不能用一个数字初始化引用</span><br><span class="line">int *const p2 &#x3D; &amp;i2;           &#x2F;&#x2F;合法，定义了一个常量指针p2指向i2，即指针p2永远指向i2，指针指向对象是可以改变的</span><br><span class="line">const int i &#x3D; -1, &amp;r &#x3D; 0;        &#x2F;&#x2F;合法，可以用一个数字初始化常量引用</span><br><span class="line">const int *const p3 &#x3D; &amp;i2;        &#x2F;&#x2F;合法，定义了一个常量指针指向变量i2，i2的值可以改变，但是不能通过指针p3来改变</span><br><span class="line">const int *p1 &#x3D; &amp;i2;     &#x2F;&#x2F;合法，定义了一个指针指向常量i2，指针可以指向其它对象，但是在指向i2时不能通过p1来改变i2的值</span><br><span class="line">const int &amp;const r2;     &#x2F;&#x2F;？</span><br><span class="line">const int i2 &#x3D; i, &amp;r &#x3D; i;   &#x2F;&#x2F;合法，i2是一个常量，r是一个常量引用，不能通过r来改变i的值</span><br></pre></td></tr></table></figure>
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-Primer/" rel="tag">C++ Primer</a></li></ul>
 
 
     </footer>
