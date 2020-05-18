@@ -69,6 +69,74 @@
     
     
     
+    <article id="post-C-Primer中级-十二-重载输入输出操作符" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/19/C-Primer%E4%B8%AD%E7%BA%A7-%E5%8D%81%E4%BA%8C-%E9%87%8D%E8%BD%BD%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E6%93%8D%E4%BD%9C%E7%AC%A6/"
+    >C-Primer中级(十二)-重载输入输出操作符</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/19/C-Primer%E4%B8%AD%E7%BA%A7-%E5%8D%81%E4%BA%8C-%E9%87%8D%E8%BD%BD%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E6%93%8D%E4%BD%9C%E7%AC%A6/" class="article-date">
+  <time datetime="2020-05-18T16:18:54.000Z" itemprop="datePublished">2020-05-19</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class Dog</span><br><span class="line">&#123;</span><br><span class="line">		</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class Sales_item</span><br><span class="line">&#123;</span><br><span class="line">friend ostream&amp; operator&lt;&lt;(ostream&amp; out, const Sales_item&amp; s);	</span><br><span class="line">friend istream&amp; operator&gt;&gt;(istream&amp; in, Sales_item&amp; s);</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line">	Sales_item(const string &amp;book, unsigned units, double price):</span><br><span class="line">	  isbn(book), units_sold(units), revenue(price*units)&#123;&#125;</span><br><span class="line">	Sales_item(): units_sold(0), revenue(0.0)&#123;&#125;	</span><br><span class="line">	</span><br><span class="line">private:</span><br><span class="line">	string isbn;</span><br><span class="line">	unsigned units_sold;</span><br><span class="line">	double revenue;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">ostream&amp; operator&lt;&lt;(ostream&amp; out, const Sales_item&amp; s)</span><br><span class="line">&#123;</span><br><span class="line">	out &lt;&lt; s.isbn &lt;&lt; &quot;\t&quot; &lt;&lt; s.units_sold &lt;&lt; &quot;\t&quot; &lt;&lt; s.revenue;</span><br><span class="line">	return out;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">istream&amp; operator&gt;&gt;(istream&amp; in, Sales_item&amp; s)</span><br><span class="line">&#123;</span><br><span class="line">	double price;</span><br><span class="line">	in &gt;&gt; s.isbn &gt;&gt; s.units_sold &gt;&gt; price;</span><br><span class="line">	if(in)</span><br><span class="line">		s.revenue &#x3D; s.units_sold * price;</span><br><span class="line">	else</span><br><span class="line">		s &#x3D; Sales_item();</span><br><span class="line">	return in;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	Dog a;</span><br><span class="line">	int b;</span><br><span class="line">	</span><br><span class="line">	Sales_item item(&quot;0-201-78345-X&quot;, 2, 25.00);</span><br><span class="line">	cout &lt;&lt; item &lt;&lt; endl;</span><br><span class="line">	</span><br><span class="line">	cin &gt;&gt; item;</span><br><span class="line">	cout &lt;&lt; item &lt;&lt; endl;</span><br><span class="line">	</span><br><span class="line">	cout &lt;&lt; &quot;hello&quot; &lt;&lt; endl;</span><br><span class="line">	&#x2F;&#x2F;cout &lt;&lt; a;</span><br><span class="line">	&#x2F;&#x2F;cin &gt;&gt; b;</span><br><span class="line">	&#x2F;&#x2F;cin &gt;&gt; a;</span><br><span class="line">	&#x2F;&#x2F;cout &lt;&lt; b &lt;&lt; endl; </span><br><span class="line">	</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">	return 0;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-Primer%E4%B8%AD%E7%BA%A7/" rel="tag">C-Primer中级</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-C-Primer中级-十一-重载操作符的定义" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -660,74 +728,6 @@
 
       
       <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class Person</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">	Person():age(0)&#123;</span><br><span class="line">	&#125;</span><br><span class="line">	Person(string &amp;nm, int a):name(nm),age(a)</span><br><span class="line">	&#123;</span><br><span class="line">		</span><br><span class="line">	&#125;	</span><br><span class="line"></span><br><span class="line">	string name;</span><br><span class="line">	int age;</span><br><span class="line">&#125;; </span><br><span class="line"> </span><br><span class="line">class Sales_item</span><br><span class="line">&#123;</span><br><span class="line">public:	</span><br><span class="line">	explicit Sales_item():units_sold(0),revenue(0.0)&#123;&#125;</span><br><span class="line">	explicit Sales_item(const string &amp;book, int units, double price)</span><br><span class="line">		:isbn(book),units_sold(units),revenue(units*price)</span><br><span class="line">	&#123;</span><br><span class="line">		&#x2F;&#x2F;this-&gt;isbn &#x3D; book;</span><br><span class="line">		&#x2F;&#x2F;this-&gt;units_sold &#x3D; units;</span><br><span class="line">		&#x2F;&#x2F;this-&gt;revenue &#x3D; amounnt;</span><br><span class="line">	&#125;</span><br><span class="line">	explicit Sales_item(const string &amp;book&#x3D;&quot;&quot;):isbn(book),units_sold(0),revenue(0.0)&#123;&#125;</span><br><span class="line">	&#x2F;&#x2F;string str(10,&#39;A&#39;);</span><br><span class="line">	explicit Sales_item(istream &amp;is) &#123;is &gt;&gt; *this;&#125;</span><br><span class="line">	</span><br><span class="line">	bool same_isbn(const Sales_item &amp;rhs) const</span><br><span class="line">	&#123;</span><br><span class="line">		return isbn &#x3D;&#x3D; rhs.isbn;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	friend istream&amp; operator &gt;&gt; (istream&amp;, Sales_item&amp;);</span><br><span class="line">	Sales_item(int units, double price) &#x2F;&#x2F;const</span><br><span class="line">	&#123;</span><br><span class="line">		this-&gt;units_sold &#x3D; units;</span><br><span class="line">		this-&gt;revenue &#x3D; units * price;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">private:</span><br><span class="line">	string isbn;</span><br><span class="line">	unsigned units_sold;</span><br><span class="line">	double revenue;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">inline istream&amp; operator&gt;&gt;(istream&amp; in, Sales_item &amp;s)</span><br><span class="line">&#123;</span><br><span class="line">	double price;</span><br><span class="line">	in &gt;&gt; s.isbn &gt;&gt; s.units_sold &gt;&gt; price;</span><br><span class="line">	</span><br><span class="line">	if(in)</span><br><span class="line">		s.revenue &#x3D; s.units_sold * price;</span><br><span class="line">	else</span><br><span class="line">		&#x2F;&#x2F;s &#x3D; Sales_item();</span><br><span class="line">	return in;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Cat</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">	Cat():age(0)&#123;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	Cat(string &amp;nm):name(nm),age(0)&#123;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	string getName() &#123;</span><br><span class="line">		return this-&gt;name;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	int getAge()&#123;</span><br><span class="line">		return this-&gt;age;</span><br><span class="line">	&#125;	</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">	string name;</span><br><span class="line">	int age;	</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class Dog&#123;</span><br><span class="line">public:</span><br><span class="line">	Dog():legs(4)</span><br><span class="line">	&#123;</span><br><span class="line">		&#x2F;&#x2F;this-&gt;legs &#x3D; 4;</span><br><span class="line">		&#125;	</span><br><span class="line"></span><br><span class="line">private: </span><br><span class="line">		string name;</span><br><span class="line">		const int legs;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;class Data</span><br><span class="line">&#x2F;&#x2F;&#123;</span><br><span class="line">&#x2F;&#x2F;public:</span><br><span class="line">&#x2F;&#x2F;	int ival;</span><br><span class="line">&#x2F;&#x2F;	char *ptr;</span><br><span class="line">&#x2F;&#x2F;&#125;</span><br><span class="line"></span><br><span class="line">class Eata</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">	Eata(int i, char *p):ival(i), ptr(p)&#123;</span><br><span class="line">	&#125;	</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">	int ival;</span><br><span class="line">	char *ptr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	&#x2F;&#x2F;Data v &#x3D; &#123;9, 1.2&#125;;</span><br><span class="line">	Eata w(9, &quot;hello&quot;)</span><br><span class="line">	&#x2F;&#x2F;string c &#x3D; &quot;zhangfei&quot;;</span><br><span class="line">	&#x2F;&#x2F;Person a(c,22);</span><br><span class="line">	&#x2F;&#x2F;Person a;</span><br><span class="line">	&#x2F;&#x2F;cout &lt;&lt; a.name &lt;&lt; endl;</span><br><span class="line">	&#x2F;&#x2F;cout &lt;&lt; a.age &lt;&lt; endl;</span><br><span class="line">	</span><br><span class="line">	Cat aCat;</span><br><span class="line">	</span><br><span class="line">	Person b;</span><br><span class="line">	</span><br><span class="line">	Sales_item item1(); </span><br><span class="line">	Sales_item item2(&quot;0-201&quot;);</span><br><span class="line">	Sales_item *p &#x3D; new Sales_item();</span><br><span class="line">	const Sales_item item3(); </span><br><span class="line">	</span><br><span class="line">	if (item2.same_isbn(item1))</span><br><span class="line">	&#123;</span><br><span class="line">		</span><br><span class="line">	&#125; </span><br><span class="line">	</span><br><span class="line">&#x2F;&#x2F;	if(item2.same_isbn(&quot;9-999-999-9&quot;))</span><br><span class="line">&#x2F;&#x2F;	&#123;</span><br><span class="line">&#x2F;&#x2F;	&#125;</span><br><span class="line">	</span><br><span class="line">&#x2F;&#x2F;	if (item2.same_isbn(cin))</span><br><span class="line">&#x2F;&#x2F;	&#123;</span><br><span class="line">&#x2F;&#x2F;	&#125;</span><br><span class="line">	&#x2F;&#x2F;delete p;</span><br><span class="line">	Sales_item myobj();</span><br><span class="line">	</span><br><span class="line">	if(myobj.name_isbn(item2))</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; &quot;xiangtong&quot; &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-Primer%E4%B8%AD%E7%BA%A7/" rel="tag">C-Primer中级</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-C-Primer中级-三-类作用域" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/05/05/C-Primer%E4%B8%AD%E7%BA%A7-%E4%B8%89-%E7%B1%BB%E4%BD%9C%E7%94%A8%E5%9F%9F/"
-    >C-Primer中级(三)-类作用域</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/05/05/C-Primer%E4%B8%AD%E7%BA%A7-%E4%B8%89-%E7%B1%BB%E4%BD%9C%E7%94%A8%E5%9F%9F/" class="article-date">
-  <time datetime="2020-05-05T08:44:20.000Z" itemprop="datePublished">2020-05-05</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">void doA()</span><br><span class="line">&#123;</span><br><span class="line">	int a;</span><br><span class="line">	a &#x3D; 12;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;b &#x3D; 11;</span><br><span class="line"> &#125; </span><br><span class="line"> </span><br><span class="line">void doB()</span><br><span class="line">&#123;</span><br><span class="line">	int b;</span><br><span class="line">	b &#x3D; 99;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;a &#x3D; 88;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class First&#123;</span><br><span class="line">public:</span><br><span class="line">	int memi;</span><br><span class="line">	double memd;</span><br><span class="line">	</span><br><span class="line">	void doC()</span><br><span class="line">	&#123;</span><br><span class="line">		memi &#x3D; 22;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	void doD()</span><br><span class="line">	&#123;</span><br><span class="line">		doC();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int height;  &#x2F;&#x2F;全局作用域里的变量 </span><br><span class="line"></span><br><span class="line">class ScreenB</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">	typedef string::size_type index;</span><br><span class="line">	void dummy_fcn(index height)</span><br><span class="line">	&#123;</span><br><span class="line">		&#x2F;&#x2F;cursor &#x3D; width * height;  &#x2F;&#x2F;这是哪个height? </span><br><span class="line">		&#x2F;&#x2F;cursor &#x3D; width * this-&gt;height;</span><br><span class="line">		cursor &#x3D; width * ::height;</span><br><span class="line">	&#125;</span><br><span class="line">private:</span><br><span class="line">	index cursor;</span><br><span class="line">	index height, width;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class ScreenA</span><br><span class="line">&#123;</span><br><span class="line">public: </span><br><span class="line">	typedef string::size_type index;</span><br><span class="line">	</span><br><span class="line">	char get(index r, index c) const;</span><br><span class="line">	index get_cursor() const;</span><br><span class="line">	</span><br><span class="line">private:</span><br><span class="line">	string contents;</span><br><span class="line">	index cursor;</span><br><span class="line">	index height, width;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">ScreenA::index ScreenA::get_cursor() const</span><br><span class="line">&#123;</span><br><span class="line">	return cursor;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">char ScreenA::get(index r, index c) const</span><br><span class="line">&#123;</span><br><span class="line">	&#x2F;&#x2F;mimi &#x3D; 12;</span><br><span class="line">	index row &#x3D; r * width;</span><br><span class="line">	return contents[row+c];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	ScreenA::index ht;</span><br><span class="line">	ScreenA a;</span><br><span class="line">	ScreenB b;</span><br><span class="line">	&#x2F;&#x2F;a &#x3D; 8;</span><br><span class="line">	&#x2F;&#x2F;b &#x3D; 88;</span><br><span class="line">	doA();</span><br><span class="line">	doB();</span><br><span class="line">	&#x2F;&#x2F;doC();</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	First obj;</span><br><span class="line">	First *ptr &#x3D; &amp;obj;</span><br><span class="line">	obj.memi &#x3D; 12;</span><br><span class="line">	obj.doC();</span><br><span class="line">	</span><br><span class="line">	ptr-&gt;memi &#x3D; 99;</span><br><span class="line">	ptr-&gt;doC();</span><br><span class="line">	&#x2F;&#x2F;memi &#x3D; 12;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
       <!-- reward -->
       

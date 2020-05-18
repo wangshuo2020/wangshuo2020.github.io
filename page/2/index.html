@@ -69,6 +69,74 @@
     
     
     
+    <article id="post-C-Primer中级-三-类作用域" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/05/C-Primer%E4%B8%AD%E7%BA%A7-%E4%B8%89-%E7%B1%BB%E4%BD%9C%E7%94%A8%E5%9F%9F/"
+    >C-Primer中级(三)-类作用域</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/05/C-Primer%E4%B8%AD%E7%BA%A7-%E4%B8%89-%E7%B1%BB%E4%BD%9C%E7%94%A8%E5%9F%9F/" class="article-date">
+  <time datetime="2020-05-05T08:44:20.000Z" itemprop="datePublished">2020-05-05</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">void doA()</span><br><span class="line">&#123;</span><br><span class="line">	int a;</span><br><span class="line">	a &#x3D; 12;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;b &#x3D; 11;</span><br><span class="line"> &#125; </span><br><span class="line"> </span><br><span class="line">void doB()</span><br><span class="line">&#123;</span><br><span class="line">	int b;</span><br><span class="line">	b &#x3D; 99;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;a &#x3D; 88;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class First&#123;</span><br><span class="line">public:</span><br><span class="line">	int memi;</span><br><span class="line">	double memd;</span><br><span class="line">	</span><br><span class="line">	void doC()</span><br><span class="line">	&#123;</span><br><span class="line">		memi &#x3D; 22;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	void doD()</span><br><span class="line">	&#123;</span><br><span class="line">		doC();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int height;  &#x2F;&#x2F;全局作用域里的变量 </span><br><span class="line"></span><br><span class="line">class ScreenB</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">	typedef string::size_type index;</span><br><span class="line">	void dummy_fcn(index height)</span><br><span class="line">	&#123;</span><br><span class="line">		&#x2F;&#x2F;cursor &#x3D; width * height;  &#x2F;&#x2F;这是哪个height? </span><br><span class="line">		&#x2F;&#x2F;cursor &#x3D; width * this-&gt;height;</span><br><span class="line">		cursor &#x3D; width * ::height;</span><br><span class="line">	&#125;</span><br><span class="line">private:</span><br><span class="line">	index cursor;</span><br><span class="line">	index height, width;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class ScreenA</span><br><span class="line">&#123;</span><br><span class="line">public: </span><br><span class="line">	typedef string::size_type index;</span><br><span class="line">	</span><br><span class="line">	char get(index r, index c) const;</span><br><span class="line">	index get_cursor() const;</span><br><span class="line">	</span><br><span class="line">private:</span><br><span class="line">	string contents;</span><br><span class="line">	index cursor;</span><br><span class="line">	index height, width;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">ScreenA::index ScreenA::get_cursor() const</span><br><span class="line">&#123;</span><br><span class="line">	return cursor;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">char ScreenA::get(index r, index c) const</span><br><span class="line">&#123;</span><br><span class="line">	&#x2F;&#x2F;mimi &#x3D; 12;</span><br><span class="line">	index row &#x3D; r * width;</span><br><span class="line">	return contents[row+c];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	ScreenA::index ht;</span><br><span class="line">	ScreenA a;</span><br><span class="line">	ScreenB b;</span><br><span class="line">	&#x2F;&#x2F;a &#x3D; 8;</span><br><span class="line">	&#x2F;&#x2F;b &#x3D; 88;</span><br><span class="line">	doA();</span><br><span class="line">	doB();</span><br><span class="line">	&#x2F;&#x2F;doC();</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	First obj;</span><br><span class="line">	First *ptr &#x3D; &amp;obj;</span><br><span class="line">	obj.memi &#x3D; 12;</span><br><span class="line">	obj.doC();</span><br><span class="line">	</span><br><span class="line">	ptr-&gt;memi &#x3D; 99;</span><br><span class="line">	ptr-&gt;doC();</span><br><span class="line">	&#x2F;&#x2F;memi &#x3D; 12;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-Primer%E4%B8%AD%E7%BA%A7/" rel="tag">C-Primer中级</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-C-Primer中级-二-this指针" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -898,75 +966,6 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;import os</span><br><span class="line">&gt;&gt;&gt;dirs &#x3D; os.listdir(&#39;machinelearninginaction\Ch02\EXTRAS&#39;)</span><br><span class="line">[&#39;createDist.py&#39;, &#39;createDist2.py&#39;, &#39;createFirstPlot.py&#39;, &#39;README.txt&#39;, &#39;testSet.txt&#39;]</span><br></pre></td></tr></table></figure>
 <p>os.listdir()方法返回一个字符串列表<br>测试代码：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; kNN.handwritmgClassTest()</span><br><span class="line">the classifier came back with: 0, the real answer is: 0</span><br><span class="line">...</span><br><span class="line">the classifier came back with: 0, the real answer is: 0</span><br><span class="line">the total number of errors is: 11</span><br><span class="line">the total error rate is: 0.011628</span><br></pre></td></tr></table></figure>
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-linux简单命令" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/23/linux%E7%AE%80%E5%8D%95%E5%91%BD%E4%BB%A4/"
-    >linux简单命令</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/23/linux%E7%AE%80%E5%8D%95%E5%91%BD%E4%BB%A4/" class="article-date">
-  <time datetime="2020-03-23T06:28:07.000Z" itemprop="datePublished">2020-03-23</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>1、安装VMwaretools：虚拟机-&gt;安装VMwaretools。注意安装ubuntu后不能直接安装VMtools，要先重启一下虚拟机。<br>2、换清华源：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim&#x2F;vi &#x2F;etc&#x2F;apt&#x2F;sources.list</span><br></pre></td></tr></table></figure><br>    没有vim就用vi。<br>    把source.list文件中的文本换成下面代码：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-updates main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-updates main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-backports main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-backports main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-security main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-security main restricted universe multiverse</span><br><span class="line"></span><br><span class="line"># 预发布软件源，不建议启用</span><br><span class="line"># deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-proposed main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-proposed main restricted universe multiverse</span><br></pre></td></tr></table></figure><br>    使用update命令更新：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure><br>3、安装vim：<br>    输入命令：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install vim-gtk</span><br></pre></td></tr></table></figure><br>    安装完成之后，在命令行敲入vi，按“tab”键。可以看到，已经有vim命令的存在。<br>4、配置vim:<br>    刚安装的VIM，界面并不是十分友好，这就需要我们去更改vim的配置文件，按照我们的需求去修改它。<br>    输入命令：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim &#x2F;etc&#x2F;vim&#x2F;vimrc</span><br></pre></td></tr></table></figure><br>    将syntax on的注释标记去掉，在最后面加上set number,作用是显示行号。(慢慢补充一些常用的配置)<br>5、配置git：<br>    顺序执行以下代码：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install git</span><br><span class="line">git --version</span><br><span class="line">git config --global user.name &quot;linuxidc&quot;</span><br><span class="line">git config --global user.email &quot;root@linuxidc.net&quot;</span><br><span class="line">git config --list</span><br></pre></td></tr></table></figure><br>6、安装anaconda：<br>    到(<a href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/)下载Anaconda3-5.2.0-Linux-x86_64.sh。" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/)下载Anaconda3-5.2.0-Linux-x86_64.sh。</a><br>    在cmd中cd到/home/Download，执行如下代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">$ sudo sh Anaconda3-5.2.0-Linux-x86_64.sh </span><br><span class="line">[sudo] andrew 的密码： </span><br><span class="line">Welcome to Anaconda3 5.2.0</span><br><span class="line">In order to continue the installation process, please review the license</span><br><span class="line">agreement.</span><br><span class="line">Please, press ENTER to continue</span><br><span class="line">&gt;&gt;&gt; # 按下回车</span><br><span class="line">... # 多次按空格读完license。</span><br><span class="line">Do you accept the license terms? [yes|no]</span><br><span class="line">[no] &gt;&gt;&gt; yes # 输入yes</span><br><span class="line"> - Press ENTER to confirm the location</span><br><span class="line"> - Press CTRL-C to abort the installation</span><br><span class="line"> - Or specify a different location below</span><br><span class="line">...</span><br><span class="line">[&#x2F;home&#x2F;andrew&#x2F;anaconda3] &gt;&gt;&gt; &#x2F;usr&#x2F;local&#x2F;anaconda3 # 输入自定义目录</span><br><span class="line">... # 安装根据机器性能，通常需要持续几分钟。</span><br><span class="line">Do you wish to proceed with the installation of Microsoft VSCode? [yes|no] #选择no，一般来说自带的spyder和专业IDE wingIDE更好用。</span><br><span class="line">...</span><br><span class="line">Do you wish the installer to initialize Anaconda3</span><br><span class="line">in your &#x2F;home&#x2F;andrew&#x2F;.bashrc ? [yes|no]</span><br><span class="line">[no] &gt;&gt;&gt; # 选择yes</span><br><span class="line">Initializing Anaconda3 in &#x2F;home&#x2F;andrew&#x2F;.bashrc</span><br><span class="line">A backup will be made to: &#x2F;home&#x2F;andrew&#x2F;.bashrc-anaconda3.bak</span><br><span class="line">For this change to become active, you have to open a new terminal.</span><br><span class="line">Thank you for installing Anaconda3!</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">Anaconda is partnered with Microsoft! Microsoft VSCode is a streamlined</span><br><span class="line">code editor with support for development operations like debugging, task</span><br><span class="line">running and version control.</span><br><span class="line">To install Visual Studio Code, you will need:</span><br><span class="line"> - Administrator Privileges</span><br><span class="line"> - Internet connectivity</span><br><span class="line">Visual Studio Code License: https:&#x2F;&#x2F;code.visualstudio.com&#x2F;license</span><br><span class="line">Do you wish to proceed with the installation of Microsoft VSCode? [yes|no]</span><br><span class="line">&gt;&gt;&gt; no</span><br></pre></td></tr></table></figure>
-<pre><code>要注意的是安装成功后要退出cmd，再打开，路径配置才起作用。</code></pre><p>7、vim使用：<br>    删除：1、连续删除多行时，使用n1,n2 d命令；比如删除第2到第10行，则在命令行模式下输入2,10 d即可<br>          2、删除零星的行，移到指定行，然后d，删除此行。<br>    复制：1、将第9行至第15行的数据，复制到第16行；9,15 copy 16或9,15 co 16<br>          2、同理9,15 move 16或9,15 m 16将第9行到第15行的文本内容移动到第16行的后面</p>
-
       
       <!-- reward -->
       

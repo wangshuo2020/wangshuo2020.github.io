@@ -6,7 +6,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    C-Primer中级(十一)-重载操作符的定义 |  畅院士的开山大弟子的博客
+    C-Primer中级(十二)-重载输入输出操作符 |  畅院士的开山大弟子的博客
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -30,7 +30,7 @@
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-C-Primer中级-十一-重载操作符的定义" class="article article-type-post" itemscope
+  <article id="post-C-Primer中级-十二-重载输入输出操作符" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -38,7 +38,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  C-Primer中级(十一)-重载操作符的定义
+  C-Primer中级(十二)-重载输入输出操作符
 </h1>
   
 
@@ -47,8 +47,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/05/18/C-Primer%E4%B8%AD%E7%BA%A7-%E5%8D%81%E4%B8%80-%E9%87%8D%E8%BD%BD%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%AE%9A%E4%B9%89/" class="article-date">
-  <time datetime="2020-05-18T15:43:59.000Z" itemprop="datePublished">2020-05-18</time>
+      <a href="/2020/05/19/C-Primer%E4%B8%AD%E7%BA%A7-%E5%8D%81%E4%BA%8C-%E9%87%8D%E8%BD%BD%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E6%93%8D%E4%BD%9C%E7%AC%A6/" class="article-date">
+  <time datetime="2020-05-18T16:18:54.000Z" itemprop="datePublished">2020-05-19</time>
 </a>
       
       
@@ -58,7 +58,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">439字</span>
+            <span class="post-count">238字</span>
         </span>
     </span>
 
@@ -92,7 +92,7 @@
       
 
       
-      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class Person</span><br><span class="line">&#123;</span><br><span class="line">	&#x2F;&#x2F;重载操作符：加法</span><br><span class="line">public:</span><br><span class="line">	void operator+(const Person &amp;rhs)</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; &quot;执行了重载的加法操作&quot; &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;void operation+(int, int): &#x2F;&#x2F;不能重载内置类型 </span><br><span class="line">	&#x2F;&#x2F;优先级、结合性也不会因为重载改变</span><br><span class="line">	&#x2F;&#x2F;原本进行短路计算的重载就没了，一般不要重载逻辑与或 </span><br><span class="line">	&#x2F;&#x2F;&amp;&amp;、||、&amp;、, 这些操作符可以重载，但是最好不要重载</span><br><span class="line">	&#x2F;&#x2F;赋值操作一般作为成员函数，算数操作、关系操作作为非成员函数</span><br><span class="line">	&#x2F;&#x2F;如果作为非成员函数则要结合友元，这样才能调用私有属性</span><br><span class="line">	&#x2F;&#x2F;可以用先重载的运算符定义后重载的运算符</span><br><span class="line">	&#x2F;&#x2F;如果要能把类放在容器中，比如向量和映射，那就需要对小于和等于进行重载</span><br><span class="line">	&#x2F;&#x2F;如果对小于进行重载，那就也要对大于进行重载；如果对相等进行重载，就要对不等于进行重载</span><br><span class="line">	&#x2F;&#x2F;有四个操作符重载，如果重载必须作为成员函数，&#x3D;、[]、()、-&gt;，别的任意 </span><br><span class="line">	&#x2F;&#x2F; 有一些重载的习惯做法</span><br><span class="line">	&#x2F;&#x2F;有四个操作符不能重载 ::、.*、.、?: </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int a, b;</span><br><span class="line">	a &#x3D; 12;</span><br><span class="line">	b &#x3D; 9;</span><br><span class="line">	cin &gt;&gt; a;</span><br><span class="line">	cout &lt;&lt; a + b &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	Person p1, p2;</span><br><span class="line">	&#x2F;&#x2F;cin &gt;&gt; p1;</span><br><span class="line">	p1 + p2;</span><br><span class="line">	&#x2F;&#x2F;cout &lt;&lt; p1; </span><br><span class="line">	</span><br><span class="line">	Sales_item item1, item2;</span><br><span class="line">	&#x2F;&#x2F;cin &gt;&gt; item1;</span><br><span class="line">	&#x2F;&#x2F;cin &gt;&gt; item2;</span><br><span class="line">	&#x2F;&#x2F;cin &gt;&gt; item1 &gt;&gt; item2;</span><br><span class="line">	&#x2F;&#x2F;item1 + item2;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;cout &lt;&lt; item1 + item2 &lt;&lt; endl;</span><br><span class="line">	&#x2F;&#x2F;cout &lt;&lt; operator(item1, item2) &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;Hello&quot; &lt;&lt; endl;</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class Dog</span><br><span class="line">&#123;</span><br><span class="line">		</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class Sales_item</span><br><span class="line">&#123;</span><br><span class="line">friend ostream&amp; operator&lt;&lt;(ostream&amp; out, const Sales_item&amp; s);	</span><br><span class="line">friend istream&amp; operator&gt;&gt;(istream&amp; in, Sales_item&amp; s);</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line">	Sales_item(const string &amp;book, unsigned units, double price):</span><br><span class="line">	  isbn(book), units_sold(units), revenue(price*units)&#123;&#125;</span><br><span class="line">	Sales_item(): units_sold(0), revenue(0.0)&#123;&#125;	</span><br><span class="line">	</span><br><span class="line">private:</span><br><span class="line">	string isbn;</span><br><span class="line">	unsigned units_sold;</span><br><span class="line">	double revenue;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">ostream&amp; operator&lt;&lt;(ostream&amp; out, const Sales_item&amp; s)</span><br><span class="line">&#123;</span><br><span class="line">	out &lt;&lt; s.isbn &lt;&lt; &quot;\t&quot; &lt;&lt; s.units_sold &lt;&lt; &quot;\t&quot; &lt;&lt; s.revenue;</span><br><span class="line">	return out;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">istream&amp; operator&gt;&gt;(istream&amp; in, Sales_item&amp; s)</span><br><span class="line">&#123;</span><br><span class="line">	double price;</span><br><span class="line">	in &gt;&gt; s.isbn &gt;&gt; s.units_sold &gt;&gt; price;</span><br><span class="line">	if(in)</span><br><span class="line">		s.revenue &#x3D; s.units_sold * price;</span><br><span class="line">	else</span><br><span class="line">		s &#x3D; Sales_item();</span><br><span class="line">	return in;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	Dog a;</span><br><span class="line">	int b;</span><br><span class="line">	</span><br><span class="line">	Sales_item item(&quot;0-201-78345-X&quot;, 2, 25.00);</span><br><span class="line">	cout &lt;&lt; item &lt;&lt; endl;</span><br><span class="line">	</span><br><span class="line">	cin &gt;&gt; item;</span><br><span class="line">	cout &lt;&lt; item &lt;&lt; endl;</span><br><span class="line">	</span><br><span class="line">	cout &lt;&lt; &quot;hello&quot; &lt;&lt; endl;</span><br><span class="line">	&#x2F;&#x2F;cout &lt;&lt; a;</span><br><span class="line">	&#x2F;&#x2F;cin &gt;&gt; b;</span><br><span class="line">	&#x2F;&#x2F;cin &gt;&gt; a;</span><br><span class="line">	&#x2F;&#x2F;cout &lt;&lt; b &lt;&lt; endl; </span><br><span class="line">	</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">	return 0;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
       
       <!-- reward -->
       
@@ -161,7 +161,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/05/18/C-Primer%E4%B8%AD%E7%BA%A7-%E5%8D%81%E4%B8%80-%E9%87%8D%E8%BD%BD%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%AE%9A%E4%B9%89/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/05/19/C-Primer%E4%B8%AD%E7%BA%A7-%E5%8D%81%E4%BA%8C-%E9%87%8D%E8%BD%BD%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E6%93%8D%E4%BD%9C%E7%AC%A6/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -179,19 +179,10 @@
   
   <nav class="article-nav">
     
-      <a href="/2020/05/19/C-Primer%E4%B8%AD%E7%BA%A7-%E5%8D%81%E4%BA%8C-%E9%87%8D%E8%BD%BD%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E6%93%8D%E4%BD%9C%E7%AC%A6/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            C-Primer中级(十二)-重载输入输出操作符
-          
-        </div>
-      </a>
     
-    
-      <a href="/2020/05/18/C-Primer%E4%B8%AD%E7%BA%A7-%E5%8D%81-%E7%AE%A1%E7%90%86%E6%8C%87%E9%92%88%E6%88%90%E5%91%98/" class="article-nav-link">
+      <a href="/2020/05/18/C-Primer%E4%B8%AD%E7%BA%A7-%E5%8D%81%E4%B8%80-%E9%87%8D%E8%BD%BD%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%AE%9A%E4%B9%89/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">C-Primer中级(十)-管理指针成员</div>
+        <div class="article-nav-title">C-Primer中级(十一)-重载操作符的定义</div>
       </a>
     
   </nav>

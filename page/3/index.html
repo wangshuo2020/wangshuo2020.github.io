@@ -69,6 +69,75 @@
     
     
     
+    <article id="post-linux简单命令" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/23/linux%E7%AE%80%E5%8D%95%E5%91%BD%E4%BB%A4/"
+    >linux简单命令</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/23/linux%E7%AE%80%E5%8D%95%E5%91%BD%E4%BB%A4/" class="article-date">
+  <time datetime="2020-03-23T06:28:07.000Z" itemprop="datePublished">2020-03-23</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>1、安装VMwaretools：虚拟机-&gt;安装VMwaretools。注意安装ubuntu后不能直接安装VMtools，要先重启一下虚拟机。<br>2、换清华源：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim&#x2F;vi &#x2F;etc&#x2F;apt&#x2F;sources.list</span><br></pre></td></tr></table></figure><br>    没有vim就用vi。<br>    把source.list文件中的文本换成下面代码：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-updates main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-updates main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-backports main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-backports main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-security main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-security main restricted universe multiverse</span><br><span class="line"></span><br><span class="line"># 预发布软件源，不建议启用</span><br><span class="line"># deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-proposed main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-proposed main restricted universe multiverse</span><br></pre></td></tr></table></figure><br>    使用update命令更新：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure><br>3、安装vim：<br>    输入命令：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install vim-gtk</span><br></pre></td></tr></table></figure><br>    安装完成之后，在命令行敲入vi，按“tab”键。可以看到，已经有vim命令的存在。<br>4、配置vim:<br>    刚安装的VIM，界面并不是十分友好，这就需要我们去更改vim的配置文件，按照我们的需求去修改它。<br>    输入命令：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim &#x2F;etc&#x2F;vim&#x2F;vimrc</span><br></pre></td></tr></table></figure><br>    将syntax on的注释标记去掉，在最后面加上set number,作用是显示行号。(慢慢补充一些常用的配置)<br>5、配置git：<br>    顺序执行以下代码：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install git</span><br><span class="line">git --version</span><br><span class="line">git config --global user.name &quot;linuxidc&quot;</span><br><span class="line">git config --global user.email &quot;root@linuxidc.net&quot;</span><br><span class="line">git config --list</span><br></pre></td></tr></table></figure><br>6、安装anaconda：<br>    到(<a href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/)下载Anaconda3-5.2.0-Linux-x86_64.sh。" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/)下载Anaconda3-5.2.0-Linux-x86_64.sh。</a><br>    在cmd中cd到/home/Download，执行如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">$ sudo sh Anaconda3-5.2.0-Linux-x86_64.sh </span><br><span class="line">[sudo] andrew 的密码： </span><br><span class="line">Welcome to Anaconda3 5.2.0</span><br><span class="line">In order to continue the installation process, please review the license</span><br><span class="line">agreement.</span><br><span class="line">Please, press ENTER to continue</span><br><span class="line">&gt;&gt;&gt; # 按下回车</span><br><span class="line">... # 多次按空格读完license。</span><br><span class="line">Do you accept the license terms? [yes|no]</span><br><span class="line">[no] &gt;&gt;&gt; yes # 输入yes</span><br><span class="line"> - Press ENTER to confirm the location</span><br><span class="line"> - Press CTRL-C to abort the installation</span><br><span class="line"> - Or specify a different location below</span><br><span class="line">...</span><br><span class="line">[&#x2F;home&#x2F;andrew&#x2F;anaconda3] &gt;&gt;&gt; &#x2F;usr&#x2F;local&#x2F;anaconda3 # 输入自定义目录</span><br><span class="line">... # 安装根据机器性能，通常需要持续几分钟。</span><br><span class="line">Do you wish to proceed with the installation of Microsoft VSCode? [yes|no] #选择no，一般来说自带的spyder和专业IDE wingIDE更好用。</span><br><span class="line">...</span><br><span class="line">Do you wish the installer to initialize Anaconda3</span><br><span class="line">in your &#x2F;home&#x2F;andrew&#x2F;.bashrc ? [yes|no]</span><br><span class="line">[no] &gt;&gt;&gt; # 选择yes</span><br><span class="line">Initializing Anaconda3 in &#x2F;home&#x2F;andrew&#x2F;.bashrc</span><br><span class="line">A backup will be made to: &#x2F;home&#x2F;andrew&#x2F;.bashrc-anaconda3.bak</span><br><span class="line">For this change to become active, you have to open a new terminal.</span><br><span class="line">Thank you for installing Anaconda3!</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">Anaconda is partnered with Microsoft! Microsoft VSCode is a streamlined</span><br><span class="line">code editor with support for development operations like debugging, task</span><br><span class="line">running and version control.</span><br><span class="line">To install Visual Studio Code, you will need:</span><br><span class="line"> - Administrator Privileges</span><br><span class="line"> - Internet connectivity</span><br><span class="line">Visual Studio Code License: https:&#x2F;&#x2F;code.visualstudio.com&#x2F;license</span><br><span class="line">Do you wish to proceed with the installation of Microsoft VSCode? [yes|no]</span><br><span class="line">&gt;&gt;&gt; no</span><br></pre></td></tr></table></figure>
+<pre><code>要注意的是安装成功后要退出cmd，再打开，路径配置才起作用。</code></pre><p>7、vim使用：<br>    删除：1、连续删除多行时，使用n1,n2 d命令；比如删除第2到第10行，则在命令行模式下输入2,10 d即可<br>          2、删除零星的行，移到指定行，然后d，删除此行。<br>    复制：1、将第9行至第15行的数据，复制到第16行；9,15 copy 16或9,15 co 16<br>          2、同理9,15 move 16或9,15 m 16将第9行到第15行的文本内容移动到第16行的后面</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-虚拟机安装" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -727,91 +796,6 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">gpus &#x3D; tf.config.experimental.list_physical_devices(&#39;GPU&#39;)</span><br><span class="line">tf.config.experimental.set_virtual_device_configuration(</span><br><span class="line">    gpus[0],</span><br><span class="line">    [tf.config.experimental.VirtualDeviceConfiguration(memory_limit&#x3D;2048),</span><br><span class="line">     tf.config.experimental.VirtualDeviceConfiguration(memory_limit&#x3D;2048)])</span><br></pre></td></tr></table></figure>
 <p>我们在单机多卡训练的代码前加入以上代码，即可让原本为多GPU设计的代码在单GPU环境下运行。当输出设备数量时，程序会输出：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Number of devices: 2</span><br></pre></td></tr></table></figure>
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-tensorflow2-0系列-十-：TFRecord" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/20/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%8D%81-%EF%BC%9ATFRecord/"
-    >tensorflow2.0系列(十)：TFRecord</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/20/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%8D%81-%EF%BC%9ATFRecord/" class="article-date">
-  <time datetime="2020-03-20T09:27:17.000Z" itemprop="datePublished">2020-03-20</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>TFRecord是TensorFlow中的数据集存储格式。当我们将数据集整理成TFRecord格式后，TensorFlow就可以高效地读取和处理这些数据集，从而帮助我们更高效地进行大规模的模型训练。<br>TFRecord可以理解为一系列序列化的tf.train.Example元素所组成的列表文件，而每一个tf.train.Example又由若干个tf.train.Feature的字典组成。形式如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># dataset.tfrecords</span><br><span class="line">[</span><br><span class="line">    &#123;   # example 1 (tf.train.Example)</span><br><span class="line">        &#39;feature_1&#39;: tf.train.Feature,</span><br><span class="line">        ...</span><br><span class="line">        &#39;feature_k&#39;: tf.train.Feature</span><br><span class="line">    &#125;,</span><br><span class="line">    ...</span><br><span class="line">    &#123;   # example N (tf.train.Example)</span><br><span class="line">        &#39;feature_1&#39;: tf.train.Feature,</span><br><span class="line">        ...</span><br><span class="line">        &#39;feature_k&#39;: tf.train.Feature</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<p>为了将形式各样的数据集整理为TFRecord格式，我们可以对数据集中的每个元素进行以下步骤：<br>读取该数据元素到内存；<br>将该元素转换为tf.train.Example对象（每一个tf.train.Example由若干个tf.train.Feature的字典组成，因此需要先建立Feature的字典）；<br>将该tf.train.Example对象序列化为字符串，并通过一个预先定义的tf.io.TFRecordWriter写入TFRecord文件。</p>
-<p>而读取TFRecord数据则可按照以下步骤：<br>通过tf.data.TFRecordDataset读入原始的TFRecord文件,获得一个tf.data.Dataset数据集对象(此时该数据集对象中的tf.train.Example对象尚未被反序列化)；<br>通过Dataset.map方法，对该数据集对象中的每一个序列化的tf.train.Example字符串执行tf.io.parse_single_example函数，从而实现反序列化。</p>
-<p>以下我们通过一个实例，展示将上一节中使用的cats_vs_dogs二分类数据集的训练集部分转换为TFRecord文件，并读取该文件的过程。<br>将数据集存储为 TFRecord 文件：<br>首先，与上一节类似，我们进行一些准备工作，下载数据集并解压到data_dir，初始化数据集的图片文件名列表及标签。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line">import os</span><br><span class="line"></span><br><span class="line">data_dir &#x3D; &#39;C:&#x2F;datasets&#x2F;cats_vs_dogs&#39;</span><br><span class="line">train_cats_dir &#x3D; data_dir + &#39;&#x2F;train&#x2F;cats&#x2F;&#39;</span><br><span class="line">train_dogs_dir &#x3D; data_dir + &#39;&#x2F;train&#x2F;dogs&#x2F;&#39;</span><br><span class="line">tfrecord_file &#x3D; data_dir + &#39;&#x2F;train&#x2F;train.tfrecords&#39;</span><br><span class="line"></span><br><span class="line">train_cat_filenames &#x3D; [train_cats_dir + filename for filename in os.listdir(train_cats_dir)]</span><br><span class="line">train_dog_filenames &#x3D; [train_dogs_dir + filename for filename in os.listdir(train_dogs_dir)]</span><br><span class="line">train_filenames &#x3D; train_cat_filenames + train_dog_filenames</span><br><span class="line">train_labels &#x3D; [0] * len(train_cat_filenames) + [1] * len(train_dog_filenames)  # 将 cat 类的标签设为0，dog 类的标签设为1</span><br></pre></td></tr></table></figure>
-
-<p>然后，通过以下代码，迭代读取每张图片，建立tf.train.Feature字典和tf.train.Example对象，序列化并写入TFRecord文件。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">with tf.io.TFRecordWriter(tfrecord_file) as writer:</span><br><span class="line">    for filename, label in zip(train_filenames, train_labels):</span><br><span class="line">        image &#x3D; open(filename, &#39;rb&#39;).read()     # 读取数据集图片到内存，image 为一个 Byte 类型的字符串</span><br><span class="line">        feature &#x3D; &#123;                             # 建立 tf.train.Feature 字典</span><br><span class="line">            &#39;image&#39;: tf.train.Feature(bytes_list&#x3D;tf.train.BytesList(value&#x3D;[image])),  # 图片是一个 Bytes 对象</span><br><span class="line">            &#39;label&#39;: tf.train.Feature(int64_list&#x3D;tf.train.Int64List(value&#x3D;[label]))   # 标签是一个 Int 对象</span><br><span class="line">        &#125;</span><br><span class="line">        example &#x3D; tf.train.Example(features&#x3D;tf.train.Features(feature&#x3D;feature)) # 通过字典建立 Example</span><br><span class="line">        writer.write(example.SerializeToString())   # 将Example序列化并写入 TFRecord 文件</span><br></pre></td></tr></table></figure>
-
-<p>值得注意的是，tf.train.Feature支持三种数据格式：<br>tf.train.BytesList：字符串或原始Byte文件（如图片），通过bytes_list参数传入一个由字符串数组初始化的tf.train.BytesList对象；tf.train.FloatList ：浮点数，通过float_list参数传入一个由浮点数数组初始化的tf.train.FloatList对象；tf.train.Int64List ：整数，通过int64_list参数传入一个由整数数组初始化的tf.train.Int64List对象。如果只希望保存一个元素而非数组，传入一个只有一个元素的数组即可。运行以上代码，不出片刻，我们即可在tfrecord_file所指向的文件地址获得一个500MB左右的train.tfrecords文件。<br>读取TFRecord文件：<br>我们可以通过以下代码，读取之前建立的train.tfrecords文件，并通过Dataset.map方法，使用tf.io.parse_single_example函数对数据集中的每一个序列化的tf.train.Example对象解码。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">raw_dataset &#x3D; tf.data.TFRecordDataset(tfrecord_file)    # 读取 TFRecord 文件</span><br><span class="line"></span><br><span class="line">feature_description &#x3D; &#123; # 定义Feature结构，告诉解码器每个Feature的类型是什么</span><br><span class="line">    &#39;image&#39;: tf.io.FixedLenFeature([], tf.string),</span><br><span class="line">    &#39;label&#39;: tf.io.FixedLenFeature([], tf.int64),</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">def _parse_example(example_string): # 将 TFRecord 文件中的每一个序列化的 tf.train.Example 解码</span><br><span class="line">    feature_dict &#x3D; tf.io.parse_single_example(example_string, feature_description)</span><br><span class="line">    feature_dict[&#39;image&#39;] &#x3D; tf.io.decode_jpeg(feature_dict[&#39;image&#39;])    # 解码JPEG图片</span><br><span class="line">    return feature_dict[&#39;image&#39;], feature_dict[&#39;label&#39;]</span><br><span class="line"></span><br><span class="line">dataset &#x3D; raw_dataset.map(_parse_example)</span><br></pre></td></tr></table></figure>
-<p>这里的feature_description类似于一个数据集的“描述文件”，通过一个由键值对组成的字典，告知tf.io.parse_single_example函数每个tf.train.Example数据项有哪些Feature，以及这些Feature的类型、形状等属性。tf.io.FixedLenFeature的三个输入参数shape、dtype和default_value（可省略）为每个Feature的形状、类型和默认值。这里我们的数据项都是单个的数值或者字符串，所以shape为空数组。</p>
-<p>运行以上代码后，我们获得一个数据集对象dataset，这已经是一个可以用于训练的tf.data.Dataset对象了！我们从该数据集中读取元素并输出验证：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import matplotlib.pyplot as plt </span><br><span class="line"></span><br><span class="line">for image, label in dataset:</span><br><span class="line">    plt.title(&#39;cat&#39; if label &#x3D;&#x3D; 0 else &#39;dog&#39;)</span><br><span class="line">    plt.imshow(image.numpy())</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
-<p>经验证，图片和标签都正确显示，数据集构建成功。</p>
-
       
       <!-- reward -->
       
