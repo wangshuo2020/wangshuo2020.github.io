@@ -69,6 +69,75 @@
     
     
     
+    <article id="post-LaTeX系列-十四-参考文献BibLaTeX" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/23/LaTeX%E7%B3%BB%E5%88%97-%E5%8D%81%E5%9B%9B-%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AEBibLaTeX/"
+    >LaTeX系列(十四)-参考文献BibLaTeX</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/23/LaTeX%E7%B3%BB%E5%88%97-%E5%8D%81%E5%9B%9B-%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AEBibLaTeX/" class="article-date">
+  <time datetime="2020-05-23T10:45:05.000Z" itemprop="datePublished">2020-05-23</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">%导言区</span><br><span class="line">\documentclass&#123;ctexart&#125;%ctexbook, ctexrep</span><br><span class="line"></span><br><span class="line">%\usepackage&#123;ctex&#125;</span><br><span class="line"></span><br><span class="line">%\usepackage&#123;natbib&#125;</span><br><span class="line"></span><br><span class="line">\bibliographystyle&#123;plain&#125; %plain unsrt alpha abbrv</span><br><span class="line">%\bibliographystyle&#123;plainnat&#125;</span><br><span class="line"></span><br><span class="line">%正文区(文稿区)</span><br><span class="line">\begin&#123;document&#125;</span><br><span class="line">	这是一个参考文献的引用：\cite&#123;mittelbach2004&#125;%\citet</span><br><span class="line"></span><br><span class="line">	这是另一个引用：\cite&#123;__nodate&#125; %\citep</span><br><span class="line">	</span><br><span class="line">	\nocite&#123;*&#125;</span><br><span class="line">	</span><br><span class="line">	\bibliography&#123;test&#125;</span><br><span class="line">\end&#123;document&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@BOOK&#123;mittelbach2004,</span><br><span class="line">title &#x3D; &#123;The &#123;&#123;\LaTeX&#125;&#125; Companion&#125;,</span><br><span class="line">publisher &#x3D; &#123;Addison-Wesley&#125;,</span><br><span class="line">year &#x3D; &#123;2004&#125;,</span><br><span class="line">author &#x3D; &#123;Frank Mittelbach and Michael Goossens&#125;,</span><br><span class="line">series &#x3D; &#123;Tools and Techniques for Computer Typesetting&#125;,</span><br><span class="line">address &#x3D; &#123;Boston&#125;,</span><br><span class="line">edition &#x3D; &#123;Second&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LaTeX/" rel="tag">LaTeX</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-LaTeX系列-十二-参考文献BibTeX" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -653,74 +722,6 @@
 
       
       <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">%导言区</span><br><span class="line">\documentclass&#123;ctexbook&#125;%ctexbook, ctexrep</span><br><span class="line"></span><br><span class="line">\usepackage&#123;ctex&#125;</span><br><span class="line">% **********</span><br><span class="line"></span><br><span class="line">%正文区（文稿区）</span><br><span class="line">\begin&#123;document&#125;</span><br><span class="line">	\tableofcontents</span><br><span class="line">	</span><br><span class="line">	%\section&#123;引言&#125;</span><br><span class="line">	%近年来，随着逆向过程和三维重建技术的发展和应用，获取现实世界中物体的三维数据的方法越来越多的关注和研究。\\很多研究机构和商业公司都陆续推出了自己的三维重建系统。</span><br><span class="line">	</span><br><span class="line">	%近年来，随着逆向过程和三维重建技术的发展和应用，获取现实世界中物体的三维数据的方法越来越多的关注和研究。\par 很多研究机构和商业公司都陆续推出了自己的三维重建系统。</span><br><span class="line">	%\section&#123;实验方法&#125;</span><br><span class="line">	%\section&#123;实验结果&#125;</span><br><span class="line">	%\subsection&#123;数据&#125;</span><br><span class="line">	%\subsection&#123;图表&#125;</span><br><span class="line">	%\subsubsection&#123;实验条件&#125;</span><br><span class="line">	%\subsubsection&#123;实验过程&#125;</span><br><span class="line">	%\subsection&#123;结果分析&#125;</span><br><span class="line">	%\section&#123;结论&#125;</span><br><span class="line">	%\section&#123;致谢&#125;</span><br><span class="line">	</span><br><span class="line">	\chapter&#123;绪论&#125;</span><br><span class="line">	\section&#123;研究的目的和意义&#125;</span><br><span class="line">	\section&#123;国内外研究现状&#125;</span><br><span class="line">	\subsection&#123;国外研究现状&#125;</span><br><span class="line">	\subsection&#123;国内研究现状&#125;</span><br><span class="line">	\section&#123;研究内容&#125;</span><br><span class="line">	\section&#123;研究方法与技术路线&#125;</span><br><span class="line">	\subsection&#123;研究内容&#125;</span><br><span class="line">	\subsection&#123;技术路线&#125;</span><br><span class="line">	</span><br><span class="line">	\chapter&#123;实验与结果分析&#125;</span><br><span class="line">	\section&#123;引言&#125;</span><br><span class="line">	\section&#123;实验方法&#125;</span><br><span class="line">	\section&#123;实验结果&#125;</span><br><span class="line">	\subsection&#123;数据&#125;</span><br><span class="line">	\subsection&#123;图表&#125;</span><br><span class="line">	\subsubsection&#123;实验条件&#125;</span><br><span class="line">	\subsubsection&#123;实验过程&#125;</span><br><span class="line">	\subsection&#123;结果分析&#125;</span><br><span class="line">	\section&#123;结论&#125;</span><br><span class="line">	\section&#123;致谢&#125;</span><br><span class="line">	</span><br><span class="line">\end&#123;document&#125;</span><br></pre></td></tr></table></figure>
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LaTeX/" rel="tag">LaTeX</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-LaTeX系列-三-字体字号设置" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/05/23/LaTeX%E7%B3%BB%E5%88%97-%E4%B8%89-%E5%AD%97%E4%BD%93%E5%AD%97%E5%8F%B7%E8%AE%BE%E7%BD%AE/"
-    >LaTeX系列(三)-字体字号设置</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/05/23/LaTeX%E7%B3%BB%E5%88%97-%E4%B8%89-%E5%AD%97%E4%BD%93%E5%AD%97%E5%8F%B7%E8%AE%BE%E7%BD%AE/" class="article-date">
-  <time datetime="2020-05-23T10:31:15.000Z" itemprop="datePublished">2020-05-23</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">%导言区</span><br><span class="line">\documentclass[10pt]&#123;ctexart&#125;%ctexbook, ctexrep</span><br><span class="line"></span><br><span class="line">%\usepackage&#123;ctex&#125;</span><br><span class="line"></span><br><span class="line">\newcommand&#123;\myfont&#125;&#123;\textit&#123;\textbf&#123;\textsf&#123;Fancy Text&#125;&#125;&#125;&#125;</span><br><span class="line"></span><br><span class="line">%正文区（文稿区）</span><br><span class="line">\begin&#123;document&#125;</span><br><span class="line">	%字体族设置（罗马字体、无衬线字体、打字机字体）</span><br><span class="line">	</span><br><span class="line">	\textrm&#123;Roman Family&#125; \textsf&#123;Sans Serif Family&#125;</span><br><span class="line">	\texttt&#123;Typewriter Family&#125;</span><br><span class="line">	</span><br><span class="line">	&#123;\rmfamily Romman Family&#125;&#123;\sffamily Sans Serif Family&#125;</span><br><span class="line">	&#123;\ttfamily Typewriter Family&#125;</span><br><span class="line">	</span><br><span class="line">	&#123;\sffamily who you are? you find self on everyone around. take you as the same as others!&#125;</span><br><span class="line">	</span><br><span class="line">	&#123;\ttfamily Are you wiser than others? definitely no. in some ways, may it is true. What can you achieve? a luxurious house? a brilliant car? an admirable career? who knows?&#125;</span><br><span class="line">	</span><br><span class="line">	%字体系列设置（粗细、宽度）</span><br><span class="line">	\textmd&#123;Medium Series&#125; \textbf&#123;Boldface Series&#125;</span><br><span class="line">	</span><br><span class="line">	&#123;\mdseries Medium Series&#125; &#123;\bfseries Boldface Series&#125;</span><br><span class="line">	</span><br><span class="line">	%字体形状（直立、斜体、伪斜体、小型大写）</span><br><span class="line">	\textup&#123;Upright Share&#125; \textit&#123;Italic Shape&#125;</span><br><span class="line">	\textsl&#123;Slanted Shape&#125; \textsc&#123;Small Caps Shape&#125;</span><br><span class="line">	</span><br><span class="line">	&#123;\upshape Upright Shape&#125;&#123;\itshape Italic Shape&#125; &#123;\slshape Slanted Shape&#125;&#123;\scshape Small Caps Shape&#125;</span><br><span class="line">	</span><br><span class="line">	% 中文字体</span><br><span class="line">	&#123;\songti 宋体&#125; \quad &#123;\heiti 黑体&#125; \quad &#123;\fangsong 仿宋&#125; \quad &#123;\kaishu 楷书&#125;</span><br><span class="line">	</span><br><span class="line">	中文字体的\textbf&#123;粗体&#125;与\textit&#123;斜体&#125;</span><br><span class="line">	</span><br><span class="line">	%字体大小</span><br><span class="line">	&#123;\tiny Hello&#125;\\</span><br><span class="line">	&#123;\scriptsize Hello&#125;\\</span><br><span class="line">	&#123;\footnotesize Hello&#125;\\</span><br><span class="line">	&#123;\small Hello&#125;\\</span><br><span class="line">	&#123;\normalsize Hello&#125;\\</span><br><span class="line">	&#123;\large Hello&#125;\\</span><br><span class="line">	&#123;\Large Hello&#125;\\</span><br><span class="line">	&#123;\LARGE Hello&#125;\\</span><br><span class="line">	&#123;\huge Hello&#125;\\</span><br><span class="line">	&#123;\Huge Hello&#125;\\</span><br><span class="line">	</span><br><span class="line">	%中文字号设置命令</span><br><span class="line">	\zihao&#123;5&#125; 你好！</span><br><span class="line">	</span><br><span class="line">	\myfont</span><br><span class="line">\end&#123;document&#125;</span><br></pre></td></tr></table></figure>
       
       <!-- reward -->
       
