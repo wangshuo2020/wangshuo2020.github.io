@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+     畅院士的开山大弟子的博客
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+  
+  
+
+  
+
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      
+<section class="cover">
+    
+      
+      <a class="forkMe" href="https://github.com/Shen-Yu/hexo-theme-ayer"
+        target="_blank"><img width="149" height="149" src="/images/forkme.png"
+          class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+    
+  <div class="cover-frame">
+    <div class="bg-box">
+      <img src="/images/cover1.jpg" alt="image frame" />
+    </div>
+    <div class="cover-inner text-center text-white">
+      <h1><a href="/">畅院士的开山大弟子的博客</a></h1>
+      <div id="subtitle-box">
+        
+        <span id="subtitle"></span>
+        
+      </div>
+      <div>
+        
+      </div>
+    </div>
+  </div>
+  <div class="cover-learn-more">
+    <a href="javascript:void(0)" class="anchor"><i class="ri-arrow-down-line"></i></a>
+  </div>
+</section>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js"></script>
+
+<div id="main">
+  <section class="outer">
+  <article class="articles">
+    
+    
+    
+    
+    <article id="post-tensorflow2-0系列-四-：多层感知机" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/17/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%9B%9B-%EF%BC%9A%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA/"
+    >tensorflow2.0系列(四)：多层感知机</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/17/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%9B%9B-%EF%BC%9A%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA/" class="article-date">
+  <time datetime="2020-03-17T10:07:51.000Z" itemprop="datePublished">2020-03-17</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>多层感知机就是多层全连接神经网络。<br>在这里使用多层感知机完成 MNIST 手写体数字图片数据集 [LeCun1998] 的分类任务。<br>我们将依次完成以下几个环节。<br>1、使用 tf.keras.datasets 获得数据集并预处理<br>2、使用 tf.keras.Model 和 tf.keras.layers 构建模型<br>3、构建模型训练流程，使用 tf.keras.losses 计算损失函数，并使用 tf.keras.optimizer 优化模型<br>4、构建模型评估流程，使用 tf.keras.metrics 计算评估指标<br>第一步，先定义一个MNISTLoader类来下载MNIST数据集，预处理以及自定义一个从数据集中取出数据的方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class MNISTLoader():</span><br><span class="line">    def __init__(self):</span><br><span class="line">        mnist &#x3D; tf.keras.datasets.mnist</span><br><span class="line">        (self.train_data, self.train_label), (self.test_data, self.test_label) &#x3D; mnist.load_data()</span><br><span class="line">        # MNIST中的图像默认为uint8（0-255的数字）。以下代码将其归一化到0-1之间的浮点数，并在最后增加一维作为颜色通道</span><br><span class="line">        self.train_data &#x3D; np.expand_dims(self.train_data.astype(np.float32) &#x2F; 255.0, axis&#x3D;-1)      # [60000, 28, 28, 1]</span><br><span class="line">        self.test_data &#x3D; np.expand_dims(self.test_data.astype(np.float32) &#x2F; 255.0, axis&#x3D;-1)        # [10000, 28, 28, 1]</span><br><span class="line">        self.train_label &#x3D; self.train_label.astype(np.int32)    # [60000]</span><br><span class="line">        self.test_label &#x3D; self.test_label.astype(np.int32)      # [10000]</span><br><span class="line">        self.num_train_data, self.num_test_data &#x3D; self.train_data.shape[0], self.test_data.shape[0]</span><br><span class="line"></span><br><span class="line">    def get_batch(self, batch_size):</span><br><span class="line">        # 从数据集中随机取出batch_size个元素并返回</span><br><span class="line">        index &#x3D; np.random.randint(0, np.shape(self.train_data)[0], batch_size)</span><br><span class="line">        return self.train_data[index, :], self.train_label[index]</span><br></pre></td></tr></table></figure>
+<p>需要注意的是keras内置的load_data()方法返回的是两个元组以及get_batch()方法是怎么写的。</p>
+<p>在 TensorFlow 中，图像数据集一般表示成一个[图像数目，长，宽，色彩通道数] 的四维张量。这里读入的是灰度图片，色彩通道数为1(彩色RGB图像色彩通道数为3)。由于load_data()方法返回的都是[图像数目，长，宽]的三维张量，所以使用np.expand_dims()函数给返回张量在最后添加一维，保持一致性。<br>多层感知机的模型与之前实现的线性模型不同的地方在于层数增加了，以及引入了非线性激活函数ReLU函数。该模型输入一个向量，输出一个10维的向量，每一维分别是识别为0-9的概率。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class MLP(tf.keras.Model):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.flatten &#x3D; tf.keras.layers.Flatten()    # Flatten层将除第一维（batch_size）以外的维度展平</span><br><span class="line">        self.dense1 &#x3D; tf.keras.layers.Dense(units&#x3D;100, activation&#x3D;tf.nn.relu)</span><br><span class="line">        self.dense2 &#x3D; tf.keras.layers.Dense(units&#x3D;10)</span><br><span class="line"></span><br><span class="line">    def call(self, inputs):         # [batch_size, 28, 28, 1]</span><br><span class="line">        x &#x3D; self.flatten(inputs)    # [batch_size, 784]</span><br><span class="line">        x &#x3D; self.dense1(x)          # [batch_size, 100]</span><br><span class="line">        x &#x3D; self.dense2(x)          # [batch_size, 10]</span><br><span class="line">        output &#x3D; tf.nn.softmax(x)</span><br><span class="line">        return output</span><br></pre></td></tr></table></figure>
+<p>因为我们希望输出的向量具有这样两个特点：该向量中的每个元素均在[0,1]之间；该向量的所有元素之和为1。因此我们对最后一层的线性输出使用Softmax函数进行归一化。softmax不仅取出了向量中的最大值，还保留了对其余类别的预测信息，因此被称作soft argmax。<br>归一化就是把数值映射到(0,1)之间，有很多种方法。</p>
+<p>第三步，就是构建模型训练流程，首先需要定义一些超参数，比如训练的轮数、一次喂入多少个数据，即batch_size、还有学习率。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">num_epochs &#x3D; 5</span><br><span class="line">batch_size &#x3D; 50</span><br><span class="line">learning_rate &#x3D; 0.001</span><br></pre></td></tr></table></figure>
+<p>接着将前两步定义的两个类实例化，并且实例化出一个优化器，这里采用的Adam优化器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">model &#x3D; MLP()</span><br><span class="line">data_loader &#x3D; MNISTLoader()</span><br><span class="line">optimizer &#x3D; tf.keras.optimizers.Adam(learning_rate&#x3D;learning_rate)</span><br></pre></td></tr></table></figure>
+<p>接下来就是迭代进行一下步骤：<br>从 DataLoader 中随机取一批训练数据；<br>将这批数据送入模型，计算出模型的预测值；<br>将模型预测值与真实值进行比较，计算损失函数(loss)。这里使用tf.keras.losses中的交叉熵函数作为损失函数；<br>计算损失函数关于模型变量的导数；<br>将求出的导数值传入优化器，使用优化器的 apply_gradients 方法更新模型参数以最小化损失函数。<br>具体代码为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">num_batches &#x3D; int(data_loader.num_train_data &#x2F;&#x2F; batch_size * num_epochs)</span><br><span class="line">for batch_index in range(num_batches):</span><br><span class="line">    X, y &#x3D; data_loader.get_batch(batch_size)</span><br><span class="line">    with tf.GradientTape() as tape:</span><br><span class="line">        y_pred &#x3D; model(X)</span><br><span class="line">        loss &#x3D; tf.keras.losses.sparse_categorical_crossentropy(y_true&#x3D;y, y_pred&#x3D;y_pred)</span><br><span class="line">        loss &#x3D; tf.reduce_mean(loss)</span><br><span class="line">        print(&quot;batch %d: loss %f&quot; % (batch_index, loss.numpy()))</span><br><span class="line">    grads &#x3D; tape.gradient(loss, model.variables)</span><br><span class="line">    optimizer.apply_gradients(grads_and_vars&#x3D;zip(grads, model.variables))</span><br></pre></td></tr></table></figure>
+<p>在这里，我们没有显式地写出一个损失函数，而是使用了tf.keras.losses中的sparse_categorical_crossentropy(交叉熵)函数，将模型的预测值y_pred与真实的标签值y作为函数参数传入，由Keras帮助我们计算损失函数的值。<br>交叉熵作为损失函数，在分类问题中被广泛应用。<br>第四步，评估模型。keras在metrics模块中封装了不同的评估器用于适应不同的需求。在这里我们使用的是SparseCategoricalAccuracy评估器来评估模型在测试集上的性能，该评估器输出的是预测正确的样本数占总样本数的比例。<br>在每次迭代测试集的时候，都会通过update_state()方法向评估器输入两个参数：y_pred和y_true，即模型预测出的结果和真实结果。评估器定义了内部变量来保存当前评估指标相关的参数数值(例如当前已传入的累计样本数和当前预测正确的样本数)。迭代结束后，我们使用result()方法输出最终的评估指标值(预测正确的样本数占总样本数的比例)。<br>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sparse_categorical_accuracy &#x3D; tf.keras.metrics.SparseCategoricalAccuracy()</span><br><span class="line">num_batches &#x3D; int(data_loader.num_test_data &#x2F;&#x2F; batch_size)</span><br><span class="line">for batch_index in range(num_batches):</span><br><span class="line">    start_index, end_index &#x3D; batch_index * batch_size, (batch_index + 1) * batch_size</span><br><span class="line">    y_pred &#x3D; model.predict(data_loader.test_data[start_index: end_index])</span><br><span class="line">    sparse_categorical_accuracy.update_state(y_true&#x3D;data_loader.test_label[start_index: end_index], y_pred&#x3D;y_pred)</span><br><span class="line">print(&quot;test accuracy: %f&quot; % sparse_categorical_accuracy.result())</span><br></pre></td></tr></table></figure>
+<p>在这里我们首先实例化了一个 tf.keras.metrics.SparseCategoricalAccuracy 评估器，并且使用For循环迭代分批次传入了测试集数据的预测结果与真实结果，并调用result()方法输出了训练后的模型在测试数据集上的准确率。<br>但是同样可以看到keras的缺点就是啥都帮你做了你就很难知道背后的机理是怎么实现的了。</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-tensorflow2-0系列-三" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/17/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%B8%89/"
+    >tensorflow2.0系列(三)</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/17/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%B8%89/" class="article-date">
+  <time datetime="2020-03-17T04:58:42.000Z" itemprop="datePublished">2020-03-17</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>在keras中，通过继承tf.keras.Model来定义自己的模型。在继承类中，需要重写”<del><strong>init</strong></del>“()和和call(input)两个方法，也可以根据需要增加自定义的方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class MyModel(tf.keras.Model):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super().__init__()     # Python 2 下使用 super(MyModel, self).__init__()</span><br><span class="line">        &#x2F;&#x2F; 此处添加初始化代码（包含 call 方法中会用到的层），例如</span><br><span class="line">        &#x2F;&#x2F; layer1 &#x3D; tf.keras.layers.BuiltInLayer(...)</span><br><span class="line">        &#x2F;&#x2F; layer2 &#x3D; MyCustomLayer(...)</span><br><span class="line"></span><br><span class="line">    def call(self, input):</span><br><span class="line">        &#x2F;&#x2F; 此处添加模型调用的代码（处理输入并返回输出），例如</span><br><span class="line">        &#x2F;&#x2F; x &#x3D; layer1(input)</span><br><span class="line">        &#x2F;&#x2F; output &#x3D; layer2(x)</span><br><span class="line">        return output</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 还可以添加自定义的方法</span><br></pre></td></tr></table></figure>
+<p>继承 tf.keras.Model 后，就以使用父类的方法和属性，比如在实例化类model = Model()后，就可以通过model.variables这一属性直接获得模型中的所有变量，而不需要我们一个个显式地指定变量。<br>用keras实现线性回归：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line"></span><br><span class="line">X &#x3D; tf.constant([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]])</span><br><span class="line">y &#x3D; tf.constant([[10.0], [20.0]])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Linear(tf.keras.Model):</span><br><span class="line">    def &quot;&#39;__init__&#39;&quot;(self):</span><br><span class="line">        super().&quot;&#39;__init__&#39;&quot;()</span><br><span class="line">        self.dense &#x3D; tf.keras.layers.Dense(</span><br><span class="line">            units&#x3D;1,</span><br><span class="line">            activation&#x3D;None,</span><br><span class="line">            kernel_initializer&#x3D;tf.zeros_initializer(),</span><br><span class="line">            bias_initializer&#x3D;tf.zeros_initializer()</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    def call(self, input):</span><br><span class="line">        output &#x3D; self.dense(input)</span><br><span class="line">        return output</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 以下代码结构与前节类似</span><br><span class="line">model &#x3D; Linear()</span><br><span class="line">optimizer &#x3D; tf.keras.optimizers.SGD(learning_rate&#x3D;0.01)</span><br><span class="line">for i in range(100):</span><br><span class="line">    with tf.GradientTape() as tape:</span><br><span class="line">        y_pred &#x3D; model(X)      # 调用模型 y_pred &#x3D; model(X) 而不是显式写出 y_pred &#x3D; a * X + b</span><br><span class="line">        loss &#x3D; tf.reduce_mean(tf.square(y_pred - y))</span><br><span class="line">    grads &#x3D; tape.gradient(loss, model.variables)    # 使用 model.variables 这一属性直接获得模型中的所有变量</span><br><span class="line">    optimizer.apply_gradients(grads_and_vars&#x3D;zip(grads, model.variables))</span><br><span class="line">print(model.variables)</span><br></pre></td></tr></table></figure>
+<p>tf.keras.layers.Dense类的作用是实例化生成全连接层，它的参数有：<br>units ：输出张量的维度<br>activation ：激活函数，对应于f(AW + b)中的f，默认为无激活函数(a(x) = x)。常用的激活函数包括 tf.nn.relu、tf.nn.tanh和tf.nn.sigmoid；<br>use_bias ：是否加入偏置向量bias，即f(AW + b)中的b。默认为True；<br>kernel_initializer、bias_initializer：权重矩阵kernel和偏置向量bias两个变量的初始化器。默认为tf.glorot_uniform_initializer。设置为tf.zeros_initializer表示将两个变量均初始化为全0；<br>该层包含权重矩阵kernel=[input_dim,units]和偏置向量bias=[units]两个可训练变量，对应于f(AW+b)中的W和b。<br>tf.matmul(input, kernel) 的结果是一个形状为 [batch_size, units] 的二维矩阵，而bias是一个形状为[units]的一维向量，它们是怎么相加的呢？<br>这里用到的是python的广播机制。<br>为什么模型类是重写call()方法而不是”‘<strong>call</strong>‘“()方法？<br>实例化也可以理解为调用这个类。<br>在python中，myClass()==myClass.”‘<strong>call</strong>‘“()。重写call()方法而不是”‘<strong>call</strong>‘“()方法是因为在keras中call()方法是在”‘<strong>call</strong>‘“()方法中被调用的，也就是说，在keras框架下，在调用某个模型时，keras要执行的不仅仅是用户定义的call()方法，还有一些每个模型在调用时都要进行的处理，而这些东西就写在了””<strong>call</strong>‘“()方法下。因此用户重写的只能是call()方法。</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-白板推导系列-一-：SVM定义" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/16/%E7%99%BD%E6%9D%BF%E6%8E%A8%E5%AF%BC%E7%B3%BB%E5%88%97-%E4%B8%80-%EF%BC%9ASVM%E5%AE%9A%E4%B9%89/"
+    >白板推导系列(一)：SVM定义</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/16/%E7%99%BD%E6%9D%BF%E6%8E%A8%E5%AF%BC%E7%B3%BB%E5%88%97-%E4%B8%80-%EF%BC%9ASVM%E5%AE%9A%E4%B9%89/" class="article-date">
+  <time datetime="2020-03-16T10:12:51.000Z" itemprop="datePublished">2020-03-16</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p><img src="/images/SVMdefinition.jpg" alt=""></p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-tensorflow2-0系列-二" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/16/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%BA%8C/"
+    >tensorflow2.0系列(二)</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/16/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%BA%8C/" class="article-date">
+  <time datetime="2020-03-16T05:55:04.000Z" itemprop="datePublished">2020-03-16</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>random_float = tf.random.uniform(shape=()) # 定义一个随机数（标量）</p>
+<p>zero_vector = tf.zeros(shape=(2)) # 定义一个有2个元素的零向量</p>
+<p>A = tf.constant([[1., 2.], [3., 4.]])<br>B = tf.constant([[5., 6.], [7., 8.]]) # 定义两个2×2的常量矩阵<br>注意shape的值，shape括号里数字的个数就是生成的张量的维度，没有数字就是0维，也就是标量。<br>张量一般关注三个地方：形状、类型和值。通过张量的 shape 、 dtype 属性和 numpy() 方法获得。</p>
+<p>print(A.shape)      # 输出(2, 2)，即矩阵的长和宽均为2<br>print(A.dtype)      # 输出&lt;dtype: ‘float32’&gt;<br>print(A.numpy())    # 输出[[1. 2.],[3. 4.]]  # 查看矩阵A的形状、类型和值</p>
+<p>张量通过numpy方法取出张量的值。<br>在tensorflow1.x版本中，要开启即时执行模式要在开启的位置调用tf.enable_eager_execution() 函数，在tensorflow2.x版本<br>中，即时执行模式是默认开启的。另外，关闭即时执行模式就是调用tf.compat.v1.disable_eager_execution() 函数。不清楚<br>是不是在1.x、2.x版本中都是这么来关闭这种模式。2.x版本里是可行的。<br>即时执行模式和图执行模式的区别就是进行运算不用调用会话了，直接就可以计算。<br>tensorflow的自动求导功能：<br>例：使用 tf.GradientTape() 计算函数 y(x) = x^2 在 x = 3 时的导数<br>import tensorflow as tf</p>
+<p>x = tf.Variable(initial_value=3.)<br>with tf.GradientTape() as tape:     # 在 tf.GradientTape() 的上下文内，所有计算步骤都会被记录以用于求导<br>    y = tf.square(x)<br>y_grad = tape.gradient(y, x)        # 计算y关于x的导数<br>print([y, y_grad])<br>例：使用 tf.GradientTape() 计算函数 L(w, b) = (Xw + b - y)^2 在 w = (1, 2)^T, b = 1 时分别对 w, b 的偏导数。<br>其中 X = [[1.,2.],[3.,4.]],y = [[1.],[2.]]<br>X = tf.constant([[1., 2.], [3., 4.]])<br>y = tf.constant([[1.], [2.]])<br>w = tf.Variable(initial_value=[[1.], [2.]])<br>b = tf.Variable(initial_value=1.)<br>with tf.GradientTape() as tape:<br>    L = 0.5 * tf.reduce_sum(tf.square(tf.matmul(X, w) + b - y))<br>w_grad, b_grad = tape.gradient(L, [w, b])        # 计算L(w, b)关于w, b的偏导数<br>print([L.numpy(), w_grad.numpy(), b_grad.numpy()])<br>#tf.reduce_sum() 操作是对输入张量的所有元素求和，输出一个形状为空的纯量张量（可以通过 axis 参数来指定求和的维度，不指定则默认对所有元素求和）。<br>波士顿房价问题，什么时候要进行归一化操作，归一化的方式是唯一的吗？<br>import numpy as np</p>
+<p>X_raw = np.array([2013, 2014, 2015, 2016, 2017], dtype=np.float32)<br>y_raw = np.array([12000, 14000, 15000, 16500, 17500], dtype=np.float32)</p>
+<p>X = (X_raw - X_raw.min()) / (X_raw.max() - X_raw.min())<br>y = (y_raw - y_raw.min()) / (y_raw.max() - y_raw.min())<br>使用tensorflow实现城市房价问题的参数求解：<br>X = tf.constant(X)<br>y = tf.constant(y)</p>
+<p>a = tf.Variable(initial_value=0.)<br>b = tf.Variable(initial_value=0.)<br>variables = [a, b]</p>
+<p>num_epoch = 10000<br>optimizer = tf.keras.optimizers.SGD(learning_rate=1e-3)<br>for e in range(num_epoch):<br>    # 使用tf.GradientTape()记录损失函数的梯度信息<br>    with tf.GradientTape() as tape:<br>        y_pred = a * X + b<br>        loss = 0.5 * tf.reduce_sum(tf.square(y_pred - y))<br>    # TensorFlow自动计算损失函数关于自变量（模型参数）的梯度<br>    grads = tape.gradient(loss, variables)<br>    # TensorFlow自动根据梯度更新参数<br>    optimizer.apply_gradients(grads_and_vars=zip(grads, variables))</p>
+<p>print(a, b)<br>Python 的 zip() 函数：<br>如果 a = [1, 3, 5]， b = [2, 4, 6]，那么 zip(a, b) = [(1, 2), (3, 4), …, (5, 6)]。</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-tensorflow2-0系列-一" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/16/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%B8%80/"
+    >tensorflow2.0系列(一)</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/16/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%B8%80/" class="article-date">
+  <time datetime="2020-03-16T04:40:17.000Z" itemprop="datePublished">2020-03-16</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>tensorflow安装：<br>      1、Anaconda<br>      2、conda create –name tf2 python=3.7      # “tf2”是你建立的conda虚拟环境的名字<br>         conda activate tf2                      # 进入名为“tf2”的conda虚拟环境<br>      3、pip install tensorflow -i <a href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/help/pypi/</a><br>注：<br>      1、也可以使用 conda install tensorflow 来安装 TensorFlow，但是conda源的版本更新较慢<br>      2、从tensorflow2.1开始，tensorflow包就是gpu版本，不需要安装tensorflow-gpu包，<br>         如果需要安装cpu版本，则安装tensorflow-cpu<br>pip常用命令：<br>      pip install [package-name]              # 安装名为[package-name]的包<br>      pip install [package-name]==X.X         # 安装名为[package-name]的包并指定版本X.X<br>      pip install [package-name] –proxy=代理服务器IP:端口号         # 使用代理服务器安装<br>      pip install [package-name] –upgrade    # 更新名为[package-name]的包<br>      pip uninstall [package-name]            # 删除名为[package-name]的包<br>      pip list                                # 列出当前环境下已安装的所有包<br>conda常用命令：<br>      conda install [package-name]        # 安装名为[package-name]的包<br>      conda install [package-name]=X.X    # 安装名为[package-name]的包并指定版本X.X<br>      conda update [package-name]         # 更新名为[package-name]的包<br>      conda remove [package-name]         # 删除名为[package-name]的包<br>      conda list                          # 列出当前环境下已安装的所有包<br>      conda search [package-name]         # 列出名为[package-name]的包在conda源中的所有可用版本<br>conda包管理器相比pip的优点是可以安装更多的包，但是缺点是版本更新较慢<br>创建虚拟环境命令：<br>      conda create –name [env-name]      # 建立名为[env-name]的Conda虚拟环境<br>      conda activate [env-name]           # 进入名为[env-name]的Conda虚拟环境<br>      conda deactivate                    # 退出当前的Conda虚拟环境<br>      conda env remove –name [env-name]  # 删除名为[env-name]的Conda虚拟环境<br>      conda env list                      # 列出所有Conda虚拟环境<br>tensorflowgpu版本安装：<br>      conda install cudatoolkit=X.X<br>      conda install cudnn=X.X.X<br>      cuda与cudnn，tensorflow-gpu包的版本一定要对应的上<br>      也可以手动去官网下载cuda和cudnn<br>      另外，在用conda包管理器安装tensorflow-gpu版本时会自动安装对应版本的cuda与cudnn，<br>      缺点是tensorflow-gpu的版本可能较低，因为conda源里的包更新的比较慢。<br>reference:<a href="https://tf.wiki/" target="_blank" rel="noopener">https://tf.wiki/</a></p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-系列-二-：线性分类器" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/15/%E7%B3%BB%E5%88%97-%E4%BA%8C-%EF%BC%9A%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8/"
+    >系列(二)：线性分类器</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/15/%E7%B3%BB%E5%88%97-%E4%BA%8C-%EF%BC%9A%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8/" class="article-date">
+  <time datetime="2020-03-15T03:53:43.000Z" itemprop="datePublished">2020-03-15</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>神经网络就像乐高玩具，搭积木，非线性神经元就是一块块积木。再比如设计一个输入图片输出描述性语言的系统，我们就可以用一个CNN和一个RNN作为基本组件来搭建。<br>Y=WX+b中的b是怎么起作用的，有时候你的数据集是不平衡的，比如猫的个数多于狗的个数。个数更多的类别往往有更大的偏置项。[1]<br>线性分类器的工作方式就是X是一个图像，把X展平成一个列向量，W是一个以列向量的长度与分类的个数为维度的二维向量，b是一个长度为类别个数的列向量。经过运算后会得到列向量Y，Y的元素就是每个类别的得分。<br>哪个类别的得分越高就被划分为哪类。W的每一行就是每一种类别的模板，模板与图像的点乘结果大，就说这个模板匹配了图像，也就意味着这个图像中包含模板想要寻找的特征。<br>把这些模板可视化，找到模板中的特征，就是这个分类器在分类时想要寻找的特征。<br>线性分类器的缺点，模板是在数据集上训练得到的，所以如果某个类别的图像是对称过来的双份数据，那么这个类别训练出的模板可视化之后的结果可能会很奇怪，比如有两个头的马。再比如开向不同方向的火车，模板想要<br>在一张图像上把所有的方向特征都表现出来，就会看起来很奇怪，甚至看起来像一张由噪声生成的图片。线性分类器只能绘制出一条线性边界，这就是它的局限性。</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cs231n/" rel="tag">cs231n</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-系列-一-：K最近邻算法" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/15/%E7%B3%BB%E5%88%97-%E4%B8%80-%EF%BC%9AK%E6%9C%80%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/"
+    >系列(一)：K最近邻算法</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/15/%E7%B3%BB%E5%88%97-%E4%B8%80-%EF%BC%9AK%E6%9C%80%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/" class="article-date">
+  <time datetime="2020-03-15T02:26:21.000Z" itemprop="datePublished">2020-03-15</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>L1距离：又叫曼哈顿距离，用来衡量两张图片的距离就是矩阵作差，取绝对值，再将所有元素加起来的值。<br>L2距离：欧氏距离，两个矩阵作差对每个元素平方后求和开根号。<br>L2距离并不适合来描述视觉上的差异。相同的L2距离可能产生差异很大的视觉效果。<br>K最近邻算法是一种基于有标签数据的算法。K越大，决策边界越平滑。平滑可以理解为线性性更好，<br>更接近于线性边界。有时候会给离最近的点的距离一个阈值，如果离这个点最近的有类别的点的距离<br>大于某一数值，那么就认为这个点是无类别点。如果我们用颜色来区分类别，那么这个点所在的区域就是<br>白色。选择哪一种距离度量属于超参数。都去试一下看哪一种度量下分类的效果更好。<br>数据集被划分为训练集、验证集和测试集。交叉验证：把训练集+验证集分为N份，每次在其中的N-1份上<br>训练，在最后一份上验证，将所有在验证集上的结果加起来，取最小的超参数。验证集的作用是选取最好<br>的超参数。<br>如何去建立一个数据集？按照同样的方式去收集每一份数据，再将收集到的数据随机打乱划分为训练集、<br>验证集和测试集。对于K最近邻算法来说，或者所有有超参数的学习算法来说，画出以超参数为横轴，<br>在验证集上的距离度量为纵轴的图像都是有必要的，这是挑选合适的超参数的方法。K最近邻算法并不<br>适合用来分类图像。如果有时间，有计算资源，在挑选出最优的超参数后会重新用这个超参数来训练模型。<br>也就是在训练集和验证集上共同训练模型。</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/KNN/" rel="tag">KNN</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-my-first-blog" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/14/my-first-blog/"
+    >第一篇博客</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/14/my-first-blog/" class="article-date">
+  <time datetime="2020-03-14T13:03:15.000Z" itemprop="datePublished">2020-03-14</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <pre><code>使用hexo+github搭建了这个环境
+reference：https://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-github.html</code></pre>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-hello-world" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/14/hello-world/"
+    >Hello World</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/14/hello-world/" class="article-date">
+  <time datetime="2020-03-14T12:15:30.473Z" itemprop="datePublished">2020-03-14</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+  </article>
+  
+
+  
+  <nav class="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/5/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
+  </nav>
+  
+</section>
+</div>
+
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2015-2020
+        John Doe
+      </li>
+      <li>
+        
+        Powered by
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+    <aside class="sidebar">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="畅院士的开山大弟子的博客"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="http://shenyu-vip.lofter.com" target="_blank" rel="noopener">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/share.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+      strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
+      startDelay: 0,
+      typeSpeed: 200,
+      loop: true,
+      backSpeed: 100,
+      showCursor: true
+    });
+  } catch (err) {
+  }
+
+</script>
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/js/ayer.js"></script>
+
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.2/dist/jquery.fancybox.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.2/dist/jquery.fancybox.min.js"></script>
+
+
+    
+  </div>
+</body>
+
+</html>
