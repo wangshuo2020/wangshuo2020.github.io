@@ -69,7 +69,7 @@
     
     
     
-    <article id="post-LaTeX系列-三-字体字号设置" class="article article-type-post" itemscope
+    <article id="post-C-Primer中级-二十四-三种继承" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -77,8 +77,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2020/05/23/LaTeX%E7%B3%BB%E5%88%97-%E4%B8%89-%E5%AD%97%E4%BD%93%E5%AD%97%E5%8F%B7%E8%AE%BE%E7%BD%AE/"
-    >LaTeX系列(三)-字体字号设置</a
+  <a class="article-title" href="/2020/05/23/C-Primer%E4%B8%AD%E7%BA%A7-%E4%BA%8C%E5%8D%81%E5%9B%9B-%E4%B8%89%E7%A7%8D%E7%BB%A7%E6%89%BF/"
+    >C-Primer中级(二十四)-三种继承</a
   >
 </h2>
   
@@ -88,8 +88,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/05/23/LaTeX%E7%B3%BB%E5%88%97-%E4%B8%89-%E5%AD%97%E4%BD%93%E5%AD%97%E5%8F%B7%E8%AE%BE%E7%BD%AE/" class="article-date">
-  <time datetime="2020-05-23T10:31:15.000Z" itemprop="datePublished">2020-05-23</time>
+      <a href="/2020/05/23/C-Primer%E4%B8%AD%E7%BA%A7-%E4%BA%8C%E5%8D%81%E5%9B%9B-%E4%B8%89%E7%A7%8D%E7%BB%A7%E6%89%BF/" class="article-date">
+  <time datetime="2020-05-23T10:55:39.000Z" itemprop="datePublished">2020-05-23</time>
 </a>
       
       
@@ -108,7 +108,7 @@
       
 
       
-      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">%导言区</span><br><span class="line">\documentclass[10pt]&#123;ctexart&#125;%ctexbook, ctexrep</span><br><span class="line"></span><br><span class="line">%\usepackage&#123;ctex&#125;</span><br><span class="line"></span><br><span class="line">\newcommand&#123;\myfont&#125;&#123;\textit&#123;\textbf&#123;\textsf&#123;Fancy Text&#125;&#125;&#125;&#125;</span><br><span class="line"></span><br><span class="line">%正文区（文稿区）</span><br><span class="line">\begin&#123;document&#125;</span><br><span class="line">	%字体族设置（罗马字体、无衬线字体、打字机字体）</span><br><span class="line">	</span><br><span class="line">	\textrm&#123;Roman Family&#125; \textsf&#123;Sans Serif Family&#125;</span><br><span class="line">	\texttt&#123;Typewriter Family&#125;</span><br><span class="line">	</span><br><span class="line">	&#123;\rmfamily Romman Family&#125;&#123;\sffamily Sans Serif Family&#125;</span><br><span class="line">	&#123;\ttfamily Typewriter Family&#125;</span><br><span class="line">	</span><br><span class="line">	&#123;\sffamily who you are? you find self on everyone around. take you as the same as others!&#125;</span><br><span class="line">	</span><br><span class="line">	&#123;\ttfamily Are you wiser than others? definitely no. in some ways, may it is true. What can you achieve? a luxurious house? a brilliant car? an admirable career? who knows?&#125;</span><br><span class="line">	</span><br><span class="line">	%字体系列设置（粗细、宽度）</span><br><span class="line">	\textmd&#123;Medium Series&#125; \textbf&#123;Boldface Series&#125;</span><br><span class="line">	</span><br><span class="line">	&#123;\mdseries Medium Series&#125; &#123;\bfseries Boldface Series&#125;</span><br><span class="line">	</span><br><span class="line">	%字体形状（直立、斜体、伪斜体、小型大写）</span><br><span class="line">	\textup&#123;Upright Share&#125; \textit&#123;Italic Shape&#125;</span><br><span class="line">	\textsl&#123;Slanted Shape&#125; \textsc&#123;Small Caps Shape&#125;</span><br><span class="line">	</span><br><span class="line">	&#123;\upshape Upright Shape&#125;&#123;\itshape Italic Shape&#125; &#123;\slshape Slanted Shape&#125;&#123;\scshape Small Caps Shape&#125;</span><br><span class="line">	</span><br><span class="line">	% 中文字体</span><br><span class="line">	&#123;\songti 宋体&#125; \quad &#123;\heiti 黑体&#125; \quad &#123;\fangsong 仿宋&#125; \quad &#123;\kaishu 楷书&#125;</span><br><span class="line">	</span><br><span class="line">	中文字体的\textbf&#123;粗体&#125;与\textit&#123;斜体&#125;</span><br><span class="line">	</span><br><span class="line">	%字体大小</span><br><span class="line">	&#123;\tiny Hello&#125;\\</span><br><span class="line">	&#123;\scriptsize Hello&#125;\\</span><br><span class="line">	&#123;\footnotesize Hello&#125;\\</span><br><span class="line">	&#123;\small Hello&#125;\\</span><br><span class="line">	&#123;\normalsize Hello&#125;\\</span><br><span class="line">	&#123;\large Hello&#125;\\</span><br><span class="line">	&#123;\Large Hello&#125;\\</span><br><span class="line">	&#123;\LARGE Hello&#125;\\</span><br><span class="line">	&#123;\huge Hello&#125;\\</span><br><span class="line">	&#123;\Huge Hello&#125;\\</span><br><span class="line">	</span><br><span class="line">	%中文字号设置命令</span><br><span class="line">	\zihao&#123;5&#125; 你好！</span><br><span class="line">	</span><br><span class="line">	\myfont</span><br><span class="line">\end&#123;document&#125;</span><br></pre></td></tr></table></figure>
+      
       
       <!-- reward -->
       
@@ -120,8 +120,6 @@
     <footer class="article-footer">
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LaTeX/" rel="tag">LaTeX</a></li></ul>
-
 
     </footer>
 
@@ -137,7 +135,7 @@
 
 </article>
     
-    <article id="post-LaTeX系列-二-中文处理办法" class="article article-type-post" itemscope
+    <article id="post-C-Primer中级-二十三-动态绑定" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -145,8 +143,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2020/05/23/LaTeX%E7%B3%BB%E5%88%97-%E4%BA%8C-%E4%B8%AD%E6%96%87%E5%A4%84%E7%90%86%E5%8A%9E%E6%B3%95/"
-    >LaTeX系列(二)-中文处理办法</a
+  <a class="article-title" href="/2020/05/23/C-Primer%E4%B8%AD%E7%BA%A7-%E4%BA%8C%E5%8D%81%E4%B8%89-%E5%8A%A8%E6%80%81%E7%BB%91%E5%AE%9A/"
+    >C-Primer中级(二十三)-动态绑定</a
   >
 </h2>
   
@@ -156,8 +154,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/05/23/LaTeX%E7%B3%BB%E5%88%97-%E4%BA%8C-%E4%B8%AD%E6%96%87%E5%A4%84%E7%90%86%E5%8A%9E%E6%B3%95/" class="article-date">
-  <time datetime="2020-05-23T10:30:53.000Z" itemprop="datePublished">2020-05-23</time>
+      <a href="/2020/05/23/C-Primer%E4%B8%AD%E7%BA%A7-%E4%BA%8C%E5%8D%81%E4%B8%89-%E5%8A%A8%E6%80%81%E7%BB%91%E5%AE%9A/" class="article-date">
+  <time datetime="2020-05-23T10:55:27.000Z" itemprop="datePublished">2020-05-23</time>
 </a>
       
       
@@ -176,7 +174,7 @@
       
 
       
-      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">%导言区</span><br><span class="line">\documentclass&#123;ctexart&#125;%ctexbook, ctexrep</span><br><span class="line"></span><br><span class="line">%\usepackage&#123;ctex&#125;</span><br><span class="line"></span><br><span class="line">\newcommand\degree&#123;^\circ&#125;</span><br><span class="line"></span><br><span class="line">\title&#123;\heiti 杂谈勾股定理&#125;</span><br><span class="line">\author&#123;\kaishu 张三&#125;</span><br><span class="line">\date&#123;\today&#125;</span><br><span class="line"></span><br><span class="line">%正文区（文稿区）</span><br><span class="line">\begin&#123;document&#125;</span><br><span class="line">	\maketitle</span><br><span class="line">	</span><br><span class="line">	勾股定理可以用现代语言表述如下：</span><br><span class="line">	</span><br><span class="line">	直角三角形斜边的平方等于两腰的平方和。</span><br><span class="line">	</span><br><span class="line">	可以用符号语言表述为：设直角三角形$ABC$,其中$\angle C&#x3D;90\degree$,则有：</span><br><span class="line">	\begin&#123;equation&#125;</span><br><span class="line">		AB^2 &#x3D; BC^2 + AC^2.</span><br><span class="line">	\end&#123;equation&#125;	</span><br><span class="line">\end&#123;document&#125;</span><br></pre></td></tr></table></figure>
+      
       
       <!-- reward -->
       
@@ -188,8 +186,6 @@
     <footer class="article-footer">
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LaTeX/" rel="tag">LaTeX</a></li></ul>
-
 
     </footer>
 
@@ -205,7 +201,7 @@
 
 </article>
     
-    <article id="post-LaTeX系列-一-源文件的基本结构" class="article article-type-post" itemscope
+    <article id="post-C-Primer中级-二十二-定义基类和派生类" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -213,8 +209,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2020/05/23/LaTeX%E7%B3%BB%E5%88%97-%E4%B8%80-%E6%BA%90%E6%96%87%E4%BB%B6%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84/"
-    >LaTeX系列(一)-源文件的基本结构</a
+  <a class="article-title" href="/2020/05/23/C-Primer%E4%B8%AD%E7%BA%A7-%E4%BA%8C%E5%8D%81%E4%BA%8C-%E5%AE%9A%E4%B9%89%E5%9F%BA%E7%B1%BB%E5%92%8C%E6%B4%BE%E7%94%9F%E7%B1%BB/"
+    >C-Primer中级(二十二)-定义基类和派生类</a
   >
 </h2>
   
@@ -224,8 +220,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/05/23/LaTeX%E7%B3%BB%E5%88%97-%E4%B8%80-%E6%BA%90%E6%96%87%E4%BB%B6%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84/" class="article-date">
-  <time datetime="2020-05-23T10:30:04.000Z" itemprop="datePublished">2020-05-23</time>
+      <a href="/2020/05/23/C-Primer%E4%B8%AD%E7%BA%A7-%E4%BA%8C%E5%8D%81%E4%BA%8C-%E5%AE%9A%E4%B9%89%E5%9F%BA%E7%B1%BB%E5%92%8C%E6%B4%BE%E7%94%9F%E7%B1%BB/" class="article-date">
+  <time datetime="2020-05-23T10:55:14.000Z" itemprop="datePublished">2020-05-23</time>
 </a>
       
       
@@ -244,7 +240,7 @@
       
 
       
-      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">%导言区</span><br><span class="line">\documentclass&#123;article&#125; %book, report, letter</span><br><span class="line">\title&#123;My First Document&#125;</span><br><span class="line">\author&#123;Nan Geng&#125;</span><br><span class="line">\date&#123;\today&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">%正文区(文稿区)</span><br><span class="line">\begin&#123;document&#125;</span><br><span class="line">	\maketitle</span><br><span class="line">	</span><br><span class="line">	Hello World!</span><br><span class="line">	</span><br><span class="line">	% here is my formula</span><br><span class="line">	Let $f(x)$ be defined by the formula $$f(x)&#x3D;3x^2+x-1$$ which is a polynomial of degree 2.</span><br><span class="line">\end&#123;document&#125;</span><br></pre></td></tr></table></figure>
+      
       
       <!-- reward -->
       
@@ -256,8 +252,6 @@
     <footer class="article-footer">
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LaTeX/" rel="tag">LaTeX</a></li></ul>
-
 
     </footer>
 
@@ -273,7 +267,7 @@
 
 </article>
     
-    <article id="post-C-Primer中级-十二-重载输入输出操作符" class="article article-type-post" itemscope
+    <article id="post-C-Primer中级-二十一-转换操作符" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -281,8 +275,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2020/05/19/C-Primer%E4%B8%AD%E7%BA%A7-%E5%8D%81%E4%BA%8C-%E9%87%8D%E8%BD%BD%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E6%93%8D%E4%BD%9C%E7%AC%A6/"
-    >C-Primer中级(十二)-重载输入输出操作符</a
+  <a class="article-title" href="/2020/05/23/C-Primer%E4%B8%AD%E7%BA%A7-%E4%BA%8C%E5%8D%81%E4%B8%80-%E8%BD%AC%E6%8D%A2%E6%93%8D%E4%BD%9C%E7%AC%A6/"
+    >C-Primer中级(二十一)-转换操作符</a
   >
 </h2>
   
@@ -292,8 +286,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/05/19/C-Primer%E4%B8%AD%E7%BA%A7-%E5%8D%81%E4%BA%8C-%E9%87%8D%E8%BD%BD%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E6%93%8D%E4%BD%9C%E7%AC%A6/" class="article-date">
-  <time datetime="2020-05-18T16:18:54.000Z" itemprop="datePublished">2020-05-19</time>
+      <a href="/2020/05/23/C-Primer%E4%B8%AD%E7%BA%A7-%E4%BA%8C%E5%8D%81%E4%B8%80-%E8%BD%AC%E6%8D%A2%E6%93%8D%E4%BD%9C%E7%AC%A6/" class="article-date">
+  <time datetime="2020-05-23T10:54:57.000Z" itemprop="datePublished">2020-05-23</time>
 </a>
       
       
@@ -312,7 +306,7 @@
       
 
       
-      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class Dog</span><br><span class="line">&#123;</span><br><span class="line">		</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class Sales_item</span><br><span class="line">&#123;</span><br><span class="line">friend ostream&amp; operator&lt;&lt;(ostream&amp; out, const Sales_item&amp; s);	</span><br><span class="line">friend istream&amp; operator&gt;&gt;(istream&amp; in, Sales_item&amp; s);</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line">	Sales_item(const string &amp;book, unsigned units, double price):</span><br><span class="line">	  isbn(book), units_sold(units), revenue(price*units)&#123;&#125;</span><br><span class="line">	Sales_item(): units_sold(0), revenue(0.0)&#123;&#125;	</span><br><span class="line">	</span><br><span class="line">private:</span><br><span class="line">	string isbn;</span><br><span class="line">	unsigned units_sold;</span><br><span class="line">	double revenue;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">ostream&amp; operator&lt;&lt;(ostream&amp; out, const Sales_item&amp; s)</span><br><span class="line">&#123;</span><br><span class="line">	out &lt;&lt; s.isbn &lt;&lt; &quot;\t&quot; &lt;&lt; s.units_sold &lt;&lt; &quot;\t&quot; &lt;&lt; s.revenue;</span><br><span class="line">	return out;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">istream&amp; operator&gt;&gt;(istream&amp; in, Sales_item&amp; s)</span><br><span class="line">&#123;</span><br><span class="line">	double price;</span><br><span class="line">	in &gt;&gt; s.isbn &gt;&gt; s.units_sold &gt;&gt; price;</span><br><span class="line">	if(in)</span><br><span class="line">		s.revenue &#x3D; s.units_sold * price;</span><br><span class="line">	else</span><br><span class="line">		s &#x3D; Sales_item();</span><br><span class="line">	return in;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	Dog a;</span><br><span class="line">	int b;</span><br><span class="line">	</span><br><span class="line">	Sales_item item(&quot;0-201-78345-X&quot;, 2, 25.00);</span><br><span class="line">	cout &lt;&lt; item &lt;&lt; endl;</span><br><span class="line">	</span><br><span class="line">	cin &gt;&gt; item;</span><br><span class="line">	cout &lt;&lt; item &lt;&lt; endl;</span><br><span class="line">	</span><br><span class="line">	cout &lt;&lt; &quot;hello&quot; &lt;&lt; endl;</span><br><span class="line">	&#x2F;&#x2F;cout &lt;&lt; a;</span><br><span class="line">	&#x2F;&#x2F;cin &gt;&gt; b;</span><br><span class="line">	&#x2F;&#x2F;cin &gt;&gt; a;</span><br><span class="line">	&#x2F;&#x2F;cout &lt;&lt; b &lt;&lt; endl; </span><br><span class="line">	</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">	return 0;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+      
       
       <!-- reward -->
       
@@ -324,8 +318,6 @@
     <footer class="article-footer">
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-Primer%E4%B8%AD%E7%BA%A7/" rel="tag">C-Primer中级</a></li></ul>
-
 
     </footer>
 
@@ -341,7 +333,7 @@
 
 </article>
     
-    <article id="post-C-Primer中级-十一-重载操作符的定义" class="article article-type-post" itemscope
+    <article id="post-C-Primer中级-二十-函数对象" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -349,8 +341,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2020/05/18/C-Primer%E4%B8%AD%E7%BA%A7-%E5%8D%81%E4%B8%80-%E9%87%8D%E8%BD%BD%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%AE%9A%E4%B9%89/"
-    >C-Primer中级(十一)-重载操作符的定义</a
+  <a class="article-title" href="/2020/05/23/C-Primer%E4%B8%AD%E7%BA%A7-%E4%BA%8C%E5%8D%81-%E5%87%BD%E6%95%B0%E5%AF%B9%E8%B1%A1/"
+    >C-Primer中级(二十)-函数对象</a
   >
 </h2>
   
@@ -360,8 +352,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/05/18/C-Primer%E4%B8%AD%E7%BA%A7-%E5%8D%81%E4%B8%80-%E9%87%8D%E8%BD%BD%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%AE%9A%E4%B9%89/" class="article-date">
-  <time datetime="2020-05-18T15:43:59.000Z" itemprop="datePublished">2020-05-18</time>
+      <a href="/2020/05/23/C-Primer%E4%B8%AD%E7%BA%A7-%E4%BA%8C%E5%8D%81-%E5%87%BD%E6%95%B0%E5%AF%B9%E8%B1%A1/" class="article-date">
+  <time datetime="2020-05-23T10:54:44.000Z" itemprop="datePublished">2020-05-23</time>
 </a>
       
       
@@ -380,7 +372,7 @@
       
 
       
-      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class Person</span><br><span class="line">&#123;</span><br><span class="line">	&#x2F;&#x2F;重载操作符：加法</span><br><span class="line">public:</span><br><span class="line">	void operator+(const Person &amp;rhs)</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; &quot;执行了重载的加法操作&quot; &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;void operation+(int, int): &#x2F;&#x2F;不能重载内置类型 </span><br><span class="line">	&#x2F;&#x2F;优先级、结合性也不会因为重载改变</span><br><span class="line">	&#x2F;&#x2F;原本进行短路计算的重载就没了，一般不要重载逻辑与或 </span><br><span class="line">	&#x2F;&#x2F;&amp;&amp;、||、&amp;、, 这些操作符可以重载，但是最好不要重载</span><br><span class="line">	&#x2F;&#x2F;赋值操作一般作为成员函数，算数操作、关系操作作为非成员函数</span><br><span class="line">	&#x2F;&#x2F;如果作为非成员函数则要结合友元，这样才能调用私有属性</span><br><span class="line">	&#x2F;&#x2F;可以用先重载的运算符定义后重载的运算符</span><br><span class="line">	&#x2F;&#x2F;如果要能把类放在容器中，比如向量和映射，那就需要对小于和等于进行重载</span><br><span class="line">	&#x2F;&#x2F;如果对小于进行重载，那就也要对大于进行重载；如果对相等进行重载，就要对不等于进行重载</span><br><span class="line">	&#x2F;&#x2F;有四个操作符重载，如果重载必须作为成员函数，&#x3D;、[]、()、-&gt;，别的任意 </span><br><span class="line">	&#x2F;&#x2F; 有一些重载的习惯做法</span><br><span class="line">	&#x2F;&#x2F;有四个操作符不能重载 ::、.*、.、?: </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int a, b;</span><br><span class="line">	a &#x3D; 12;</span><br><span class="line">	b &#x3D; 9;</span><br><span class="line">	cin &gt;&gt; a;</span><br><span class="line">	cout &lt;&lt; a + b &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	Person p1, p2;</span><br><span class="line">	&#x2F;&#x2F;cin &gt;&gt; p1;</span><br><span class="line">	p1 + p2;</span><br><span class="line">	&#x2F;&#x2F;cout &lt;&lt; p1; </span><br><span class="line">	</span><br><span class="line">	Sales_item item1, item2;</span><br><span class="line">	&#x2F;&#x2F;cin &gt;&gt; item1;</span><br><span class="line">	&#x2F;&#x2F;cin &gt;&gt; item2;</span><br><span class="line">	&#x2F;&#x2F;cin &gt;&gt; item1 &gt;&gt; item2;</span><br><span class="line">	&#x2F;&#x2F;item1 + item2;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;cout &lt;&lt; item1 + item2 &lt;&lt; endl;</span><br><span class="line">	&#x2F;&#x2F;cout &lt;&lt; operator(item1, item2) &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;Hello&quot; &lt;&lt; endl;</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
       
       <!-- reward -->
       
@@ -392,8 +384,6 @@
     <footer class="article-footer">
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-Primer%E4%B8%AD%E7%BA%A7/" rel="tag">C-Primer中级</a></li></ul>
-
 
     </footer>
 
@@ -409,7 +399,7 @@
 
 </article>
     
-    <article id="post-C-Primer中级-十-管理指针成员" class="article article-type-post" itemscope
+    <article id="post-C-Primer中级-十九-重载自增自减操作符" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -417,8 +407,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2020/05/18/C-Primer%E4%B8%AD%E7%BA%A7-%E5%8D%81-%E7%AE%A1%E7%90%86%E6%8C%87%E9%92%88%E6%88%90%E5%91%98/"
-    >C-Primer中级(十)-管理指针成员</a
+  <a class="article-title" href="/2020/05/23/C-Primer%E4%B8%AD%E7%BA%A7-%E5%8D%81%E4%B9%9D-%E9%87%8D%E8%BD%BD%E8%87%AA%E5%A2%9E%E8%87%AA%E5%87%8F%E6%93%8D%E4%BD%9C%E7%AC%A6/"
+    >C-Primer中级(十九)-重载自增自减操作符</a
   >
 </h2>
   
@@ -428,8 +418,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/05/18/C-Primer%E4%B8%AD%E7%BA%A7-%E5%8D%81-%E7%AE%A1%E7%90%86%E6%8C%87%E9%92%88%E6%88%90%E5%91%98/" class="article-date">
-  <time datetime="2020-05-18T10:47:57.000Z" itemprop="datePublished">2020-05-18</time>
+      <a href="/2020/05/23/C-Primer%E4%B8%AD%E7%BA%A7-%E5%8D%81%E4%B9%9D-%E9%87%8D%E8%BD%BD%E8%87%AA%E5%A2%9E%E8%87%AA%E5%87%8F%E6%93%8D%E4%BD%9C%E7%AC%A6/" class="article-date">
+  <time datetime="2020-05-23T10:54:29.000Z" itemprop="datePublished">2020-05-23</time>
 </a>
       
       
@@ -448,14 +438,7 @@
       
 
       
-      <p>demo.cpp</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;plain_ptr.h&gt;</span><br><span class="line">#include &lt;value_ptr.h&gt;</span><br><span class="line">#include &lt;smart_ptr.h&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">void test_AHasPtr()</span><br><span class="line">&#123;</span><br><span class="line">	int i &#x3D; 42;</span><br><span class="line">	AHasPtr p1(&amp;i,42);</span><br><span class="line">	AHasPtr p2 &#x3D; p1;</span><br><span class="line">	cout &lt;&lt; p2.get_ptr_val() &lt;&lt; endl;</span><br><span class="line">	</span><br><span class="line">	p1.set_ptr_val(0);</span><br><span class="line">	cout &lt;&lt; p2.get_ptr_val() &lt;&lt; endl;</span><br><span class="line">	</span><br><span class="line">	int *ip &#x3D; new int(42);</span><br><span class="line">	AHasPtr ptr(ip,10);</span><br><span class="line">	cout &lt;&lt; p2.get_ptr_val() &lt;&lt; endl;</span><br><span class="line">	delete ip;</span><br><span class="line">	cout &lt;&lt; ptr.get_ptr_val() &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void test_CHasPtr()</span><br><span class="line">&#123;</span><br><span class="line">	int a, b;</span><br><span class="line">	a &#x3D; 5;</span><br><span class="line">	b &#x3D; a;</span><br><span class="line">	b &#x3D; 9;</span><br><span class="line">	</span><br><span class="line">	int obj &#x3D; 0;</span><br><span class="line">	 </span><br><span class="line">	CHasPtr ptr1(obj,42);</span><br><span class="line">	CHasPtr ptr2(ptr1);</span><br><span class="line">	cout &lt;&lt; ptr1.get_ptr_val() &lt;&lt; &quot;,&quot; &lt;&lt; ptr1.get_int() &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; ptr2.get_ptr_val() &lt;&lt; &quot;,&quot; &lt;&lt; ptr2.get_int() &lt;&lt; endl;</span><br><span class="line">	ptr2.set_ptr_val(6);</span><br><span class="line">	ptr2.set_int(48);</span><br><span class="line">	cout &lt;&lt; &quot;修改以后：&quot; &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; ptr1.get_ptr_val() &lt;&lt; &quot;，&quot; &lt;&lt; ptr1.get_int() &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; ptr2.get_ptr_val() &lt;&lt; &quot;, &quot; &lt;&lt; ptr2.get_int() &lt;&lt; endl; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void test_BHasPtr()</span><br><span class="line">&#123;</span><br><span class="line">	int obj &#x3D; 0;</span><br><span class="line">	</span><br><span class="line">	BHasPtr ptr1(&amp;obj,42);</span><br><span class="line">	BHasPtr ptr2(ptr1);</span><br><span class="line">	cout &lt;&lt; ptr1.get_ptr_val() &lt;&lt; &quot;,&quot; &lt;&lt; ptr1.get_int() &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; ptr2.get_ptr_val() &lt;&lt; &quot;,&quot; &lt;&lt; ptr2.get_int() &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;修改以后:&quot; &lt;&lt; endl;</span><br><span class="line">	ptr2.set_ptr_val(2);</span><br><span class="line">	ptr2.set_int(22);</span><br><span class="line">	cout &lt;&lt; ptr1.get_ptr_val() &lt;&lt; &quot;,&quot; &lt;&lt; ptr1.get_int() &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; ptr2.get_ptr_val() &lt;&lt; &quot;,&quot; &lt;&lt; ptr2.get_int() &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	cout &lt;&lt; &quot;常规指针：&quot; &lt;&lt; endl; </span><br><span class="line">	test_AHasPtr();</span><br><span class="line">	cout &lt;&lt; endl &lt;&lt; &quot;值型类：&quot; &lt;&lt; endl;</span><br><span class="line">	test_CHasPtr();</span><br><span class="line">	cout &lt;&lt; endl &lt;&lt; &quot;智能指针: &quot; &lt;&lt; endl;</span><br><span class="line">	test_BHasPtr(); </span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>plain_ptr:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class AHasPtr&#123;</span><br><span class="line">public:</span><br><span class="line">	AHasPtr(int *p, int i):ptr(p), val(i)&#123;&#125;</span><br><span class="line">	</span><br><span class="line">	int *get_ptr() const &#123;return ptr;&#125;</span><br><span class="line">	int get_int() const &#123;return val;&#125;</span><br><span class="line">	</span><br><span class="line">	void set_ptr(int *p) &#123;ptr &#x3D; p;&#125;</span><br><span class="line">	void set_int(int i) &#123;val &#x3D; i;&#125;</span><br><span class="line">	</span><br><span class="line">	int get_ptr_val() const &#123;return *ptr;&#125;</span><br><span class="line">	void set_ptr_val(int val) const &#123; *ptr &#x3D; val;&#125;</span><br><span class="line">	</span><br><span class="line">private:</span><br><span class="line">	int val;</span><br><span class="line">	int *ptr;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>value_ptr:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">class CHasPtr&#123;</span><br><span class="line">public:</span><br><span class="line">	CHasPtr(const int &amp;p, int i):ptr(new int (p)), val(i)&#123;&#125;</span><br><span class="line">	</span><br><span class="line">	CHasPtr(const CHasPtr &amp;orig):</span><br><span class="line">	ptr(new int(*orig.ptr)),val(orig.val)&#123;&#125;</span><br><span class="line">	CHasPtr&amp; operator&#x3D;(const CHasPtr&amp;);</span><br><span class="line">	</span><br><span class="line">	~CHasPtr() &#123;delete ptr;&#125;</span><br><span class="line">	</span><br><span class="line">	int *get_ptr() const &#123;return ptr;&#125;</span><br><span class="line">	int get_int() const &#123;return val;&#125;</span><br><span class="line">	</span><br><span class="line">	void set_ptr(int *p) &#123;ptr &#x3D; p;&#125;</span><br><span class="line">	void set_int(int i) &#123;val &#x3D; i;&#125;</span><br><span class="line">	</span><br><span class="line">	int get_ptr_val() const &#123;return *ptr;&#125;</span><br><span class="line">	void set_ptr_val(int val) const &#123; *ptr &#x3D; val;&#125;</span><br><span class="line">	</span><br><span class="line">private:</span><br><span class="line">	int val;</span><br><span class="line">	int *ptr;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">CHasPtr&amp; CHasPtr::operator&#x3D;(const CHasPtr &amp;rhs)&#123;</span><br><span class="line">	*ptr &#x3D; *rhs.ptr;</span><br><span class="line">	val &#x3D; rhs.val;</span><br><span class="line">	return *this;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>smart_ptr:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;cstdio&gt;</span><br><span class="line"></span><br><span class="line">class U_Ptr</span><br><span class="line">&#123;</span><br><span class="line">friend class BHasPtr;	</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">	int *ip;</span><br><span class="line">	size_t use; &#x2F;&#x2F;计数</span><br><span class="line">	U_Ptr(int *p): ip(p), use(1)&#123;&#125;</span><br><span class="line">	~U_Ptr() &#123;delete ip;&#125;	</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class BHasPtr&#123;</span><br><span class="line">public:</span><br><span class="line">	BHasPtr(int *p, int i):ptr(new U_Ptr(p)), val(i)&#123;&#125;</span><br><span class="line">	</span><br><span class="line">	BHasPtr(const BHasPtr &amp;orig): ptr(orig.ptr), val(orig.val)</span><br><span class="line">	&#123;</span><br><span class="line">		++ptr-&gt;use;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	BHasPtr&amp; operator&#x3D;(const BHasPtr&amp;);</span><br><span class="line">	</span><br><span class="line">	~BHasPtr()</span><br><span class="line">	&#123;</span><br><span class="line">		if(--ptr-&gt;use &#x3D;&#x3D; 0) delete ptr;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	int *get_ptr() const &#123;return ptr-&gt;ip;&#125;</span><br><span class="line">	int get_int() const &#123;return val;&#125;</span><br><span class="line">	</span><br><span class="line">	void set_ptr(int *p) &#123;ptr-&gt;ip &#x3D; p;&#125;</span><br><span class="line">	void set_int(int i) &#123;val &#x3D; i;&#125;</span><br><span class="line">	</span><br><span class="line">	int get_ptr_val() const &#123;return *ptr-&gt;ip;&#125;</span><br><span class="line">	void set_ptr_val(int val) const &#123; *ptr-&gt;ip &#x3D; val;&#125;</span><br><span class="line">	</span><br><span class="line">private:</span><br><span class="line">	int val;</span><br><span class="line">	&#x2F;&#x2F;int *ptr;</span><br><span class="line">	U_Ptr *ptr;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">BHasPtr&amp; BHasPtr::operator&#x3D;(const BHasPtr &amp;rhs)</span><br><span class="line">&#123;</span><br><span class="line">	++rhs.ptr-&gt;use;</span><br><span class="line">	if(--ptr-&gt;use &#x3D;&#x3D; 0) delete ptr;</span><br><span class="line">	</span><br><span class="line">	ptr &#x3D; rhs.ptr;</span><br><span class="line">	val &#x3D; rhs.val;</span><br><span class="line">	return *this;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
       
       <!-- reward -->
       
@@ -467,8 +450,6 @@
     <footer class="article-footer">
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-Primer%E4%B8%AD%E7%BA%A7/" rel="tag">C-Primer中级</a></li></ul>
-
 
     </footer>
 
@@ -484,7 +465,7 @@
 
 </article>
     
-    <article id="post-C-Primer中级-九-补充-new-delete" class="article article-type-post" itemscope
+    <article id="post-C-Primer中级-十八-重载成员访问操作符" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -492,8 +473,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2020/05/15/C-Primer%E4%B8%AD%E7%BA%A7-%E4%B9%9D-%E8%A1%A5%E5%85%85-new-delete/"
-    >C-Primer中级(九)补充-new delete</a
+  <a class="article-title" href="/2020/05/23/C-Primer%E4%B8%AD%E7%BA%A7-%E5%8D%81%E5%85%AB-%E9%87%8D%E8%BD%BD%E6%88%90%E5%91%98%E8%AE%BF%E9%97%AE%E6%93%8D%E4%BD%9C%E7%AC%A6/"
+    >C-Primer中级(十八)-重载成员访问操作符</a
   >
 </h2>
   
@@ -503,8 +484,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/05/15/C-Primer%E4%B8%AD%E7%BA%A7-%E4%B9%9D-%E8%A1%A5%E5%85%85-new-delete/" class="article-date">
-  <time datetime="2020-05-15T08:16:20.000Z" itemprop="datePublished">2020-05-15</time>
+      <a href="/2020/05/23/C-Primer%E4%B8%AD%E7%BA%A7-%E5%8D%81%E5%85%AB-%E9%87%8D%E8%BD%BD%E6%88%90%E5%91%98%E8%AE%BF%E9%97%AE%E6%93%8D%E4%BD%9C%E7%AC%A6/" class="article-date">
+  <time datetime="2020-05-23T10:54:11.000Z" itemprop="datePublished">2020-05-23</time>
 </a>
       
       
@@ -523,7 +504,7 @@
       
 
       
-      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;cstring&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class Dog</span><br><span class="line">&#123;</span><br><span class="line">	&#x2F;&#x2F;类的成员	</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">void demo()</span><br><span class="line">&#123;</span><br><span class="line">	int i(1024);</span><br><span class="line">	int *pi &#x3D; new int(1024);</span><br><span class="line">	</span><br><span class="line">	string s(10,&#39;9&#39;); &#x2F;&#x2F;堆栈里 </span><br><span class="line">	string *ps &#x3D; new string(10,&#39;9&#39;); &#x2F;&#x2F;自由存储区 </span><br><span class="line">	 </span><br><span class="line">	 Dog dog;</span><br><span class="line">	 Dog dog2();</span><br><span class="line">	 Dog *pdog &#x3D; new Dog; </span><br><span class="line">	 Dog *pdog2 &#x3D; new Dog();</span><br><span class="line">	 </span><br><span class="line">	 delete pi;</span><br><span class="line">	 delete ps;</span><br><span class="line">	 delete pdog;</span><br><span class="line">	 delete pdog2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void demo2()</span><br><span class="line">&#123;</span><br><span class="line">	int *pi &#x3D; new int;&#x2F;&#x2F;没有初始化</span><br><span class="line">	int *pi2 &#x3D; new int(); &#x2F;&#x2F;初始化 </span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;使用对象 </span><br><span class="line">	delete pi;</span><br><span class="line">	delete pi2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void demo3()</span><br><span class="line">&#123;</span><br><span class="line">	int i;</span><br><span class="line">	int *pi &#x3D; &amp;i;</span><br><span class="line">	string str &#x3D; &quot;hello&quot;;</span><br><span class="line">	double *pd &#x3D; new double(33);</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;delete str;</span><br><span class="line">	&#x2F;&#x2F;delete pi;&#x2F;&#x2F;可以编译，但这是一个错误</span><br><span class="line">	delete pd; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void demo4()</span><br><span class="line">&#123;</span><br><span class="line">	int *p &#x3D; new int(1024);</span><br><span class="line">	</span><br><span class="line">	delete p; &#x2F;&#x2F;delete把动态创建的对象删除了，p还是保存对象的地址，</span><br><span class="line">			  &#x2F;&#x2F;但是这个地址已经没有对象了，这就是悬垂指针</span><br><span class="line">	p &#x3D; 0;</span><br><span class="line">	&#x2F;&#x2F;*p&#x3D;99; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void demo5()</span><br><span class="line">&#123;</span><br><span class="line">	const int *pci &#x3D; new const int(1024);</span><br><span class="line">	const string *pcs &#x3D; new const string;</span><br><span class="line">	</span><br><span class="line">	delete pci;</span><br><span class="line">	delete pcs;</span><br><span class="line"> &#125; </span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int i; &#x2F;&#x2F;静态创建对象，对象名 </span><br><span class="line">	int *pi &#x3D; new int; &#x2F;&#x2F;动态创建对象，没名！ </span><br><span class="line">	</span><br><span class="line">	i &#x3D; 12;</span><br><span class="line">	*pi &#x3D; 12;</span><br><span class="line">	</span><br><span class="line">	string *ps &#x3D; new string;&#x2F;&#x2F;默认构造函数</span><br><span class="line">	string *ps2 &#x3D; new string(); </span><br><span class="line">	</span><br><span class="line">	delete pi;</span><br><span class="line">	delete ps;</span><br><span class="line">	delete ps2;</span><br><span class="line">	</span><br><span class="line">	demo();</span><br><span class="line">	demo2();</span><br><span class="line">	demo3();</span><br><span class="line">	demo4();</span><br><span class="line">	demo5();</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	cout &lt;&lt; &quot;OK!&quot; &lt;&lt; endl;	</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
       
       <!-- reward -->
       
@@ -535,8 +516,6 @@
     <footer class="article-footer">
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-Primer%E4%B8%AD%E7%BA%A7/" rel="tag">C-Primer中级</a></li></ul>
-
 
     </footer>
 
@@ -552,7 +531,7 @@
 
 </article>
     
-    <article id="post-C-Primer中级-九-深复制、浅复制" class="article article-type-post" itemscope
+    <article id="post-C-Primer中级-十七-重载下标操作符" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -560,8 +539,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2020/05/15/C-Primer%E4%B8%AD%E7%BA%A7-%E4%B9%9D-%E6%B7%B1%E5%A4%8D%E5%88%B6%E3%80%81%E6%B5%85%E5%A4%8D%E5%88%B6/"
-    >C-Primer中级(九)-深复制、浅复制</a
+  <a class="article-title" href="/2020/05/23/C-Primer%E4%B8%AD%E7%BA%A7-%E5%8D%81%E4%B8%83-%E9%87%8D%E8%BD%BD%E4%B8%8B%E6%A0%87%E6%93%8D%E4%BD%9C%E7%AC%A6/"
+    >C-Primer中级(十七)-重载下标操作符</a
   >
 </h2>
   
@@ -571,8 +550,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/05/15/C-Primer%E4%B8%AD%E7%BA%A7-%E4%B9%9D-%E6%B7%B1%E5%A4%8D%E5%88%B6%E3%80%81%E6%B5%85%E5%A4%8D%E5%88%B6/" class="article-date">
-  <time datetime="2020-05-15T07:44:30.000Z" itemprop="datePublished">2020-05-15</time>
+      <a href="/2020/05/23/C-Primer%E4%B8%AD%E7%BA%A7-%E5%8D%81%E4%B8%83-%E9%87%8D%E8%BD%BD%E4%B8%8B%E6%A0%87%E6%93%8D%E4%BD%9C%E7%AC%A6/" class="article-date">
+  <time datetime="2020-05-23T10:53:50.000Z" itemprop="datePublished">2020-05-23</time>
 </a>
       
       
@@ -591,7 +570,7 @@
       
 
       
-      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;cstring&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class CDemo</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">	CDemo(int pa, char *cstr)</span><br><span class="line">	&#123;</span><br><span class="line">		this-&gt;a &#x3D; pa;</span><br><span class="line">		this-&gt;str &#x3D; new char[1024];</span><br><span class="line">		strcpy(this-&gt;str,cstr);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;没写复制构造函数，C++会自动帮写一个复制构造函数</span><br><span class="line">	CDemo(CDemo&amp; obj)</span><br><span class="line">	&#123;</span><br><span class="line">		this-&gt;a &#x3D; obj.a;</span><br><span class="line">		&#x2F;&#x2F;this-&gt;str &#x3D; obj;  &#x2F;&#x2F;这里不对，要深复制才行，这是浅复制</span><br><span class="line">		this-&gt;str &#x3D; new char[1024];</span><br><span class="line">		if(str!&#x3D;0)</span><br><span class="line">			strcpy(this-&gt;str,obj.str); </span><br><span class="line">	&#125;</span><br><span class="line">	~CDemo()</span><br><span class="line">	&#123;</span><br><span class="line">		delete str;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#x2F;&#x2F;private:应该是私有的，为了方便 </span><br><span class="line">public:</span><br><span class="line">	int a;</span><br><span class="line">	char *str;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	CDemo A(10, &quot;hello&quot;);</span><br><span class="line">	</span><br><span class="line">	CDemo B &#x3D; A; &#x2F;&#x2F;复制 </span><br><span class="line">	cout &lt;&lt; &quot;A&quot; &lt;&lt; A.a &lt;&lt; &quot; &quot; &lt;&lt; A.str &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;B&quot; &lt;&lt; B.a &lt;&lt; &quot; &quot; &lt;&lt; B.str &lt;&lt; endl;</span><br><span class="line">	B.a &#x3D; 8;</span><br><span class="line">	B.str[0] &#x3D; &#39;K&#39;; </span><br><span class="line">	cout &lt;&lt; &quot;修改以后&quot; &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;A&quot; &lt;&lt; A.a &lt;&lt; &quot; &quot; &lt;&lt; A.str &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;B&quot; &lt;&lt; B.a &lt;&lt; &quot; &quot; &lt;&lt; B.str &lt;&lt; endl;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
       
       <!-- reward -->
       
@@ -603,8 +582,6 @@
     <footer class="article-footer">
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-Primer%E4%B8%AD%E7%BA%A7/" rel="tag">C-Primer中级</a></li></ul>
-
 
     </footer>
 
@@ -620,7 +597,7 @@
 
 </article>
     
-    <article id="post-C-Primer中级-八-析构函数" class="article article-type-post" itemscope
+    <article id="post-C-Primer中级-十六-重载赋值操作符" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -628,8 +605,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2020/05/15/C-Primer%E4%B8%AD%E7%BA%A7-%E5%85%AB-%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0/"
-    >C-Primer中级(八)-析构函数</a
+  <a class="article-title" href="/2020/05/23/C-Primer%E4%B8%AD%E7%BA%A7-%E5%8D%81%E5%85%AD-%E9%87%8D%E8%BD%BD%E8%B5%8B%E5%80%BC%E6%93%8D%E4%BD%9C%E7%AC%A6/"
+    >C-Primer中级(十六)-重载赋值操作符</a
   >
 </h2>
   
@@ -639,8 +616,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/05/15/C-Primer%E4%B8%AD%E7%BA%A7-%E5%85%AB-%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0/" class="article-date">
-  <time datetime="2020-05-15T06:44:46.000Z" itemprop="datePublished">2020-05-15</time>
+      <a href="/2020/05/23/C-Primer%E4%B8%AD%E7%BA%A7-%E5%8D%81%E5%85%AD-%E9%87%8D%E8%BD%BD%E8%B5%8B%E5%80%BC%E6%93%8D%E4%BD%9C%E7%AC%A6/" class="article-date">
+  <time datetime="2020-05-23T10:53:39.000Z" itemprop="datePublished">2020-05-23</time>
 </a>
       
       
@@ -659,7 +636,7 @@
       
 
       
-      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class Sales_item</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">	&#x2F;&#x2F;成员(略)	</span><br><span class="line">	</span><br><span class="line">private:</span><br><span class="line">	string isbn;</span><br><span class="line">	int units_sold;</span><br><span class="line">	double revenue;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class NoName</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">	&#x2F;&#x2F;打开文件</span><br><span class="line">	&#x2F;&#x2F;连接数据库 </span><br><span class="line">	&#x2F;&#x2F;动态分配内存 </span><br><span class="line">	NoName():pstring(new string), i(0), d(0)&#123;</span><br><span class="line">		cout &lt;&lt; &quot;构造函数被调用了&quot; &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">	~NoName();	</span><br><span class="line">	NoName(const NoName &amp; other);</span><br><span class="line">	NoName&amp; operator&#x3D;(const NoName &amp;rhs); </span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">	string *pstring;</span><br><span class="line">	int i;</span><br><span class="line">	double d;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">NoName::NoName(const NoName &amp; other)</span><br><span class="line">&#123;</span><br><span class="line">	pstring &#x3D; new string;</span><br><span class="line">	*pstring &#x3D; *(other.pstring);</span><br><span class="line">	i &#x3D; other.i;</span><br><span class="line">	d &#x3D; other.d;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">NoName&amp; NoName::operator&#x3D;(const NoName &amp;rhs)</span><br><span class="line">&#123;</span><br><span class="line">	pstring &#x3D; new string;</span><br><span class="line">	*pstring &#x3D; *(rhs.pstring);</span><br><span class="line">	i &#x3D; rhs.i;</span><br><span class="line">	d &#x3D; rhs.d;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">NoName::~NoName()</span><br><span class="line">&#123;</span><br><span class="line">	&#x2F;&#x2F;关闭文件</span><br><span class="line">	&#x2F;&#x2F;关闭数据库连接</span><br><span class="line">	&#x2F;&#x2F;回收动态分配的内存 </span><br><span class="line">	cout &lt;&lt; &quot;析构函数被调用了!&quot; &lt;&lt; endl;</span><br><span class="line">	delete pstring;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;三法则：如果写了析构函数，那就必须要写复制构造函数和赋值操作符。 </span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	NoName a;</span><br><span class="line">	</span><br><span class="line">	NoName *p &#x3D; new NoName;</span><br><span class="line">	cout &lt;&lt; &quot;Hello&quot; &lt;&lt; endl;</span><br><span class="line">	delete p;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
       
       <!-- reward -->
       
@@ -671,8 +648,6 @@
     <footer class="article-footer">
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-Primer%E4%B8%AD%E7%BA%A7/" rel="tag">C-Primer中级</a></li></ul>
-
 
     </footer>
 
@@ -688,7 +663,7 @@
 
 </article>
     
-    <article id="post-C-Primer中级-七-复制构造函数和赋值操作符" class="article article-type-post" itemscope
+    <article id="post-C-Primer中级-十五-重载关系操作符-2" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -696,8 +671,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2020/05/15/C-Primer%E4%B8%AD%E7%BA%A7-%E4%B8%83-%E5%A4%8D%E5%88%B6%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%92%8C%E8%B5%8B%E5%80%BC%E6%93%8D%E4%BD%9C%E7%AC%A6/"
-    >C-Primer中级(七)-复制构造函数和赋值操作符</a
+  <a class="article-title" href="/2020/05/23/C-Primer%E4%B8%AD%E7%BA%A7-%E5%8D%81%E4%BA%94-%E9%87%8D%E8%BD%BD%E5%85%B3%E7%B3%BB%E6%93%8D%E4%BD%9C%E7%AC%A6-2/"
+    >C-Primer中级(十五)-重载关系操作符-2</a
   >
 </h2>
   
@@ -707,8 +682,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/05/15/C-Primer%E4%B8%AD%E7%BA%A7-%E4%B8%83-%E5%A4%8D%E5%88%B6%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%92%8C%E8%B5%8B%E5%80%BC%E6%93%8D%E4%BD%9C%E7%AC%A6/" class="article-date">
-  <time datetime="2020-05-15T06:10:25.000Z" itemprop="datePublished">2020-05-15</time>
+      <a href="/2020/05/23/C-Primer%E4%B8%AD%E7%BA%A7-%E5%8D%81%E4%BA%94-%E9%87%8D%E8%BD%BD%E5%85%B3%E7%B3%BB%E6%93%8D%E4%BD%9C%E7%AC%A6-2/" class="article-date">
+  <time datetime="2020-05-23T10:53:24.000Z" itemprop="datePublished">2020-05-23</time>
 </a>
       
       
@@ -727,7 +702,7 @@
       
 
       
-      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class Sales_item</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">	&#x2F;&#x2F;公有成员</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;构造函数 </span><br><span class="line">	Sales_item():units_sold(0),revenue(0.0)&#123;</span><br><span class="line">		cout &lt;&lt; &quot;默认构造函数被调用了&quot; &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">	Sales_item(const::string &amp;book):isbn(book), units_sold(0),revenue(0.0)&#123;</span><br><span class="line">		cout &lt;&lt; &quot;Sales_item(const::string &amp;book)被调用了&quot; &lt;&lt; endl; </span><br><span class="line">	&#125; </span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;复制构造函数</span><br><span class="line">	Sales_item(const Sales_item &amp;orig):</span><br><span class="line">		isbn(orig.isbn),units_sold(orig.units_sold),revenue(orig.revenue)</span><br><span class="line">		&#123;</span><br><span class="line">			cout &lt;&lt; &quot;复制构造函数被调用了&quot; &lt;&lt; endl;</span><br><span class="line">		&#125;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;赋值操作符 </span><br><span class="line">	Sales_item&amp; operator&#x3D;(const Sales_item &amp;rhs)</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; &quot;赋值操作符被调用了&quot; &lt;&lt; endl;</span><br><span class="line">		isbn &#x3D; rhs.isbn;</span><br><span class="line">		units_sold &#x3D; rhs.units_sold;</span><br><span class="line">		revenue &#x3D; rhs.revenue;</span><br><span class="line">		return *this;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">private:</span><br><span class="line">	string isbn;</span><br><span class="line">	unsigned units_sold;</span><br><span class="line">	double revenue;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Sales_item foo(Sales_item &amp;item)</span><br><span class="line">&#123;</span><br><span class="line">	Sales_item temp;</span><br><span class="line">	temp &#x3D; item;</span><br><span class="line">	return temp;	</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">class NoName</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">	NoName():pstring(new string), i(0), d(0)&#123;&#125;	</span><br><span class="line">	</span><br><span class="line">	NoName(const NoName&amp; other):</span><br><span class="line">		pstring(new string(*(other.pstring))), i(other.i), d(other.d)&#123;</span><br><span class="line">			cout &lt;&lt; &quot;NoNmae Copy Constructor&quot; &lt;&lt; endl;</span><br><span class="line">		&#125;</span><br><span class="line">	</span><br><span class="line">	NoName&amp; operator&#x3D;(const NoName &amp;rhs)</span><br><span class="line">	&#123;</span><br><span class="line">		pstring &#x3D; new string;</span><br><span class="line">		*pstring &#x3D; *(rhs.pstring);</span><br><span class="line">		</span><br><span class="line">		cout &lt;&lt; &quot;Noname copy constructor&quot; &lt;&lt; endl;</span><br><span class="line">		i &#x3D; rhs.i;</span><br><span class="line">		d &#x3D; rhs.d;</span><br><span class="line">		return *this;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">	std::string *pstring;</span><br><span class="line">	int i;</span><br><span class="line">	double d;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">	NoName x, y;</span><br><span class="line">	NoName z(x);</span><br><span class="line">	x &#x3D; y;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	Sales_item a;</span><br><span class="line">	Sales_item b(&quot;0-201-45103&quot;);</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	Sales_item c(b);	</span><br><span class="line">	a &#x3D; b;	</span><br><span class="line">	Sales_item item &#x3D; string(&quot;9-999-99999-9&quot;);</span><br><span class="line">	</span><br><span class="line">	cout &lt;&lt; endl &lt;&lt; &quot;试一下foo:&quot; &lt;&lt; endl;</span><br><span class="line">	Sales_item ret;</span><br><span class="line">	ret &#x3D; foo(item);</span><br><span class="line">	</span><br><span class="line">	cout &lt;&lt; endl &lt;&lt; &quot;试一下vector&quot;  &lt;&lt; endl;</span><br><span class="line">	vector&lt;Sales_item&gt; svec(5);</span><br><span class="line">	</span><br><span class="line">	cout &lt;&lt; endl &lt;&lt; &quot;试一下数组:&quot; &lt;&lt; endl;</span><br><span class="line">	Sales_item primer_eds[] &#x3D; &#123;</span><br><span class="line">		string(&quot;0-201-16487&quot;),</span><br><span class="line">		string(&quot;0-201-54848&quot;),</span><br><span class="line">		string(&quot;0-201-82470&quot;),</span><br><span class="line">		Sales_item()</span><br><span class="line">	&#125;;</span><br><span class="line">	</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
       
       <!-- reward -->
       
@@ -739,8 +714,6 @@
     <footer class="article-footer">
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-Primer%E4%B8%AD%E7%BA%A7/" rel="tag">C-Primer中级</a></li></ul>
-
 
     </footer>
 
@@ -762,7 +735,7 @@
   
   <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/">下一页</a>
+    <a class="extend prev" rel="prev" href="/">上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/3/">下一页</a>
   </nav>
   
 </section>

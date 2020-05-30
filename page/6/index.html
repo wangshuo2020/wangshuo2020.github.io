@@ -69,7 +69,7 @@
     
     
     
-    <article id="post-Andrew课后作业系列（一）" class="article article-type-post" itemscope
+    <article id="post-C-Primer-第二章练习-1" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -77,8 +77,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2020/03/17/Andrew%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%80%EF%BC%89/"
-    >Andrew课后作业系列（一）</a
+  <a class="article-title" href="/2020/04/29/C-Primer-%E7%AC%AC%E4%BA%8C%E7%AB%A0%E7%BB%83%E4%B9%A0-1/"
+    >C++ Primer 第二章练习-1</a
   >
 </h2>
   
@@ -88,8 +88,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/03/17/Andrew%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%80%EF%BC%89/" class="article-date">
-  <time datetime="2020-03-17T12:46:07.000Z" itemprop="datePublished">2020-03-17</time>
+      <a href="/2020/04/29/C-Primer-%E7%AC%AC%E4%BA%8C%E7%AB%A0%E7%BB%83%E4%B9%A0-1/" class="article-date">
+  <time datetime="2020-04-29T15:04:28.000Z" itemprop="datePublished">2020-04-29</time>
 </a>
       
       
@@ -108,68 +108,516 @@
       
 
       
-      <p>用python实现hello world</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">test &#x3D; &quot;Hello World&quot;</span><br><span class="line">print (&quot;test: &quot; + test)</span><br></pre></td></tr></table></figure>
+      <p>练习2.1<br>C++规定编译器int最小占位数16位，short也是16位，long和long long分别最少占32位和64位。编译器可以分配给四种类型更多的位数，取决于编译器本身。四种类型都是整型的。<br>无符号类型只有0和正数。带符号类型有正有负有0。<br>float和double的区别在于会保留更多的有效数字。一个是6位，一个是8位。</p>
+<p>练习2.2<br>既然要在三者之间进行数值计算，那么最好声明成相同的数据类型。如果可能是小数，一般就声明为double类型。</p>
+<p>练习2.3</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;&gt;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	unsigned u &#x3D; 10, u2 &#x3D; 42;</span><br><span class="line">	std::cout &lt;&lt; u2 - u &lt;&lt; std::endl;</span><br><span class="line">	std::cout &lt;&lt; u - u2 &lt;&lt; std::endl;</span><br><span class="line">	</span><br><span class="line">	int i &#x3D; 10, i2 &#x3D; 42;</span><br><span class="line">	std::cout &lt;&lt; i2 - i &lt;&lt; std::endl;</span><br><span class="line">	std::cout &lt;&lt; i - i2 &lt;&lt; std::endl;</span><br><span class="line">	std::cout &lt;&lt; i - u &lt;&lt; std::endl;</span><br><span class="line">	std::cout &lt;&lt; u - i &lt;&lt; std::endl; 	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>用math实现sigmoid函数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import math</span><br><span class="line">def basic_sigmoid(x):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    Compute sigmoid of x.</span><br><span class="line">    Arguments:</span><br><span class="line">    x -- A scalar</span><br><span class="line">    Return:</span><br><span class="line">    s -- sigmoid(x)</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    s &#x3D; 1&#x2F;(1+math.exp(-x))</span><br><span class="line">    return s</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">32</span><br><span class="line">4294967264</span><br><span class="line">32</span><br><span class="line">-32</span><br><span class="line">0</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
 
-<p>basic_sigmoid()函数测试：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">### One reason why we use &quot;numpy&quot; instead of &quot;math&quot; in Deep Learning ###</span><br><span class="line">x &#x3D; [1, 2, 3]</span><br><span class="line">basic_sigmoid(x) # you will see this give an error when you run it, because x is a vector.</span><br></pre></td></tr></table></figure>
+<p>练习2.5<br>‘a’: char L’a’:</p>
+<p>练习2.6</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int month &#x3D; 9, day &#x3D; 7;   &#x2F;&#x2F;定义正确</span><br><span class="line">int month &#x3D; 09,  day &#x3D; 07;  &#x2F;&#x2F;0是八进制的标志，因为八进制中没有9，所以会报错</span><br></pre></td></tr></table></figure>
 
-<p>使用numpy而不是math库的一个很重要的原因就是math库不能传入一个向量，而numpy可以。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"># example of np.exp</span><br><span class="line">x &#x3D; np.array([1, 2, 3])</span><br><span class="line">print(np.exp(x)) # result is (exp(1), exp(2), exp(3))</span><br></pre></td></tr></table></figure>
+<p>练习2.7</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;Who goes with F\145rgus?\012&quot; &#x3D;&#x3D; &quot;Who goes with Fergus?&quot;</span><br></pre></td></tr></table></figure>
+<p>练习2.8</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	std::cout &lt;&lt; &quot;2\x4d\012&quot;;</span><br><span class="line">	std::cout &lt;&lt; &quot;2\tM\n&quot;;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>在python中，向量同样可以与标量相加，因为python的广播机制</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># example of vector operation</span><br><span class="line">x &#x3D; np.array([1, 2, 3])</span><br><span class="line">print (x + 3)</span><br></pre></td></tr></table></figure>
+<p>练习2.9</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">std::cin &gt;&gt; int input_value; &#x2F;&#x2F;错误，改为 int input_value; std::cin &gt;&gt; input_value;</span><br><span class="line">int i &#x3D; &#123;3.14&#125;;   &#x2F;&#x2F;类型不一致，会warning</span><br><span class="line">double salary &#x3D; wage &#x3D; 9999.99; &#x2F;&#x2F;错误，改为double salary, wage; salary &#x3D; wage &#x3D; 9999.99;</span><br><span class="line">int i &#x3D; 3.14; &#x2F;&#x2F;类型不一致，warning</span><br></pre></td></tr></table></figure>
 
-<p>用numpy实现sigmoid函数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># GRADED FUNCTION: sigmoid</span><br><span class="line">import numpy as np # this means you can access numpy functions by writing np.function() instead of numpy.function()</span><br><span class="line">def sigmoid(x):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    Compute the sigmoid of x</span><br><span class="line">    Arguments:</span><br><span class="line">    x -- A scalar or numpy array of any size</span><br><span class="line">    Return:</span><br><span class="line">    s -- sigmoid(x)</span><br><span class="line">    &quot;&quot;&quot; </span><br><span class="line">    s &#x3D; 1&#x2F;(1+np.exp(-x)) </span><br><span class="line">    return s</span><br></pre></td></tr></table></figure>
+<p>练习2.10</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">std::string global_str;   &#x2F;&#x2F;string类型无论在函数内还是在函数外都默认初始化为空字符串</span><br><span class="line">int global_int;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int local_int;   &#x2F;&#x2F;int类型在函数外默认初始化为0，在函数内不被初始化，但是如果要拷贝或者输出这个变量，会出现一个未知的数。</span><br><span class="line">	std::string local_str;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>练习2.11</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">extern int ix &#x3D; 1024; &#x2F;&#x2F;定义</span><br><span class="line">int iy;  &#x2F;&#x2F;定义</span><br><span class="line">extern int iz; &#x2F;&#x2F;声明</span><br></pre></td></tr></table></figure>
+
+<p>练习2.12</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int double &#x3D; 3.14;  &#x2F;&#x2F;非法，double不能作为变量名</span><br><span class="line">int _; &#x2F;&#x2F;合法的</span><br><span class="line">int catch-22; &#x2F;&#x2F;非法，标识符中不能出现减号</span><br><span class="line">int 1_or_2 &#x3D; 1 &#x2F;&#x2F;非法，不能以数字开头</span><br><span class="line">double Double &#x3D; 3.14; &#x2F;&#x2F;合法</span><br></pre></td></tr></table></figure>
+
+<p>练习2.13</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int i &#x3D; 42;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int i &#x3D; 100;</span><br><span class="line">	int j &#x3D; i;   &#x2F;&#x2F;j&#x3D;100</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>练习2.14</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int i &#x3D; 100, sum &#x3D; 0;</span><br><span class="line">for(int i &#x3D; 0; i !&#x3D; 10; ++i)</span><br><span class="line">	sum +&#x3D; i;</span><br><span class="line">std::cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; sum &lt;&lt; std::endl;  &#x2F;&#x2F;i &#x3D; 100, sum &#x3D; 45</span><br></pre></td></tr></table></figure>
+
+<p>练习2.15</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int ival &#x3D; 1.01;  &#x2F;&#x2F;合法</span><br><span class="line">int &amp;rvall &#x3D; 1.01; &#x2F;&#x2F;非法</span><br><span class="line">int &amp;rvall2 &#x3D; ival;  &#x2F;&#x2F;合法</span><br><span class="line">int &amp;rval3;  &#x2F;&#x2F;非法，引用必须初始化</span><br></pre></td></tr></table></figure>
+
+<p>练习2.16</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int i &#x3D; 0, &amp;r1 &#x3D; i;</span><br><span class="line">double d &#x3D; 0, &amp;r2 &#x3D; d;</span><br><span class="line">r2 &#x3D; 3.14159; &#x2F;&#x2F;合法</span><br><span class="line">r2 &#x3D; r1; &#x2F;&#x2F;合法</span><br><span class="line">i &#x3D; r2; &#x2F;&#x2F;合法</span><br><span class="line">r1 &#x3D; d; &#x2F;&#x2F;合法</span><br></pre></td></tr></table></figure>
+
+<p>练习2.17</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int i, &amp;ri &#x3D; i;</span><br><span class="line">i &#x3D; 5; ri &#x3D; 10;</span><br><span class="line">std::cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; ri &lt;&lt; std::endl;   &#x2F;&#x2F;i &#x3D; 10, ri &#x3D; 10</span><br></pre></td></tr></table></figure>
+
+<p>练习2.18</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int i &#x3D; 5, j &#x3D; 10;</span><br><span class="line">	int *p &#x3D; &amp;i;</span><br><span class="line">	std::cout &lt;&lt; p &lt;&lt; &quot; &quot; &lt;&lt; *p &lt;&lt; std::endl;   &#x2F;&#x2F;p &#x3D; 0x6ffe04 *p&#x3D;5  </span><br><span class="line">	p &#x3D; &amp;j;</span><br><span class="line">	std::cout &lt;&lt; p &lt;&lt; &quot; &quot; &lt;&lt; *p &lt;&lt; std::endl;   &#x2F;&#x2F;p &#x3D; 0x6ffe00 *p&#x3D;10</span><br><span class="line">	*p &#x3D; 20;</span><br><span class="line">	std::cout &lt;&lt; p &lt;&lt; &quot; &quot; &lt;&lt; *p &lt;&lt; std::endl;   &#x2F;&#x2F;p &#x3D; 0x6ffe00 *p&#x3D;20</span><br><span class="line">	j &#x3D; 30;</span><br><span class="line">	std::cout &lt;&lt; p &lt;&lt; &quot; &quot; &lt;&lt; *p &lt;&lt; std::endl;   &#x2F;&#x2F;p &#x3D; 0x6ffe00 *p&#x3D;30</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>练习2.20</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int i &#x3D; 42;</span><br><span class="line">int *p1 &#x3D; &amp;i;    &#x2F;&#x2F;在定义语句中*只是一个指针的标志，除此之外没有别的含义</span><br><span class="line">*p1 &#x3D; *p1 * *p1;   &#x2F;&#x2F;在定义语句之外，再出现*p1就是i，直接替换</span><br></pre></td></tr></table></figure>
+
+<p>练习2.21</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int i &#x3D; 0;</span><br><span class="line">double* dp &#x3D;&amp;i;  &#x2F;&#x2F;非法，类型不匹配，double类型的指针不能指向整型对象，更不能指向一个具体的整数</span><br><span class="line">int *ip &#x3D; i;   &#x2F;&#x2F;用一个整数(除了0)或者一个整型变量初始化一个整型指针会报错，用0初始化一个指针就是初始化一个空指针</span><br><span class="line">int *p &#x3D; &amp;i;   &#x2F;&#x2F;合法，必须用一个指针变量或者&amp;符号来初始化一个指针</span><br></pre></td></tr></table></figure>
+
+<p>练习2.22</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">if (p)  &#x2F;&#x2F;...   </span><br><span class="line">if (*p)  &#x2F;&#x2F;...</span><br><span class="line"></span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int i &#x3D; 0;</span><br><span class="line">	int *p1 &#x3D; nullptr;</span><br><span class="line">	int *p &#x3D; &amp;i;</span><br><span class="line">	if (p1)     &#x2F;&#x2F;检验指针的值(即指针所指对象的地址)</span><br><span class="line">		std::cout &lt;&lt; &quot;p1 pass&quot; &lt;&lt; std::endl;</span><br><span class="line">	if (p)      &#x2F;&#x2F;检验指针的值(即指针所指对象的地址)</span><br><span class="line">		std::cout &lt;&lt; &quot;p pass&quot; &lt;&lt; std::endl;</span><br><span class="line">	if (*p)     &#x2F;&#x2F;检验指针所指对象的值</span><br><span class="line">		std::cout &lt;&lt; &quot;i pass&quot; &lt;&lt; std::endl;</span><br><span class="line">	return 0;   &#x2F;&#x2F;如果一个指针是用空指针初始化，那么这个指针的值就是0。只要指针指向对象值都不是0，只有什么对象都不指向时值才为0。</span><br><span class="line">&#125;          &#x2F;&#x2F;感觉这个知识点没啥卵用</span><br></pre></td></tr></table></figure>
+
+<p>练习2.24</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int i &#x3D; 42; void *p &#x3D; &amp;i; long *lp &#x3D; &amp;i;  &#x2F;&#x2F;定义指针时不存在类型转换，不一致就是不一致</span><br><span class="line">&#x2F;&#x2F;void指针可以指向任何类型的对象，但是long指针只能匹配long类型对象。</span><br></pre></td></tr></table></figure>
+
+<p>练习2.25</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int *ip, i, &amp;r &#x3D; i;   &#x2F;&#x2F;i: int r: int ip: int* 可以在定义指针时不初始化它，但是最好初始化</span><br><span class="line">int i, *ip &#x3D; 0;    &#x2F;&#x2F;i: int ip: int* ip是一个空指针</span><br><span class="line">int* ip, ip2;    &#x2F;&#x2F;ip: int* ip2: int</span><br></pre></td></tr></table></figure>
+
+<p>练习2.26</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const int buf;  &#x2F;&#x2F;非法，const必须初始化</span><br><span class="line">int cnt &#x3D; 0;  &#x2F;&#x2F;合法</span><br><span class="line">const int sz &#x3D; cnt;  &#x2F;&#x2F;合法</span><br><span class="line">++cnt; ++sz;  &#x2F;&#x2F;前半句合法，后半句非法</span><br></pre></td></tr></table></figure>
+
+<p>练习2.27</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int i &#x3D; -1, &amp;r &#x3D; 0;           &#x2F;&#x2F;非法，不能用一个数字初始化引用</span><br><span class="line">int *const p2 &#x3D; &amp;i2;           &#x2F;&#x2F;合法，定义了一个常量指针p2指向i2，即指针p2永远指向i2，指针指向对象是可以改变的</span><br><span class="line">const int i &#x3D; -1, &amp;r &#x3D; 0;        &#x2F;&#x2F;合法，可以用一个数字初始化常量引用</span><br><span class="line">const int *const p3 &#x3D; &amp;i2;        &#x2F;&#x2F;合法，定义了一个常量指针指向变量i2，i2的值可以改变，但是不能通过指针p3来改变</span><br><span class="line">const int *p1 &#x3D; &amp;i2;     &#x2F;&#x2F;合法，定义了一个指针指向常量i2，指针可以指向其它对象，但是在指向i2时不能通过p1来改变i2的值</span><br><span class="line">const int &amp;const r2;     &#x2F;&#x2F;？</span><br><span class="line">const int i2 &#x3D; i, &amp;r &#x3D; i;   &#x2F;&#x2F;合法，i2是一个常量，r是一个常量引用，不能通过r来改变i的值</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-Primer/" rel="tag">C++ Primer</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-机器学习实战系列-二-决策树-2" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/04/26/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97-%E4%BA%8C-%E5%86%B3%E7%AD%96%E6%A0%91-2/"
+    >机器学习实战系列(二)-决策树-2</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/04/26/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97-%E4%BA%8C-%E5%86%B3%E7%AD%96%E6%A0%91-2/" class="article-date">
+  <time datetime="2020-04-26T15:29:12.000Z" itemprop="datePublished">2020-04-26</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>字典树函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def retrieveTree(i):</span><br><span class="line">    listOfTrees &#x3D;[&#123;&#39;no surfacing&#39;: &#123;0: &#39;no&#39;, 1: &#123;&#39;flippers&#39;: &#123;0: &#39;no&#39;, 1: &#39;yes&#39;&#125;&#125;&#125;&#125;,</span><br><span class="line">                  &#123;&#39;no surfacing&#39;: &#123;0: &#39;no&#39;, 1: &#123;&#39;flippers&#39;: &#123;0: &#123;&#39;head&#39;: &#123;0: &#39;no&#39;, 1: &#39;yes&#39;&#125;&#125;, 1: &#39;no&#39;&#125;&#125;&#125;&#125;</span><br><span class="line">                  ]</span><br><span class="line">    return listOfTrees[i]    &#x2F;&#x2F;由传入的参数决定返回的值</span><br></pre></td></tr></table></figure>
+
+<p>测试函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;reload(treePlotter)</span><br><span class="line">&lt;module &#39;treePlotter&#39; from &#39;treePlotter.py&#39;&gt;</span><br><span class="line">&gt;&gt;&gt;treePlotter.retrieveTree(1)</span><br><span class="line">&#123;&#39;no surfacing&#39;: &#123;0: &#39;no&#39;, 1: &#123;&#39;flippers&#39;: &#123;0: &#123;&#39;head&#39;: &#123;0: &#39;no&#39;, 1: &#39;yes&#39;&#125;&#125;, 1: &#39;no&#39;&#125;&#125;&#125;&#125;</span><br><span class="line">&gt;&gt;&gt;myTree &#x3D; treePlotter.retrieveTree(0)    &#x2F;&#x2F;画树状图时一层key在框里，一层key在线上，从框里出发</span><br><span class="line">&gt;&gt;&gt;treePlotter.getNumLeafs(myTree)   </span><br><span class="line">3 </span><br><span class="line">&gt;&gt;&gt;treePlotter.getTreeDepth(myTree)   &#x2F;&#x2F;为什么要确定子节点个数和树的深度？###############################</span><br><span class="line">2</span><br></pre></td></tr></table></figure>
+
+<p>plotTree函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">def plotMidText(cntrPt, parentPt, txtString):</span><br><span class="line">    xMid &#x3D; (parentPt[0]-cntrPt[0])&#x2F;2.0 + cntrPt[0]</span><br><span class="line">    yMid &#x3D; (parentPt[1]-cntrPt[1])&#x2F;2.0 + cntrPt[1]</span><br><span class="line">    createPlot.ax1.text(xMid, yMid, txtString, va&#x3D;&quot;center&quot;, ha&#x3D;&quot;center&quot;, rotation&#x3D;30)</span><br><span class="line"></span><br><span class="line">def plotTree(myTree, parentPt, nodeTxt):#if the first key tells you what feat was split on</span><br><span class="line">    numLeafs &#x3D; getNumLeafs(myTree)  #this determines the x width of this tree</span><br><span class="line">    depth &#x3D; getTreeDepth(myTree)</span><br><span class="line">    firstStr &#x3D; myTree.keys()[0]     #the text label for this node should be this</span><br><span class="line">    cntrPt &#x3D; (plotTree.xOff + (1.0 + float(numLeafs))&#x2F;2.0&#x2F;plotTree.totalW, plotTree.yOff)</span><br><span class="line">    plotMidText(cntrPt, parentPt, nodeTxt)</span><br><span class="line">    plotNode(firstStr, cntrPt, parentPt, decisionNode)</span><br><span class="line">    secondDict &#x3D; myTree[firstStr]</span><br><span class="line">    plotTree.yOff &#x3D; plotTree.yOff - 1.0&#x2F;plotTree.totalD</span><br><span class="line">    for key in secondDict.keys():</span><br><span class="line">        if type(secondDict[key]).__name__&#x3D;&#x3D;&#39;dict&#39;:#test to see if the nodes are dictonaires, if not they are leaf nodes</span><br><span class="line">            plotTree(secondDict[key],cntrPt,str(key))        #recursion</span><br><span class="line">        else:   #it&#39;s a leaf node print the leaf node</span><br><span class="line">            plotTree.xOff &#x3D; plotTree.xOff + 1.0&#x2F;plotTree.totalW</span><br><span class="line">            plotNode(secondDict[key], (plotTree.xOff, plotTree.yOff), cntrPt, leafNode)</span><br><span class="line">            plotMidText((plotTree.xOff, plotTree.yOff), cntrPt, str(key))</span><br><span class="line">    plotTree.yOff &#x3D; plotTree.yOff + 1.0&#x2F;plotTree.totalD</span><br><span class="line">#if you do get a dictonary you know it&#39;s a tree, and the first element will be another dict</span><br><span class="line"></span><br><span class="line">def createPlot(inTree):</span><br><span class="line">    fig &#x3D; plt.figure(1, facecolor&#x3D;&#39;white&#39;)</span><br><span class="line">    fig.clf()</span><br><span class="line">    axprops &#x3D; dict(xticks&#x3D;[], yticks&#x3D;[])</span><br><span class="line">    createPlot.ax1 &#x3D; plt.subplot(111, frameon&#x3D;False, **axprops)    #no ticks</span><br><span class="line">    #createPlot.ax1 &#x3D; plt.subplot(111, frameon&#x3D;False) #ticks for demo puropses </span><br><span class="line">    plotTree.totalW &#x3D; float(getNumLeafs(inTree))</span><br><span class="line">    plotTree.totalD &#x3D; float(getTreeDepth(inTree))</span><br><span class="line">    plotTree.xOff &#x3D; -0.5&#x2F;plotTree.totalW; plotTree.yOff &#x3D; 1.0;</span><br><span class="line">    plotTree(inTree, (0.5,1.0), &#39;&#39;)</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
+
+<p>测试函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;reload(treePlotter)</span><br><span class="line">&lt;module &#39;treePlotter&#39; from &#39;treePlotter.pyc&#39;&gt;</span><br><span class="line">&gt;&gt;&gt;myTree&#x3D;treePlotter.retrieveTree(0)</span><br><span class="line">&gt;&gt;&gt;treePlotter.createPlot(myTree)</span><br></pre></td></tr></table></figure>
+
+<p>使用决策树的分类函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def classify(inputTree,featLabels,testVec):  &#x2F;&#x2F;字典树，标签，测试特征向量</span><br><span class="line">    firstStr &#x3D; list(inputTree.keys())[0]   &#x2F;&#x2F;最外层字典的key值 </span><br><span class="line">    secondDict &#x3D; inputTree[firstStr]   &#x2F;&#x2F;第二层字典</span><br><span class="line">    featIndex &#x3D; featLabels.index(firstStr)   &#x2F;&#x2F;返回firstStr的索引值</span><br><span class="line">    key &#x3D; testVec[featIndex]  &#x2F;&#x2F;</span><br><span class="line">    valueOfFeat &#x3D; secondDict[key]</span><br><span class="line">    if isinstance(valueOfFeat, dict): </span><br><span class="line">        classLabel &#x3D; classify(valueOfFeat, featLabels, testVec)</span><br><span class="line">    else: classLabel &#x3D; valueOfFeat</span><br><span class="line">    return classLabel                                      #######################################</span><br></pre></td></tr></table></figure>
+
+<p>测试函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;myDat, labels &#x3D; trees.createDataSet()</span><br><span class="line">&gt;&gt;&gt;labels</span><br><span class="line">[&#39;no surfacing&#39;, &#39;flippers&#39;]</span><br><span class="line">&gt;&gt;&gt;myTree&#x3D;treePlotter.retrieveTree(0)</span><br><span class="line">&gt;&gt;&gt;myTree</span><br><span class="line">&#123;&#39;no surfacing&#39;:&#123;0:&#39;no&#39;, 1:&#123;&#39;flippers&#39;:&#123;0:&#39;no&#39;, 1:&#39;yes&#39;&#125;&#125;&#125;&#125;</span><br><span class="line">&gt;&gt;&gt;trees.classify(myTree,labels,[1,0])    </span><br><span class="line">&#39;no&#39;</span><br><span class="line">&gt;&gt;&gt;trees.classify(myTree,labels,[1,1])</span><br><span class="line">&#39;yes&#39;</span><br></pre></td></tr></table></figure>
+
+<p>使用pickle模块存储决策树： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def storeTree(inputTree,filename):</span><br><span class="line">    import pickle</span><br><span class="line">    fw &#x3D; open(filename,&#39;w&#39;)   &#x2F;&#x2F;打开一个文件</span><br><span class="line">    pickle.dump(inputTree,fw)   &#x2F;&#x2F;把字典存到文件中，所有的对象都可以这样来保存</span><br><span class="line">    fw.close()  &#x2F;&#x2F;关闭文件</span><br><span class="line">    </span><br><span class="line">def grabTree(filename):       &#x2F;&#x2F;打开文件关闭文件不能忘</span><br><span class="line">    import pickle</span><br><span class="line">    fr &#x3D; open(filename)  </span><br><span class="line">    return pickle.load(fr)  &#x2F;&#x2F;要先打开文件才能从文件中加载对象</span><br></pre></td></tr></table></figure>
+
+<p>测试函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;trees.storeTree(myTree,&#39;classifierStorage.txt&#39;)</span><br><span class="line">&gt;&gt;&gt;trees.grabTree(&#39;classifierStorage.txt&#39;)</span><br><span class="line">&#123;&#39;no surfacing&#39;:&#123;0:&#39;no&#39;, 1:&#123;&#39;flippers&#39;:&#123;0:&#39;no&#39;, 1:&#39;yes&#39;&#125;&#125;&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用决策树预测隐形眼镜类型：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;fr&#x3D;open(&#39;lenses.txt&#39;)</span><br><span class="line">&gt;&gt;&gt;lenses&#x3D;[inst.strip().split(&#39;\t&#39;) for inst in fr.readlines()]</span><br><span class="line">&gt;&gt;&gt;lensesLabels&#x3D;[&#39;age&#39;,&#39;prescript&#39;,&#39;astigmatic&#39;,&#39;tearRate&#39;]</span><br><span class="line">&gt;&gt;&gt;lensesTree&#x3D;trees.createTree(lenses,lensesLabels)</span><br><span class="line">&gt;&gt;&gt;lensesTree</span><br><span class="line">&#x2F;&#x2F;一个很长的字典树</span><br><span class="line">&gt;&gt;&gt;treePlotter.createPlot(lensesTree) &#x2F;&#x2F;把这个字典树画出来</span><br></pre></td></tr></table></figure>
+<p>strip函数用法：<br>默认删除字符串头和尾的\n，\r，\t。从文本文件中读取数据时经常用strip函数预处理，再用split函数取出数值。</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97/" rel="tag">机器学习实战系列</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-机器学习实战系列-二-决策树-1" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/04/26/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97-%E4%BA%8C-%E5%86%B3%E7%AD%96%E6%A0%91-1/"
+    >机器学习实战系列(二)-决策树-1</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/04/26/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97-%E4%BA%8C-%E5%86%B3%E7%AD%96%E6%A0%91-1/" class="article-date">
+  <time datetime="2020-04-26T15:15:53.000Z" itemprop="datePublished">2020-04-26</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>决策树就是不断选定特征进行数据集划分，而选取特征取决于划分后信息增益最大的特征。决策树就是信息增益，就是递归。<br>计算给定数据集的香农熵：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">from math import log</span><br><span class="line"></span><br><span class="line">def calcShannonEnt(dataSet):</span><br><span class="line">    numEntries &#x3D; len(dataSet)    &#x2F;&#x2F;取出数据集中元素的个数</span><br><span class="line">    labelCounts &#x3D; &#123;&#125;</span><br><span class="line">    for featVec in dataSet: #the the number of unique elements and their occurance</span><br><span class="line">        currentLabel &#x3D; featVec[-1]   &#x2F;&#x2F;dataSet中每个元素是一个列表，列表的最后一个元素是这个元素的类别</span><br><span class="line">        if currentLabel not in labelCounts.keys(): labelCounts[currentLabel] &#x3D; 0  &#x2F;&#x2F;用一个字典来保存类别和该类别出现的次数</span><br><span class="line">        labelCounts[currentLabel] +&#x3D; 1  </span><br><span class="line">    shannonEnt &#x3D; 0.0   &#x2F;&#x2F;建立一个小数来保存香农熵的值</span><br><span class="line">    for key in labelCounts:</span><br><span class="line">        prob &#x3D; float(labelCounts[key])&#x2F;numEntries    </span><br><span class="line">        shannonEnt -&#x3D; prob * log(prob,2) #log base 2  &#x2F;&#x2F;计算香农熵 </span><br><span class="line">    return shannonEnt</span><br></pre></td></tr></table></figure>
+
+<p>数据集：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def createDataSet():</span><br><span class="line">    dataSet &#x3D; [[1, 1, &#39;yes&#39;],</span><br><span class="line">               [1, 1, &#39;yes&#39;],</span><br><span class="line">               [1, 0, &#39;no&#39;],</span><br><span class="line">               [0, 1, &#39;no&#39;],</span><br><span class="line">               [0, 1, &#39;no&#39;]]</span><br><span class="line">    labels &#x3D; [&#39;no surfacing&#39;,&#39;flippers&#39;]</span><br><span class="line">    #change to discrete values</span><br><span class="line">    return dataSet, labels</span><br></pre></td></tr></table></figure>
+
+<p>测试函数；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;reload(trees)</span><br><span class="line">&gt;&gt;&gt;myDat, labels&#x3D;trees.createDataSet()</span><br><span class="line">&gt;&gt;&gt;myDat</span><br><span class="line">[[1, 1, &#39;yes&#39;], [1, 1, &#39;yes&#39;], [1, 0, &#39;no&#39;], [0, 1, &#39;no&#39;], [0, 1, &#39;no&#39;]]</span><br><span class="line">&gt;&gt;&gt;trees.calcShannonEnt(myDat)</span><br><span class="line">0.97095059445466858</span><br><span class="line">&gt;&gt;&gt;myDat[0][-1]&#x3D;&#39;maybe&#39; </span><br><span class="line">&gt;&gt;&gt;myDat</span><br><span class="line">[[1, 1, &#39;maybe&#39;], [1, 1, &#39;yes&#39;], [1, 0, &#39;no&#39;], [0, 1, &#39;no&#39;], [0, 1, &#39;no&#39;]]  &#x2F;&#x2F;</span><br><span class="line">&gt;&gt;&gt;trees.calcShannonEnt(myDat)</span><br><span class="line">1.3709505944546687</span><br></pre></td></tr></table></figure>
+
+<p>按照给定特征划分数据集：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def splitDataSet(dataSet, axis, value):  &#x2F;&#x2F;axis决定取出列表元素中的第几个值</span><br><span class="line">    retDataSet &#x3D; []</span><br><span class="line">    for featVec in dataSet:  &#x2F;&#x2F;数据集是列表的列表</span><br><span class="line">        if featVec[axis] &#x3D;&#x3D; value:</span><br><span class="line">            reducedFeatVec &#x3D; featVec[:axis]     #chop out axis used for splitting</span><br><span class="line">            reducedFeatVec.extend(featVec[axis+1:])  &#x2F;&#x2F;把所有满足featVec[axis] &#x3D;&#x3D; value的元素都取出来，并去掉第axis个元素</span><br><span class="line">            retDataSet.append(reducedFeatVec)</span><br><span class="line">    return retDataSet</span><br></pre></td></tr></table></figure>
+<p>append用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;a&#x3D;[1, 2, 3]</span><br><span class="line">&gt;&gt;&gt;b&#x3D;[4, 5, 6]</span><br><span class="line">&gt;&gt;&gt;a.append(b)</span><br><span class="line">&gt;&gt;&gt;a</span><br><span class="line">[1, 2, 3, [4, 5, 6]]</span><br></pre></td></tr></table></figure>
+<p>extend用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;a&#x3D;[1, 2, 3]</span><br><span class="line">&gt;&gt;&gt;b&#x3D;[4, 5, 6]</span><br><span class="line">&gt;&gt;&gt;a.extend(b)</span><br><span class="line">&gt;&gt;&gt;a</span><br><span class="line">[1, 2, 3, 4, 5, 6]</span><br></pre></td></tr></table></figure>
+
+<p>测试函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;reload(trees)</span><br><span class="line">&lt;module &#39;trees&#39; from &#39;trees.pyc&#39;&gt;</span><br><span class="line">&gt;&gt;&gt;myDat, labels&#x3D;trees.createDataSet()</span><br><span class="line">&gt;&gt;&gt;myDat</span><br><span class="line">[[1, 1, &#39;yes&#39;], [1, 1, &#39;yes&#39;], [1, 0, &#39;no&#39;], [0, 1, &#39;no&#39;], [0, 1, &#39;no&#39;]]</span><br><span class="line">&gt;&gt;&gt;trees.splitDataSet(myDat,0,1)</span><br><span class="line">[[1, &#39;yes&#39;], [1, &#39;yes&#39;], [0, &#39;no&#39;]]</span><br><span class="line">&gt;&gt;&gt;trees.splitDataSet(myDat,0,1)</span><br><span class="line">[[1, &#39;no&#39;], [1, &#39;no&#39;]]</span><br></pre></td></tr></table></figure>
+
+<p>选择最好的数据集划分方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">def chooseBestFeatureToSplit(dataSet):  &#x2F;&#x2F;返回的是最好分类特征的序号，从0开始</span><br><span class="line">    numFeatures &#x3D; len(dataSet[0]) - 1      #the last column is used for the labels &#x2F;&#x2F;用来取出类别名称</span><br><span class="line">    baseEntropy &#x3D; calcShannonEnt(dataSet)   &#x2F;&#x2F;计算未分类数据集的香农熵</span><br><span class="line">    bestInfoGain &#x3D; 0.0; bestFeature &#x3D; -1    &#x2F;&#x2F;</span><br><span class="line">    for i in range(numFeatures):        #iterate over all the features  &#x2F;&#x2F;遍历i找出最好的i</span><br><span class="line">        featList &#x3D; [example[i] for example in dataSet]#create a list of all the examples of this feature &#x2F;&#x2F;取出所有数据的第i项</span><br><span class="line">        uniqueVals &#x3D; set(featList)       #get a set of unique values   &#x2F;&#x2F;去掉重复的元素，保留成一个集合</span><br><span class="line">        newEntropy &#x3D; 0.0     </span><br><span class="line">        for value in uniqueVals:     </span><br><span class="line">            subDataSet &#x3D; splitDataSet(dataSet, i, value)  </span><br><span class="line">            prob &#x3D; len(subDataSet)&#x2F;float(len(dataSet))   </span><br><span class="line">            newEntropy +&#x3D; prob * calcShannonEnt(subDataSet)     &#x2F;&#x2F;分类后数据集的熵的计算方式</span><br><span class="line">        infoGain &#x3D; baseEntropy - newEntropy     #calculate the info gain; ie reduction in entropy &#x2F;&#x2F;信息增益就是基熵与新熵的差值</span><br><span class="line">        if (infoGain &gt; bestInfoGain):       #compare this to the best gain so far     &#x2F;&#x2F;信息增益最大的分类方式就是最好的方式</span><br><span class="line">            bestInfoGain &#x3D; infoGain         #if better than current best, set to best</span><br><span class="line">            bestFeature &#x3D; i</span><br><span class="line">    return bestFeature                      #returns an integer</span><br></pre></td></tr></table></figure>
+
+<p>测试函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;reload(trees)</span><br><span class="line">&lt;module &#39;trees&#39; from &#39;trees.pyc&#39;&gt;</span><br><span class="line">&gt;&gt;&gt;myDat, labels&#x3D;trees.createDataSet()</span><br><span class="line">&gt;&gt;&gt;trees.chooseBestFeatureToSplit(myDat)</span><br><span class="line">0</span><br><span class="line">&gt;&gt;&gt;myDat</span><br><span class="line">[[1, 1, &#39;yes&#39;], [1, 1, &#39;yes&#39;], [1, 0, &#39;no&#39;], [0, 1, &#39;no&#39;], [0, 1, &#39;no&#39;]]</span><br></pre></td></tr></table></figure>
+
+<p>类别列表中数目最多的类别：                                          </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">def majorityCnt(classList):</span><br><span class="line">    classCount&#x3D;&#123;&#125;</span><br><span class="line">    for vote in classList:</span><br><span class="line">        if vote not in classCount.keys(): classCount[vote] &#x3D; 0     &#x2F;&#x2F;当对有多个键值对的多个字典进行排序时，也可以指定按照哪个键的值进行排序，改变itemgetter的参数就行了</span><br><span class="line">        classCount[vote] +&#x3D; 1   &#x2F;&#x2F;同样是用字典来计数</span><br><span class="line">    sortedClassCount &#x3D; sorted(classCount.items(), key&#x3D;operator.itemgetter(1), reverse&#x3D;True)  &#x2F;&#x2F;operator.itemgetter(1)就是按照value的值进行排序</span><br><span class="line">    return sortedClassCount[0][0]  &#x2F;&#x2F;operator.itemgetter(0)就是按照key的值进行排序，参数用0和1就不用考虑key和value的内容，默认为升序</span><br></pre></td></tr></table></figure>
+
+<p>创建树的函数代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">def createTree(dataSet,labels):   &#x2F;&#x2F;返回一个树的字典</span><br><span class="line">    classList &#x3D; [example[-1] for example in dataSet]  &#x2F;&#x2F;从数据集中取出类别列表</span><br><span class="line">    if classList.count(classList[0]) &#x3D;&#x3D; len(classList):   &#x2F;&#x2F;类别列表中只有类别classList[0]</span><br><span class="line">        return classList[0]   #stop splitting when all of the classes are equal</span><br><span class="line">    if len(dataSet[0]) &#x3D;&#x3D; 1:    #stop splitting when there are no more features in dataSet   &#x2F;&#x2F;dataSet中元素的长度为1  </span><br><span class="line">        return majorityCnt(classList)    &#x2F;&#x2F;上面两个条件就是数据集递归的终止条件，因为每分类一次数据集中元素长度就会减1</span><br><span class="line">    bestFeat &#x3D; chooseBestFeatureToSplit(dataSet)   </span><br><span class="line">    bestFeatLabel &#x3D; labels[bestFeat]  &#x2F;&#x2F;找出分类的最好的特征</span><br><span class="line">    myTree &#x3D; &#123;bestFeatLabel:&#123;&#125;&#125;   &#x2F;&#x2F;建立一个空值的字典</span><br><span class="line">    del(labels[bestFeat])  &#x2F;&#x2F;删掉分类最好的那个特征</span><br><span class="line">    featValues &#x3D; [example[bestFeat] for example in dataSet]  &#x2F;&#x2F;取出所有最好特征的值</span><br><span class="line">    uniqueVals &#x3D; set(featValues)  &#x2F;&#x2F;去掉重复的元素</span><br><span class="line">    for value in uniqueVals:</span><br><span class="line">        subLabels &#x3D; labels[:]       #copy all of labels, so trees don&#39;t mess up existing labels  </span><br><span class="line">        myTree[bestFeatLabel][value] &#x3D; createTree(splitDataSet(dataSet, bestFeat, value),subLabels)  &#x2F;&#x2F;在子数据集和子标签列表上递归调用createTree函数</span><br><span class="line">    return myTree  &#x2F;&#x2F;嵌套的字典怎么索引？字典的值可以是一个字典。myTree[bestFeatLabel]是一个字典。索引嵌套字典值的方法与索引一个二维数组的元素相同。</span><br></pre></td></tr></table></figure>
+
+<p>测试函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;reload(trees)</span><br><span class="line">&lt;module &#39;trees&#39; from &#39;trees.pyc&#39;&gt;</span><br><span class="line">&gt;&gt;&gt;myDat, labels&#x3D;trees.createDataSet()</span><br><span class="line">&gt;&gt;&gt;myTree&#x3D;trees.createTree(myDat, labels)</span><br><span class="line">&gt;&gt;&gt;myTree</span><br><span class="line">&#123;&#39;no surfacing&#39;:&#123;0:&#39;no&#39;, 1:&#123;&#39;flippers&#39;:&#123;0:&#39;no&#39;, 1:&#39;yes&#39;&#125;&#125;&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用文本注解绘制树节点[1]：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"></span><br><span class="line">decisionNode &#x3D; dict(boxstyle&#x3D;&quot;sawtooth&quot;, fc&#x3D;&quot;0.8&quot;)</span><br><span class="line">leafNode &#x3D; dict(boxstyle&#x3D;&quot;round4&quot;, fc&#x3D;&quot;0.8&quot;)</span><br><span class="line">arrow_args &#x3D; dict(arrowstyle&#x3D;&quot;&lt;-&quot;)</span><br><span class="line"></span><br><span class="line">def plotNode(nodeTxt, centerPt, parentPt, nodeType):</span><br><span class="line">    createPlot.ax1.annotate(nodeTxt, xy&#x3D;parentPt,  xycoords&#x3D;&#39;axes fraction&#39;,</span><br><span class="line">             xytext&#x3D;centerPt, textcoords&#x3D;&#39;axes fraction&#39;,</span><br><span class="line">             va&#x3D;&quot;center&quot;, ha&#x3D;&quot;center&quot;, bbox&#x3D;nodeType, arrowprops&#x3D;arrow_args )</span><br><span class="line"></span><br><span class="line">def createPlot():</span><br><span class="line">    fig &#x3D; plt.figure(1, facecolor&#x3D;&#39;white&#39;)</span><br><span class="line">    fig.clf()</span><br><span class="line">    createPlot.ax1 &#x3D; plt.subplot(111, frameon&#x3D;False)    #no ticks</span><br><span class="line">	plotNode(&#39;决策节点&#39;, (0.5, 0.1), (0.1, 0.5), decisionNode)</span><br><span class="line">	plotNode(&#39;叶节点&#39;, (0.8, 0.1), (0.3, 0.8), leafNode)</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
+<p>dict函数用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; dict(a&#x3D;&#39;a&#39;, b&#x3D;&#39;b&#39;, t&#x3D;&#39;t&#39;)     # 传入关键字</span><br><span class="line">&#123;&#39;a&#39;: &#39;a&#39;, &#39;b&#39;: &#39;b&#39;, &#39;t&#39;: &#39;t&#39;&#125;</span><br></pre></td></tr></table></figure>
+<p>annotate函数用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">annotate(nodeTxt, xy&#x3D;parentPt,  xycoords&#x3D;&#39;axes fraction&#39;,</span><br><span class="line">             xytext&#x3D;centerPt, textcoords&#x3D;&#39;axes fraction&#39;,</span><br><span class="line">             va&#x3D;&quot;center&quot;, ha&#x3D;&quot;center&quot;, bbox&#x3D;nodeType, arrowprops&#x3D;arrow_args)</span><br><span class="line">nodeTx：注释的内容</span><br><span class="line">xy: 箭头的出发点</span><br><span class="line">xytext: 箭头指向的位置</span><br><span class="line">bbox：设置方框的外观 sawtooth锯齿形 round4 就是一种样式 fc方框内部背景颜色 bbox的值要以字典的形式传入</span><br></pre></td></tr></table></figure>
 
 <p>测试代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x &#x3D; np.array([1, 2, 3])</span><br><span class="line">sigmoid(x)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;import treePlotter</span><br><span class="line">&gt;&gt;&gt;treePlotter.createPlot()</span><br></pre></td></tr></table></figure>
 
-<p>用numpy实现sigmoid的导数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">def sigmoid_derivative(x):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    Compute the gradient (also called the slope or derivative) of the sigmoid function with respect to its input x.</span><br><span class="line">    You can store the output of the sigmoid function into variables and then use it to calculate the gradient.</span><br><span class="line">    Arguments:</span><br><span class="line">    x -- A scalar or numpy array</span><br><span class="line">    Return:</span><br><span class="line">    ds -- Your computed gradient.</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    s &#x3D; 1&#x2F;(1+np.exp(-x))</span><br><span class="line">    ds &#x3D; s*(1-s)    </span><br><span class="line">    return ds</span><br></pre></td></tr></table></figure>
+<p>获取叶节点的数目和树的层数：              </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">def getNumLeafs(myTree):</span><br><span class="line">    numLeafs &#x3D; 0</span><br><span class="line">    firstStr &#x3D; list(myTree.keys())[0]    &#x2F;&#x2F;dict_key不能直接被索引，要先处理成list再索引</span><br><span class="line">    secondDict &#x3D; myTree[firstStr]</span><br><span class="line">    for key in secondDict.keys():      &#x2F;&#x2F;遍历每一层字典中所有的key</span><br><span class="line">        if type(secondDict[key]).__name__&#x3D;&#x3D;&#39;dict&#39;:#test to see if the nodes are dictonaires, if not they are leaf nodes</span><br><span class="line">            numLeafs +&#x3D; getNumLeafs(secondDict[key]) </span><br><span class="line">        else:   numLeafs +&#x3D;1   </span><br><span class="line">    return numLeafs        &#x2F;&#x2F;从外层到内层，value不是字典就给numLeafs加一，是字典就进入下一层，继续在子字典上判断value是不是字典，不是就给numLeafs加一，是就进入下一层，以此类推，直到没有值为字典</span><br><span class="line"></span><br><span class="line">def getTreeDepth(myTree):          这个地方有问题？</span><br><span class="line">    maxDepth &#x3D; 0</span><br><span class="line">    firstStr &#x3D; list(myTree.keys())[0]    &#x2F;&#x2F;对一个嵌套字典使用keys()函数，只会返回最外层的key</span><br><span class="line">    secondDict &#x3D; myTree[firstStr]       </span><br><span class="line">    for key in secondDict.keys():</span><br><span class="line">        if type(secondDict[key]).__name__&#x3D;&#x3D;&#39;dict&#39;:#test to see if the nodes are dictonaires, if not they are leaf nodes</span><br><span class="line">            thisDepth &#x3D; 1 + getTreeDepth(secondDict[key])</span><br><span class="line">        else:   thisDepth &#x3D; 1        &#x2F;&#x2F;进入一层字典就给深度加1，直到没有字典时令深度为1</span><br><span class="line">        if thisDepth &gt; maxDepth: maxDepth &#x3D; thisDepth      &#x2F;&#x2F;对于每一个中间节点而言，选取不同的key值时，取到的深度是不同的，选取最大的那个值</span><br><span class="line">    return maxDepth</span><br></pre></td></tr></table></figure>
+<p>type().name用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;type(&#123;&#39;flippers&#39;: &#123;0: &#39;no&#39;, 1: &#39;yes&#39;&#125;&#125;).__name__&#x3D;&#x3D;&#39;dict&#39;</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt;type(&#123;&#39;flippers&#39;: &#123;0: &#39;no&#39;, 1: &#39;yes&#39;&#125;&#125;)&#x3D;&#x3D;&#39;dict&#39;</span><br><span class="line">False</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97/" rel="tag">机器学习实战系列</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-机器学习实战系列（三）-朴素贝叶斯" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/04/26/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%89%EF%BC%89-%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF/"
+    >机器学习实战系列（三）-朴素贝叶斯</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/04/26/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%89%EF%BC%89-%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF/" class="article-date">
+  <time datetime="2020-04-26T13:03:17.000Z" itemprop="datePublished">2020-04-26</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>朴素贝叶斯就是在训练集上用某类中某个特征出现的次数除以某类出现的次数就是在该类中该特征出现的概率，根据这些概率就可以预测某类中某个特征向量的概率，概率最大对应的类别就是预类别。<br>使用朴素贝叶斯进行文本分类：<br>词表到向量的转换函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">def loadDataSet():     &#x2F;&#x2F;将文本文件中的每个单词提取出来，一句话提取为一个列表，即将文本文件处理成一个列表的列表</span><br><span class="line">    postingList&#x3D;[[&#39;my&#39;, &#39;dog&#39;, &#39;has&#39;, &#39;flea&#39;, &#39;problems&#39;, &#39;help&#39;, &#39;please&#39;],</span><br><span class="line">                 [&#39;maybe&#39;, &#39;not&#39;, &#39;take&#39;, &#39;him&#39;, &#39;to&#39;, &#39;dog&#39;, &#39;park&#39;, &#39;stupid&#39;],</span><br><span class="line">                 [&#39;my&#39;, &#39;dalmation&#39;, &#39;is&#39;, &#39;so&#39;, &#39;cute&#39;, &#39;I&#39;, &#39;love&#39;, &#39;him&#39;],</span><br><span class="line">                 [&#39;stop&#39;, &#39;posting&#39;, &#39;stupid&#39;, &#39;worthless&#39;, &#39;garbage&#39;],</span><br><span class="line">                 [&#39;mr&#39;, &#39;licks&#39;, &#39;ate&#39;, &#39;my&#39;, &#39;steak&#39;, &#39;how&#39;, &#39;to&#39;, &#39;stop&#39;, &#39;him&#39;],</span><br><span class="line">                 [&#39;quit&#39;, &#39;buying&#39;, &#39;worthless&#39;, &#39;dog&#39;, &#39;food&#39;, &#39;stupid&#39;]]</span><br><span class="line">    classVec &#x3D; [0,1,0,1,0,1]    #1 is abusive, 0 not</span><br><span class="line">    return postingList,classVec</span><br><span class="line">	</span><br><span class="line">def createVocabList(dataSet): </span><br><span class="line">    vocabSet &#x3D; set([])  #create empty set      &#x2F;&#x2F;创建一个空集，直接用set()也可以建立一个空集，加上[]表示set的参数是一个可迭代对象</span><br><span class="line">    for document in dataSet:       </span><br><span class="line">        vocabSet &#x3D; vocabSet | set(document) #union of the two sets  &#x2F;&#x2F;set()|set()就是集合或运算</span><br><span class="line">    return list(vocabSet)  &#x2F;&#x2F;返回一个列表而不是一个集合</span><br><span class="line"></span><br><span class="line">def setOfWords2Vec(vocabList, inputSet):</span><br><span class="line">    returnVec &#x3D; [0]*len(vocabList)    &#x2F;&#x2F;建立一个与字符串列表相同长度的0列表</span><br><span class="line">    for word in inputSet:           &#x2F;&#x2F;遍历输入的词向量中的元素</span><br><span class="line">        if word in vocabList:			&#x2F;&#x2F;若该元素在字符串列表中</span><br><span class="line">            returnVec[vocabList.index(word)] &#x3D; 1    &#x2F;&#x2F;取出该词的索引，将该索引对应returnVec的位置变为1</span><br><span class="line">        else: print &quot;the word: %s is not in my Vocabulary!&quot; % word   &#x2F;&#x2F;如果输入文本中多次出现某个单词，索引对应位置的值仍然为1</span><br><span class="line">    return returnVec</span><br></pre></td></tr></table></figure>
+
+<p>测试函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;import bayes</span><br><span class="line">&gt;&gt;&gt;listOposts, listClasses &#x3D; bayes.loadDataSet()</span><br><span class="line">&gt;&gt;&gt;myVocabList &#x3D; bayes.createVocabList(listOposts)</span><br><span class="line">&gt;&gt;&gt;myVocabList</span><br><span class="line">[&#39;cute&#39;,&#39;love&#39;,...,&#39;my&#39;]  &#x2F;&#x2F;不包含重复元素的一个列表</span><br><span class="line">&gt;&gt;&gt;bayes.setOfWords2Vec(myVocabList,listOposts[0]) &#x2F;&#x2F;listOposts[0]就是postingList[0]</span><br><span class="line">[0, 1, ..., 1]</span><br><span class="line">&gt;&gt;&gt;bayes.setOfWords2Vec(myVocabList,listOposts[3])</span><br><span class="line">[0, 0, ..., 0]  &#x2F;&#x2F;并不是全为1</span><br></pre></td></tr></table></figure>
+
+<p>朴素贝叶斯分类器训练函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">def trainNB0(trainMatrix,trainCategory):   &#x2F;&#x2F;trainMatrix就是以每句话为单位生成的与词汇表等长的0,1列表 trainCategory就是每句话对应的类别</span><br><span class="line">    numTrainDocs &#x3D; len(trainMatrix)   &#x2F;&#x2F;训练集中有几句话</span><br><span class="line">    numWords &#x3D; len(trainMatrix[0])  &#x2F;&#x2F;第一句话里有几个单词，每一句话的长度和词汇表的长度都是一致的</span><br><span class="line">    pAbusive &#x3D; sum(trainCategory)&#x2F;float(numTrainDocs)  &#x2F;&#x2F;pAb就是训练集中的话是1的概率</span><br><span class="line">    p0Num &#x3D; ones(numWords); p1Num &#x3D; ones(numWords)    &#x2F;&#x2F;zeros-&gt;ones  #change to ones()  &#x2F;&#x2F;ones(标量)：生成一个1行标量列的行向量 </span><br><span class="line">    p0Denom &#x3D; 2.0; p1Denom &#x3D; 2.0         &#x2F;&#x2F;0.0-&gt;2.0            #change to 2.0    </span><br><span class="line">    for i in range(numTrainDocs):   </span><br><span class="line">        if trainCategory[i] &#x3D;&#x3D; 1:    &#x2F;&#x2F;遍历训练集中的每句话，如果这句话是侮辱性文本</span><br><span class="line">            p1Num +&#x3D; trainMatrix[i]    统计侮辱性文本中某个单词出现的次数</span><br><span class="line">            p1Denom +&#x3D; sum(trainMatrix[i])    &#x2F;&#x2F;统计侮辱性文本出现的次数</span><br><span class="line">        else:            			&#x2F;&#x2F;这句话不是侮辱性文本</span><br><span class="line">            p0Num +&#x3D; trainMatrix[i]         &#x2F;&#x2F;统计非侮辱性文本中某个单词出现的次数  </span><br><span class="line">            p0Denom +&#x3D; sum(trainMatrix[i])    &#x2F;&#x2F;统计非侮辱性文本出现的次数</span><br><span class="line">    p1Vect &#x3D; log(p1Num&#x2F;p1Denom)          #change to log()  &#x2F;&#x2F;p1Num&#x2F;p1Denom-&gt;log(p1Num&#x2F;p1Denom)   </span><br><span class="line">    p0Vect &#x3D; log(p0Num&#x2F;p0Denom)          #change to log()  &#x2F;&#x2F;用某类中某个特征出现的次数除以某类出现的次数就是在该类中该特征出现的概率  </span><br><span class="line">    return p0Vect,p1Vect,pAbusive</span><br></pre></td></tr></table></figure>
+<p>为什么要有上面的三个改进？</p>
+<p>测试函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;from numpy import *</span><br><span class="line">&gt;&gt;&gt;reload(bayes)</span><br><span class="line">&lt;module &#39;bayes&#39; from &#39;bayes.py&#39;&gt;</span><br><span class="line">&gt;&gt;&gt;listOposts, listClasses &#x3D; bayes.loadDataSet()</span><br><span class="line">&gt;&gt;&gt;myVocabList &#x3D; bayes.createVocabList(listOposts)   &#x2F;&#x2F;用集合生成的字符串列表</span><br><span class="line">&gt;&gt;&gt;trainMat&#x3D;[]</span><br><span class="line">&gt;&gt;&gt;for postinDoc in listOposts:</span><br><span class="line">...		trainMat.append(bayes.setOfWords2Vec(myVocabList, postinDoc))  &#x2F;&#x2F;trainMat就是0，1列表</span><br><span class="line">&gt;&gt;&gt;p0v,p1v,pAb&#x3D;bayes.trainNB0(trainMat,listClasses)</span><br><span class="line">&gt;&gt;&gt;pAb        &#x2F;&#x2F;侮辱性文本的概率</span><br><span class="line">0.5</span><br><span class="line">&gt;&gt;&gt;p0v       </span><br><span class="line">array([0.04166667, ..., 0.125])           &#x2F;&#x2F;数组中的值就是侮辱性文本中词汇表所有单词依次出现的概率</span><br><span class="line">&gt;&gt;&gt;p1v       </span><br><span class="line">array([0., ..., 0.])               &#x2F;&#x2F;数组中的值就是非侮辱性文本中词汇表所有单词依次出现的概率</span><br></pre></td></tr></table></figure>
+
+<p>朴素贝叶斯分类函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">def classifyNB(vec2Classify, p0Vec, p1Vec, pClass1):</span><br><span class="line">    p1 &#x3D; sum(vec2Classify * p1Vec) + log(pClass1)    #element-wise mult</span><br><span class="line">    p0 &#x3D; sum(vec2Classify * p0Vec) + log(1.0 - pClass1)</span><br><span class="line">    if p1 &gt; p0:</span><br><span class="line">        return 1</span><br><span class="line">    else: </span><br><span class="line">        return 0</span><br><span class="line">		</span><br><span class="line">def testingNB():</span><br><span class="line">    listOPosts,listClasses &#x3D; loadDataSet()</span><br><span class="line">    myVocabList &#x3D; createVocabList(listOPosts)   &#x2F;&#x2F;词汇表</span><br><span class="line">    trainMat&#x3D;[]</span><br><span class="line">    for postinDoc in listOPosts:</span><br><span class="line">        trainMat.append(setOfWords2Vec(myVocabList, postinDoc))  </span><br><span class="line">    p0V,p1V,pAb &#x3D; trainNB0(array(trainMat),array(listClasses))</span><br><span class="line">    testEntry &#x3D; [&#39;love&#39;, &#39;my&#39;, &#39;dalmation&#39;]  &#x2F;&#x2F;测试文本</span><br><span class="line">    thisDoc &#x3D; array(setOfWords2Vec(myVocabList, testEntry)) &#x2F;&#x2F;将测试文本处理成0，1向量</span><br><span class="line">    print testEntry,&#39;classified as: &#39;,classifyNB(thisDoc,p0V,p1V,pAb)  &#x2F;&#x2F;传入分类函数</span><br><span class="line">    testEntry &#x3D; [&#39;stupid&#39;, &#39;garbage&#39;]</span><br><span class="line">    thisDoc &#x3D; array(setOfWords2Vec(myVocabList, testEntry))</span><br><span class="line">    print testEntry,&#39;classified as: &#39;,classifyNB(thisDoc,p0V,p1V,pAb)</span><br></pre></td></tr></table></figure>
 
 <p>测试代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x &#x3D; np.array([1, 2, 3])</span><br><span class="line">print (&quot;sigmoid_derivative(x) &#x3D; &quot; + str(sigmoid_derivative(x)))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;reload(bayes)</span><br><span class="line">&lt;module &#39;bayes&#39; from &#39;bayes.pyc&#39;&gt;</span><br><span class="line">&gt;&gt;&gt;bayes.testingNB()</span><br><span class="line">[&#39;love&#39;, &#39;my&#39;, &#39;dalmation&#39;] classified as: 0</span><br><span class="line">[&#39;stupid&#39;, &#39;garbage&#39;] classified as: 1</span><br></pre></td></tr></table></figure>
 
-<p>shape()和reshape()的使用：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def image2vector(image):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    Argument:</span><br><span class="line">    image -- a numpy array of shape (length, height, depth)</span><br><span class="line">    Returns:</span><br><span class="line">    v -- a vector of shape (length*height*depth, 1)</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    v &#x3D; image.reshape(image.shape[0]*image.shape[1],image.shape[2])</span><br><span class="line">    return v</span><br></pre></td></tr></table></figure>
+<p>朴素贝叶斯词袋模型：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def bagOfWords2VecMN(vocabList, inputSet):</span><br><span class="line">    returnVec &#x3D; [0]*len(vocabList)           &#x2F;&#x2F;生成一个与词汇表等长的零向量</span><br><span class="line">    for word in inputSet:               </span><br><span class="line">        if word in vocabList:</span><br><span class="line">            returnVec[vocabList.index(word)] +&#x3D; 1   &#x2F;&#x2F;如果输入文本中出现某个单词，就先在词汇表中找这个单词所在的位置，再在零向量的这个位置加1，所以在一句话中出现多次同一个单词，就会加几次1</span><br><span class="line">    return returnVec</span><br></pre></td></tr></table></figure>
 
+<p>切分文本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;mySent&#x3D;&#39;This book is the best book on Python or M.L. I have ever laid eyes upon.&#39;</span><br><span class="line">&gt;&gt;&gt;mySent.split()</span><br><span class="line">[&#39;This&#39;, &#39;book&#39;, &#39;is&#39;, &#39;the&#39;, &#39;best&#39;, &#39;book&#39;, &#39;on&#39;, &#39;Python&#39;, &#39;or&#39;, &#39;M.L.&#39;, &#39;I&#39;, &#39;have&#39;, &#39;ever&#39;, &#39;laid&#39;, &#39;eyes&#39;, &#39;upon.&#39;]</span><br></pre></td></tr></table></figure>
+
+<p>去掉标点符号：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;import re</span><br><span class="line">&gt;&gt;&gt;regEx&#x3D;re.compile(&#39;\\W*&#39;)      &#x2F;&#x2F;正则表达式的用法</span><br><span class="line">&gt;&gt;&gt;listOfTokens&#x3D;regEx.split(mySent)</span><br><span class="line">&gt;&gt;&gt;listOftokens</span><br><span class="line">[&#39;This&#39;, &#39;book&#39;, &#39;is&#39;, &#39;the&#39;, &#39;best&#39;, &#39;book&#39;, &#39;on&#39;, &#39;Python&#39;, &#39;or&#39;, &#39;M&#39;, &#39;L&#39;, &#39;&#39;, &#39;I&#39;, &#39;have&#39;, &#39;ever&#39;, &#39;laid&#39;, &#39;eyes&#39;, &#39;upon&#39;, &#39;&#39;]</span><br><span class="line">&gt;&gt;&gt;[tok for tok in listOfTokens if len(tok) &gt; 0]   &#x2F;&#x2F;取出长度大于0的字符串</span><br><span class="line">&gt;&gt;&gt;[tok.lower() for tok in listOfTokens if len(tok) &gt; 0]</span><br><span class="line">[&#39;this&#39;, &#39;book&#39;, &#39;is&#39;, &#39;the&#39;, &#39;best&#39;, &#39;book&#39;, &#39;on&#39;, &#39;python&#39;, &#39;or&#39;, &#39;m&#39;, &#39;l&#39;, &#39;i&#39;, &#39;have&#39;, &#39;ever&#39;, &#39;laid&#39;, &#39;eyes&#39;, &#39;upon&#39;] &#x2F;&#x2F;把大写变成小写</span><br><span class="line">&gt;&gt;&gt;emailText&#x3D;open(&#39;email&#x2F;ham&#x2F;6.txt&#39;).read()</span><br><span class="line">&gt;&gt;&gt;listOfTokens&#x3D;regEx.split(emailText)</span><br></pre></td></tr></table></figure>
+<p>readlines与read的区别：<br>readlines返回的是一个字符串列表，每个字符串结尾是\n，每个字符串是文本文件的一行内容<br>read返回的是一个很长的字符串，包含着文本文件的全部内容，不同行由\n区分</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97/" rel="tag">机器学习实战系列</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-机器学习实战系列（一）-K近邻算法" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/04/18/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%80%EF%BC%89-K%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/"
+    >机器学习实战系列（一）:K近邻算法</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/04/18/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%80%EF%BC%89-K%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/" class="article-date">
+  <time datetime="2020-04-18T13:48:59.000Z" itemprop="datePublished">2020-04-18</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>以电影分类为例：<br>提取出电影的特征，将每部电影表示成一个向量。样本集就对应向量空间中的一些点。新的电影同样表示成向量，新的向量离哪个向量最近，这个电影就被分类到这个类。<br>创建一个knn.py文件，在文件中增加下列代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">from numpy import *</span><br><span class="line">import operator</span><br><span class="line"></span><br><span class="line">def createDataSet():</span><br><span class="line">	group &#x3D; array([[1.0,1.1],[1.0,1.0],[0,0],[0,0.1]])</span><br><span class="line">	labels &#x3D; [&#39;A&#39;,&#39;A&#39;,&#39;B&#39;,&#39;B&#39;]</span><br><span class="line">	return group, labels</span><br></pre></td></tr></table></figure>
+<p>在命令行中输入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import knn</span><br><span class="line">group, labels &#x3D; knn.createDataSet()</span><br><span class="line">group</span><br><span class="line">labels</span><br></pre></td></tr></table></figure>
+<p>实现knn算法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">def classify0(inX, dataSet, labels, k): &#x2F;&#x2F;inX 新电影对应的向量 dataSet 向量列表 labels 类别列表</span><br><span class="line">	dataSetSize &#x3D; dataSet.shape[0] &#x2F;&#x2F;dataSet的每一行是一个向量，因此shape[0]就是向量的个数</span><br><span class="line">	diffMat &#x3D; tile(inX，(dataSetSize,1)) - dataSet &#x2F;&#x2F;生成一个和dataSet相同行数的矩阵，每一行都是inX</span><br><span class="line">	sqDiffMat &#x3D; diffMat**2</span><br><span class="line">	sqDistances &#x3D; sqDiffMat.sum(axis&#x3D;1) &#x2F;&#x2F;对应距离公式的求和</span><br><span class="line">	distances &#x3D; sqDistances**0.5 </span><br><span class="line">	sortedDistIndicies &#x3D; distances.argsort() &#x2F;&#x2F;返回距离排序从小到大的下标</span><br><span class="line">	classCount&#x3D;&#123;&#125;</span><br><span class="line">	for i in range(k) :</span><br><span class="line">		voteIlabel &#x3D; labels[sortedDistIndicies[i]] &#x2F;&#x2F;给标签类别计数</span><br><span class="line">		classCount[voteIlabel] &#x3D; classCount.get(voteIlabel,0) + 1 &#x2F;&#x2F;在字典中计数</span><br><span class="line">		sortedClassCount &#x3D; sorted(classCount.items(), key&#x3D;operator.itemgetter(1), reverse&#x3D;True) &#x2F;&#x2F;从每个元组中取出下标为1的项，基于该项的大小进行排序</span><br><span class="line">		return sortedClassCount[0][0] &#x2F;&#x2F;sortedClassCount是一个元组列表</span><br></pre></td></tr></table></figure>
+<p>numpy.tile用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a &#x3D; np.array([0, 1, 2])</span><br><span class="line">&gt;&gt;&gt; np.tile(a, 2)</span><br><span class="line">array([0, 1, 2, 0, 1, 2])</span><br><span class="line">&gt;&gt;&gt; np.tile(a, (2, 2))</span><br><span class="line">array([[0, 1, 2, 0, 1, 2],</span><br><span class="line">       [0, 1, 2, 0, 1, 2]])</span><br></pre></td></tr></table></figure>
+<p>numpy.argsort用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; x &#x3D; np.array([3, 1, 2])</span><br><span class="line">&gt;&gt;&gt; np.argsort(x)</span><br><span class="line">array([1, 2, 0])</span><br></pre></td></tr></table></figure>
+<p>字典get用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;car &#x3D; &#123;</span><br><span class="line">  &quot;brand&quot;: &quot;Ford&quot;,</span><br><span class="line">  &quot;model&quot;: &quot;Mustang&quot;,</span><br><span class="line">  &quot;year&quot;: 1964</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;x &#x3D; car.get(&quot;model&quot;)</span><br><span class="line">Mustang</span><br></pre></td></tr></table></figure>
+<p>sorted用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;a &#x3D; [5,7,6,3,4,1,2]</span><br><span class="line">&gt;&gt;&gt; b &#x3D; sorted(a)       # 保留原列表</span><br><span class="line">&gt;&gt;&gt; a </span><br><span class="line">[5, 7, 6, 3, 4, 1, 2]</span><br><span class="line">&gt;&gt;&gt; b</span><br><span class="line">[1, 2, 3, 4, 5, 6, 7]</span><br></pre></td></tr></table></figure>
+<p>sorted语法：<br>sorted(iterable, cmp=None, key=None, reverse=False)<br>iterable – 可迭代对象。<br>key – 主要是用来进行比较的元素，只有一个参数，具体的函数的参数就是取自于可迭代对象中，指定可迭代对象中的一个元素来进行排序。<br>reverse – 排序规则，reverse = True 降序 ， reverse = False 升序（默认）。<br>items语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;d &#x3D; &#123;&#39;one&#39;: 1, &#39;two&#39;: 2, &#39;three&#39;: 3&#125;</span><br><span class="line">&gt;&gt;&gt; d.items()</span><br><span class="line">dict_items([(&#39;one&#39;, 1), (&#39;two&#39;, 2), (&#39;three&#39;, 3)])</span><br></pre></td></tr></table></figure>
+<p>items() 方法把字典中每对key和value组成一个元组，并把这些元组放在列表中返回。<br>itemgetter用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;a &#x3D; [1,2,3] </span><br><span class="line">&gt;&gt;&gt; b&#x3D;operator.itemgetter(1)      &#x2F;&#x2F;定义函数b，获取对象的第1个域的值</span><br><span class="line">&gt;&gt;&gt; b(a) </span><br><span class="line">2 </span><br><span class="line">&gt;&gt;&gt; b&#x3D;operator.itemgetter(1,0)   &#x2F;&#x2F;定义函数b，获取对象的第1个域和第0个的值</span><br><span class="line">&gt;&gt;&gt; b(a) </span><br><span class="line">(2, 1)</span><br></pre></td></tr></table></figure>
 <p>测试代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># This is a 3 by 3 by 2 array, typically images will be (num_px_x, num_px_y,3) where 3 represents the RGB values</span><br><span class="line">image &#x3D; np.array([[[ 0.67826139,  0.29380381],</span><br><span class="line">        [ 0.90714982,  0.52835647],</span><br><span class="line">        [ 0.4215251 ,  0.45017551]],</span><br><span class="line"></span><br><span class="line">       [[ 0.92814219,  0.96677647],</span><br><span class="line">        [ 0.85304703,  0.52351845],</span><br><span class="line">        [ 0.19981397,  0.27417313]],</span><br><span class="line"></span><br><span class="line">       [[ 0.60659855,  0.00533165],</span><br><span class="line">        [ 0.10820313,  0.49978937],</span><br><span class="line">        [ 0.34144279,  0.94630077]]])</span><br><span class="line"></span><br><span class="line">print (&quot;image2vector(image) &#x3D; &quot; + str(image2vector(image)))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">knn.classify0([0,0], group, labels, 3)</span><br></pre></td></tr></table></figure>
 
-<p>按行归一化：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">def normalizeRows(x):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    Implement a function that normalizes each row of the matrix x (to have unit length). </span><br><span class="line">    Argument:</span><br><span class="line">    x -- A numpy matrix of shape (n, m)</span><br><span class="line">    Returns:</span><br><span class="line">    x -- The normalized (by row) numpy matrix. You are allowed to modify x.</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    # Compute x_norm as the norm 2 of x. Use np.linalg.norm(..., ord &#x3D; 2, axis &#x3D; ..., keepdims &#x3D; True)</span><br><span class="line">    x_norm &#x3D; np.linalg.norm(x,ord&#x3D;2,axis&#x3D;1,keepdims&#x3D;True) </span><br><span class="line">    # Divide x by its norm.</span><br><span class="line">    x &#x3D; x&#x2F;x_norm</span><br><span class="line">    return x</span><br></pre></td></tr></table></figure>
-<p>np.linalg.norm()的使用还要查一下。[1]</p>
+<p>从文本文件中解析数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">def file2matrix(filename) :</span><br><span class="line">    fr &#x3D; open(filename)   &#x2F;&#x2F;对文件操作前必须先打开文件</span><br><span class="line">    arrayOLines &#x3D; fr.readlines() &#x2F;&#x2F;readlines返回的是一个字符串列表</span><br><span class="line">    numberOfLines &#x3D; len(arrayOLines) &#x2F;&#x2F;列表中字符串的个数</span><br><span class="line">    returnMat &#x3D; zeros((numberOfLines,3)) &#x2F;&#x2F;生成一个numberOflines行3列的0矩阵</span><br><span class="line">    classLabelVector &#x3D; []</span><br><span class="line">    index &#x3D; 0</span><br><span class="line">    for line in arrayOLines :</span><br><span class="line">        line &#x3D; line.strip() &#x2F;&#x2F;删除字符串头和尾的空白字符\n\r\t</span><br><span class="line">        listFromLine &#x3D; line.split(&#39;\t&#39;) &#x2F;&#x2F;以\t为分隔符切分字符串</span><br><span class="line">        returnMat[index,:] &#x3D; listFromLine[0:3] &#x2F;&#x2F;取出每一行的三个字符串赋给returnMat矩阵的每一行</span><br><span class="line">        classLabelVector.append(int(listFromLine[-1])) &#x2F;&#x2F;取出每一行的第三个字符串添加到空列表中，构成标签列表</span><br><span class="line">        index +&#x3D; 1</span><br><span class="line">        return returnMat, classLabelVector</span><br></pre></td></tr></table></figure>
+<p>readlines用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;f &#x3D; open(&quot;datingTestSet.txt&quot;)</span><br><span class="line">&gt;&gt;&gt;f.readlines()</span><br><span class="line">[&#39;40920\t8.326976\t0.953952\tlargeDoses\n&#39;, &#39;14488\t7.153469\t1.673904\tsmallDoses\n&#39;]</span><br></pre></td></tr></table></figure>
+<p>readlines返回的是一个字符串列表。<br>strip用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;txt &#x3D; &quot;,,,,,rrttgg.....banana....rrr&quot;</span><br><span class="line">&gt;&gt;&gt;x &#x3D; txt.strip(&quot;,.grt&quot;)</span><br><span class="line">&gt;&gt;&gt;x</span><br><span class="line">banana</span><br></pre></td></tr></table></figure>
+<p>你想去掉字符串里面的哪些字符，那么你就把这些字符当参数传入。此函数只会删除头和尾的字符，中间的不会删除。如果strip()的参数为空，那么会默认删除字符串头和尾的\n，\r，\t。<br>split用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;txt &#x3D; &quot;apple#banana#cherry#orange&quot;</span><br><span class="line">&gt;&gt;&gt;x &#x3D; txt.split(&quot;#&quot;)</span><br><span class="line">&gt;&gt;&gt;x</span><br><span class="line">[&#39;apple&#39;, &#39;banana&#39;, &#39;cherry&#39;, &#39;orange&#39;]</span><br></pre></td></tr></table></figure>
+<p>split的使用对象是字符串，以参数为分隔符，返回一个字符串列表。默认参数为空格。<br>测试代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; reload(kNN)</span><br><span class="line">&gt;&gt;&gt; datingDataMat,datingLabels &#x3D; kNN.file2matrix(datingTestSet.txt)</span><br><span class="line">&gt;&gt;&gt; datingDataMat</span><br><span class="line">&#x2F;&#x2F;具体数值就不贴了，它是一个二维矩阵</span><br><span class="line">&gt;&gt;&gt; datingLabels[0:20]</span><br><span class="line">[3, 2, 1, 1, 1, 1, 3, 3, 1, 3, 1, 1, 2, 1, 1, 1, 1, 1, 2, 3] &#x2F;&#x2F;有点疑惑</span><br></pre></td></tr></table></figure>
+<p>该系列用到的相关文件到下列地址找：<a href="https://github.com/wangshuo2020/-" target="_blank" rel="noopener">https://github.com/wangshuo2020/-</a></p>
+<p>使用Matplotlib创建散点图</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import matplotlib</span><br><span class="line">&gt;&gt;&gt; import matplotlib.pyplot as plt</span><br><span class="line">&gt;&gt;&gt; fig &#x3D; plt.figure() &#x2F;&#x2F;产生一个新的窗口</span><br><span class="line">&gt;&gt;&gt; ax &#x3D; fig.add_subplot(111) &#x2F;&#x2F;产生一个子窗口</span><br><span class="line">&gt;&gt;&gt; ax.scatter(datingDataMat[：,1], datingDataMat[：,2]) &#x2F;&#x2F;取出datingDataMat矩阵中第2列和第3列，对应位置取值描点</span><br><span class="line">&gt;&gt;&gt; plt.show() &#x2F;&#x2F; figure-&gt;add_subplot-&gt;show</span><br></pre></td></tr></table></figure>
+<p>plt显示图像的一般步骤，先调用figure函数，再调用add_subplot函数，最后调用show函数。<br>figure用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">figure（num &#x3D; None，figsize &#x3D; None，facecolor &#x3D; None）</span><br><span class="line">num：figure编号，默认从1开始递增</span><br><span class="line">figsize：窗口大小(宽度,高度),默认[6.4, 4.8]，单位英寸</span><br><span class="line">facecolor: 背景颜色，默认白色</span><br></pre></td></tr></table></figure>
+<p>add_subplot用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;fig.add_subplot(212, axisbg&#x3D;&#39;r&#39;)</span><br><span class="line">212：父窗口中包含两个子窗口，并且图像显示在第二个子窗口</span><br><span class="line">axisbg&#x3D;&#39;r&#39;：子窗口背景颜色被设置成红色</span><br></pre></td></tr></table></figure>
+<p>scatter用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">scatter（x，y, s &#x3D; None, c &#x3D; None)</span><br><span class="line">x, y确定点的位置，x和y必须是相同长度的向量</span><br><span class="line">s和c同样必须与x,y的长度相同，相同下标的x,y,s,c是一组数。</span><br></pre></td></tr></table></figure>
+<p>改进显示效果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; ax.scatter(datmgDataMat[:, 1], datmgDataMat[:, 2],15.0*array(datingLabe1s), 15.0*array(datingLabe1s)) &#x2F;&#x2F;点的大小和颜色会相应的变化</span><br></pre></td></tr></table></figure>
+
+<p>归一化数值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def autoNorm(dataSet):</span><br><span class="line">    minVals &#x3D; dataSet.min(0) &#x2F;&#x2F;dataSet是一个二维矩阵</span><br><span class="line">    maxVals &#x3D; dataSet.max(0)</span><br><span class="line">    ranges &#x3D; maxVals - minVals &#x2F;&#x2F;归一化公式：newValue &#x3D; (oldValue-min)&#x2F;(max-min)</span><br><span class="line">    normDataSet &#x3D; zeros(shape(dataSet)) &#x2F;&#x2F;生成一个和dataSet同样大小的0矩阵</span><br><span class="line">    m &#x3D; dataSet.shape[0] &#x2F;&#x2F;取出dataS的行数</span><br><span class="line">    normDataSet &#x3D; dataSet - tile(minVals, (m,1)) &#x2F;&#x2F;以最小值序列为一行扩展m行</span><br><span class="line">    normDataSet &#x3D; normDataSet&#x2F;tile(ranges, (m,1))   #element wise divide</span><br><span class="line">    return normDataSet, ranges, minVals</span><br></pre></td></tr></table></figure>
+<p>numpy中min函数用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;import numpy as np</span><br><span class="line">&gt;&gt;&gt;a &#x3D; np.array([[1,5,3],[4,2,6]])</span><br><span class="line">&gt;&gt;&gt;a.min() #无参，所有中的最小值</span><br><span class="line">1</span><br><span class="line">&gt;&gt;&gt;a.min(0) # axis&#x3D;0; 每列的最小值</span><br><span class="line">[1 2 3]</span><br><span class="line">&gt;&gt;&gt;a.min(1) # axis&#x3D;1；每行的最小值</span><br><span class="line">[1 2]</span><br></pre></td></tr></table></figure>
 <p>测试代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x &#x3D; np.array([</span><br><span class="line">    [0, 3, 4],</span><br><span class="line">    [1, 6, 4]])</span><br><span class="line">print(&quot;normalizeRows(x) &#x3D; &quot; + str(normalizeRows(x)))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; reload(kNN)</span><br><span class="line">&gt;&gt;&gt; normMat, ranges, minVals &#x3D; kNN.autoNorm(datingDataMat)</span><br><span class="line">&gt;&gt;&gt; normMat</span><br><span class="line">array([[ 0.33060119,	0.58918886,	0.69043973],</span><br><span class="line">...,</span><br><span class="line">[0.49199139,	0.50262471,	0.13468257]])</span><br><span class="line">&gt;&gt;&gt; ranges</span><br><span class="line">array([8.78430000e+04, 2.02823930e+01,	1.69197100e+00])</span><br><span class="line">&gt;&gt;&gt; minVals</span><br><span class="line">array([0., 0., 0.001818])</span><br></pre></td></tr></table></figure>
 
-<p>定义softmax函数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">def softmax(x):</span><br><span class="line">    &quot;&quot;&quot;Calculates the softmax for each row of the input x.</span><br><span class="line">    Your code should work for a row vector and also for matrices of shape (n, m).</span><br><span class="line">    Argument:</span><br><span class="line">    x -- A numpy matrix of shape (n,m)</span><br><span class="line">    Returns:</span><br><span class="line">    s -- A numpy matrix equal to the softmax of x, of shape (n,m)</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    # Apply exp() element-wise to x. Use np.exp(...).</span><br><span class="line">    x_exp &#x3D; np.exp(x)</span><br><span class="line">    # Create a vector x_sum that sums each row of x_exp. Use np.sum(..., axis &#x3D; 1, keepdims &#x3D; True).</span><br><span class="line">    x_sum &#x3D; np.sum(x_exp,axis&#x3D;1,keepdims&#x3D;True)</span><br><span class="line">    # Compute softmax(x) by dividing x_exp by x_sum. It should automatically use numpy broadcasting.</span><br><span class="line">    s &#x3D; x_exp&#x2F;x_sum</span><br><span class="line">    return s</span><br></pre></td></tr></table></figure>
-<p>np.sum()中的axis和keepdim两个参数是啥意思？[2]</p>
+<p>测试分类器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">def datingClassTest():</span><br><span class="line">    hoRatio &#x3D; 0.50      #hold out 10%  </span><br><span class="line">    datingDataMat,datingLabels &#x3D; file2matrix(&#39;datingTestSet2.txt&#39;)       #load data setfrom file &#x2F;&#x2F;将文本文件处理成矩阵</span><br><span class="line">    normMat, ranges, minVals &#x3D; autoNorm(datingDataMat) &#x2F;&#x2F;归一化矩阵</span><br><span class="line">    m &#x3D; normMat.shape[0] &#x2F;&#x2F;取出归一化后矩阵的行数</span><br><span class="line">    numTestVecs &#x3D; int(m*hoRatio) &#x2F;&#x2F;测试向量的个数</span><br><span class="line">    errorCount &#x3D; 0.0</span><br><span class="line">    for i in range(numTestVecs):</span><br><span class="line">        classifierResult &#x3D; classify0(normMat[i,:],normMat[numTestVecs:m,:],datingLabels[numTestVecs:m],3) &#x2F;&#x2F;在后半部分数据上测试前半部分的类别</span><br><span class="line">        print &quot;the classifier came back with: %d, the real answer is: %d&quot; % (classifierResult, datingLabels[i])</span><br><span class="line">        if (classifierResult !&#x3D; datingLabels[i]): errorCount +&#x3D; 1.0 &#x2F;&#x2F;错误次数计数</span><br><span class="line">    print &quot;the total error rate is: %f&quot; % (errorCount&#x2F;float(numTestVecs)) </span><br><span class="line">    print(errorCount)</span><br></pre></td></tr></table></figure>
 <p>测试代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x &#x3D; np.array([</span><br><span class="line">    [9, 2, 5, 0, 0],</span><br><span class="line">    [7, 5, 0, 0 ,0]])</span><br><span class="line">print(&quot;softmax(x) &#x3D; &quot; + str(softmax(x)))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; kNN.datmgClassTest ()</span><br><span class="line">the classifier came back with: 1,	the real answer is: 1</span><br><span class="line">...</span><br><span class="line">the classifier came back with: 2,	the real answer is: 2</span><br><span class="line">the total error rate is : 0.024000</span><br></pre></td></tr></table></figure>
 
-<p>向量化计算与for循环在时间上的比较：<br>用for循环实现向量之间的运算</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">import time</span><br><span class="line">x1 &#x3D; [9, 2, 5, 0, 0, 7, 5, 0, 0, 0, 9, 2, 5, 0, 0]</span><br><span class="line">x2 &#x3D; [9, 2, 2, 9, 0, 9, 2, 5, 0, 0, 9, 2, 5, 0, 0]</span><br><span class="line">### CLASSIC DOT PRODUCT OF VECTORS IMPLEMENTATION ###</span><br><span class="line">tic &#x3D; time.process_time()</span><br><span class="line">dot &#x3D; 0</span><br><span class="line">for i in range(len(x1)):</span><br><span class="line">    dot+&#x3D; x1[i]*x2[i]</span><br><span class="line">toc &#x3D; time.process_time()</span><br><span class="line">print (&quot;dot &#x3D; &quot; + str(dot) + &quot;\n ----- Computation time &#x3D; &quot; + str(1000*(toc - tic)) + &quot;ms&quot;)</span><br><span class="line">### CLASSIC OUTER PRODUCT IMPLEMENTATION ###</span><br><span class="line">tic &#x3D; time.process_time()</span><br><span class="line">outer &#x3D; np.zeros((len(x1),len(x2))) # we create a len(x1)*len(x2) matrix with only zeros</span><br><span class="line">for i in range(len(x1)):</span><br><span class="line">    for j in range(len(x2)):</span><br><span class="line">        outer[i,j] &#x3D; x1[i]*x2[j]</span><br><span class="line">toc &#x3D; time.process_time()</span><br><span class="line">print (&quot;outer &#x3D; &quot; + str(outer) + &quot;\n ----- Computation time &#x3D; &quot; + str(1000*(toc - tic)) + &quot;ms&quot;)</span><br><span class="line">### CLASSIC ELEMENTWISE IMPLEMENTATION ###</span><br><span class="line">tic &#x3D; time.process_time()</span><br><span class="line">mul &#x3D; np.zeros(len(x1))</span><br><span class="line">for i in range(len(x1)):</span><br><span class="line">    mul[i] &#x3D; x1[i]*x2[i]</span><br><span class="line">toc &#x3D; time.process_time()</span><br><span class="line">print (&quot;elementwise multiplication &#x3D; &quot; + str(mul) + &quot;\n ----- Computation time &#x3D; &quot; + str(1000*(toc - tic)) + &quot;ms&quot;)</span><br><span class="line">### CLASSIC GENERAL DOT PRODUCT IMPLEMENTATION ###</span><br><span class="line">W &#x3D; np.random.rand(3,len(x1)) # Random 3*len(x1) numpy array</span><br><span class="line">tic &#x3D; time.process_time()</span><br><span class="line">gdot &#x3D; np.zeros(W.shape[0])</span><br><span class="line">for i in range(W.shape[0]):</span><br><span class="line">    for j in range(len(x1)):</span><br><span class="line">        gdot[i] +&#x3D; W[i,j]*x1[j]</span><br><span class="line">toc &#x3D; time.process_time()</span><br><span class="line">print (&quot;gdot &#x3D; &quot; + str(gdot) + &quot;\n ----- Computation time &#x3D; &quot; + str(1000*(toc - tic)) + &quot;ms&quot;)</span><br></pre></td></tr></table></figure>
-
-<p>用numpy库直接进行向量计算：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">x1 &#x3D; [9, 2, 5, 0, 0, 7, 5, 0, 0, 0, 9, 2, 5, 0, 0]</span><br><span class="line">x2 &#x3D; [9, 2, 2, 9, 0, 9, 2, 5, 0, 0, 9, 2, 5, 0, 0]</span><br><span class="line">### VECTORIZED DOT PRODUCT OF VECTORS ###</span><br><span class="line">tic &#x3D; time.process_time()</span><br><span class="line">dot &#x3D; np.dot(x1,x2)</span><br><span class="line">toc &#x3D; time.process_time()</span><br><span class="line">print (&quot;dot &#x3D; &quot; + str(dot) + &quot;\n ----- Computation time &#x3D; &quot; + str(1000*(toc - tic)) + &quot;ms&quot;)</span><br><span class="line">### VECTORIZED OUTER PRODUCT ###</span><br><span class="line">tic &#x3D; time.process_time()</span><br><span class="line">outer &#x3D; np.outer(x1,x2)</span><br><span class="line">toc &#x3D; time.process_time()</span><br><span class="line">print (&quot;outer &#x3D; &quot; + str(outer) + &quot;\n ----- Computation time &#x3D; &quot; + str(1000*(toc - tic)) + &quot;ms&quot;)</span><br><span class="line">### VECTORIZED ELEMENTWISE MULTIPLICATION ###</span><br><span class="line">tic &#x3D; time.process_time()</span><br><span class="line">mul &#x3D; np.multiply(x1,x2)</span><br><span class="line">toc &#x3D; time.process_time()</span><br><span class="line">print (&quot;elementwise multiplication &#x3D; &quot; + str(mul) + &quot;\n ----- Computation time &#x3D; &quot; + str(1000*(toc - tic)) + &quot;ms&quot;)</span><br><span class="line">### VECTORIZED GENERAL DOT PRODUCT ###</span><br><span class="line">tic &#x3D; time.process_time()</span><br><span class="line">dot &#x3D; np.dot(W,x1)</span><br><span class="line">toc &#x3D; time.process_time()</span><br><span class="line">print (&quot;gdot &#x3D; &quot; + str(dot) + &quot;\n ----- Computation time &#x3D; &quot; + str(1000*(toc - tic)) + &quot;ms&quot;)</span><br></pre></td></tr></table></figure>
-
-<p>用L1范数作为损失函数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def L1(yhat, y):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    Arguments:</span><br><span class="line">    yhat -- vector of size m (predicted labels)</span><br><span class="line">    y -- vector of size m (true labels)</span><br><span class="line">    Returns:</span><br><span class="line">    loss -- the value of the L1 loss function defined above</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    loss &#x3D; np.sum(abs(y-yhat))</span><br><span class="line">    return loss</span><br></pre></td></tr></table></figure>
-
+<p>构建完整可用系统</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">def classifyPerson() :</span><br><span class="line">	resultList &#x3D; [ &#39;not at all&#39;, &#39;in small doses&#39; ，&#39; in large doses &#39; ] &#x2F;&#x2F;类别列表</span><br><span class="line">	percentTats &#x3D; float(raw_input (\</span><br><span class="line">				  &quot;percentage of time spent playing video games?&quot;) ) &#x2F;&#x2F;用户输入数值</span><br><span class="line">	ffMiles &#x3D; float(raw_input(&quot;frequent flier miles earned per year?&quot;))</span><br><span class="line">	iceCream &#x3D; float(raw_input(&quot;liters of ice cream consumed per year?&quot;))</span><br><span class="line">	datingDataMat, datingLabels &#x3D; file2matrix(&#39;datingTestSet2. txt&#39;) &#x2F;&#x2F;样本数据</span><br><span class="line">	normMat，ranges， minVals &#x3D; autoNorm(datingDataMat) </span><br><span class="line">	inArr &#x3D; array([ffMiles，percentTate, iceCream])</span><br><span class="line">	classifierResult &#x3D; classify0((inArr-\</span><br><span class="line">	minVals)&#x2F;ranges, normMat, datingLabels,3)</span><br><span class="line">	print &quot;You will probably like this person: &quot;, \</span><br><span class="line">	resultList[classifierResult - 1]</span><br></pre></td></tr></table></figure>
 <p>测试代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yhat &#x3D; np.array([.9, 0.2, 0.1, .4, .9])</span><br><span class="line">y &#x3D; np.array([1, 0, 0, 1, 1])</span><br><span class="line">print(&quot;L1 &#x3D; &quot; + str(L1(yhat,y)))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; kNN.classifyPerson()</span><br><span class="line">percentage of time spent playing video games?10</span><br><span class="line">frequent flier miles earned per year?10000</span><br><span class="line">liters of ice cream consumed per year?0.5</span><br><span class="line">You will probably like this person: in small doses</span><br></pre></td></tr></table></figure>
 
-<p>用L2范数作为损失函数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def L2(yhat, y):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    Arguments:</span><br><span class="line">    yhat -- vector of size m (predicted labels)</span><br><span class="line">    y -- vector of size m (true labels)</span><br><span class="line">    Returns:</span><br><span class="line">    loss -- the value of the L2 loss function defined above</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    loss &#x3D; np.sum(np.dot(y-yhat,y-yhat))</span><br><span class="line">    return loss</span><br></pre></td></tr></table></figure>
-
+<p>手写识别系统</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def img2vector(filename):</span><br><span class="line">    returnVect &#x3D; zeros((1,1024)) &#x2F;&#x2F;生成一个1行2014列的0向量</span><br><span class="line">    fr &#x3D; open(filename) </span><br><span class="line">    for i in range(32):</span><br><span class="line">        lineStr &#x3D; fr.readline()</span><br><span class="line">        for j in range(32):</span><br><span class="line">            returnVect[0,32*i+j] &#x3D; int(lineStr[j])</span><br><span class="line">    return returnVect</span><br></pre></td></tr></table></figure>
 <p>测试代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yhat &#x3D; np.array([.9, 0.2, 0.1, .4, .9])</span><br><span class="line">y &#x3D; np.array([1, 0, 0, 1, 1])</span><br><span class="line">print(&quot;L2 &#x3D; &quot; + str(L2(yhat,y)))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; testvector &#x3D; kNN.img2vector(&#39;testDigits&#x2F;0_13.txt&#39;)</span><br><span class="line">&gt;&gt;&gt; testvector[0,0:31]</span><br><span class="line">array([ 0.,	0.,	0.,	0.,	0.,	0.,	0.,	0.,	0.,	0.,</span><br><span class="line">...</span><br><span class="line">0.,	0.,	0.])</span><br><span class="line">&gt;&gt;&gt; testvector[0,32:63]</span><br><span class="line">array([0., 1., 0., 0. , 1., 0.,</span><br><span class="line">...</span><br><span class="line">0., 0.,	0.])</span><br></pre></td></tr></table></figure>
+
+<p>使用k-近邻算法识别手写数字</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">def handwritingClassTest():</span><br><span class="line">    hwLabels &#x3D; []</span><br><span class="line">    trainingFileList &#x3D; listdir(&#39;trainingDigits&#39;)           #load the training set &#x2F;&#x2F;返回trainingDigits目录下的文件名称</span><br><span class="line">    m &#x3D; len(trainingFileList) &#x2F;&#x2F;文件的个数</span><br><span class="line">    trainingMat &#x3D; zeros((m,1024)) &#x2F;&#x2F;为m个文件准备m行</span><br><span class="line">    for i in range(m): &#x2F;&#x2F;处理每一个文件</span><br><span class="line">        fileNameStr &#x3D; trainingFileList[i] &#x2F;&#x2F;当前文件名</span><br><span class="line">        fileStr &#x3D; fileNameStr.split(&#39;.&#39;)[0]     #take off .txt &#x2F;&#x2F;以.为分隔符分割，取出前面的数字</span><br><span class="line">        classNumStr &#x3D; int(fileStr.split(&#39;_&#39;)[0]) &#x2F;&#x2F;取出类别</span><br><span class="line">        hwLabels.append(classNumStr) &#x2F;&#x2F;把类别添加到列表中</span><br><span class="line">        trainingMat[i,:] &#x3D; img2vector(&#39;trainingDigits&#x2F;%s&#39; % fileNameStr) &#x2F;&#x2F;把每个文件处理成矩阵的一行</span><br><span class="line">    testFileList &#x3D; listdir(&#39;testDigits&#39;)        #iterate through the test set</span><br><span class="line">    errorCount &#x3D; 0.0</span><br><span class="line">    mTest &#x3D; len(testFileList)</span><br><span class="line">    for i in range(mTest):</span><br><span class="line">        fileNameStr &#x3D; testFileList[i]</span><br><span class="line">        fileStr &#x3D; fileNameStr.split(&#39;.&#39;)[0]     #take off .txt</span><br><span class="line">        classNumStr &#x3D; int(fileStr.split(&#39;_&#39;)[0])</span><br><span class="line">        vectorUnderTest &#x3D; img2vector(&#39;testDigits&#x2F;%s&#39; % fileNameStr)</span><br><span class="line">        classifierResult &#x3D; classify0(vectorUnderTest, trainingMat, hwLabels, 3)</span><br><span class="line">        print &quot;the classifier came back with: %d, the real answer is: %d&quot; % (classifierResult, classNumStr)</span><br><span class="line">        if (classifierResult !&#x3D; classNumStr): errorCount +&#x3D; 1.0</span><br><span class="line">    print &quot;\nthe total number of errors is: %d&quot; % errorCount</span><br><span class="line">    print &quot;\nthe total error rate is: %f&quot; % (errorCount&#x2F;float(mTest))</span><br></pre></td></tr></table></figure>
+<p>listdir用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;import os</span><br><span class="line">&gt;&gt;&gt;dirs &#x3D; os.listdir(&#39;machinelearninginaction\Ch02\EXTRAS&#39;)</span><br><span class="line">[&#39;createDist.py&#39;, &#39;createDist2.py&#39;, &#39;createFirstPlot.py&#39;, &#39;README.txt&#39;, &#39;testSet.txt&#39;]</span><br></pre></td></tr></table></figure>
+<p>os.listdir()方法返回一个字符串列表<br>测试代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; kNN.handwritmgClassTest()</span><br><span class="line">the classifier came back with: 0, the real answer is: 0</span><br><span class="line">...</span><br><span class="line">the classifier came back with: 0, the real answer is: 0</span><br><span class="line">the total number of errors is: 11</span><br><span class="line">the total error rate is: 0.011628</span><br></pre></td></tr></table></figure>
       
       <!-- reward -->
       
@@ -181,8 +629,6 @@
     <footer class="article-footer">
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Andrew/" rel="tag">Andrew</a></li></ul>
-
 
     </footer>
 
@@ -198,7 +644,7 @@
 
 </article>
     
-    <article id="post-tensorflow2-0系列-四-：多层感知机" class="article article-type-post" itemscope
+    <article id="post-linux简单命令" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -206,8 +652,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2020/03/17/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%9B%9B-%EF%BC%9A%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA/"
-    >tensorflow2.0系列(四)：多层感知机</a
+  <a class="article-title" href="/2020/03/23/linux%E7%AE%80%E5%8D%95%E5%91%BD%E4%BB%A4/"
+    >linux简单命令</a
   >
 </h2>
   
@@ -217,8 +663,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/03/17/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%9B%9B-%EF%BC%9A%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA/" class="article-date">
-  <time datetime="2020-03-17T10:07:51.000Z" itemprop="datePublished">2020-03-17</time>
+      <a href="/2020/03/23/linux%E7%AE%80%E5%8D%95%E5%91%BD%E4%BB%A4/" class="article-date">
+  <time datetime="2020-03-23T06:28:07.000Z" itemprop="datePublished">2020-03-23</time>
 </a>
       
       
@@ -237,163 +683,9 @@
       
 
       
-      <p>多层感知机就是多层全连接神经网络。<br>在这里使用多层感知机完成 MNIST 手写体数字图片数据集 [LeCun1998] 的分类任务。<br>我们将依次完成以下几个环节。<br>1、使用 tf.keras.datasets 获得数据集并预处理<br>2、使用 tf.keras.Model 和 tf.keras.layers 构建模型<br>3、构建模型训练流程，使用 tf.keras.losses 计算损失函数，并使用 tf.keras.optimizer 优化模型<br>4、构建模型评估流程，使用 tf.keras.metrics 计算评估指标<br>第一步，先定义一个MNISTLoader类来下载MNIST数据集，预处理以及自定义一个从数据集中取出数据的方法。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class MNISTLoader():</span><br><span class="line">    def __init__(self):</span><br><span class="line">        mnist &#x3D; tf.keras.datasets.mnist</span><br><span class="line">        (self.train_data, self.train_label), (self.test_data, self.test_label) &#x3D; mnist.load_data()</span><br><span class="line">        # MNIST中的图像默认为uint8（0-255的数字）。以下代码将其归一化到0-1之间的浮点数，并在最后增加一维作为颜色通道</span><br><span class="line">        self.train_data &#x3D; np.expand_dims(self.train_data.astype(np.float32) &#x2F; 255.0, axis&#x3D;-1)      # [60000, 28, 28, 1]</span><br><span class="line">        self.test_data &#x3D; np.expand_dims(self.test_data.astype(np.float32) &#x2F; 255.0, axis&#x3D;-1)        # [10000, 28, 28, 1]</span><br><span class="line">        self.train_label &#x3D; self.train_label.astype(np.int32)    # [60000]</span><br><span class="line">        self.test_label &#x3D; self.test_label.astype(np.int32)      # [10000]</span><br><span class="line">        self.num_train_data, self.num_test_data &#x3D; self.train_data.shape[0], self.test_data.shape[0]</span><br><span class="line"></span><br><span class="line">    def get_batch(self, batch_size):</span><br><span class="line">        # 从数据集中随机取出batch_size个元素并返回</span><br><span class="line">        index &#x3D; np.random.randint(0, np.shape(self.train_data)[0], batch_size)</span><br><span class="line">        return self.train_data[index, :], self.train_label[index]</span><br></pre></td></tr></table></figure>
-<p>需要注意的是keras内置的load_data()方法返回的是两个元组以及get_batch()方法是怎么写的。</p>
-<p>在 TensorFlow 中，图像数据集一般表示成一个[图像数目，长，宽，色彩通道数] 的四维张量。这里读入的是灰度图片，色彩通道数为1(彩色RGB图像色彩通道数为3)。由于load_data()方法返回的都是[图像数目，长，宽]的三维张量，所以使用np.expand_dims()函数给返回张量在最后添加一维，保持一致性。<br>多层感知机的模型与之前实现的线性模型不同的地方在于层数增加了，以及引入了非线性激活函数ReLU函数。该模型输入一个向量，输出一个10维的向量，每一维分别是识别为0-9的概率。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class MLP(tf.keras.Model):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.flatten &#x3D; tf.keras.layers.Flatten()    # Flatten层将除第一维（batch_size）以外的维度展平</span><br><span class="line">        self.dense1 &#x3D; tf.keras.layers.Dense(units&#x3D;100, activation&#x3D;tf.nn.relu)</span><br><span class="line">        self.dense2 &#x3D; tf.keras.layers.Dense(units&#x3D;10)</span><br><span class="line"></span><br><span class="line">    def call(self, inputs):         # [batch_size, 28, 28, 1]</span><br><span class="line">        x &#x3D; self.flatten(inputs)    # [batch_size, 784]</span><br><span class="line">        x &#x3D; self.dense1(x)          # [batch_size, 100]</span><br><span class="line">        x &#x3D; self.dense2(x)          # [batch_size, 10]</span><br><span class="line">        output &#x3D; tf.nn.softmax(x)</span><br><span class="line">        return output</span><br></pre></td></tr></table></figure>
-<p>因为我们希望输出的向量具有这样两个特点：该向量中的每个元素均在[0,1]之间；该向量的所有元素之和为1。因此我们对最后一层的线性输出使用Softmax函数进行归一化。softmax不仅取出了向量中的最大值，还保留了对其余类别的预测信息，因此被称作soft argmax。<br>归一化就是把数值映射到(0,1)之间，有很多种方法。</p>
-<p>第三步，就是构建模型训练流程，首先需要定义一些超参数，比如训练的轮数、一次喂入多少个数据，即batch_size、还有学习率。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">num_epochs &#x3D; 5</span><br><span class="line">batch_size &#x3D; 50</span><br><span class="line">learning_rate &#x3D; 0.001</span><br></pre></td></tr></table></figure>
-<p>接着将前两步定义的两个类实例化，并且实例化出一个优化器，这里采用的Adam优化器。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">model &#x3D; MLP()</span><br><span class="line">data_loader &#x3D; MNISTLoader()</span><br><span class="line">optimizer &#x3D; tf.keras.optimizers.Adam(learning_rate&#x3D;learning_rate)</span><br></pre></td></tr></table></figure>
-<p>接下来就是迭代进行一下步骤：<br>从 DataLoader 中随机取一批训练数据；<br>将这批数据送入模型，计算出模型的预测值；<br>将模型预测值与真实值进行比较，计算损失函数(loss)。这里使用tf.keras.losses中的交叉熵函数作为损失函数；<br>计算损失函数关于模型变量的导数；<br>将求出的导数值传入优化器，使用优化器的 apply_gradients 方法更新模型参数以最小化损失函数。<br>具体代码为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">num_batches &#x3D; int(data_loader.num_train_data &#x2F;&#x2F; batch_size * num_epochs)</span><br><span class="line">for batch_index in range(num_batches):</span><br><span class="line">    X, y &#x3D; data_loader.get_batch(batch_size)</span><br><span class="line">    with tf.GradientTape() as tape:</span><br><span class="line">        y_pred &#x3D; model(X)</span><br><span class="line">        loss &#x3D; tf.keras.losses.sparse_categorical_crossentropy(y_true&#x3D;y, y_pred&#x3D;y_pred)</span><br><span class="line">        loss &#x3D; tf.reduce_mean(loss)</span><br><span class="line">        print(&quot;batch %d: loss %f&quot; % (batch_index, loss.numpy()))</span><br><span class="line">    grads &#x3D; tape.gradient(loss, model.variables)</span><br><span class="line">    optimizer.apply_gradients(grads_and_vars&#x3D;zip(grads, model.variables))</span><br></pre></td></tr></table></figure>
-<p>在这里，我们没有显式地写出一个损失函数，而是使用了tf.keras.losses中的sparse_categorical_crossentropy(交叉熵)函数，将模型的预测值y_pred与真实的标签值y作为函数参数传入，由Keras帮助我们计算损失函数的值。<br>交叉熵作为损失函数，在分类问题中被广泛应用。<br>第四步，评估模型。keras在metrics模块中封装了不同的评估器用于适应不同的需求。在这里我们使用的是SparseCategoricalAccuracy评估器来评估模型在测试集上的性能，该评估器输出的是预测正确的样本数占总样本数的比例。<br>在每次迭代测试集的时候，都会通过update_state()方法向评估器输入两个参数：y_pred和y_true，即模型预测出的结果和真实结果。评估器定义了内部变量来保存当前评估指标相关的参数数值(例如当前已传入的累计样本数和当前预测正确的样本数)。迭代结束后，我们使用result()方法输出最终的评估指标值(预测正确的样本数占总样本数的比例)。<br>代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sparse_categorical_accuracy &#x3D; tf.keras.metrics.SparseCategoricalAccuracy()</span><br><span class="line">num_batches &#x3D; int(data_loader.num_test_data &#x2F;&#x2F; batch_size)</span><br><span class="line">for batch_index in range(num_batches):</span><br><span class="line">    start_index, end_index &#x3D; batch_index * batch_size, (batch_index + 1) * batch_size</span><br><span class="line">    y_pred &#x3D; model.predict(data_loader.test_data[start_index: end_index])</span><br><span class="line">    sparse_categorical_accuracy.update_state(y_true&#x3D;data_loader.test_label[start_index: end_index], y_pred&#x3D;y_pred)</span><br><span class="line">print(&quot;test accuracy: %f&quot; % sparse_categorical_accuracy.result())</span><br></pre></td></tr></table></figure>
-<p>在这里我们首先实例化了一个 tf.keras.metrics.SparseCategoricalAccuracy 评估器，并且使用For循环迭代分批次传入了测试集数据的预测结果与真实结果，并调用result()方法输出了训练后的模型在测试数据集上的准确率。<br>但是同样可以看到keras的缺点就是啥都帮你做了你就很难知道背后的机理是怎么实现的了。</p>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-tensorflow2-0系列-三" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/17/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%B8%89/"
-    >tensorflow2.0系列(三)</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/17/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%B8%89/" class="article-date">
-  <time datetime="2020-03-17T04:58:42.000Z" itemprop="datePublished">2020-03-17</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>在keras中，通过继承tf.keras.Model来定义自己的模型。在继承类中，需要重写”<del><strong>init</strong></del>“()和和call(input)两个方法，也可以根据需要增加自定义的方法。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class MyModel(tf.keras.Model):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super().__init__()     # Python 2 下使用 super(MyModel, self).__init__()</span><br><span class="line">        &#x2F;&#x2F; 此处添加初始化代码（包含 call 方法中会用到的层），例如</span><br><span class="line">        &#x2F;&#x2F; layer1 &#x3D; tf.keras.layers.BuiltInLayer(...)</span><br><span class="line">        &#x2F;&#x2F; layer2 &#x3D; MyCustomLayer(...)</span><br><span class="line"></span><br><span class="line">    def call(self, input):</span><br><span class="line">        &#x2F;&#x2F; 此处添加模型调用的代码（处理输入并返回输出），例如</span><br><span class="line">        &#x2F;&#x2F; x &#x3D; layer1(input)</span><br><span class="line">        &#x2F;&#x2F; output &#x3D; layer2(x)</span><br><span class="line">        return output</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 还可以添加自定义的方法</span><br></pre></td></tr></table></figure>
-<p>继承 tf.keras.Model 后，就以使用父类的方法和属性，比如在实例化类model = Model()后，就可以通过model.variables这一属性直接获得模型中的所有变量，而不需要我们一个个显式地指定变量。<br>用keras实现线性回归：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line"></span><br><span class="line">X &#x3D; tf.constant([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]])</span><br><span class="line">y &#x3D; tf.constant([[10.0], [20.0]])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Linear(tf.keras.Model):</span><br><span class="line">    def &quot;&#39;__init__&#39;&quot;(self):</span><br><span class="line">        super().&quot;&#39;__init__&#39;&quot;()</span><br><span class="line">        self.dense &#x3D; tf.keras.layers.Dense(</span><br><span class="line">            units&#x3D;1,</span><br><span class="line">            activation&#x3D;None,</span><br><span class="line">            kernel_initializer&#x3D;tf.zeros_initializer(),</span><br><span class="line">            bias_initializer&#x3D;tf.zeros_initializer()</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    def call(self, input):</span><br><span class="line">        output &#x3D; self.dense(input)</span><br><span class="line">        return output</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 以下代码结构与前节类似</span><br><span class="line">model &#x3D; Linear()</span><br><span class="line">optimizer &#x3D; tf.keras.optimizers.SGD(learning_rate&#x3D;0.01)</span><br><span class="line">for i in range(100):</span><br><span class="line">    with tf.GradientTape() as tape:</span><br><span class="line">        y_pred &#x3D; model(X)      # 调用模型 y_pred &#x3D; model(X) 而不是显式写出 y_pred &#x3D; a * X + b</span><br><span class="line">        loss &#x3D; tf.reduce_mean(tf.square(y_pred - y))</span><br><span class="line">    grads &#x3D; tape.gradient(loss, model.variables)    # 使用 model.variables 这一属性直接获得模型中的所有变量</span><br><span class="line">    optimizer.apply_gradients(grads_and_vars&#x3D;zip(grads, model.variables))</span><br><span class="line">print(model.variables)</span><br></pre></td></tr></table></figure>
-<p>tf.keras.layers.Dense类的作用是实例化生成全连接层，它的参数有：<br>units ：输出张量的维度<br>activation ：激活函数，对应于f(AW + b)中的f，默认为无激活函数(a(x) = x)。常用的激活函数包括 tf.nn.relu、tf.nn.tanh和tf.nn.sigmoid；<br>use_bias ：是否加入偏置向量bias，即f(AW + b)中的b。默认为True；<br>kernel_initializer、bias_initializer：权重矩阵kernel和偏置向量bias两个变量的初始化器。默认为tf.glorot_uniform_initializer。设置为tf.zeros_initializer表示将两个变量均初始化为全0；<br>该层包含权重矩阵kernel=[input_dim,units]和偏置向量bias=[units]两个可训练变量，对应于f(AW+b)中的W和b。<br>tf.matmul(input, kernel) 的结果是一个形状为 [batch_size, units] 的二维矩阵，而bias是一个形状为[units]的一维向量，它们是怎么相加的呢？<br>这里用到的是python的广播机制。<br>为什么模型类是重写call()方法而不是”‘<strong>call</strong>‘“()方法？<br>实例化也可以理解为调用这个类。<br>在python中，myClass()==myClass.”‘<strong>call</strong>‘“()。重写call()方法而不是”‘<strong>call</strong>‘“()方法是因为在keras中call()方法是在”‘<strong>call</strong>‘“()方法中被调用的，也就是说，在keras框架下，在调用某个模型时，keras要执行的不仅仅是用户定义的call()方法，还有一些每个模型在调用时都要进行的处理，而这些东西就写在了””<strong>call</strong>‘“()方法下。因此用户重写的只能是call()方法。</p>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-白板推导系列-一-：SVM定义" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/16/%E7%99%BD%E6%9D%BF%E6%8E%A8%E5%AF%BC%E7%B3%BB%E5%88%97-%E4%B8%80-%EF%BC%9ASVM%E5%AE%9A%E4%B9%89/"
-    >白板推导系列(一)：SVM定义</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/16/%E7%99%BD%E6%9D%BF%E6%8E%A8%E5%AF%BC%E7%B3%BB%E5%88%97-%E4%B8%80-%EF%BC%9ASVM%E5%AE%9A%E4%B9%89/" class="article-date">
-  <time datetime="2020-03-16T10:12:51.000Z" itemprop="datePublished">2020-03-16</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p><img src="/images/SVMdefinition.jpg" alt=""></p>
+      <p>1、安装VMwaretools：虚拟机-&gt;安装VMwaretools。注意安装ubuntu后不能直接安装VMtools，要先重启一下虚拟机。<br>2、换清华源：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim&#x2F;vi &#x2F;etc&#x2F;apt&#x2F;sources.list</span><br></pre></td></tr></table></figure><br>    没有vim就用vi。<br>    把source.list文件中的文本换成下面代码：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-updates main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-updates main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-backports main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-backports main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-security main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-security main restricted universe multiverse</span><br><span class="line"></span><br><span class="line"># 预发布软件源，不建议启用</span><br><span class="line"># deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-proposed main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-proposed main restricted universe multiverse</span><br></pre></td></tr></table></figure><br>    使用update命令更新：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure><br>3、安装vim：<br>    输入命令：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install vim-gtk</span><br></pre></td></tr></table></figure><br>    安装完成之后，在命令行敲入vi，按“tab”键。可以看到，已经有vim命令的存在。<br>4、配置vim:<br>    刚安装的VIM，界面并不是十分友好，这就需要我们去更改vim的配置文件，按照我们的需求去修改它。<br>    输入命令：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim &#x2F;etc&#x2F;vim&#x2F;vimrc</span><br></pre></td></tr></table></figure><br>    将syntax on的注释标记去掉，在最后面加上set number,作用是显示行号。(慢慢补充一些常用的配置)<br>5、配置git：<br>    顺序执行以下代码：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install git</span><br><span class="line">git --version</span><br><span class="line">git config --global user.name &quot;linuxidc&quot;</span><br><span class="line">git config --global user.email &quot;root@linuxidc.net&quot;</span><br><span class="line">git config --list</span><br></pre></td></tr></table></figure><br>6、安装anaconda：<br>    到(<a href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/)下载Anaconda3-5.2.0-Linux-x86_64.sh。" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/)下载Anaconda3-5.2.0-Linux-x86_64.sh。</a><br>    在cmd中cd到/home/Download，执行如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">$ sudo sh Anaconda3-5.2.0-Linux-x86_64.sh </span><br><span class="line">[sudo] andrew 的密码： </span><br><span class="line">Welcome to Anaconda3 5.2.0</span><br><span class="line">In order to continue the installation process, please review the license</span><br><span class="line">agreement.</span><br><span class="line">Please, press ENTER to continue</span><br><span class="line">&gt;&gt;&gt; # 按下回车</span><br><span class="line">... # 多次按空格读完license。</span><br><span class="line">Do you accept the license terms? [yes|no]</span><br><span class="line">[no] &gt;&gt;&gt; yes # 输入yes</span><br><span class="line"> - Press ENTER to confirm the location</span><br><span class="line"> - Press CTRL-C to abort the installation</span><br><span class="line"> - Or specify a different location below</span><br><span class="line">...</span><br><span class="line">[&#x2F;home&#x2F;andrew&#x2F;anaconda3] &gt;&gt;&gt; &#x2F;usr&#x2F;local&#x2F;anaconda3 # 输入自定义目录</span><br><span class="line">... # 安装根据机器性能，通常需要持续几分钟。</span><br><span class="line">Do you wish to proceed with the installation of Microsoft VSCode? [yes|no] #选择no，一般来说自带的spyder和专业IDE wingIDE更好用。</span><br><span class="line">...</span><br><span class="line">Do you wish the installer to initialize Anaconda3</span><br><span class="line">in your &#x2F;home&#x2F;andrew&#x2F;.bashrc ? [yes|no]</span><br><span class="line">[no] &gt;&gt;&gt; # 选择yes</span><br><span class="line">Initializing Anaconda3 in &#x2F;home&#x2F;andrew&#x2F;.bashrc</span><br><span class="line">A backup will be made to: &#x2F;home&#x2F;andrew&#x2F;.bashrc-anaconda3.bak</span><br><span class="line">For this change to become active, you have to open a new terminal.</span><br><span class="line">Thank you for installing Anaconda3!</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">Anaconda is partnered with Microsoft! Microsoft VSCode is a streamlined</span><br><span class="line">code editor with support for development operations like debugging, task</span><br><span class="line">running and version control.</span><br><span class="line">To install Visual Studio Code, you will need:</span><br><span class="line"> - Administrator Privileges</span><br><span class="line"> - Internet connectivity</span><br><span class="line">Visual Studio Code License: https:&#x2F;&#x2F;code.visualstudio.com&#x2F;license</span><br><span class="line">Do you wish to proceed with the installation of Microsoft VSCode? [yes|no]</span><br><span class="line">&gt;&gt;&gt; no</span><br></pre></td></tr></table></figure>
+<pre><code>要注意的是安装成功后要退出cmd，再打开，路径配置才起作用。</code></pre><p>7、vim使用：<br>    删除：1、连续删除多行时，使用n1,n2 d命令；比如删除第2到第10行，则在命令行模式下输入2,10 d即可<br>          2、删除零星的行，移到指定行，然后d，删除此行。<br>    复制：1、将第9行至第15行的数据，复制到第16行；9,15 copy 16或9,15 co 16<br>          2、同理9,15 move 16或9,15 m 16将第9行到第15行的文本内容移动到第16行的后面</p>
 
       
       <!-- reward -->
@@ -421,7 +713,7 @@
 
 </article>
     
-    <article id="post-tensorflow2-0系列-二" class="article article-type-post" itemscope
+    <article id="post-虚拟机安装" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -429,8 +721,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2020/03/16/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%BA%8C/"
-    >tensorflow2.0系列(二)</a
+  <a class="article-title" href="/2020/03/22/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/"
+    >虚拟机安装</a
   >
 </h2>
   
@@ -440,8 +732,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/03/16/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%BA%8C/" class="article-date">
-  <time datetime="2020-03-16T05:55:04.000Z" itemprop="datePublished">2020-03-16</time>
+      <a href="/2020/03/22/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/" class="article-date">
+  <time datetime="2020-03-22T15:46:40.000Z" itemprop="datePublished">2020-03-22</time>
 </a>
       
       
@@ -460,294 +752,8 @@
       
 
       
-      <p>random_float = tf.random.uniform(shape=()) # 定义一个随机数（标量）</p>
-<p>zero_vector = tf.zeros(shape=(2)) # 定义一个有2个元素的零向量</p>
-<p>A = tf.constant([[1., 2.], [3., 4.]])<br>B = tf.constant([[5., 6.], [7., 8.]]) # 定义两个2×2的常量矩阵<br>注意shape的值，shape括号里数字的个数就是生成的张量的维度，没有数字就是0维，也就是标量。<br>张量一般关注三个地方：形状、类型和值。通过张量的 shape 、 dtype 属性和 numpy() 方法获得。</p>
-<p>print(A.shape)      # 输出(2, 2)，即矩阵的长和宽均为2<br>print(A.dtype)      # 输出&lt;dtype: ‘float32’&gt;<br>print(A.numpy())    # 输出[[1. 2.],[3. 4.]]  # 查看矩阵A的形状、类型和值</p>
-<p>张量通过numpy方法取出张量的值。<br>在tensorflow1.x版本中，要开启即时执行模式要在开启的位置调用tf.enable_eager_execution() 函数，在tensorflow2.x版本<br>中，即时执行模式是默认开启的。另外，关闭即时执行模式就是调用tf.compat.v1.disable_eager_execution() 函数。不清楚<br>是不是在1.x、2.x版本中都是这么来关闭这种模式。2.x版本里是可行的。<br>即时执行模式和图执行模式的区别就是进行运算不用调用会话了，直接就可以计算。<br>tensorflow的自动求导功能：<br>例：使用 tf.GradientTape() 计算函数 y(x) = x^2 在 x = 3 时的导数<br>import tensorflow as tf</p>
-<p>x = tf.Variable(initial_value=3.)<br>with tf.GradientTape() as tape:     # 在 tf.GradientTape() 的上下文内，所有计算步骤都会被记录以用于求导<br>    y = tf.square(x)<br>y_grad = tape.gradient(y, x)        # 计算y关于x的导数<br>print([y, y_grad])<br>例：使用 tf.GradientTape() 计算函数 L(w, b) = (Xw + b - y)^2 在 w = (1, 2)^T, b = 1 时分别对 w, b 的偏导数。<br>其中 X = [[1.,2.],[3.,4.]],y = [[1.],[2.]]<br>X = tf.constant([[1., 2.], [3., 4.]])<br>y = tf.constant([[1.], [2.]])<br>w = tf.Variable(initial_value=[[1.], [2.]])<br>b = tf.Variable(initial_value=1.)<br>with tf.GradientTape() as tape:<br>    L = 0.5 * tf.reduce_sum(tf.square(tf.matmul(X, w) + b - y))<br>w_grad, b_grad = tape.gradient(L, [w, b])        # 计算L(w, b)关于w, b的偏导数<br>print([L.numpy(), w_grad.numpy(), b_grad.numpy()])<br>#tf.reduce_sum() 操作是对输入张量的所有元素求和，输出一个形状为空的纯量张量（可以通过 axis 参数来指定求和的维度，不指定则默认对所有元素求和）。<br>波士顿房价问题，什么时候要进行归一化操作，归一化的方式是唯一的吗？<br>import numpy as np</p>
-<p>X_raw = np.array([2013, 2014, 2015, 2016, 2017], dtype=np.float32)<br>y_raw = np.array([12000, 14000, 15000, 16500, 17500], dtype=np.float32)</p>
-<p>X = (X_raw - X_raw.min()) / (X_raw.max() - X_raw.min())<br>y = (y_raw - y_raw.min()) / (y_raw.max() - y_raw.min())<br>使用tensorflow实现城市房价问题的参数求解：<br>X = tf.constant(X)<br>y = tf.constant(y)</p>
-<p>a = tf.Variable(initial_value=0.)<br>b = tf.Variable(initial_value=0.)<br>variables = [a, b]</p>
-<p>num_epoch = 10000<br>optimizer = tf.keras.optimizers.SGD(learning_rate=1e-3)<br>for e in range(num_epoch):<br>    # 使用tf.GradientTape()记录损失函数的梯度信息<br>    with tf.GradientTape() as tape:<br>        y_pred = a * X + b<br>        loss = 0.5 * tf.reduce_sum(tf.square(y_pred - y))<br>    # TensorFlow自动计算损失函数关于自变量（模型参数）的梯度<br>    grads = tape.gradient(loss, variables)<br>    # TensorFlow自动根据梯度更新参数<br>    optimizer.apply_gradients(grads_and_vars=zip(grads, variables))</p>
-<p>print(a, b)<br>Python 的 zip() 函数：<br>如果 a = [1, 3, 5]， b = [2, 4, 6]，那么 zip(a, b) = [(1, 2), (3, 4), …, (5, 6)]。</p>
+      <p>VMware Workstation Pro 14.1.1 for windows:<br>百度网盘：<a href="https://pan.baidu.com/s/1ei7oke" target="_blank" rel="noopener">https://pan.baidu.com/s/1ei7oke</a><br>注册码：AA702-81D8N-0817Y-75PQT-Q70A4<br>ubuntu-18.04.2-desktop-amd64.iso：<br>百度网盘：<a href="https://pan.baidu.com/s/1P4AOQhM7N451hgVQcQW-5g" target="_blank" rel="noopener">https://pan.baidu.com/s/1P4AOQhM7N451hgVQcQW-5g</a><br>VMware安装过程：<br>1、打开安装好的VMware,点击主页上的“创建新的虚拟机”<br>2、选择默认“典型（推荐）”点击下一步<br>3、一般情况选择“安装程序光盘映像文件（ios）”,选择Ubuntu镜像文件的路径。再点击下一步；<br>4、信息填写完整后点击下一步，内容可以随便填<br>5、选择安装路径后（推荐不要按在系统盘也就是C盘）。点击下一步<br>6、选择磁盘大小。一般如果学习Linux命令几个GB就行了，不需要太大。一般选择默认20GB,下面选择默认的“将虚拟磁盘拆分成对个文件”，点击下一步<br>7、根据自己需要可以自定义硬件，也就是系统配置。点击完成就进入安装Linux状态。等待安装成功，此时尽量不要动鼠标键盘。<br>注：在虚拟机-&gt;设置中将内存设为4g，将网络连接设为NAT模式。</p>
 
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-tensorflow2-0系列-一" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/16/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%B8%80/"
-    >tensorflow2.0系列(一)</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/16/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%B8%80/" class="article-date">
-  <time datetime="2020-03-16T04:40:17.000Z" itemprop="datePublished">2020-03-16</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>tensorflow安装：<br>      1、Anaconda<br>      2、conda create –name tf2 python=3.7      # “tf2”是你建立的conda虚拟环境的名字<br>         conda activate tf2                      # 进入名为“tf2”的conda虚拟环境<br>      3、pip install tensorflow -i <a href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/help/pypi/</a><br>注：<br>      1、也可以使用 conda install tensorflow 来安装 TensorFlow，但是conda源的版本更新较慢<br>      2、从tensorflow2.1开始，tensorflow包就是gpu版本，不需要安装tensorflow-gpu包，<br>         如果需要安装cpu版本，则安装tensorflow-cpu<br>pip常用命令：<br>      pip install [package-name]              # 安装名为[package-name]的包<br>      pip install [package-name]==X.X         # 安装名为[package-name]的包并指定版本X.X<br>      pip install [package-name] –proxy=代理服务器IP:端口号         # 使用代理服务器安装<br>      pip install [package-name] –upgrade    # 更新名为[package-name]的包<br>      pip uninstall [package-name]            # 删除名为[package-name]的包<br>      pip list                                # 列出当前环境下已安装的所有包<br>conda常用命令：<br>      conda install [package-name]        # 安装名为[package-name]的包<br>      conda install [package-name]=X.X    # 安装名为[package-name]的包并指定版本X.X<br>      conda update [package-name]         # 更新名为[package-name]的包<br>      conda remove [package-name]         # 删除名为[package-name]的包<br>      conda list                          # 列出当前环境下已安装的所有包<br>      conda search [package-name]         # 列出名为[package-name]的包在conda源中的所有可用版本<br>conda包管理器相比pip的优点是可以安装更多的包，但是缺点是版本更新较慢<br>创建虚拟环境命令：<br>      conda create –name [env-name]      # 建立名为[env-name]的Conda虚拟环境<br>      conda activate [env-name]           # 进入名为[env-name]的Conda虚拟环境<br>      conda deactivate                    # 退出当前的Conda虚拟环境<br>      conda env remove –name [env-name]  # 删除名为[env-name]的Conda虚拟环境<br>      conda env list                      # 列出所有Conda虚拟环境<br>tensorflowgpu版本安装：<br>      conda install cudatoolkit=X.X<br>      conda install cudnn=X.X.X<br>      cuda与cudnn，tensorflow-gpu包的版本一定要对应的上<br>      也可以手动去官网下载cuda和cudnn<br>      另外，在用conda包管理器安装tensorflow-gpu版本时会自动安装对应版本的cuda与cudnn，<br>      缺点是tensorflow-gpu的版本可能较低，因为conda源里的包更新的比较慢。<br>reference:<a href="https://tf.wiki/" target="_blank" rel="noopener">https://tf.wiki/</a></p>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-系列-二-：线性分类器" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/15/%E7%B3%BB%E5%88%97-%E4%BA%8C-%EF%BC%9A%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8/"
-    >系列(二)：线性分类器</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/15/%E7%B3%BB%E5%88%97-%E4%BA%8C-%EF%BC%9A%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8/" class="article-date">
-  <time datetime="2020-03-15T03:53:43.000Z" itemprop="datePublished">2020-03-15</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>神经网络就像乐高玩具，搭积木，非线性神经元就是一块块积木。再比如设计一个输入图片输出描述性语言的系统，我们就可以用一个CNN和一个RNN作为基本组件来搭建。<br>Y=WX+b中的b是怎么起作用的，有时候你的数据集是不平衡的，比如猫的个数多于狗的个数。个数更多的类别往往有更大的偏置项。[1]<br>线性分类器的工作方式就是X是一个图像，把X展平成一个列向量，W是一个以列向量的长度与分类的个数为维度的二维向量，b是一个长度为类别个数的列向量。经过运算后会得到列向量Y，Y的元素就是每个类别的得分。<br>哪个类别的得分越高就被划分为哪类。W的每一行就是每一种类别的模板，模板与图像的点乘结果大，就说这个模板匹配了图像，也就意味着这个图像中包含模板想要寻找的特征。<br>把这些模板可视化，找到模板中的特征，就是这个分类器在分类时想要寻找的特征。<br>线性分类器的缺点，模板是在数据集上训练得到的，所以如果某个类别的图像是对称过来的双份数据，那么这个类别训练出的模板可视化之后的结果可能会很奇怪，比如有两个头的马。再比如开向不同方向的火车，模板想要<br>在一张图像上把所有的方向特征都表现出来，就会看起来很奇怪，甚至看起来像一张由噪声生成的图片。线性分类器只能绘制出一条线性边界，这就是它的局限性。</p>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cs231n/" rel="tag">cs231n</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-系列-一-：K最近邻算法" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/15/%E7%B3%BB%E5%88%97-%E4%B8%80-%EF%BC%9AK%E6%9C%80%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/"
-    >系列(一)：K最近邻算法</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/15/%E7%B3%BB%E5%88%97-%E4%B8%80-%EF%BC%9AK%E6%9C%80%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/" class="article-date">
-  <time datetime="2020-03-15T02:26:21.000Z" itemprop="datePublished">2020-03-15</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>L1距离：又叫曼哈顿距离，用来衡量两张图片的距离就是矩阵作差，取绝对值，再将所有元素加起来的值。<br>L2距离：欧氏距离，两个矩阵作差对每个元素平方后求和开根号。<br>L2距离并不适合来描述视觉上的差异。相同的L2距离可能产生差异很大的视觉效果。<br>K最近邻算法是一种基于有标签数据的算法。K越大，决策边界越平滑。平滑可以理解为线性性更好，<br>更接近于线性边界。有时候会给离最近的点的距离一个阈值，如果离这个点最近的有类别的点的距离<br>大于某一数值，那么就认为这个点是无类别点。如果我们用颜色来区分类别，那么这个点所在的区域就是<br>白色。选择哪一种距离度量属于超参数。都去试一下看哪一种度量下分类的效果更好。<br>数据集被划分为训练集、验证集和测试集。交叉验证：把训练集+验证集分为N份，每次在其中的N-1份上<br>训练，在最后一份上验证，将所有在验证集上的结果加起来，取最小的超参数。验证集的作用是选取最好<br>的超参数。<br>如何去建立一个数据集？按照同样的方式去收集每一份数据，再将收集到的数据随机打乱划分为训练集、<br>验证集和测试集。对于K最近邻算法来说，或者所有有超参数的学习算法来说，画出以超参数为横轴，<br>在验证集上的距离度量为纵轴的图像都是有必要的，这是挑选合适的超参数的方法。K最近邻算法并不<br>适合用来分类图像。如果有时间，有计算资源，在挑选出最优的超参数后会重新用这个超参数来训练模型。<br>也就是在训练集和验证集上共同训练模型。</p>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/KNN/" rel="tag">KNN</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-my-first-blog" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/14/my-first-blog/"
-    >第一篇博客</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/14/my-first-blog/" class="article-date">
-  <time datetime="2020-03-14T13:03:15.000Z" itemprop="datePublished">2020-03-14</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <pre><code>使用hexo+github搭建了这个环境
-reference：https://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-github.html</code></pre>
       
       <!-- reward -->
       
@@ -774,7 +780,7 @@ reference：https://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-githu
 
 </article>
     
-    <article id="post-hello-world" class="article article-type-post" itemscope
+    <article id="post-voc-yolo相互转换" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -782,8 +788,8 @@ reference：https://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-githu
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2020/03/14/hello-world/"
-    >Hello World</a
+  <a class="article-title" href="/2020/03/22/voc-yolo%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2/"
+    >voc/yolo相互转换</a
   >
 </h2>
   
@@ -793,8 +799,8 @@ reference：https://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-githu
 
     
     <div class="article-meta">
-      <a href="/2020/03/14/hello-world/" class="article-date">
-  <time datetime="2020-03-14T12:15:30.473Z" itemprop="datePublished">2020-03-14</time>
+      <a href="/2020/03/22/voc-yolo%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2/" class="article-date">
+  <time datetime="2020-03-22T13:46:13.000Z" itemprop="datePublished">2020-03-22</time>
 </a>
       
       
@@ -813,19 +819,144 @@ reference：https://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-githu
       
 
       
-      <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+      <p>voc转yolo：<br>在目录下新建VOC2007，并在VOC2007下新建Annotations，ImageSets和JPEGImages三个文件夹。在ImageSets下新建Main文件夹。文件目录如下所示：<br>|——VOC2007<br>|————Annotations<br>|————ImageSets<br>|——————Main<br>|————JPEGImages<br>将自己的数据集图片拷贝到JPEGImages目录下。将数据集label文件拷贝到Annotations目录下。在VOC2007下新建voc_to_yolo.py文件夹，将下面代码拷贝进去运行，将生成四个文件：train.txt,val.txt,test.txt和trainval.txt。数据集label文件就是图片对应的xml文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">import random</span><br><span class="line"></span><br><span class="line">trainval_percent &#x3D; 0.1</span><br><span class="line">train_percent &#x3D; 0.9</span><br><span class="line">xmlfilepath &#x3D; &#39;Annotations&#39;</span><br><span class="line">txtsavepath &#x3D; &#39;ImageSets\Main&#39;</span><br><span class="line">total_xml &#x3D; os.listdir(xmlfilepath)</span><br><span class="line"></span><br><span class="line">num &#x3D; len(total_xml)</span><br><span class="line">list &#x3D; range(num)</span><br><span class="line">tv &#x3D; int(num * trainval_percent)</span><br><span class="line">tr &#x3D; int(tv * train_percent)</span><br><span class="line">trainval &#x3D; random.sample(list, tv)</span><br><span class="line">train &#x3D; random.sample(trainval, tr)</span><br><span class="line"></span><br><span class="line">ftrainval &#x3D; open(&#39;ImageSets&#x2F;Main&#x2F;trainval.txt&#39;, &#39;w&#39;)</span><br><span class="line">ftest &#x3D; open(&#39;ImageSets&#x2F;Main&#x2F;test.txt&#39;, &#39;w&#39;)</span><br><span class="line">ftrain &#x3D; open(&#39;ImageSets&#x2F;Main&#x2F;train.txt&#39;, &#39;w&#39;)</span><br><span class="line">fval &#x3D; open(&#39;ImageSets&#x2F;Main&#x2F;val.txt&#39;, &#39;w&#39;)</span><br><span class="line"></span><br><span class="line">for i in list:</span><br><span class="line">    name &#x3D; total_xml[i][:-4] + &#39;\n&#39;</span><br><span class="line">    if i in trainval:</span><br><span class="line">        ftrainval.write(name)</span><br><span class="line">        if i in train:</span><br><span class="line">            ftest.write(name)</span><br><span class="line">        else:</span><br><span class="line">            fval.write(name)</span><br><span class="line">    else:</span><br><span class="line">        ftrain.write(name)</span><br><span class="line"></span><br><span class="line">ftrainval.close()</span><br><span class="line">ftrain.close()</span><br><span class="line">fval.close()</span><br><span class="line">ftest.close()</span><br></pre></td></tr></table></figure>
+<p>代码执行结果会在Main文件夹下生成四个txt文件，分别是test.txt,train.txt,trainval.txt,val.txt。</p>
+<p>yolo转voc：<br>未完待续</p>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+    </footer>
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+  </div>
 
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-gpu-cdnnn-cuda版本对应关系" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/22/gpu-cdnnn-cuda%E7%89%88%E6%9C%AC%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB/"
+    >gpu cdnnn cuda版本对应关系</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/22/gpu-cdnnn-cuda%E7%89%88%E6%9C%AC%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB/" class="article-date">
+  <time datetime="2020-03-22T10:05:14.000Z" itemprop="datePublished">2020-03-22</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p><img src="/images/tensorflow/gpu_cuda_cudnn.png" alt=""></p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-object-detection-api" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/22/object-detection-api/"
+    >object detection api</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/22/object-detection-api/" class="article-date">
+  <time datetime="2020-03-22T10:01:13.000Z" itemprop="datePublished">2020-03-22</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>首先，建议一种配置环境：<br>    anaconda(python3.6)、tensorflow_gpu==1.14.0、cudnn 7.4、cuda 10。因为tensorflow(1.12/1.13/2.0)都存在不兼容问题。<br>    tensorflow1.12版本与cudnn7.4、cuda10不兼容。1.13版本v1模块中没有v2属性。2.x版本tensorflow没有contrib属性。原因是tensorflow更新的太快，object detection api跟不上tensorflow的更新速度。<br>安装流程：<br>    1、到(<a href="https://github.com/tensorflow/models" target="_blank" rel="noopener">https://github.com/tensorflow/models</a>) download zip。<br>    2、创建虚拟环境，执行如下指令。<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">··· conda create -n tensorflow1 pip python&#x3D;3.6</span><br></pre></td></tr></table></figure><br>    3、激活虚拟环境并安装tensorflow_gpu==1.14.0版本：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install --ignore-installed --upgrade tensorflow-gpu&#x3D;&#x3D;1.14.0</span><br></pre></td></tr></table></figure><br>    4、安装一些别的包，配置API的依赖项<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">pip install pillow</span><br><span class="line">pip install lxml</span><br><span class="line">pip install Cython</span><br><span class="line">pip install jupyter</span><br><span class="line">pip install matplotlib</span><br><span class="line">pip install pandas</span><br><span class="line">pip install opencv-python</span><br></pre></td></tr></table></figure><br>    5、到(<a href="https://github.com/protocolbuffers/protobuf/releases)下载protoc-x.xx.x-win64.zip。解压后将protoc.exe文件拷贝到C:\Windows路径下。" target="_blank" rel="noopener">https://github.com/protocolbuffers/protobuf/releases)下载protoc-x.xx.x-win64.zip。解压后将protoc.exe文件拷贝到C:\Windows路径下。</a><br>    6、配置API的环境变量，即在系统变量中新建一个名为PYTHONPATH的变量，值为.\models;.\models\research;.\models\research\slim。注意环境变量中反斜线的方向。<br>    7、编译Protobuf:<br>        在research目录下打开cmd，执行如下指令：<br>        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protoc --python_out&#x3D;. .\object_detection\protos\anchor_generator.proto .\object_detection\protos\argmax_matcher.proto .\object_detection\protos\bipartite_matcher.proto .\object_detection\protos\box_coder.proto .\object_detection\protos\box_predictor.proto .\object_detection\protos\eval.proto .\object_detection\protos\faster_rcnn.proto .\object_detection\protos\faster_rcnn_box_coder.proto .\object_detection\protos\grid_anchor_generator.proto .\object_detection\protos\hyperparams.proto .\object_detection\protos\image_resizer.proto .\object_detection\protos\input_reader.proto .\object_detection\protos\losses.proto .\object_detection\protos\matcher.proto .\object_detection\protos\mean_stddev_box_coder.proto .\object_detection\protos\model.proto .\object_detection\protos\optimizer.proto .\object_detection\protos\pipeline.proto .\object_detection\protos\post_processing.proto .\object_detection\protos\preprocessor.proto .\object_detection\protos\region_similarity_calculator.proto .\object_detection\protos\square_box_coder.proto .\object_detection\protos\ssd.proto .\object_detection\protos\ssd_anchor_generator.proto .\object_detection\protos\string_int_label_map.proto .\object_detection\protos\train.proto .\object_detection\protos\keypoint_box_coder.proto .\object_detection\protos\multiscale_anchor_generator.proto .\object_detection\protos\graph_rewriter.proto .\object_detection\protos\calibration.proto .\object_detection\protos\flexible_grid_anchor_generator.proto</span><br></pre></td></tr></table></figure><br>        注：在protos目录下的所有proto文件都要编译，否则就会报错，如果报错就检查哪个proto文件没有编译。<br>    8、执行如下指令:<br>       <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python setup.py build</span><br><span class="line">python setup.py install</span><br></pre></td></tr></table></figure><br>    9、判断API是否安装成功：<br>       在builders目录下打开cmd，执行指令：<br>       <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python model_builder_test.py</span><br></pre></td></tr></table></figure><br>       如果显示OK，说明安装成功。<br>    注：1、如果在升级tensorflow版本的时候出现Cannot uninstall ‘wrapt’的提示，直接去手动删除就可以了。<br>        2、如果想打开一个不在jupyter根目录的文件，那么就直接在这个目录进入cmd，输入jupyter notebook就可以了。</p>
 
       
       <!-- reward -->
@@ -859,7 +990,7 @@ reference：https://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-githu
   
   <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/5/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
+    <a class="extend prev" rel="prev" href="/page/5/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/7/">下一页</a>
   </nav>
   
 </section>
