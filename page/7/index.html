@@ -69,6 +69,346 @@
     
     
     
+    <article id="post-linux简单命令" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/23/linux%E7%AE%80%E5%8D%95%E5%91%BD%E4%BB%A4/"
+    >linux简单命令</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/23/linux%E7%AE%80%E5%8D%95%E5%91%BD%E4%BB%A4/" class="article-date">
+  <time datetime="2020-03-23T06:28:07.000Z" itemprop="datePublished">2020-03-23</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>1、安装VMwaretools：虚拟机-&gt;安装VMwaretools。注意安装ubuntu后不能直接安装VMtools，要先重启一下虚拟机。<br>2、换清华源：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim&#x2F;vi &#x2F;etc&#x2F;apt&#x2F;sources.list</span><br></pre></td></tr></table></figure><br>    没有vim就用vi。<br>    把source.list文件中的文本换成下面代码：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-updates main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-updates main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-backports main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-backports main restricted universe multiverse</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-security main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-security main restricted universe multiverse</span><br><span class="line"></span><br><span class="line"># 预发布软件源，不建议启用</span><br><span class="line"># deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-proposed main restricted universe multiverse</span><br><span class="line"># deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; xenial-proposed main restricted universe multiverse</span><br></pre></td></tr></table></figure><br>    使用update命令更新：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure><br>3、安装vim：<br>    输入命令：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install vim-gtk</span><br></pre></td></tr></table></figure><br>    安装完成之后，在命令行敲入vi，按“tab”键。可以看到，已经有vim命令的存在。<br>4、配置vim:<br>    刚安装的VIM，界面并不是十分友好，这就需要我们去更改vim的配置文件，按照我们的需求去修改它。<br>    输入命令：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim &#x2F;etc&#x2F;vim&#x2F;vimrc</span><br></pre></td></tr></table></figure><br>    将syntax on的注释标记去掉，在最后面加上set number,作用是显示行号。(慢慢补充一些常用的配置)<br>5、配置git：<br>    顺序执行以下代码：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install git</span><br><span class="line">git --version</span><br><span class="line">git config --global user.name &quot;linuxidc&quot;</span><br><span class="line">git config --global user.email &quot;root@linuxidc.net&quot;</span><br><span class="line">git config --list</span><br></pre></td></tr></table></figure><br>6、安装anaconda：<br>    到(<a href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/)下载Anaconda3-5.2.0-Linux-x86_64.sh。" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/)下载Anaconda3-5.2.0-Linux-x86_64.sh。</a><br>    在cmd中cd到/home/Download，执行如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">$ sudo sh Anaconda3-5.2.0-Linux-x86_64.sh </span><br><span class="line">[sudo] andrew 的密码： </span><br><span class="line">Welcome to Anaconda3 5.2.0</span><br><span class="line">In order to continue the installation process, please review the license</span><br><span class="line">agreement.</span><br><span class="line">Please, press ENTER to continue</span><br><span class="line">&gt;&gt;&gt; # 按下回车</span><br><span class="line">... # 多次按空格读完license。</span><br><span class="line">Do you accept the license terms? [yes|no]</span><br><span class="line">[no] &gt;&gt;&gt; yes # 输入yes</span><br><span class="line"> - Press ENTER to confirm the location</span><br><span class="line"> - Press CTRL-C to abort the installation</span><br><span class="line"> - Or specify a different location below</span><br><span class="line">...</span><br><span class="line">[&#x2F;home&#x2F;andrew&#x2F;anaconda3] &gt;&gt;&gt; &#x2F;usr&#x2F;local&#x2F;anaconda3 # 输入自定义目录</span><br><span class="line">... # 安装根据机器性能，通常需要持续几分钟。</span><br><span class="line">Do you wish to proceed with the installation of Microsoft VSCode? [yes|no] #选择no，一般来说自带的spyder和专业IDE wingIDE更好用。</span><br><span class="line">...</span><br><span class="line">Do you wish the installer to initialize Anaconda3</span><br><span class="line">in your &#x2F;home&#x2F;andrew&#x2F;.bashrc ? [yes|no]</span><br><span class="line">[no] &gt;&gt;&gt; # 选择yes</span><br><span class="line">Initializing Anaconda3 in &#x2F;home&#x2F;andrew&#x2F;.bashrc</span><br><span class="line">A backup will be made to: &#x2F;home&#x2F;andrew&#x2F;.bashrc-anaconda3.bak</span><br><span class="line">For this change to become active, you have to open a new terminal.</span><br><span class="line">Thank you for installing Anaconda3!</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">Anaconda is partnered with Microsoft! Microsoft VSCode is a streamlined</span><br><span class="line">code editor with support for development operations like debugging, task</span><br><span class="line">running and version control.</span><br><span class="line">To install Visual Studio Code, you will need:</span><br><span class="line"> - Administrator Privileges</span><br><span class="line"> - Internet connectivity</span><br><span class="line">Visual Studio Code License: https:&#x2F;&#x2F;code.visualstudio.com&#x2F;license</span><br><span class="line">Do you wish to proceed with the installation of Microsoft VSCode? [yes|no]</span><br><span class="line">&gt;&gt;&gt; no</span><br></pre></td></tr></table></figure>
+<pre><code>要注意的是安装成功后要退出cmd，再打开，路径配置才起作用。</code></pre><p>7、vim使用：<br>    删除：1、连续删除多行时，使用n1,n2 d命令；比如删除第2到第10行，则在命令行模式下输入2,10 d即可<br>          2、删除零星的行，移到指定行，然后d，删除此行。<br>    复制：1、将第9行至第15行的数据，复制到第16行；9,15 copy 16或9,15 co 16<br>          2、同理9,15 move 16或9,15 m 16将第9行到第15行的文本内容移动到第16行的后面</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-虚拟机安装" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/22/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/"
+    >虚拟机安装</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/22/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/" class="article-date">
+  <time datetime="2020-03-22T15:46:40.000Z" itemprop="datePublished">2020-03-22</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>VMware Workstation Pro 14.1.1 for windows:<br>百度网盘：<a href="https://pan.baidu.com/s/1ei7oke" target="_blank" rel="noopener">https://pan.baidu.com/s/1ei7oke</a><br>注册码：AA702-81D8N-0817Y-75PQT-Q70A4<br>ubuntu-18.04.2-desktop-amd64.iso：<br>百度网盘：<a href="https://pan.baidu.com/s/1P4AOQhM7N451hgVQcQW-5g" target="_blank" rel="noopener">https://pan.baidu.com/s/1P4AOQhM7N451hgVQcQW-5g</a><br>VMware安装过程：<br>1、打开安装好的VMware,点击主页上的“创建新的虚拟机”<br>2、选择默认“典型（推荐）”点击下一步<br>3、一般情况选择“安装程序光盘映像文件（ios）”,选择Ubuntu镜像文件的路径。再点击下一步；<br>4、信息填写完整后点击下一步，内容可以随便填<br>5、选择安装路径后（推荐不要按在系统盘也就是C盘）。点击下一步<br>6、选择磁盘大小。一般如果学习Linux命令几个GB就行了，不需要太大。一般选择默认20GB,下面选择默认的“将虚拟磁盘拆分成对个文件”，点击下一步<br>7、根据自己需要可以自定义硬件，也就是系统配置。点击完成就进入安装Linux状态。等待安装成功，此时尽量不要动鼠标键盘。<br>注：在虚拟机-&gt;设置中将内存设为4g，将网络连接设为NAT模式。</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-voc-yolo相互转换" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/22/voc-yolo%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2/"
+    >voc/yolo相互转换</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/22/voc-yolo%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2/" class="article-date">
+  <time datetime="2020-03-22T13:46:13.000Z" itemprop="datePublished">2020-03-22</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>voc转yolo：<br>在目录下新建VOC2007，并在VOC2007下新建Annotations，ImageSets和JPEGImages三个文件夹。在ImageSets下新建Main文件夹。文件目录如下所示：<br>|——VOC2007<br>|————Annotations<br>|————ImageSets<br>|——————Main<br>|————JPEGImages<br>将自己的数据集图片拷贝到JPEGImages目录下。将数据集label文件拷贝到Annotations目录下。在VOC2007下新建voc_to_yolo.py文件夹，将下面代码拷贝进去运行，将生成四个文件：train.txt,val.txt,test.txt和trainval.txt。数据集label文件就是图片对应的xml文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">import random</span><br><span class="line"></span><br><span class="line">trainval_percent &#x3D; 0.1</span><br><span class="line">train_percent &#x3D; 0.9</span><br><span class="line">xmlfilepath &#x3D; &#39;Annotations&#39;</span><br><span class="line">txtsavepath &#x3D; &#39;ImageSets\Main&#39;</span><br><span class="line">total_xml &#x3D; os.listdir(xmlfilepath)</span><br><span class="line"></span><br><span class="line">num &#x3D; len(total_xml)</span><br><span class="line">list &#x3D; range(num)</span><br><span class="line">tv &#x3D; int(num * trainval_percent)</span><br><span class="line">tr &#x3D; int(tv * train_percent)</span><br><span class="line">trainval &#x3D; random.sample(list, tv)</span><br><span class="line">train &#x3D; random.sample(trainval, tr)</span><br><span class="line"></span><br><span class="line">ftrainval &#x3D; open(&#39;ImageSets&#x2F;Main&#x2F;trainval.txt&#39;, &#39;w&#39;)</span><br><span class="line">ftest &#x3D; open(&#39;ImageSets&#x2F;Main&#x2F;test.txt&#39;, &#39;w&#39;)</span><br><span class="line">ftrain &#x3D; open(&#39;ImageSets&#x2F;Main&#x2F;train.txt&#39;, &#39;w&#39;)</span><br><span class="line">fval &#x3D; open(&#39;ImageSets&#x2F;Main&#x2F;val.txt&#39;, &#39;w&#39;)</span><br><span class="line"></span><br><span class="line">for i in list:</span><br><span class="line">    name &#x3D; total_xml[i][:-4] + &#39;\n&#39;</span><br><span class="line">    if i in trainval:</span><br><span class="line">        ftrainval.write(name)</span><br><span class="line">        if i in train:</span><br><span class="line">            ftest.write(name)</span><br><span class="line">        else:</span><br><span class="line">            fval.write(name)</span><br><span class="line">    else:</span><br><span class="line">        ftrain.write(name)</span><br><span class="line"></span><br><span class="line">ftrainval.close()</span><br><span class="line">ftrain.close()</span><br><span class="line">fval.close()</span><br><span class="line">ftest.close()</span><br></pre></td></tr></table></figure>
+<p>代码执行结果会在Main文件夹下生成四个txt文件，分别是test.txt,train.txt,trainval.txt,val.txt。</p>
+<p>yolo转voc：<br>未完待续</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-gpu-cdnnn-cuda版本对应关系" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/22/gpu-cdnnn-cuda%E7%89%88%E6%9C%AC%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB/"
+    >gpu cdnnn cuda版本对应关系</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/22/gpu-cdnnn-cuda%E7%89%88%E6%9C%AC%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB/" class="article-date">
+  <time datetime="2020-03-22T10:05:14.000Z" itemprop="datePublished">2020-03-22</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p><img src="/images/tensorflow/gpu_cuda_cudnn.png" alt=""></p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-object-detection-api" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/22/object-detection-api/"
+    >object detection api</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/22/object-detection-api/" class="article-date">
+  <time datetime="2020-03-22T10:01:13.000Z" itemprop="datePublished">2020-03-22</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>首先，建议一种配置环境：<br>    anaconda(python3.6)、tensorflow_gpu==1.14.0、cudnn 7.4、cuda 10。因为tensorflow(1.12/1.13/2.0)都存在不兼容问题。<br>    tensorflow1.12版本与cudnn7.4、cuda10不兼容。1.13版本v1模块中没有v2属性。2.x版本tensorflow没有contrib属性。原因是tensorflow更新的太快，object detection api跟不上tensorflow的更新速度。<br>安装流程：<br>    1、到(<a href="https://github.com/tensorflow/models" target="_blank" rel="noopener">https://github.com/tensorflow/models</a>) download zip。<br>    2、创建虚拟环境，执行如下指令。<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">··· conda create -n tensorflow1 pip python&#x3D;3.6</span><br></pre></td></tr></table></figure><br>    3、激活虚拟环境并安装tensorflow_gpu==1.14.0版本：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install --ignore-installed --upgrade tensorflow-gpu&#x3D;&#x3D;1.14.0</span><br></pre></td></tr></table></figure><br>    4、安装一些别的包，配置API的依赖项<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">pip install pillow</span><br><span class="line">pip install lxml</span><br><span class="line">pip install Cython</span><br><span class="line">pip install jupyter</span><br><span class="line">pip install matplotlib</span><br><span class="line">pip install pandas</span><br><span class="line">pip install opencv-python</span><br></pre></td></tr></table></figure><br>    5、到(<a href="https://github.com/protocolbuffers/protobuf/releases)下载protoc-x.xx.x-win64.zip。解压后将protoc.exe文件拷贝到C:\Windows路径下。" target="_blank" rel="noopener">https://github.com/protocolbuffers/protobuf/releases)下载protoc-x.xx.x-win64.zip。解压后将protoc.exe文件拷贝到C:\Windows路径下。</a><br>    6、配置API的环境变量，即在系统变量中新建一个名为PYTHONPATH的变量，值为.\models;.\models\research;.\models\research\slim。注意环境变量中反斜线的方向。<br>    7、编译Protobuf:<br>        在research目录下打开cmd，执行如下指令：<br>        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protoc --python_out&#x3D;. .\object_detection\protos\anchor_generator.proto .\object_detection\protos\argmax_matcher.proto .\object_detection\protos\bipartite_matcher.proto .\object_detection\protos\box_coder.proto .\object_detection\protos\box_predictor.proto .\object_detection\protos\eval.proto .\object_detection\protos\faster_rcnn.proto .\object_detection\protos\faster_rcnn_box_coder.proto .\object_detection\protos\grid_anchor_generator.proto .\object_detection\protos\hyperparams.proto .\object_detection\protos\image_resizer.proto .\object_detection\protos\input_reader.proto .\object_detection\protos\losses.proto .\object_detection\protos\matcher.proto .\object_detection\protos\mean_stddev_box_coder.proto .\object_detection\protos\model.proto .\object_detection\protos\optimizer.proto .\object_detection\protos\pipeline.proto .\object_detection\protos\post_processing.proto .\object_detection\protos\preprocessor.proto .\object_detection\protos\region_similarity_calculator.proto .\object_detection\protos\square_box_coder.proto .\object_detection\protos\ssd.proto .\object_detection\protos\ssd_anchor_generator.proto .\object_detection\protos\string_int_label_map.proto .\object_detection\protos\train.proto .\object_detection\protos\keypoint_box_coder.proto .\object_detection\protos\multiscale_anchor_generator.proto .\object_detection\protos\graph_rewriter.proto .\object_detection\protos\calibration.proto .\object_detection\protos\flexible_grid_anchor_generator.proto</span><br></pre></td></tr></table></figure><br>        注：在protos目录下的所有proto文件都要编译，否则就会报错，如果报错就检查哪个proto文件没有编译。<br>    8、执行如下指令:<br>       <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python setup.py build</span><br><span class="line">python setup.py install</span><br></pre></td></tr></table></figure><br>    9、判断API是否安装成功：<br>       在builders目录下打开cmd，执行指令：<br>       <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python model_builder_test.py</span><br></pre></td></tr></table></figure><br>       如果显示OK，说明安装成功。<br>    注：1、如果在升级tensorflow版本的时候出现Cannot uninstall ‘wrapt’的提示，直接去手动删除就可以了。<br>        2、如果想打开一个不在jupyter根目录的文件，那么就直接在这个目录进入cmd，输入jupyter notebook就可以了。</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-VOC数据集" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -456,477 +796,6 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">gpus &#x3D; tf.config.experimental.list_physical_devices(&#39;GPU&#39;)</span><br><span class="line">tf.config.experimental.set_virtual_device_configuration(</span><br><span class="line">    gpus[0],</span><br><span class="line">    [tf.config.experimental.VirtualDeviceConfiguration(memory_limit&#x3D;2048),</span><br><span class="line">     tf.config.experimental.VirtualDeviceConfiguration(memory_limit&#x3D;2048)])</span><br></pre></td></tr></table></figure>
 <p>我们在单机多卡训练的代码前加入以上代码，即可让原本为多GPU设计的代码在单GPU环境下运行。当输出设备数量时，程序会输出：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Number of devices: 2</span><br></pre></td></tr></table></figure>
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-tensorflow2-0系列-十-：TFRecord" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/20/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%8D%81-%EF%BC%9ATFRecord/"
-    >tensorflow2.0系列(十)：TFRecord</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/20/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%8D%81-%EF%BC%9ATFRecord/" class="article-date">
-  <time datetime="2020-03-20T09:27:17.000Z" itemprop="datePublished">2020-03-20</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>TFRecord是TensorFlow中的数据集存储格式。当我们将数据集整理成TFRecord格式后，TensorFlow就可以高效地读取和处理这些数据集，从而帮助我们更高效地进行大规模的模型训练。<br>TFRecord可以理解为一系列序列化的tf.train.Example元素所组成的列表文件，而每一个tf.train.Example又由若干个tf.train.Feature的字典组成。形式如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># dataset.tfrecords</span><br><span class="line">[</span><br><span class="line">    &#123;   # example 1 (tf.train.Example)</span><br><span class="line">        &#39;feature_1&#39;: tf.train.Feature,</span><br><span class="line">        ...</span><br><span class="line">        &#39;feature_k&#39;: tf.train.Feature</span><br><span class="line">    &#125;,</span><br><span class="line">    ...</span><br><span class="line">    &#123;   # example N (tf.train.Example)</span><br><span class="line">        &#39;feature_1&#39;: tf.train.Feature,</span><br><span class="line">        ...</span><br><span class="line">        &#39;feature_k&#39;: tf.train.Feature</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<p>为了将形式各样的数据集整理为TFRecord格式，我们可以对数据集中的每个元素进行以下步骤：<br>读取该数据元素到内存；<br>将该元素转换为tf.train.Example对象（每一个tf.train.Example由若干个tf.train.Feature的字典组成，因此需要先建立Feature的字典）；<br>将该tf.train.Example对象序列化为字符串，并通过一个预先定义的tf.io.TFRecordWriter写入TFRecord文件。</p>
-<p>而读取TFRecord数据则可按照以下步骤：<br>通过tf.data.TFRecordDataset读入原始的TFRecord文件,获得一个tf.data.Dataset数据集对象(此时该数据集对象中的tf.train.Example对象尚未被反序列化)；<br>通过Dataset.map方法，对该数据集对象中的每一个序列化的tf.train.Example字符串执行tf.io.parse_single_example函数，从而实现反序列化。</p>
-<p>以下我们通过一个实例，展示将上一节中使用的cats_vs_dogs二分类数据集的训练集部分转换为TFRecord文件，并读取该文件的过程。<br>将数据集存储为 TFRecord 文件：<br>首先，与上一节类似，我们进行一些准备工作，下载数据集并解压到data_dir，初始化数据集的图片文件名列表及标签。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line">import os</span><br><span class="line"></span><br><span class="line">data_dir &#x3D; &#39;C:&#x2F;datasets&#x2F;cats_vs_dogs&#39;</span><br><span class="line">train_cats_dir &#x3D; data_dir + &#39;&#x2F;train&#x2F;cats&#x2F;&#39;</span><br><span class="line">train_dogs_dir &#x3D; data_dir + &#39;&#x2F;train&#x2F;dogs&#x2F;&#39;</span><br><span class="line">tfrecord_file &#x3D; data_dir + &#39;&#x2F;train&#x2F;train.tfrecords&#39;</span><br><span class="line"></span><br><span class="line">train_cat_filenames &#x3D; [train_cats_dir + filename for filename in os.listdir(train_cats_dir)]</span><br><span class="line">train_dog_filenames &#x3D; [train_dogs_dir + filename for filename in os.listdir(train_dogs_dir)]</span><br><span class="line">train_filenames &#x3D; train_cat_filenames + train_dog_filenames</span><br><span class="line">train_labels &#x3D; [0] * len(train_cat_filenames) + [1] * len(train_dog_filenames)  # 将 cat 类的标签设为0，dog 类的标签设为1</span><br></pre></td></tr></table></figure>
-
-<p>然后，通过以下代码，迭代读取每张图片，建立tf.train.Feature字典和tf.train.Example对象，序列化并写入TFRecord文件。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">with tf.io.TFRecordWriter(tfrecord_file) as writer:</span><br><span class="line">    for filename, label in zip(train_filenames, train_labels):</span><br><span class="line">        image &#x3D; open(filename, &#39;rb&#39;).read()     # 读取数据集图片到内存，image 为一个 Byte 类型的字符串</span><br><span class="line">        feature &#x3D; &#123;                             # 建立 tf.train.Feature 字典</span><br><span class="line">            &#39;image&#39;: tf.train.Feature(bytes_list&#x3D;tf.train.BytesList(value&#x3D;[image])),  # 图片是一个 Bytes 对象</span><br><span class="line">            &#39;label&#39;: tf.train.Feature(int64_list&#x3D;tf.train.Int64List(value&#x3D;[label]))   # 标签是一个 Int 对象</span><br><span class="line">        &#125;</span><br><span class="line">        example &#x3D; tf.train.Example(features&#x3D;tf.train.Features(feature&#x3D;feature)) # 通过字典建立 Example</span><br><span class="line">        writer.write(example.SerializeToString())   # 将Example序列化并写入 TFRecord 文件</span><br></pre></td></tr></table></figure>
-
-<p>值得注意的是，tf.train.Feature支持三种数据格式：<br>tf.train.BytesList：字符串或原始Byte文件（如图片），通过bytes_list参数传入一个由字符串数组初始化的tf.train.BytesList对象；tf.train.FloatList ：浮点数，通过float_list参数传入一个由浮点数数组初始化的tf.train.FloatList对象；tf.train.Int64List ：整数，通过int64_list参数传入一个由整数数组初始化的tf.train.Int64List对象。如果只希望保存一个元素而非数组，传入一个只有一个元素的数组即可。运行以上代码，不出片刻，我们即可在tfrecord_file所指向的文件地址获得一个500MB左右的train.tfrecords文件。<br>读取TFRecord文件：<br>我们可以通过以下代码，读取之前建立的train.tfrecords文件，并通过Dataset.map方法，使用tf.io.parse_single_example函数对数据集中的每一个序列化的tf.train.Example对象解码。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">raw_dataset &#x3D; tf.data.TFRecordDataset(tfrecord_file)    # 读取 TFRecord 文件</span><br><span class="line"></span><br><span class="line">feature_description &#x3D; &#123; # 定义Feature结构，告诉解码器每个Feature的类型是什么</span><br><span class="line">    &#39;image&#39;: tf.io.FixedLenFeature([], tf.string),</span><br><span class="line">    &#39;label&#39;: tf.io.FixedLenFeature([], tf.int64),</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">def _parse_example(example_string): # 将 TFRecord 文件中的每一个序列化的 tf.train.Example 解码</span><br><span class="line">    feature_dict &#x3D; tf.io.parse_single_example(example_string, feature_description)</span><br><span class="line">    feature_dict[&#39;image&#39;] &#x3D; tf.io.decode_jpeg(feature_dict[&#39;image&#39;])    # 解码JPEG图片</span><br><span class="line">    return feature_dict[&#39;image&#39;], feature_dict[&#39;label&#39;]</span><br><span class="line"></span><br><span class="line">dataset &#x3D; raw_dataset.map(_parse_example)</span><br></pre></td></tr></table></figure>
-<p>这里的feature_description类似于一个数据集的“描述文件”，通过一个由键值对组成的字典，告知tf.io.parse_single_example函数每个tf.train.Example数据项有哪些Feature，以及这些Feature的类型、形状等属性。tf.io.FixedLenFeature的三个输入参数shape、dtype和default_value（可省略）为每个Feature的形状、类型和默认值。这里我们的数据项都是单个的数值或者字符串，所以shape为空数组。</p>
-<p>运行以上代码后，我们获得一个数据集对象dataset，这已经是一个可以用于训练的tf.data.Dataset对象了！我们从该数据集中读取元素并输出验证：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import matplotlib.pyplot as plt </span><br><span class="line"></span><br><span class="line">for image, label in dataset:</span><br><span class="line">    plt.title(&#39;cat&#39; if label &#x3D;&#x3D; 0 else &#39;dog&#39;)</span><br><span class="line">    plt.imshow(image.numpy())</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
-<p>经验证，图片和标签都正确显示，数据集构建成功。</p>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-tensorflow2-0系列-九-：数据集的构建与预处理" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/20/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%B9%9D-%EF%BC%9A%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E6%9E%84%E5%BB%BA%E4%B8%8E%E9%A2%84%E5%A4%84%E7%90%86/"
-    >tensorflow2.0系列(九)：数据集的构建与预处理</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/20/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%B9%9D-%EF%BC%9A%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E6%9E%84%E5%BB%BA%E4%B8%8E%E9%A2%84%E5%A4%84%E7%90%86/" class="article-date">
-  <time datetime="2020-03-20T06:33:46.000Z" itemprop="datePublished">2020-03-20</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>很多时候，我们希望使用自己的数据集来训练模型。然而，面对一堆格式不一的原始数据文件，将其预处理并读入程序的过程往往十分繁琐，甚至比模型的设计还要耗费精力。比如，为了读入一批图像文件，我们可能需要纠结于python的各种图像处理包（比如pillow），自己设计 Batch 的生成方式，最后还可能在运行的效率上不尽如人意。为此，TensorFlow提供了tf.data这一模块，包括了一套灵活的数据集构建 API，能够帮助我们快速、高效地构建数据输入的流水线，尤其适用于数据量巨大的场景。<br>数据集对象的建立：<br>tf.data的核心是tf.data.Dataset类，提供了对数据集的高层封装。tf.data.Dataset由一系列的可迭代访问的元素（element）组成，每个元素包含一个或多个张量。比如说，对于一个由图像组成的数据集，每个元素可以是一个形状为长×宽×通道数的图片张量，也可以是由图片张量和图片标签张量组成的元组（Tuple）。<br>最基础的建立tf.data.Dataset的方法是使用tf.data.Dataset.from_tensor_slices()，适用于数据量较小（能够整个装进内存）的情况。具体而言，如果我们的数据集中的所有元素通过张量的第0维，拼接成一个大的张量（例如，前节的MNIST数据集的训练集即为一个[60000,28,28,1]的张量，表示了60000张28*28的单通道灰度图像），那么我们提供一个这样的张量或者第0维大小相同的多个张量作为输入，即可按张量的第0维展开来构建数据集，数据集的元素数量为张量第0位的大小。具体示例如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">X &#x3D; tf.constant([2013, 2014, 2015, 2016, 2017])</span><br><span class="line">Y &#x3D; tf.constant([12000, 14000, 15000, 16500, 17500])</span><br><span class="line"></span><br><span class="line"># 也可以使用NumPy数组，效果相同</span><br><span class="line"># X &#x3D; np.array([2013, 2014, 2015, 2016, 2017])</span><br><span class="line"># Y &#x3D; np.array([12000, 14000, 15000, 16500, 17500])</span><br><span class="line"></span><br><span class="line">dataset &#x3D; tf.data.Dataset.from_tensor_slices((X, Y))</span><br><span class="line"></span><br><span class="line">for x, y in dataset:</span><br><span class="line">    print(x.numpy(), y.numpy())</span><br></pre></td></tr></table></figure>
-<p>当提供多个张量作为输入时，张量的第0维大小必须相同，且必须将多个张量作为元组（Tuple，即使用Python中的小括号）拼接并作为输入。<br>以上一节的MNIST数据集为例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import matplotlib.pyplot as plt </span><br><span class="line"></span><br><span class="line">(train_data, train_label), (_, _) &#x3D; tf.keras.datasets.mnist.load_data()</span><br><span class="line">train_data &#x3D; np.expand_dims(train_data.astype(np.float32) &#x2F; 255.0, axis&#x3D;-1)      # [60000, 28, 28, 1]</span><br><span class="line">mnist_dataset &#x3D; tf.data.Dataset.from_tensor_slices((train_data, train_label))</span><br><span class="line"></span><br><span class="line">for image, label in mnist_dataset:</span><br><span class="line">    plt.title(label.numpy())</span><br><span class="line">    plt.imshow(image.numpy()[:, :, 0])</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
-
-<p>高维数组的切片操作：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">X[:,0]是numpy中数组的一种写法，表示对一个二维数组，取该二维数组第一维中的所有数据，第二维中取第0个数据，直观来说，X[:,0]就是取所有行的第0个数据, X[:,1]就是取所有行的第1个数据。</span><br></pre></td></tr></table></figure>
-
-<p>TensorFlow Datasets提供了一个基于tf.data.Datasets的开箱即用的数据集集合，相关内容可参考<a href="https://tf.wiki/zh/appendix/tfds.html" target="_blank" rel="noopener">TensorFlow Datasets</a>。例如，使用以下语句：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow_datasets as tfds</span><br><span class="line">dataset &#x3D; tfds.load(&quot;mnist&quot;, split&#x3D;tfds.Split.TRAIN)</span><br></pre></td></tr></table></figure>
-<p>即可快速载入 MNIST 数据集。</p>
-<p>对于特别巨大而无法完整载入内存的数据集，我们可以先将数据集处理为TFRecord格式，然后使用tf.data.TFRocrdDataset()进行载入。详情请参考下一节。<br>数据集对象的预处理：<br>tf.data.Dataset类为我们提供了多种数据集预处理方法。最常用的有：<br>Dataset.map(f)：对数据集中的每个元素应用函数f，得到一个新的数据集（这部分往往结合tf.io进行读写和解码文件，tf.image进行图像处理）；<br>Dataset.shuffle(buffer_size)：将数据集打乱（设定一个固定大小的缓冲区（Buffer），取出前 buffer_size个元素放入，并从缓冲区中随机采样，采样后的数据用后续数据替换）；<br>Dataset.batch(batch_size)：将数据集分成批次，即对每batch_size个元素，使用tf.stack()在第0维合并，成为一个元素；<br>除此以外，还有Dataset.repeat()（重复数据集的元素）、Dataset.reduce()（与 Map 相对的聚合操作）、Dataset.take()（截取数据集中的前若干个元素）等，可参考<a href="https://www.tensorflow.org/versions/r2.0/api_docs/python/tf/data/Dataset" target="_blank" rel="noopener">API文档</a> 进一步了解。</p>
-<p>以下以 MNIST 数据集进行示例。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def rot90(image, label):</span><br><span class="line">    image &#x3D; tf.image.rot90(image)</span><br><span class="line">    return image, label</span><br><span class="line"></span><br><span class="line">mnist_dataset &#x3D; mnist_dataset.map(rot90)</span><br><span class="line"></span><br><span class="line">for image, label in mnist_dataset:</span><br><span class="line">    plt.title(label.numpy())</span><br><span class="line">    plt.imshow(image.numpy()[:, :, 0])</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
-
-<p>使用Dataset.batch()将数据集划分批次，每个批次的大小为4：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mnist_dataset &#x3D; mnist_dataset.batch(4)</span><br><span class="line"></span><br><span class="line">for images, labels in mnist_dataset:    # image: [4, 28, 28, 1], labels: [4]</span><br><span class="line">    fig, axs &#x3D; plt.subplots(1, 4)</span><br><span class="line">    for i in range(4):</span><br><span class="line">        axs[i].set_title(labels.numpy()[i])</span><br><span class="line">        axs[i].imshow(images.numpy()[i, :, :, 0])</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
-
-<p>使用Dataset.shuffle()将数据打散后再设置批次，缓存大小设置为 10000：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mnist_dataset &#x3D; mnist_dataset.shuffle(buffer_size&#x3D;10000).batch(4)</span><br><span class="line"></span><br><span class="line">for images, labels in mnist_dataset:</span><br><span class="line">    fig, axs &#x3D; plt.subplots(1, 4)</span><br><span class="line">    for i in range(4):</span><br><span class="line">        axs[i].set_title(labels.numpy()[i])</span><br><span class="line">        axs[i].imshow(images.numpy()[i, :, :, 0])</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
-<p>经测试，第一次运行和第二次运行的结果不同，可见每次的数据都会被随机打散。</p>
-<p>Dataset.shuffle()时缓冲区大小buffer_size的设置：<br>tf.data.Dataset作为一个针对大规模数据设计的迭代器，本身无法方便地获得自身元素的数量或随机访问元素。因此，为了高效且较为充分地打散数据集，需要一些特定的方法。Dataset.shuffle()采取了以下方法：<br>设定一个固定大小为buffer_size的缓冲区（Buffer）；<br>初始化时，取出数据集中的前buffer_size个元素放入缓冲区；<br>每次需要从数据集中取元素时，即从缓冲区中随机采样一个元素并取出，然后从后续的元素中取出一个放回到之前被取出的位置，以维持缓冲区的大小。<br>因此，缓冲区的大小需要根据数据集的特性和数据排列顺序特点来进行合理的设置。比如：<br>当buffer_size设置为1时，其实等价于没有进行任何打散；<br>当数据集的标签顺序分布极为不均匀（例如二元分类时数据集前N个的标签为0，后N个的标签为1）时，较小的缓冲区大小会使得训练时取出的Batch数据很可能全为同一标签，从而影响训练效果。一般而言，数据集的顺序分布若较为随机，则缓冲区的大小可较小，否则则需要设置较大的缓冲区。</p>
-<p>使用 tf.data 的并行化策略提高训练流程效率：<br>当训练模型时，我们希望充分利用计算资源，减少CPU/GPU的空载时间。然而有时，数据集的准备处理非常耗时，使得我们在每进行一次训练前都需要花费大量的时间准备待训练的数据，而此时GPU只能空载而等待数据，造成了计算资源的浪费，如下图所示：<br>[1]</p>
-<p>数据集元素的获取与使用:<br>构建好数据并预处理后，我们需要从其中迭代获取数据以用于训练。tf.data.Dataset是一个Python的可迭代对象，因此可以使用For循环迭代获取数据，即：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dataset &#x3D; tf.data.Dataset.from_tensor_slices((A, B, C, ...))</span><br><span class="line">for a, b, c, ... in dataset:</span><br><span class="line">    # 对张量a, b, c等进行操作，例如送入模型进行训练</span><br></pre></td></tr></table></figure>
-
-<p>也可以使用iter()显式创建一个Python迭代器并使用next()获取下一个元素，即：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dataset &#x3D; tf.data.Dataset.from_tensor_slices((A, B, C, ...))</span><br><span class="line">it &#x3D; iter(dataset)</span><br><span class="line">a_0, b_0, c_0, ... &#x3D; next(it)</span><br><span class="line">a_1, b_1, c_1, ... &#x3D; next(it)</span><br></pre></td></tr></table></figure>
-
-<p>[2]</p>
-<p>实例：cats_vs_dogs图像分类:<br>以下代码以猫狗图片二分类任务为示例，展示了使用tf.data结合tf.io和tf.image建立tf.data.Dataset数据集，并进行训练和测试的完整过程。数据集可至<a href="https://www.floydhub.com/fastai/datasets/cats-vs-dogs" target="_blank" rel="noopener">这里</a>下载。使用前须将数据集解压到代码中data_dir所设置的目录（此处默认设置为C:/datasets/cats_vs_dogs，可根据自己的需求进行修改）。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line">import os</span><br><span class="line"></span><br><span class="line">num_epochs &#x3D; 10</span><br><span class="line">batch_size &#x3D; 32</span><br><span class="line">learning_rate &#x3D; 0.001</span><br><span class="line">data_dir &#x3D; &#39;C:&#x2F;datasets&#x2F;cats_vs_dogs&#39;</span><br><span class="line">train_cats_dir &#x3D; data_dir + &#39;&#x2F;train&#x2F;cats&#x2F;&#39;</span><br><span class="line">train_dogs_dir &#x3D; data_dir + &#39;&#x2F;train&#x2F;dogs&#x2F;&#39;</span><br><span class="line">test_cats_dir &#x3D; data_dir + &#39;&#x2F;valid&#x2F;cats&#x2F;&#39;</span><br><span class="line">test_dogs_dir &#x3D; data_dir + &#39;&#x2F;valid&#x2F;dogs&#x2F;&#39;</span><br><span class="line"></span><br><span class="line">未完待续</span><br></pre></td></tr></table></figure>
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-tensorflow2-0系列-八-：训练过程可视化" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/19/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%85%AB-%EF%BC%9A%E8%AE%AD%E7%BB%83%E8%BF%87%E7%A8%8B%E5%8F%AF%E8%A7%86%E5%8C%96/"
-    >tensorflow2.0系列(八)：训练过程可视化</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/19/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%85%AB-%EF%BC%9A%E8%AE%AD%E7%BB%83%E8%BF%87%E7%A8%8B%E5%8F%AF%E8%A7%86%E5%8C%96/" class="article-date">
-  <time datetime="2020-03-19T15:54:37.000Z" itemprop="datePublished">2020-03-19</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>有时，你希望查看模型训练过程中各个参数的变化情况(例如损失函数loss的值)。虽然可以通过命令行输出来查看，但有时显得不够直观。而TensorBoard就是一个能够帮助我们将训练过程可视化的工具。<br>实时查看参数变化情况:<br>首先在代码目录下建立一个文件夹(如./tensorboard)存放TensorBoard的记录文件，并在代码中实例化一个记录器：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">summary_writer &#x3D; tf.summary.create_file_writer(&#39;.&#x2F;tensorboard&#39;)     # 参数为记录文件所保存的目录</span><br></pre></td></tr></table></figure>
-
-<p>接下来，当需要记录训练过程中的参数时，通过with语句指定希望使用的记录器，并对需要记录的参数(一般是scalar)运行tf.summary.scalar(name,tensor,step=batch_index),即可将训练过程中参数在step时候的值记录下来。这里的 step 参数可根据自己的需要自行制定，一般可设置为当前训练过程中的batch序号。整体框架如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">summary_writer &#x3D; tf.summary.create_file_writer(&#39;.&#x2F;tensorboard&#39;)</span><br><span class="line"># 开始模型训练</span><br><span class="line">for batch_index in range(num_batches):</span><br><span class="line">    # ...（训练代码，当前batch的损失值放入变量loss中）</span><br><span class="line">    with summary_writer.as_default():                               # 希望使用的记录器</span><br><span class="line">        tf.summary.scalar(&quot;loss&quot;, loss, step&#x3D;batch_index)</span><br><span class="line">        tf.summary.scalar(&quot;MyScalar&quot;, my_scalar, step&#x3D;batch_index)  # 还可以添加其他自定义的变量</span><br></pre></td></tr></table></figure>
-<p>每运行一次tf.summary.scalar()，记录器就会向记录文件中写入一条记录。除了最简单的标量(scalar)以外，TensorBoard还可以对其他类型的数据(如图像，音频等)进行可视化，详见<a href="http://www.tensorfly.cn/tfdoc/how_tos/summaries_and_tensorboard.html" target="_blank" rel="noopener">TensorBoard文档</a>。<br>当我们要对训练过程可视化时，在代码目录打开终端（如需要的话进入TensorFlow的conda环境），运行:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tensorboard --logdir&#x3D;.&#x2F;tensorboard</span><br></pre></td></tr></table></figure>
-<p>然后使用浏览器访问命令行程序所输出的网址（一般是http://计算机名称：6006），即可访问TensorBoard的可视界面。默认情况下，TensorBoard 每30秒更新一次数据。不过也可以点击右上角的刷新按钮手动刷新。TensorBoard的使用有以下注意事项：<br>[1]<br>记录文件夹目录保持全英文。</p>
-<p>查看Graph和Profile:<br>除此以外，我们可以在训练时使用tf.summary.trace_on开启Trace，此时TensorFlow会将训练时的大量信息（如计算图的结构，每个操作所耗费的时间等）记录下来。在训练完成后，使用tf.summary.trace_export将记录结果输出到文件。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tf.summary.trace_on(graph&#x3D;True, profiler&#x3D;True)  # 开启Trace，可以记录图结构和profile信息</span><br><span class="line"># 进行训练</span><br><span class="line">with summary_writer.as_default():</span><br><span class="line">    tf.summary.trace_export(name&#x3D;&quot;model_trace&quot;, step&#x3D;0, profiler_outdir&#x3D;log_dir)    # 保存Trace信息到文件</span><br></pre></td></tr></table></figure>
-<p>之后，我们就可以在TensorBoard中选择“Profile”，以时间轴的方式查看各操作的耗时情况。如果使用了tf.function建立了计算图，也可以点击“Graphs”查看图结构。</p>
-<p>可视化多层感知机模型的训练过程：</p>
-<pre><code>import tensorflow as tf
-from zh.model.mnist.mlp import MLP
-from zh.model.utils import MNISTLoader
-
-num_batches = 1000
-batch_size = 50
-learning_rate = 0.001
-log_dir = &apos;tensorboard&apos;
-model = MLP()
-data_loader = MNISTLoader()
-optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate)
-summary_writer = tf.summary.create_file_writer(log_dir)     # 实例化记录器
-tf.summary.trace_on(profiler=True)  # 开启Trace（可选）
-for batch_index in range(num_batches):
-    X, y = data_loader.get_batch(batch_size)
-    with tf.GradientTape() as tape:
-        y_pred = model(X)
-        loss = tf.keras.losses.sparse_categorical_crossentropy(y_true=y, y_pred=y_pred)
-        loss = tf.reduce_mean(loss)
-        print(&quot;batch %d: loss %f&quot; % (batch_index, loss.numpy()))
-        with summary_writer.as_default():                           # 指定记录器
-            tf.summary.scalar(&quot;loss&quot;, loss, step=batch_index)       # 将当前损失函数的值写入记录器
-    grads = tape.gradient(loss, model.variables)
-    optimizer.apply_gradients(grads_and_vars=zip(grads, model.variables))
-with summary_writer.as_default():
-    tf.summary.trace_export(name=&quot;model_trace&quot;, step=0, profiler_outdir=log_dir)    # 保存Trace信息到文件（可选）</code></pre>
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-tensorflow2-0系列-七-：变量的保存与恢复" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/19/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%B8%83-%EF%BC%9A%E5%8F%98%E9%87%8F%E7%9A%84%E4%BF%9D%E5%AD%98%E4%B8%8E%E6%81%A2%E5%A4%8D/"
-    >tensorflow2.0系列(七)：变量的保存与恢复</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/19/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%B8%83-%EF%BC%9A%E5%8F%98%E9%87%8F%E7%9A%84%E4%BF%9D%E5%AD%98%E4%B8%8E%E6%81%A2%E5%A4%8D/" class="article-date">
-  <time datetime="2020-03-19T09:12:05.000Z" itemprop="datePublished">2020-03-19</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>变量的保存与恢复<br>很多时候，我们希望在模型训练完成后能将训练好的参数（变量）保存起来。在需要使用模型的其他地方载入模型和参数，就能直接得到训练好的模型。你第一个想到的可能是用Python的序列化模块pickle来存储model.variables。但是这种方法并不能保存tensorflow生成的变量。<br>pickle模块：<br>通过python的pickle模块实现了对象的序列和反序列化。<br>通过pickle模块的序列化操作我们能够将程序中运行的对象信息保存到文件中去，永久存储。<br>通过pickle模块的反序列化操作，我们能够从文件中创建上一次程序保存的对象。<br>基本接口：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pickle.dump(obj, file, [,protocol])</span><br><span class="line">x &#x3D; pickle.load(file)</span><br></pre></td></tr></table></figure>
-<p>这里的protocol有什么用。[1]</p>
-<p>TensorFlow提供了tf.train.Checkpoint这一强大的变量保存与恢复类，使用save()和restore()方法即可将TensorFlow中所有包含Checkpointable State的对象进行保存和恢复。具体的说，tf.keras.optimizer、tf.Variable、tf.keras.Layer或者tf.keras.Model实例都可以被保存。<br>使用方法非常简单，例如，如果我们希望保存一个继承tf.keras.Model的模型实例model和一个继承tf.train.Optimizer的优化器optimizer，我们可以这样写：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">checkpoint &#x3D; tf.train.Checkpoint(myAwesomeModel&#x3D;model, myAwesomeOptimizer&#x3D;optimizer)</span><br></pre></td></tr></table></figure>
-<p>tf.train.Checkpoint()接受的参数比较特殊，是一个**kwargs。具体而言，是一系列的键值对，键名可以随意取，值为需要保存的对象。myAwesomeModel是我们为待保存的模型model所取的任意键名。注意，在恢复变量的时候，我们还将使用这一键名。</p>
-<p>接下来，当模型训练完成需要保存的时候，使用：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">checkpoint.save(save_path_with_prefix)</span><br></pre></td></tr></table></figure>
-<p>save_path_with_prefix是保存文件的目录+前缀。<br>在源代码目录建立一个名为save的文件夹并执行一次checkpoint.save(‘./save/model.ckpt’)，我们就可以在可以在save目录下发现名为checkpoint、model.ckpt-1.index、model.ckpt-1.data-00000-of-00001的三个文件，这些文件记录了变量信息。checkpoint.save()方法可以运行多次，每运行一次都会得到一个.index文件和.data文件，序号依次累加。</p>
-<p>当在其他地方需要为模型重新载入之前保存的参数时，需要再次实例化一个checkpoint，同时保持键名的一致。再调用checkpoint的restore方法。如下面代码所示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">model_to_be_restored &#x3D; MyModel()                                        # 待恢复参数的同一模型</span><br><span class="line">checkpoint &#x3D; tf.train.Checkpoint(myAwesomeModel&#x3D;model_to_be_restored)   # 键名保持为“myAwesomeModel”</span><br><span class="line">checkpoint.restore(save_path_with_prefix_and_index)</span><br></pre></td></tr></table></figure>
-<p>即可恢复模型变量。save_path_with_prefix_and_index是之前保存的文件的目录+前缀+编号。例如，调用checkpoint.restore(‘./save/model.ckpt-1’)就可以载入前缀为model.ckpt，序号为1的文件来恢复模型。当保存了多个文件时，我们往往想载入最近的一个。可以使用tf.train.latest_checkpoint(save_path)这个辅助函数返回目录下最近一次checkpoint的文件名。例如如果save目录下有model.ckpt-1.index到model.ckpt-10.index的10个保存文件，tf.train.latest_checkpoint(‘./save’)即返回./save/model.ckpt-10。</p>
-<p>总体而言，恢复与保存变量的典型代码框架如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># train.py 模型训练阶段</span><br><span class="line">model &#x3D; MyModel()</span><br><span class="line"># 实例化Checkpoint，指定保存对象为model（如果需要保存Optimizer的参数也可加入）</span><br><span class="line">checkpoint &#x3D; tf.train.Checkpoint(myModel&#x3D;model)</span><br><span class="line"># ...（模型训练代码）</span><br><span class="line"># 模型训练完毕后将参数保存到文件（也可以在模型训练过程中每隔一段时间就保存一次）</span><br><span class="line">checkpoint.save(&#39;.&#x2F;save&#x2F;model.ckpt&#39;)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># test.py 模型使用阶段</span><br><span class="line">model &#x3D; MyModel()</span><br><span class="line">checkpoint &#x3D; tf.train.Checkpoint(myModel&#x3D;model)             # 实例化Checkpoint，指定恢复对象为model</span><br><span class="line">checkpoint.restore(tf.train.latest_checkpoint(&#39;.&#x2F;save&#39;))    # 从文件恢复模型参数</span><br><span class="line"># 模型使用代码</span><br></pre></td></tr></table></figure>
-
-<p>[1]</p>
-<p>以多层感知机模型为例展示模型变量的保存和载入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[2]</span><br></pre></td></tr></table></figure>
-
-<p>使用tf.train.CheckpointManager删除旧的Checkpoint以及自定义文件编号:<br>在模型的训练过程中，我们往往每隔一定步数保存一个Checkpoint并进行编号。不过很多时候我们会有这样的需求：<br>在长时间的训练后，程序会保存大量的 Checkpoint，但我们只想保留最后的几个 Checkpoint；<br>Checkpoint默认从1开始编号，每次累加1，但我们可能希望使用别的编号方式(例如使用当前Batch的编号作为文件编号)。<br>这时，我们可以使用TensorFlow的tf.train.CheckpointManager来实现以上需求。具体的说，就是在定义Checkpoint后接着定义一个CheckpointManager：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">checkpoint &#x3D; tf.train.Checkpoint(model&#x3D;model)</span><br><span class="line">manager &#x3D; tf.train.CheckpointManager(checkpoint, directory&#x3D;&#39;.&#x2F;save&#39;, checkpoint_name&#x3D;&#39;model.ckpt&#39;, max_to_keep&#x3D;k)</span><br></pre></td></tr></table></figure>
-<p>此处，directory参数为文件保存的路径，checkpoint_name为文件名前缀(不提供则默认为ckpt)，max_to_keep为保留的Checkpoint数目。在需要保存模型的时候，我们直接使用manager.save()即可。如果我们希望指定保存的Checkpoint的编号，则可以在保存时传入checkpoint_number参数。例如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">manager.save(checkpoint_number&#x3D;100)</span><br></pre></td></tr></table></figure>
-
-<p>以下提供一个实例，展示使用CheckpointManager限制仅保留最后三个Checkpoint文件，并使用batch的编号作为Checkpoint的文件编号。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[3]</span><br></pre></td></tr></table></figure>
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-tensorflow2-0系列-六-：灵活建立模型" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/19/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%85%AD-%EF%BC%9A%E7%81%B5%E6%B4%BB%E5%BB%BA%E7%AB%8B%E6%A8%A1%E5%9E%8B/"
-    >tensorflow2.0系列(六)：灵活建立模型</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/19/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%85%AD-%EF%BC%9A%E7%81%B5%E6%B4%BB%E5%BB%BA%E7%AB%8B%E6%A8%A1%E5%9E%8B/" class="article-date">
-  <time datetime="2020-03-19T06:32:30.000Z" itemprop="datePublished">2020-03-19</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>两种非继承类建立模型的方法：<br>sequential和functional<br>sequential：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">model &#x3D; tf.keras.models.Sequential([</span><br><span class="line">    tf.keras.layers.Flatten(),</span><br><span class="line">    tf.keras.layers.Dense(100, activation&#x3D;tf.nn.relu),</span><br><span class="line">    tf.keras.layers.Dense(10),</span><br><span class="line">    tf.keras.layers.Softmax()</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
-
-<p>functional：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">inputs &#x3D; tf.keras.Input(shape&#x3D;(28, 28, 1))</span><br><span class="line">x &#x3D; tf.keras.layers.Flatten()(inputs)</span><br><span class="line">x &#x3D; tf.keras.layers.Dense(units&#x3D;100, activation&#x3D;tf.nn.relu)(x)</span><br><span class="line">x &#x3D; tf.keras.layers.Dense(units&#x3D;10)(x)</span><br><span class="line">outputs &#x3D; tf.keras.layers.Softmax()(x)</span><br><span class="line">model &#x3D; tf.keras.Model(inputs&#x3D;inputs, outputs&#x3D;outputs)</span><br></pre></td></tr></table></figure>
-
-<p>通过这两种方式建立的模型要通过tf.keras.Model的compile方法配置训练过程：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">model.compile(</span><br><span class="line">    optimizer&#x3D;tf.keras.optimizers.Adam(learning_rate&#x3D;0.001),</span><br><span class="line">    loss&#x3D;tf.keras.losses.sparse_categorical_crossentropy,</span><br><span class="line">    metrics&#x3D;[tf.keras.metrics.sparse_categorical_accuracy]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>tf.keras.Model.compile接受3个重要的参数：<br>oplimizer：优化器，从tf.keras.optimizers中选择；loss：损失函数，从tf.keras.losses中选择；metrics：评估指标，从tf.keras.metrics中选择。</p>
-<p>接下来，使用tf.keras.Model的fit方法训练模型：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.fit(data_loader.train_data, data_loader.train_label, epochs&#x3D;num_epochs, batch_size&#x3D;batch_size)</span><br></pre></td></tr></table></figure>
-<p>tf.keras.Model.fit接受5个重要的参数：x：训练数据；y：目标数据(数据标签)；epochs：将训练数据迭代多少遍；batch_size：批次的大小；validation_data：验证数据，可用于在训练过程中监控模型的性能。<br>最后，使用tf.keras.Model.evaluate评估训练效果，提供测试数据及标签即可：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(model.evaluate(data_loader.test_data, data_loader.test_label))</span><br></pre></td></tr></table></figure>
-
-<p>自定义层：不会</p>
-<p>自定义损失函数和评估指标：<br>自定义损失函数需要继承tf.keras.losses.Loss类，重写call方法即可，传入真实值y_true和模型预测值 y_pred，输出模型预测值和真实值之间通过自定义的损失函数计算出的损失值。<br>下面的示例为均方差损失函数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class MeanSquaredError(tf.keras.losses.Loss):</span><br><span class="line">    def call(self, y_true, y_pred):</span><br><span class="line">        return tf.reduce_mean(tf.square(y_pred - y_true))</span><br></pre></td></tr></table></figure>
-
-<p>自定义评估指标：不会</p>
-
       
       <!-- reward -->
       

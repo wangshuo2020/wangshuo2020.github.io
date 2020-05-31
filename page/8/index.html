@@ -69,6 +69,477 @@
     
     
     
+    <article id="post-tensorflow2-0系列-十-：TFRecord" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/20/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%8D%81-%EF%BC%9ATFRecord/"
+    >tensorflow2.0系列(十)：TFRecord</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/20/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%8D%81-%EF%BC%9ATFRecord/" class="article-date">
+  <time datetime="2020-03-20T09:27:17.000Z" itemprop="datePublished">2020-03-20</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>TFRecord是TensorFlow中的数据集存储格式。当我们将数据集整理成TFRecord格式后，TensorFlow就可以高效地读取和处理这些数据集，从而帮助我们更高效地进行大规模的模型训练。<br>TFRecord可以理解为一系列序列化的tf.train.Example元素所组成的列表文件，而每一个tf.train.Example又由若干个tf.train.Feature的字典组成。形式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># dataset.tfrecords</span><br><span class="line">[</span><br><span class="line">    &#123;   # example 1 (tf.train.Example)</span><br><span class="line">        &#39;feature_1&#39;: tf.train.Feature,</span><br><span class="line">        ...</span><br><span class="line">        &#39;feature_k&#39;: tf.train.Feature</span><br><span class="line">    &#125;,</span><br><span class="line">    ...</span><br><span class="line">    &#123;   # example N (tf.train.Example)</span><br><span class="line">        &#39;feature_1&#39;: tf.train.Feature,</span><br><span class="line">        ...</span><br><span class="line">        &#39;feature_k&#39;: tf.train.Feature</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>为了将形式各样的数据集整理为TFRecord格式，我们可以对数据集中的每个元素进行以下步骤：<br>读取该数据元素到内存；<br>将该元素转换为tf.train.Example对象（每一个tf.train.Example由若干个tf.train.Feature的字典组成，因此需要先建立Feature的字典）；<br>将该tf.train.Example对象序列化为字符串，并通过一个预先定义的tf.io.TFRecordWriter写入TFRecord文件。</p>
+<p>而读取TFRecord数据则可按照以下步骤：<br>通过tf.data.TFRecordDataset读入原始的TFRecord文件,获得一个tf.data.Dataset数据集对象(此时该数据集对象中的tf.train.Example对象尚未被反序列化)；<br>通过Dataset.map方法，对该数据集对象中的每一个序列化的tf.train.Example字符串执行tf.io.parse_single_example函数，从而实现反序列化。</p>
+<p>以下我们通过一个实例，展示将上一节中使用的cats_vs_dogs二分类数据集的训练集部分转换为TFRecord文件，并读取该文件的过程。<br>将数据集存储为 TFRecord 文件：<br>首先，与上一节类似，我们进行一些准备工作，下载数据集并解压到data_dir，初始化数据集的图片文件名列表及标签。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line">import os</span><br><span class="line"></span><br><span class="line">data_dir &#x3D; &#39;C:&#x2F;datasets&#x2F;cats_vs_dogs&#39;</span><br><span class="line">train_cats_dir &#x3D; data_dir + &#39;&#x2F;train&#x2F;cats&#x2F;&#39;</span><br><span class="line">train_dogs_dir &#x3D; data_dir + &#39;&#x2F;train&#x2F;dogs&#x2F;&#39;</span><br><span class="line">tfrecord_file &#x3D; data_dir + &#39;&#x2F;train&#x2F;train.tfrecords&#39;</span><br><span class="line"></span><br><span class="line">train_cat_filenames &#x3D; [train_cats_dir + filename for filename in os.listdir(train_cats_dir)]</span><br><span class="line">train_dog_filenames &#x3D; [train_dogs_dir + filename for filename in os.listdir(train_dogs_dir)]</span><br><span class="line">train_filenames &#x3D; train_cat_filenames + train_dog_filenames</span><br><span class="line">train_labels &#x3D; [0] * len(train_cat_filenames) + [1] * len(train_dog_filenames)  # 将 cat 类的标签设为0，dog 类的标签设为1</span><br></pre></td></tr></table></figure>
+
+<p>然后，通过以下代码，迭代读取每张图片，建立tf.train.Feature字典和tf.train.Example对象，序列化并写入TFRecord文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">with tf.io.TFRecordWriter(tfrecord_file) as writer:</span><br><span class="line">    for filename, label in zip(train_filenames, train_labels):</span><br><span class="line">        image &#x3D; open(filename, &#39;rb&#39;).read()     # 读取数据集图片到内存，image 为一个 Byte 类型的字符串</span><br><span class="line">        feature &#x3D; &#123;                             # 建立 tf.train.Feature 字典</span><br><span class="line">            &#39;image&#39;: tf.train.Feature(bytes_list&#x3D;tf.train.BytesList(value&#x3D;[image])),  # 图片是一个 Bytes 对象</span><br><span class="line">            &#39;label&#39;: tf.train.Feature(int64_list&#x3D;tf.train.Int64List(value&#x3D;[label]))   # 标签是一个 Int 对象</span><br><span class="line">        &#125;</span><br><span class="line">        example &#x3D; tf.train.Example(features&#x3D;tf.train.Features(feature&#x3D;feature)) # 通过字典建立 Example</span><br><span class="line">        writer.write(example.SerializeToString())   # 将Example序列化并写入 TFRecord 文件</span><br></pre></td></tr></table></figure>
+
+<p>值得注意的是，tf.train.Feature支持三种数据格式：<br>tf.train.BytesList：字符串或原始Byte文件（如图片），通过bytes_list参数传入一个由字符串数组初始化的tf.train.BytesList对象；tf.train.FloatList ：浮点数，通过float_list参数传入一个由浮点数数组初始化的tf.train.FloatList对象；tf.train.Int64List ：整数，通过int64_list参数传入一个由整数数组初始化的tf.train.Int64List对象。如果只希望保存一个元素而非数组，传入一个只有一个元素的数组即可。运行以上代码，不出片刻，我们即可在tfrecord_file所指向的文件地址获得一个500MB左右的train.tfrecords文件。<br>读取TFRecord文件：<br>我们可以通过以下代码，读取之前建立的train.tfrecords文件，并通过Dataset.map方法，使用tf.io.parse_single_example函数对数据集中的每一个序列化的tf.train.Example对象解码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">raw_dataset &#x3D; tf.data.TFRecordDataset(tfrecord_file)    # 读取 TFRecord 文件</span><br><span class="line"></span><br><span class="line">feature_description &#x3D; &#123; # 定义Feature结构，告诉解码器每个Feature的类型是什么</span><br><span class="line">    &#39;image&#39;: tf.io.FixedLenFeature([], tf.string),</span><br><span class="line">    &#39;label&#39;: tf.io.FixedLenFeature([], tf.int64),</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">def _parse_example(example_string): # 将 TFRecord 文件中的每一个序列化的 tf.train.Example 解码</span><br><span class="line">    feature_dict &#x3D; tf.io.parse_single_example(example_string, feature_description)</span><br><span class="line">    feature_dict[&#39;image&#39;] &#x3D; tf.io.decode_jpeg(feature_dict[&#39;image&#39;])    # 解码JPEG图片</span><br><span class="line">    return feature_dict[&#39;image&#39;], feature_dict[&#39;label&#39;]</span><br><span class="line"></span><br><span class="line">dataset &#x3D; raw_dataset.map(_parse_example)</span><br></pre></td></tr></table></figure>
+<p>这里的feature_description类似于一个数据集的“描述文件”，通过一个由键值对组成的字典，告知tf.io.parse_single_example函数每个tf.train.Example数据项有哪些Feature，以及这些Feature的类型、形状等属性。tf.io.FixedLenFeature的三个输入参数shape、dtype和default_value（可省略）为每个Feature的形状、类型和默认值。这里我们的数据项都是单个的数值或者字符串，所以shape为空数组。</p>
+<p>运行以上代码后，我们获得一个数据集对象dataset，这已经是一个可以用于训练的tf.data.Dataset对象了！我们从该数据集中读取元素并输出验证：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import matplotlib.pyplot as plt </span><br><span class="line"></span><br><span class="line">for image, label in dataset:</span><br><span class="line">    plt.title(&#39;cat&#39; if label &#x3D;&#x3D; 0 else &#39;dog&#39;)</span><br><span class="line">    plt.imshow(image.numpy())</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
+<p>经验证，图片和标签都正确显示，数据集构建成功。</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-tensorflow2-0系列-九-：数据集的构建与预处理" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/20/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%B9%9D-%EF%BC%9A%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E6%9E%84%E5%BB%BA%E4%B8%8E%E9%A2%84%E5%A4%84%E7%90%86/"
+    >tensorflow2.0系列(九)：数据集的构建与预处理</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/20/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%B9%9D-%EF%BC%9A%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E6%9E%84%E5%BB%BA%E4%B8%8E%E9%A2%84%E5%A4%84%E7%90%86/" class="article-date">
+  <time datetime="2020-03-20T06:33:46.000Z" itemprop="datePublished">2020-03-20</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>很多时候，我们希望使用自己的数据集来训练模型。然而，面对一堆格式不一的原始数据文件，将其预处理并读入程序的过程往往十分繁琐，甚至比模型的设计还要耗费精力。比如，为了读入一批图像文件，我们可能需要纠结于python的各种图像处理包（比如pillow），自己设计 Batch 的生成方式，最后还可能在运行的效率上不尽如人意。为此，TensorFlow提供了tf.data这一模块，包括了一套灵活的数据集构建 API，能够帮助我们快速、高效地构建数据输入的流水线，尤其适用于数据量巨大的场景。<br>数据集对象的建立：<br>tf.data的核心是tf.data.Dataset类，提供了对数据集的高层封装。tf.data.Dataset由一系列的可迭代访问的元素（element）组成，每个元素包含一个或多个张量。比如说，对于一个由图像组成的数据集，每个元素可以是一个形状为长×宽×通道数的图片张量，也可以是由图片张量和图片标签张量组成的元组（Tuple）。<br>最基础的建立tf.data.Dataset的方法是使用tf.data.Dataset.from_tensor_slices()，适用于数据量较小（能够整个装进内存）的情况。具体而言，如果我们的数据集中的所有元素通过张量的第0维，拼接成一个大的张量（例如，前节的MNIST数据集的训练集即为一个[60000,28,28,1]的张量，表示了60000张28*28的单通道灰度图像），那么我们提供一个这样的张量或者第0维大小相同的多个张量作为输入，即可按张量的第0维展开来构建数据集，数据集的元素数量为张量第0位的大小。具体示例如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">X &#x3D; tf.constant([2013, 2014, 2015, 2016, 2017])</span><br><span class="line">Y &#x3D; tf.constant([12000, 14000, 15000, 16500, 17500])</span><br><span class="line"></span><br><span class="line"># 也可以使用NumPy数组，效果相同</span><br><span class="line"># X &#x3D; np.array([2013, 2014, 2015, 2016, 2017])</span><br><span class="line"># Y &#x3D; np.array([12000, 14000, 15000, 16500, 17500])</span><br><span class="line"></span><br><span class="line">dataset &#x3D; tf.data.Dataset.from_tensor_slices((X, Y))</span><br><span class="line"></span><br><span class="line">for x, y in dataset:</span><br><span class="line">    print(x.numpy(), y.numpy())</span><br></pre></td></tr></table></figure>
+<p>当提供多个张量作为输入时，张量的第0维大小必须相同，且必须将多个张量作为元组（Tuple，即使用Python中的小括号）拼接并作为输入。<br>以上一节的MNIST数据集为例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import matplotlib.pyplot as plt </span><br><span class="line"></span><br><span class="line">(train_data, train_label), (_, _) &#x3D; tf.keras.datasets.mnist.load_data()</span><br><span class="line">train_data &#x3D; np.expand_dims(train_data.astype(np.float32) &#x2F; 255.0, axis&#x3D;-1)      # [60000, 28, 28, 1]</span><br><span class="line">mnist_dataset &#x3D; tf.data.Dataset.from_tensor_slices((train_data, train_label))</span><br><span class="line"></span><br><span class="line">for image, label in mnist_dataset:</span><br><span class="line">    plt.title(label.numpy())</span><br><span class="line">    plt.imshow(image.numpy()[:, :, 0])</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
+
+<p>高维数组的切片操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">X[:,0]是numpy中数组的一种写法，表示对一个二维数组，取该二维数组第一维中的所有数据，第二维中取第0个数据，直观来说，X[:,0]就是取所有行的第0个数据, X[:,1]就是取所有行的第1个数据。</span><br></pre></td></tr></table></figure>
+
+<p>TensorFlow Datasets提供了一个基于tf.data.Datasets的开箱即用的数据集集合，相关内容可参考<a href="https://tf.wiki/zh/appendix/tfds.html" target="_blank" rel="noopener">TensorFlow Datasets</a>。例如，使用以下语句：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow_datasets as tfds</span><br><span class="line">dataset &#x3D; tfds.load(&quot;mnist&quot;, split&#x3D;tfds.Split.TRAIN)</span><br></pre></td></tr></table></figure>
+<p>即可快速载入 MNIST 数据集。</p>
+<p>对于特别巨大而无法完整载入内存的数据集，我们可以先将数据集处理为TFRecord格式，然后使用tf.data.TFRocrdDataset()进行载入。详情请参考下一节。<br>数据集对象的预处理：<br>tf.data.Dataset类为我们提供了多种数据集预处理方法。最常用的有：<br>Dataset.map(f)：对数据集中的每个元素应用函数f，得到一个新的数据集（这部分往往结合tf.io进行读写和解码文件，tf.image进行图像处理）；<br>Dataset.shuffle(buffer_size)：将数据集打乱（设定一个固定大小的缓冲区（Buffer），取出前 buffer_size个元素放入，并从缓冲区中随机采样，采样后的数据用后续数据替换）；<br>Dataset.batch(batch_size)：将数据集分成批次，即对每batch_size个元素，使用tf.stack()在第0维合并，成为一个元素；<br>除此以外，还有Dataset.repeat()（重复数据集的元素）、Dataset.reduce()（与 Map 相对的聚合操作）、Dataset.take()（截取数据集中的前若干个元素）等，可参考<a href="https://www.tensorflow.org/versions/r2.0/api_docs/python/tf/data/Dataset" target="_blank" rel="noopener">API文档</a> 进一步了解。</p>
+<p>以下以 MNIST 数据集进行示例。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def rot90(image, label):</span><br><span class="line">    image &#x3D; tf.image.rot90(image)</span><br><span class="line">    return image, label</span><br><span class="line"></span><br><span class="line">mnist_dataset &#x3D; mnist_dataset.map(rot90)</span><br><span class="line"></span><br><span class="line">for image, label in mnist_dataset:</span><br><span class="line">    plt.title(label.numpy())</span><br><span class="line">    plt.imshow(image.numpy()[:, :, 0])</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
+
+<p>使用Dataset.batch()将数据集划分批次，每个批次的大小为4：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mnist_dataset &#x3D; mnist_dataset.batch(4)</span><br><span class="line"></span><br><span class="line">for images, labels in mnist_dataset:    # image: [4, 28, 28, 1], labels: [4]</span><br><span class="line">    fig, axs &#x3D; plt.subplots(1, 4)</span><br><span class="line">    for i in range(4):</span><br><span class="line">        axs[i].set_title(labels.numpy()[i])</span><br><span class="line">        axs[i].imshow(images.numpy()[i, :, :, 0])</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
+
+<p>使用Dataset.shuffle()将数据打散后再设置批次，缓存大小设置为 10000：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mnist_dataset &#x3D; mnist_dataset.shuffle(buffer_size&#x3D;10000).batch(4)</span><br><span class="line"></span><br><span class="line">for images, labels in mnist_dataset:</span><br><span class="line">    fig, axs &#x3D; plt.subplots(1, 4)</span><br><span class="line">    for i in range(4):</span><br><span class="line">        axs[i].set_title(labels.numpy()[i])</span><br><span class="line">        axs[i].imshow(images.numpy()[i, :, :, 0])</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
+<p>经测试，第一次运行和第二次运行的结果不同，可见每次的数据都会被随机打散。</p>
+<p>Dataset.shuffle()时缓冲区大小buffer_size的设置：<br>tf.data.Dataset作为一个针对大规模数据设计的迭代器，本身无法方便地获得自身元素的数量或随机访问元素。因此，为了高效且较为充分地打散数据集，需要一些特定的方法。Dataset.shuffle()采取了以下方法：<br>设定一个固定大小为buffer_size的缓冲区（Buffer）；<br>初始化时，取出数据集中的前buffer_size个元素放入缓冲区；<br>每次需要从数据集中取元素时，即从缓冲区中随机采样一个元素并取出，然后从后续的元素中取出一个放回到之前被取出的位置，以维持缓冲区的大小。<br>因此，缓冲区的大小需要根据数据集的特性和数据排列顺序特点来进行合理的设置。比如：<br>当buffer_size设置为1时，其实等价于没有进行任何打散；<br>当数据集的标签顺序分布极为不均匀（例如二元分类时数据集前N个的标签为0，后N个的标签为1）时，较小的缓冲区大小会使得训练时取出的Batch数据很可能全为同一标签，从而影响训练效果。一般而言，数据集的顺序分布若较为随机，则缓冲区的大小可较小，否则则需要设置较大的缓冲区。</p>
+<p>使用 tf.data 的并行化策略提高训练流程效率：<br>当训练模型时，我们希望充分利用计算资源，减少CPU/GPU的空载时间。然而有时，数据集的准备处理非常耗时，使得我们在每进行一次训练前都需要花费大量的时间准备待训练的数据，而此时GPU只能空载而等待数据，造成了计算资源的浪费，如下图所示：<br>[1]</p>
+<p>数据集元素的获取与使用:<br>构建好数据并预处理后，我们需要从其中迭代获取数据以用于训练。tf.data.Dataset是一个Python的可迭代对象，因此可以使用For循环迭代获取数据，即：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dataset &#x3D; tf.data.Dataset.from_tensor_slices((A, B, C, ...))</span><br><span class="line">for a, b, c, ... in dataset:</span><br><span class="line">    # 对张量a, b, c等进行操作，例如送入模型进行训练</span><br></pre></td></tr></table></figure>
+
+<p>也可以使用iter()显式创建一个Python迭代器并使用next()获取下一个元素，即：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dataset &#x3D; tf.data.Dataset.from_tensor_slices((A, B, C, ...))</span><br><span class="line">it &#x3D; iter(dataset)</span><br><span class="line">a_0, b_0, c_0, ... &#x3D; next(it)</span><br><span class="line">a_1, b_1, c_1, ... &#x3D; next(it)</span><br></pre></td></tr></table></figure>
+
+<p>[2]</p>
+<p>实例：cats_vs_dogs图像分类:<br>以下代码以猫狗图片二分类任务为示例，展示了使用tf.data结合tf.io和tf.image建立tf.data.Dataset数据集，并进行训练和测试的完整过程。数据集可至<a href="https://www.floydhub.com/fastai/datasets/cats-vs-dogs" target="_blank" rel="noopener">这里</a>下载。使用前须将数据集解压到代码中data_dir所设置的目录（此处默认设置为C:/datasets/cats_vs_dogs，可根据自己的需求进行修改）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line">import os</span><br><span class="line"></span><br><span class="line">num_epochs &#x3D; 10</span><br><span class="line">batch_size &#x3D; 32</span><br><span class="line">learning_rate &#x3D; 0.001</span><br><span class="line">data_dir &#x3D; &#39;C:&#x2F;datasets&#x2F;cats_vs_dogs&#39;</span><br><span class="line">train_cats_dir &#x3D; data_dir + &#39;&#x2F;train&#x2F;cats&#x2F;&#39;</span><br><span class="line">train_dogs_dir &#x3D; data_dir + &#39;&#x2F;train&#x2F;dogs&#x2F;&#39;</span><br><span class="line">test_cats_dir &#x3D; data_dir + &#39;&#x2F;valid&#x2F;cats&#x2F;&#39;</span><br><span class="line">test_dogs_dir &#x3D; data_dir + &#39;&#x2F;valid&#x2F;dogs&#x2F;&#39;</span><br><span class="line"></span><br><span class="line">未完待续</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-tensorflow2-0系列-八-：训练过程可视化" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/19/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%85%AB-%EF%BC%9A%E8%AE%AD%E7%BB%83%E8%BF%87%E7%A8%8B%E5%8F%AF%E8%A7%86%E5%8C%96/"
+    >tensorflow2.0系列(八)：训练过程可视化</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/19/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%85%AB-%EF%BC%9A%E8%AE%AD%E7%BB%83%E8%BF%87%E7%A8%8B%E5%8F%AF%E8%A7%86%E5%8C%96/" class="article-date">
+  <time datetime="2020-03-19T15:54:37.000Z" itemprop="datePublished">2020-03-19</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>有时，你希望查看模型训练过程中各个参数的变化情况(例如损失函数loss的值)。虽然可以通过命令行输出来查看，但有时显得不够直观。而TensorBoard就是一个能够帮助我们将训练过程可视化的工具。<br>实时查看参数变化情况:<br>首先在代码目录下建立一个文件夹(如./tensorboard)存放TensorBoard的记录文件，并在代码中实例化一个记录器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">summary_writer &#x3D; tf.summary.create_file_writer(&#39;.&#x2F;tensorboard&#39;)     # 参数为记录文件所保存的目录</span><br></pre></td></tr></table></figure>
+
+<p>接下来，当需要记录训练过程中的参数时，通过with语句指定希望使用的记录器，并对需要记录的参数(一般是scalar)运行tf.summary.scalar(name,tensor,step=batch_index),即可将训练过程中参数在step时候的值记录下来。这里的 step 参数可根据自己的需要自行制定，一般可设置为当前训练过程中的batch序号。整体框架如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">summary_writer &#x3D; tf.summary.create_file_writer(&#39;.&#x2F;tensorboard&#39;)</span><br><span class="line"># 开始模型训练</span><br><span class="line">for batch_index in range(num_batches):</span><br><span class="line">    # ...（训练代码，当前batch的损失值放入变量loss中）</span><br><span class="line">    with summary_writer.as_default():                               # 希望使用的记录器</span><br><span class="line">        tf.summary.scalar(&quot;loss&quot;, loss, step&#x3D;batch_index)</span><br><span class="line">        tf.summary.scalar(&quot;MyScalar&quot;, my_scalar, step&#x3D;batch_index)  # 还可以添加其他自定义的变量</span><br></pre></td></tr></table></figure>
+<p>每运行一次tf.summary.scalar()，记录器就会向记录文件中写入一条记录。除了最简单的标量(scalar)以外，TensorBoard还可以对其他类型的数据(如图像，音频等)进行可视化，详见<a href="http://www.tensorfly.cn/tfdoc/how_tos/summaries_and_tensorboard.html" target="_blank" rel="noopener">TensorBoard文档</a>。<br>当我们要对训练过程可视化时，在代码目录打开终端（如需要的话进入TensorFlow的conda环境），运行:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tensorboard --logdir&#x3D;.&#x2F;tensorboard</span><br></pre></td></tr></table></figure>
+<p>然后使用浏览器访问命令行程序所输出的网址（一般是http://计算机名称：6006），即可访问TensorBoard的可视界面。默认情况下，TensorBoard 每30秒更新一次数据。不过也可以点击右上角的刷新按钮手动刷新。TensorBoard的使用有以下注意事项：<br>[1]<br>记录文件夹目录保持全英文。</p>
+<p>查看Graph和Profile:<br>除此以外，我们可以在训练时使用tf.summary.trace_on开启Trace，此时TensorFlow会将训练时的大量信息（如计算图的结构，每个操作所耗费的时间等）记录下来。在训练完成后，使用tf.summary.trace_export将记录结果输出到文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tf.summary.trace_on(graph&#x3D;True, profiler&#x3D;True)  # 开启Trace，可以记录图结构和profile信息</span><br><span class="line"># 进行训练</span><br><span class="line">with summary_writer.as_default():</span><br><span class="line">    tf.summary.trace_export(name&#x3D;&quot;model_trace&quot;, step&#x3D;0, profiler_outdir&#x3D;log_dir)    # 保存Trace信息到文件</span><br></pre></td></tr></table></figure>
+<p>之后，我们就可以在TensorBoard中选择“Profile”，以时间轴的方式查看各操作的耗时情况。如果使用了tf.function建立了计算图，也可以点击“Graphs”查看图结构。</p>
+<p>可视化多层感知机模型的训练过程：</p>
+<pre><code>import tensorflow as tf
+from zh.model.mnist.mlp import MLP
+from zh.model.utils import MNISTLoader
+
+num_batches = 1000
+batch_size = 50
+learning_rate = 0.001
+log_dir = &apos;tensorboard&apos;
+model = MLP()
+data_loader = MNISTLoader()
+optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate)
+summary_writer = tf.summary.create_file_writer(log_dir)     # 实例化记录器
+tf.summary.trace_on(profiler=True)  # 开启Trace（可选）
+for batch_index in range(num_batches):
+    X, y = data_loader.get_batch(batch_size)
+    with tf.GradientTape() as tape:
+        y_pred = model(X)
+        loss = tf.keras.losses.sparse_categorical_crossentropy(y_true=y, y_pred=y_pred)
+        loss = tf.reduce_mean(loss)
+        print(&quot;batch %d: loss %f&quot; % (batch_index, loss.numpy()))
+        with summary_writer.as_default():                           # 指定记录器
+            tf.summary.scalar(&quot;loss&quot;, loss, step=batch_index)       # 将当前损失函数的值写入记录器
+    grads = tape.gradient(loss, model.variables)
+    optimizer.apply_gradients(grads_and_vars=zip(grads, model.variables))
+with summary_writer.as_default():
+    tf.summary.trace_export(name=&quot;model_trace&quot;, step=0, profiler_outdir=log_dir)    # 保存Trace信息到文件（可选）</code></pre>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-tensorflow2-0系列-七-：变量的保存与恢复" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/19/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%B8%83-%EF%BC%9A%E5%8F%98%E9%87%8F%E7%9A%84%E4%BF%9D%E5%AD%98%E4%B8%8E%E6%81%A2%E5%A4%8D/"
+    >tensorflow2.0系列(七)：变量的保存与恢复</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/19/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%B8%83-%EF%BC%9A%E5%8F%98%E9%87%8F%E7%9A%84%E4%BF%9D%E5%AD%98%E4%B8%8E%E6%81%A2%E5%A4%8D/" class="article-date">
+  <time datetime="2020-03-19T09:12:05.000Z" itemprop="datePublished">2020-03-19</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>变量的保存与恢复<br>很多时候，我们希望在模型训练完成后能将训练好的参数（变量）保存起来。在需要使用模型的其他地方载入模型和参数，就能直接得到训练好的模型。你第一个想到的可能是用Python的序列化模块pickle来存储model.variables。但是这种方法并不能保存tensorflow生成的变量。<br>pickle模块：<br>通过python的pickle模块实现了对象的序列和反序列化。<br>通过pickle模块的序列化操作我们能够将程序中运行的对象信息保存到文件中去，永久存储。<br>通过pickle模块的反序列化操作，我们能够从文件中创建上一次程序保存的对象。<br>基本接口：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pickle.dump(obj, file, [,protocol])</span><br><span class="line">x &#x3D; pickle.load(file)</span><br></pre></td></tr></table></figure>
+<p>这里的protocol有什么用。[1]</p>
+<p>TensorFlow提供了tf.train.Checkpoint这一强大的变量保存与恢复类，使用save()和restore()方法即可将TensorFlow中所有包含Checkpointable State的对象进行保存和恢复。具体的说，tf.keras.optimizer、tf.Variable、tf.keras.Layer或者tf.keras.Model实例都可以被保存。<br>使用方法非常简单，例如，如果我们希望保存一个继承tf.keras.Model的模型实例model和一个继承tf.train.Optimizer的优化器optimizer，我们可以这样写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">checkpoint &#x3D; tf.train.Checkpoint(myAwesomeModel&#x3D;model, myAwesomeOptimizer&#x3D;optimizer)</span><br></pre></td></tr></table></figure>
+<p>tf.train.Checkpoint()接受的参数比较特殊，是一个**kwargs。具体而言，是一系列的键值对，键名可以随意取，值为需要保存的对象。myAwesomeModel是我们为待保存的模型model所取的任意键名。注意，在恢复变量的时候，我们还将使用这一键名。</p>
+<p>接下来，当模型训练完成需要保存的时候，使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">checkpoint.save(save_path_with_prefix)</span><br></pre></td></tr></table></figure>
+<p>save_path_with_prefix是保存文件的目录+前缀。<br>在源代码目录建立一个名为save的文件夹并执行一次checkpoint.save(‘./save/model.ckpt’)，我们就可以在可以在save目录下发现名为checkpoint、model.ckpt-1.index、model.ckpt-1.data-00000-of-00001的三个文件，这些文件记录了变量信息。checkpoint.save()方法可以运行多次，每运行一次都会得到一个.index文件和.data文件，序号依次累加。</p>
+<p>当在其他地方需要为模型重新载入之前保存的参数时，需要再次实例化一个checkpoint，同时保持键名的一致。再调用checkpoint的restore方法。如下面代码所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">model_to_be_restored &#x3D; MyModel()                                        # 待恢复参数的同一模型</span><br><span class="line">checkpoint &#x3D; tf.train.Checkpoint(myAwesomeModel&#x3D;model_to_be_restored)   # 键名保持为“myAwesomeModel”</span><br><span class="line">checkpoint.restore(save_path_with_prefix_and_index)</span><br></pre></td></tr></table></figure>
+<p>即可恢复模型变量。save_path_with_prefix_and_index是之前保存的文件的目录+前缀+编号。例如，调用checkpoint.restore(‘./save/model.ckpt-1’)就可以载入前缀为model.ckpt，序号为1的文件来恢复模型。当保存了多个文件时，我们往往想载入最近的一个。可以使用tf.train.latest_checkpoint(save_path)这个辅助函数返回目录下最近一次checkpoint的文件名。例如如果save目录下有model.ckpt-1.index到model.ckpt-10.index的10个保存文件，tf.train.latest_checkpoint(‘./save’)即返回./save/model.ckpt-10。</p>
+<p>总体而言，恢复与保存变量的典型代码框架如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># train.py 模型训练阶段</span><br><span class="line">model &#x3D; MyModel()</span><br><span class="line"># 实例化Checkpoint，指定保存对象为model（如果需要保存Optimizer的参数也可加入）</span><br><span class="line">checkpoint &#x3D; tf.train.Checkpoint(myModel&#x3D;model)</span><br><span class="line"># ...（模型训练代码）</span><br><span class="line"># 模型训练完毕后将参数保存到文件（也可以在模型训练过程中每隔一段时间就保存一次）</span><br><span class="line">checkpoint.save(&#39;.&#x2F;save&#x2F;model.ckpt&#39;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># test.py 模型使用阶段</span><br><span class="line">model &#x3D; MyModel()</span><br><span class="line">checkpoint &#x3D; tf.train.Checkpoint(myModel&#x3D;model)             # 实例化Checkpoint，指定恢复对象为model</span><br><span class="line">checkpoint.restore(tf.train.latest_checkpoint(&#39;.&#x2F;save&#39;))    # 从文件恢复模型参数</span><br><span class="line"># 模型使用代码</span><br></pre></td></tr></table></figure>
+
+<p>[1]</p>
+<p>以多层感知机模型为例展示模型变量的保存和载入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[2]</span><br></pre></td></tr></table></figure>
+
+<p>使用tf.train.CheckpointManager删除旧的Checkpoint以及自定义文件编号:<br>在模型的训练过程中，我们往往每隔一定步数保存一个Checkpoint并进行编号。不过很多时候我们会有这样的需求：<br>在长时间的训练后，程序会保存大量的 Checkpoint，但我们只想保留最后的几个 Checkpoint；<br>Checkpoint默认从1开始编号，每次累加1，但我们可能希望使用别的编号方式(例如使用当前Batch的编号作为文件编号)。<br>这时，我们可以使用TensorFlow的tf.train.CheckpointManager来实现以上需求。具体的说，就是在定义Checkpoint后接着定义一个CheckpointManager：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">checkpoint &#x3D; tf.train.Checkpoint(model&#x3D;model)</span><br><span class="line">manager &#x3D; tf.train.CheckpointManager(checkpoint, directory&#x3D;&#39;.&#x2F;save&#39;, checkpoint_name&#x3D;&#39;model.ckpt&#39;, max_to_keep&#x3D;k)</span><br></pre></td></tr></table></figure>
+<p>此处，directory参数为文件保存的路径，checkpoint_name为文件名前缀(不提供则默认为ckpt)，max_to_keep为保留的Checkpoint数目。在需要保存模型的时候，我们直接使用manager.save()即可。如果我们希望指定保存的Checkpoint的编号，则可以在保存时传入checkpoint_number参数。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">manager.save(checkpoint_number&#x3D;100)</span><br></pre></td></tr></table></figure>
+
+<p>以下提供一个实例，展示使用CheckpointManager限制仅保留最后三个Checkpoint文件，并使用batch的编号作为Checkpoint的文件编号。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[3]</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-tensorflow2-0系列-六-：灵活建立模型" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/19/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%85%AD-%EF%BC%9A%E7%81%B5%E6%B4%BB%E5%BB%BA%E7%AB%8B%E6%A8%A1%E5%9E%8B/"
+    >tensorflow2.0系列(六)：灵活建立模型</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/19/tensorflow2-0%E7%B3%BB%E5%88%97-%E5%85%AD-%EF%BC%9A%E7%81%B5%E6%B4%BB%E5%BB%BA%E7%AB%8B%E6%A8%A1%E5%9E%8B/" class="article-date">
+  <time datetime="2020-03-19T06:32:30.000Z" itemprop="datePublished">2020-03-19</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>两种非继承类建立模型的方法：<br>sequential和functional<br>sequential：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">model &#x3D; tf.keras.models.Sequential([</span><br><span class="line">    tf.keras.layers.Flatten(),</span><br><span class="line">    tf.keras.layers.Dense(100, activation&#x3D;tf.nn.relu),</span><br><span class="line">    tf.keras.layers.Dense(10),</span><br><span class="line">    tf.keras.layers.Softmax()</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+
+<p>functional：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">inputs &#x3D; tf.keras.Input(shape&#x3D;(28, 28, 1))</span><br><span class="line">x &#x3D; tf.keras.layers.Flatten()(inputs)</span><br><span class="line">x &#x3D; tf.keras.layers.Dense(units&#x3D;100, activation&#x3D;tf.nn.relu)(x)</span><br><span class="line">x &#x3D; tf.keras.layers.Dense(units&#x3D;10)(x)</span><br><span class="line">outputs &#x3D; tf.keras.layers.Softmax()(x)</span><br><span class="line">model &#x3D; tf.keras.Model(inputs&#x3D;inputs, outputs&#x3D;outputs)</span><br></pre></td></tr></table></figure>
+
+<p>通过这两种方式建立的模型要通过tf.keras.Model的compile方法配置训练过程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">model.compile(</span><br><span class="line">    optimizer&#x3D;tf.keras.optimizers.Adam(learning_rate&#x3D;0.001),</span><br><span class="line">    loss&#x3D;tf.keras.losses.sparse_categorical_crossentropy,</span><br><span class="line">    metrics&#x3D;[tf.keras.metrics.sparse_categorical_accuracy]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>tf.keras.Model.compile接受3个重要的参数：<br>oplimizer：优化器，从tf.keras.optimizers中选择；loss：损失函数，从tf.keras.losses中选择；metrics：评估指标，从tf.keras.metrics中选择。</p>
+<p>接下来，使用tf.keras.Model的fit方法训练模型：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.fit(data_loader.train_data, data_loader.train_label, epochs&#x3D;num_epochs, batch_size&#x3D;batch_size)</span><br></pre></td></tr></table></figure>
+<p>tf.keras.Model.fit接受5个重要的参数：x：训练数据；y：目标数据(数据标签)；epochs：将训练数据迭代多少遍；batch_size：批次的大小；validation_data：验证数据，可用于在训练过程中监控模型的性能。<br>最后，使用tf.keras.Model.evaluate评估训练效果，提供测试数据及标签即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(model.evaluate(data_loader.test_data, data_loader.test_label))</span><br></pre></td></tr></table></figure>
+
+<p>自定义层：不会</p>
+<p>自定义损失函数和评估指标：<br>自定义损失函数需要继承tf.keras.losses.Loss类，重写call方法即可，传入真实值y_true和模型预测值 y_pred，输出模型预测值和真实值之间通过自定义的损失函数计算出的损失值。<br>下面的示例为均方差损失函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class MeanSquaredError(tf.keras.losses.Loss):</span><br><span class="line">    def call(self, y_true, y_pred):</span><br><span class="line">        return tf.reduce_mean(tf.square(y_pred - y_true))</span><br></pre></td></tr></table></figure>
+
+<p>自定义评估指标：不会</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-北师大图论系列-一" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -489,359 +960,6 @@
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-白板推导系列-一-：SVM定义" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/16/%E7%99%BD%E6%9D%BF%E6%8E%A8%E5%AF%BC%E7%B3%BB%E5%88%97-%E4%B8%80-%EF%BC%9ASVM%E5%AE%9A%E4%B9%89/"
-    >白板推导系列(一)：SVM定义</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/16/%E7%99%BD%E6%9D%BF%E6%8E%A8%E5%AF%BC%E7%B3%BB%E5%88%97-%E4%B8%80-%EF%BC%9ASVM%E5%AE%9A%E4%B9%89/" class="article-date">
-  <time datetime="2020-03-16T10:12:51.000Z" itemprop="datePublished">2020-03-16</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p><img src="/images/SVMdefinition.jpg" alt=""></p>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-tensorflow2-0系列-二" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/16/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%BA%8C/"
-    >tensorflow2.0系列(二)</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/16/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%BA%8C/" class="article-date">
-  <time datetime="2020-03-16T05:55:04.000Z" itemprop="datePublished">2020-03-16</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>random_float = tf.random.uniform(shape=()) # 定义一个随机数（标量）</p>
-<p>zero_vector = tf.zeros(shape=(2)) # 定义一个有2个元素的零向量</p>
-<p>A = tf.constant([[1., 2.], [3., 4.]])<br>B = tf.constant([[5., 6.], [7., 8.]]) # 定义两个2×2的常量矩阵<br>注意shape的值，shape括号里数字的个数就是生成的张量的维度，没有数字就是0维，也就是标量。<br>张量一般关注三个地方：形状、类型和值。通过张量的 shape 、 dtype 属性和 numpy() 方法获得。</p>
-<p>print(A.shape)      # 输出(2, 2)，即矩阵的长和宽均为2<br>print(A.dtype)      # 输出&lt;dtype: ‘float32’&gt;<br>print(A.numpy())    # 输出[[1. 2.],[3. 4.]]  # 查看矩阵A的形状、类型和值</p>
-<p>张量通过numpy方法取出张量的值。<br>在tensorflow1.x版本中，要开启即时执行模式要在开启的位置调用tf.enable_eager_execution() 函数，在tensorflow2.x版本<br>中，即时执行模式是默认开启的。另外，关闭即时执行模式就是调用tf.compat.v1.disable_eager_execution() 函数。不清楚<br>是不是在1.x、2.x版本中都是这么来关闭这种模式。2.x版本里是可行的。<br>即时执行模式和图执行模式的区别就是进行运算不用调用会话了，直接就可以计算。<br>tensorflow的自动求导功能：<br>例：使用 tf.GradientTape() 计算函数 y(x) = x^2 在 x = 3 时的导数<br>import tensorflow as tf</p>
-<p>x = tf.Variable(initial_value=3.)<br>with tf.GradientTape() as tape:     # 在 tf.GradientTape() 的上下文内，所有计算步骤都会被记录以用于求导<br>    y = tf.square(x)<br>y_grad = tape.gradient(y, x)        # 计算y关于x的导数<br>print([y, y_grad])<br>例：使用 tf.GradientTape() 计算函数 L(w, b) = (Xw + b - y)^2 在 w = (1, 2)^T, b = 1 时分别对 w, b 的偏导数。<br>其中 X = [[1.,2.],[3.,4.]],y = [[1.],[2.]]<br>X = tf.constant([[1., 2.], [3., 4.]])<br>y = tf.constant([[1.], [2.]])<br>w = tf.Variable(initial_value=[[1.], [2.]])<br>b = tf.Variable(initial_value=1.)<br>with tf.GradientTape() as tape:<br>    L = 0.5 * tf.reduce_sum(tf.square(tf.matmul(X, w) + b - y))<br>w_grad, b_grad = tape.gradient(L, [w, b])        # 计算L(w, b)关于w, b的偏导数<br>print([L.numpy(), w_grad.numpy(), b_grad.numpy()])<br>#tf.reduce_sum() 操作是对输入张量的所有元素求和，输出一个形状为空的纯量张量（可以通过 axis 参数来指定求和的维度，不指定则默认对所有元素求和）。<br>波士顿房价问题，什么时候要进行归一化操作，归一化的方式是唯一的吗？<br>import numpy as np</p>
-<p>X_raw = np.array([2013, 2014, 2015, 2016, 2017], dtype=np.float32)<br>y_raw = np.array([12000, 14000, 15000, 16500, 17500], dtype=np.float32)</p>
-<p>X = (X_raw - X_raw.min()) / (X_raw.max() - X_raw.min())<br>y = (y_raw - y_raw.min()) / (y_raw.max() - y_raw.min())<br>使用tensorflow实现城市房价问题的参数求解：<br>X = tf.constant(X)<br>y = tf.constant(y)</p>
-<p>a = tf.Variable(initial_value=0.)<br>b = tf.Variable(initial_value=0.)<br>variables = [a, b]</p>
-<p>num_epoch = 10000<br>optimizer = tf.keras.optimizers.SGD(learning_rate=1e-3)<br>for e in range(num_epoch):<br>    # 使用tf.GradientTape()记录损失函数的梯度信息<br>    with tf.GradientTape() as tape:<br>        y_pred = a * X + b<br>        loss = 0.5 * tf.reduce_sum(tf.square(y_pred - y))<br>    # TensorFlow自动计算损失函数关于自变量（模型参数）的梯度<br>    grads = tape.gradient(loss, variables)<br>    # TensorFlow自动根据梯度更新参数<br>    optimizer.apply_gradients(grads_and_vars=zip(grads, variables))</p>
-<p>print(a, b)<br>Python 的 zip() 函数：<br>如果 a = [1, 3, 5]， b = [2, 4, 6]，那么 zip(a, b) = [(1, 2), (3, 4), …, (5, 6)]。</p>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-tensorflow2-0系列-一" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/16/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%B8%80/"
-    >tensorflow2.0系列(一)</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/16/tensorflow2-0%E7%B3%BB%E5%88%97-%E4%B8%80/" class="article-date">
-  <time datetime="2020-03-16T04:40:17.000Z" itemprop="datePublished">2020-03-16</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>tensorflow安装：<br>      1、Anaconda<br>      2、conda create –name tf2 python=3.7      # “tf2”是你建立的conda虚拟环境的名字<br>         conda activate tf2                      # 进入名为“tf2”的conda虚拟环境<br>      3、pip install tensorflow -i <a href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/help/pypi/</a><br>注：<br>      1、也可以使用 conda install tensorflow 来安装 TensorFlow，但是conda源的版本更新较慢<br>      2、从tensorflow2.1开始，tensorflow包就是gpu版本，不需要安装tensorflow-gpu包，<br>         如果需要安装cpu版本，则安装tensorflow-cpu<br>pip常用命令：<br>      pip install [package-name]              # 安装名为[package-name]的包<br>      pip install [package-name]==X.X         # 安装名为[package-name]的包并指定版本X.X<br>      pip install [package-name] –proxy=代理服务器IP:端口号         # 使用代理服务器安装<br>      pip install [package-name] –upgrade    # 更新名为[package-name]的包<br>      pip uninstall [package-name]            # 删除名为[package-name]的包<br>      pip list                                # 列出当前环境下已安装的所有包<br>conda常用命令：<br>      conda install [package-name]        # 安装名为[package-name]的包<br>      conda install [package-name]=X.X    # 安装名为[package-name]的包并指定版本X.X<br>      conda update [package-name]         # 更新名为[package-name]的包<br>      conda remove [package-name]         # 删除名为[package-name]的包<br>      conda list                          # 列出当前环境下已安装的所有包<br>      conda search [package-name]         # 列出名为[package-name]的包在conda源中的所有可用版本<br>conda包管理器相比pip的优点是可以安装更多的包，但是缺点是版本更新较慢<br>创建虚拟环境命令：<br>      conda create –name [env-name]      # 建立名为[env-name]的Conda虚拟环境<br>      conda activate [env-name]           # 进入名为[env-name]的Conda虚拟环境<br>      conda deactivate                    # 退出当前的Conda虚拟环境<br>      conda env remove –name [env-name]  # 删除名为[env-name]的Conda虚拟环境<br>      conda env list                      # 列出所有Conda虚拟环境<br>tensorflowgpu版本安装：<br>      conda install cudatoolkit=X.X<br>      conda install cudnn=X.X.X<br>      cuda与cudnn，tensorflow-gpu包的版本一定要对应的上<br>      也可以手动去官网下载cuda和cudnn<br>      另外，在用conda包管理器安装tensorflow-gpu版本时会自动安装对应版本的cuda与cudnn，<br>      缺点是tensorflow-gpu的版本可能较低，因为conda源里的包更新的比较慢。<br>reference:<a href="https://tf.wiki/" target="_blank" rel="noopener">https://tf.wiki/</a></p>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-系列-二-：线性分类器" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/15/%E7%B3%BB%E5%88%97-%E4%BA%8C-%EF%BC%9A%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8/"
-    >系列(二)：线性分类器</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/15/%E7%B3%BB%E5%88%97-%E4%BA%8C-%EF%BC%9A%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8/" class="article-date">
-  <time datetime="2020-03-15T03:53:43.000Z" itemprop="datePublished">2020-03-15</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>神经网络就像乐高玩具，搭积木，非线性神经元就是一块块积木。再比如设计一个输入图片输出描述性语言的系统，我们就可以用一个CNN和一个RNN作为基本组件来搭建。<br>Y=WX+b中的b是怎么起作用的，有时候你的数据集是不平衡的，比如猫的个数多于狗的个数。个数更多的类别往往有更大的偏置项。[1]<br>线性分类器的工作方式就是X是一个图像，把X展平成一个列向量，W是一个以列向量的长度与分类的个数为维度的二维向量，b是一个长度为类别个数的列向量。经过运算后会得到列向量Y，Y的元素就是每个类别的得分。<br>哪个类别的得分越高就被划分为哪类。W的每一行就是每一种类别的模板，模板与图像的点乘结果大，就说这个模板匹配了图像，也就意味着这个图像中包含模板想要寻找的特征。<br>把这些模板可视化，找到模板中的特征，就是这个分类器在分类时想要寻找的特征。<br>线性分类器的缺点，模板是在数据集上训练得到的，所以如果某个类别的图像是对称过来的双份数据，那么这个类别训练出的模板可视化之后的结果可能会很奇怪，比如有两个头的马。再比如开向不同方向的火车，模板想要<br>在一张图像上把所有的方向特征都表现出来，就会看起来很奇怪，甚至看起来像一张由噪声生成的图片。线性分类器只能绘制出一条线性边界，这就是它的局限性。</p>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cs231n/" rel="tag">cs231n</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-系列-一-：K最近邻算法" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/15/%E7%B3%BB%E5%88%97-%E4%B8%80-%EF%BC%9AK%E6%9C%80%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/"
-    >系列(一)：K最近邻算法</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/15/%E7%B3%BB%E5%88%97-%E4%B8%80-%EF%BC%9AK%E6%9C%80%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/" class="article-date">
-  <time datetime="2020-03-15T02:26:21.000Z" itemprop="datePublished">2020-03-15</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>L1距离：又叫曼哈顿距离，用来衡量两张图片的距离就是矩阵作差，取绝对值，再将所有元素加起来的值。<br>L2距离：欧氏距离，两个矩阵作差对每个元素平方后求和开根号。<br>L2距离并不适合来描述视觉上的差异。相同的L2距离可能产生差异很大的视觉效果。<br>K最近邻算法是一种基于有标签数据的算法。K越大，决策边界越平滑。平滑可以理解为线性性更好，<br>更接近于线性边界。有时候会给离最近的点的距离一个阈值，如果离这个点最近的有类别的点的距离<br>大于某一数值，那么就认为这个点是无类别点。如果我们用颜色来区分类别，那么这个点所在的区域就是<br>白色。选择哪一种距离度量属于超参数。都去试一下看哪一种度量下分类的效果更好。<br>数据集被划分为训练集、验证集和测试集。交叉验证：把训练集+验证集分为N份，每次在其中的N-1份上<br>训练，在最后一份上验证，将所有在验证集上的结果加起来，取最小的超参数。验证集的作用是选取最好<br>的超参数。<br>如何去建立一个数据集？按照同样的方式去收集每一份数据，再将收集到的数据随机打乱划分为训练集、<br>验证集和测试集。对于K最近邻算法来说，或者所有有超参数的学习算法来说，画出以超参数为横轴，<br>在验证集上的距离度量为纵轴的图像都是有必要的，这是挑选合适的超参数的方法。K最近邻算法并不<br>适合用来分类图像。如果有时间，有计算资源，在挑选出最优的超参数后会重新用这个超参数来训练模型。<br>也就是在训练集和验证集上共同训练模型。</p>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/KNN/" rel="tag">KNN</a></li></ul>
 
 
     </footer>

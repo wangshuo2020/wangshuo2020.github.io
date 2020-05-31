@@ -69,6 +69,346 @@
     
     
     
+    <article id="post-数据结构与算法-十一-归并排序" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-%E5%8D%81%E4%B8%80-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/"
+    >数据结构与算法(十一)-归并排序</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-%E5%8D%81%E4%B8%80-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" class="article-date">
+  <time datetime="2020-05-31T09:47:31.000Z" itemprop="datePublished">2020-05-31</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;algorithm&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">void Merge(T *initList, T *mergedList, const int l, const int m, const int n)&#123;</span><br><span class="line">	int i1, i2, iResult;</span><br><span class="line">	for(i1&#x3D;l, i2&#x3D;m+1, iResult&#x3D;l; i1&lt;&#x3D;m &amp;&amp; i2&lt;&#x3D;n; iResult++)</span><br><span class="line">	&#123;</span><br><span class="line">		if(initList[i1]&lt;&#x3D;initList[i2])</span><br><span class="line">		&#123;</span><br><span class="line">			mergedList[iResult] &#x3D;initList[i1];</span><br><span class="line">			i1++;</span><br><span class="line">		&#125;</span><br><span class="line">		else</span><br><span class="line">		&#123;</span><br><span class="line">			mergedList[iResult] &#x3D; initList[i2];</span><br><span class="line">			i2++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	copy(initList+i1, initList+m+1, mergedList+iResult);</span><br><span class="line">	copy(initList+i2, initList+n+1, mergedList+iResult);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">void MergePass(T *initList, T *resultList, const int n, const int s)</span><br><span class="line">&#123;</span><br><span class="line">	int i;</span><br><span class="line">	for(i&#x3D;1; i&lt;&#x3D;n-2*s+1; i+&#x3D;2*s)</span><br><span class="line">		Merge(initList, resultList, i, i+s-1, i+2*s-1);</span><br><span class="line">	</span><br><span class="line">	if((i+s-1)&lt;n)</span><br><span class="line">		Merge(initList, resultList,i,i+s-1,n);</span><br><span class="line">	else</span><br><span class="line">		copy(initList+i, initList+n+1, resultList+i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">void MergeSort(T *a, const int n)</span><br><span class="line">&#123;</span><br><span class="line">	</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	&#x2F;&#x2F;a[0]不用 </span><br><span class="line">	int a[] &#x3D; &#123;0,23,47,81,95,7,14,39,55,62,74&#125;;</span><br><span class="line">	int b[11] &#x3D; &#123;0&#125;;</span><br><span class="line">	Merge(a, b, 1, 4, 10);</span><br><span class="line">	for(int i&#x3D;1;i&lt;11;i++)</span><br><span class="line">		cout &lt;&lt; b[i] &lt;&lt; &quot; &quot;;</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">	</span><br><span class="line">	int m[] &#x3D; &#123;0,26,5,77,1,61,11,59,15,48,19&#125;;</span><br><span class="line">	int n[11] &#x3D; &#123;0&#125;;</span><br><span class="line">	MergePass(m,n,10,1);</span><br><span class="line">	for(int i&#x3D;1; i&lt;11; ++i)</span><br><span class="line">		cout &lt;&lt; n[i] &lt;&lt; &quot; &quot;;</span><br><span class="line">	cout &lt;&lt;endl;</span><br><span class="line">	</span><br><span class="line">	MergePass(n,m,10,2);</span><br><span class="line">	for(int i&#x3D;1; i&lt;11; ++i)</span><br><span class="line">		cout &lt;&lt; m[i] &lt;&lt; &quot; &quot;;</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">	</span><br><span class="line">	MergePass(m,n,10,4);</span><br><span class="line">	for(int i&#x3D;1; i&lt;11; ++i)</span><br><span class="line">		cout &lt;&lt; n[i] &lt;&lt; &quot; &quot;;</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">	</span><br><span class="line">	MergePass(n,m,10,8);</span><br><span class="line">	for(int i&#x3D;1; i&lt;11; ++i)</span><br><span class="line">		cout &lt;&lt; m[i] &lt;&lt; &quot; &quot;;	</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;hello&quot; &lt;&lt; endl;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag">数据结构与算法</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-数据结构与算法-十-快速排序" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-%E5%8D%81-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/"
+    >数据结构与算法(十)-快速排序</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-%E5%8D%81-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" class="article-date">
+  <time datetime="2020-05-31T09:47:19.000Z" itemprop="datePublished">2020-05-31</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">void QuickSort(T *a, const int left, const int right)</span><br><span class="line">&#123;</span><br><span class="line">	if(left&lt;right)</span><br><span class="line">	&#123;</span><br><span class="line">		&#x2F;&#x2F;选枢轴</span><br><span class="line">		int i &#x3D; left;</span><br><span class="line">		int j &#x3D; right+1; &#x2F;&#x2F;为什么要加1 </span><br><span class="line">		int pivot &#x3D; a[left];</span><br><span class="line">		</span><br><span class="line">		&#x2F;&#x2F;划分算法 </span><br><span class="line">		do&#123;</span><br><span class="line">			do i++; while(a[i]&lt;pivot);</span><br><span class="line">			do j--; while(a[j]&gt;pivot);</span><br><span class="line">			if(i&lt;j) swap(a[i],a[j]);</span><br><span class="line">		&#125;while(i&lt;j);</span><br><span class="line">		swap(a[left],a[j]);</span><br><span class="line">				 </span><br><span class="line">		&#x2F;&#x2F;递归		 </span><br><span class="line">		QuickSort(a,left,j-1);</span><br><span class="line">		QuickSort(a,j+1,right);</span><br><span class="line">	&#125;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int k[] &#x3D; &#123;8,6,4,2,0,1,3,5,7,9,99&#125;;</span><br><span class="line">	QuickSort(k,0,9);</span><br><span class="line">	for(int i&#x3D;0;i&lt;10;i++)</span><br><span class="line">		cout &lt;&lt; k[i] &lt;&lt; endl;		 </span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag">数据结构与算法</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-数据结构与算法-九-插入排序" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-%E4%B9%9D-%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/"
+    >数据结构与算法(九)-插入排序</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-%E4%B9%9D-%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/" class="article-date">
+  <time datetime="2020-05-31T09:47:10.000Z" itemprop="datePublished">2020-05-31</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;void InsertionSort(int *a, int n);</span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">void InsertionSort(T *a, int n);</span><br><span class="line"></span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">void InsertionSort_2(T *a, int n);</span><br><span class="line"></span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">void Insert(const T&amp; e, T *a, int i);</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">&#x2F;&#x2F;	int x[] &#x3D; &#123;2,4,6,8,0,1,3,5,7,9&#125;;</span><br><span class="line">	double x[] &#x3D; &#123;2.2, 4.5, 6.6, 8, 0, 1, 3, 5, 7, 9&#125;;</span><br><span class="line">	int y[] &#x3D; &#123;0,2,4,6,8,0,1,3,5,7,9&#125;;</span><br><span class="line">	InsertionSort(x,10);</span><br><span class="line">	InsertionSort_2(y,10);</span><br><span class="line">	</span><br><span class="line">	for(int i&#x3D;1;i&lt;10;++i)&#123;</span><br><span class="line">		&#x2F;&#x2F;cout &lt;&lt; x[i] &lt;&lt; endl;</span><br><span class="line">		cout &lt;&lt; y[i] &lt;&lt; endl;	</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">void InsertionSort(T *a, int n)</span><br><span class="line">&#123;</span><br><span class="line">	int in, out; </span><br><span class="line">	for(out&#x3D;1;out&lt;n;++out)</span><br><span class="line">	&#123;</span><br><span class="line">		T temp &#x3D; a[out];</span><br><span class="line">		in &#x3D; out;</span><br><span class="line">		while(in&gt;0 &amp;&amp; a[in-1]&gt;&#x3D;temp)</span><br><span class="line">		&#123;</span><br><span class="line">			a[in] &#x3D; a[in-1];</span><br><span class="line">			--in;</span><br><span class="line">		&#125;</span><br><span class="line">		a[in] &#x3D; temp;</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">void InsertionSort_2(T *a, int n)</span><br><span class="line">&#123;</span><br><span class="line">	&#x2F;&#x2F;a[0]用来保存排序使用，不能保存原始数据</span><br><span class="line">	for(int j&#x3D;2; j&lt;&#x3D;n; ++j)</span><br><span class="line">	&#123;</span><br><span class="line">		T temp &#x3D; a[j];</span><br><span class="line">		Insert(temp,a,j-1);</span><br><span class="line">&#x2F;&#x2F;		a[0] &#x3D; temp;</span><br><span class="line">&#x2F;&#x2F;		int i &#x3D; j-1;</span><br><span class="line">&#x2F;&#x2F;		while(temp &lt; a[i])</span><br><span class="line">&#x2F;&#x2F;		&#123;</span><br><span class="line">&#x2F;&#x2F;			a[i+1] &#x3D; a[i];</span><br><span class="line">&#x2F;&#x2F;			i--;</span><br><span class="line">&#x2F;&#x2F;		&#125;</span><br><span class="line">&#x2F;&#x2F;		a[i+1] &#x3D; temp;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">void Insert(const T&amp; e, T *a, int i)</span><br><span class="line">&#123;</span><br><span class="line">	a[0] &#x3D; e;</span><br><span class="line">	while(e&lt;a[i])</span><br><span class="line">	&#123;</span><br><span class="line">		a[i+1] &#x3D; a[i];</span><br><span class="line">		i--;</span><br><span class="line">	&#125;</span><br><span class="line">	a[i+1] &#x3D; e;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;void InsertionSort(double *a, int n);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;void InsertionSort(int *a, int n)</span><br><span class="line">&#x2F;&#x2F;&#123;	</span><br><span class="line">&#x2F;&#x2F;	int in, out;</span><br><span class="line">&#x2F;&#x2F;	&#x2F;&#x2F;开始时out&#x3D;0这个人已经出去了 </span><br><span class="line">&#x2F;&#x2F;	for(out&#x3D;1;out&lt;n;++out)</span><br><span class="line">&#x2F;&#x2F;	&#123;</span><br><span class="line">&#x2F;&#x2F;		int temp &#x3D; a[out];</span><br><span class="line">&#x2F;&#x2F;		in &#x3D; out;</span><br><span class="line">&#x2F;&#x2F;		while(in&gt;0 &amp;&amp; a[in-1]&gt;&#x3D;temp)</span><br><span class="line">&#x2F;&#x2F;		&#123;</span><br><span class="line">&#x2F;&#x2F;			a[in] &#x3D; a[in-1];</span><br><span class="line">&#x2F;&#x2F;			--in;</span><br><span class="line">&#x2F;&#x2F;		&#125;</span><br><span class="line">&#x2F;&#x2F;		a[in] &#x3D; temp;</span><br><span class="line">&#x2F;&#x2F;	&#125;</span><br><span class="line">&#x2F;&#x2F;&#125;</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag">数据结构与算法</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-数据结构与算法-八-排列组合" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-%E5%85%AB-%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/"
+    >数据结构与算法(八)-排列组合</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-%E5%85%AB-%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/" class="article-date">
+  <time datetime="2020-05-31T09:46:51.000Z" itemprop="datePublished">2020-05-31</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int c1 &#x3D; 0;</span><br><span class="line">int c2 &#x3D; 0;</span><br><span class="line"></span><br><span class="line">void show(char *p, int m)</span><br><span class="line">&#123;</span><br><span class="line">	for(int i&#x3D;0; i&lt;&#x3D;m; i++)</span><br><span class="line">		cout &lt;&lt; p[i];</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Permutations(char *p, const int k, const int m)</span><br><span class="line">&#123;</span><br><span class="line">&#x2F;&#x2F;	cout &lt;&lt; &quot;c1&#x3D;&quot; &lt;&lt; ++c1 &lt;&lt; endl;</span><br><span class="line">	if(k&#x3D;&#x3D;m)</span><br><span class="line">	&#123;</span><br><span class="line">		for(int i&#x3D;0;i&lt;&#x3D;m;i++)</span><br><span class="line">			cout &lt;&lt; p[i];</span><br><span class="line">		cout &lt;&lt; endl;</span><br><span class="line">	&#125;else</span><br><span class="line">	&#123;</span><br><span class="line">		for(int i&#x3D;k; i&lt;&#x3D;m; i++)</span><br><span class="line">		&#123;</span><br><span class="line">&#x2F;&#x2F;			cout &lt;&lt; &quot;递归前，交换前:&quot; ;</span><br><span class="line">&#x2F;&#x2F;			show(p,m);</span><br><span class="line">			swap(p[k],p[i]);</span><br><span class="line">&#x2F;&#x2F;			cout &lt;&lt; &quot;递归前，交换后:&quot;;</span><br><span class="line">&#x2F;&#x2F;			show(p,m);</span><br><span class="line">			Permutations(p,k+1,m);</span><br><span class="line">&#x2F;&#x2F;			cout &lt;&lt; &quot;c2&#x3D;&quot; &lt;&lt; ++c2 &lt;&lt; endl;</span><br><span class="line">&#x2F;&#x2F;			cout &lt;&lt; &quot;递归后，交换前:&quot; ;</span><br><span class="line">&#x2F;&#x2F;			show(p,m);</span><br><span class="line">			swap(p[k],p[i]);</span><br><span class="line">&#x2F;&#x2F;			cout &lt;&lt; &quot;递归后，交换后:&quot;;</span><br><span class="line">&#x2F;&#x2F;			show(p,m);	</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;	&#x2F;&#x2F;a开头的，后面跟着bc的所有排列</span><br><span class="line">&#x2F;&#x2F;	swap(p[0],p[0]);</span><br><span class="line">&#x2F;&#x2F;	Permutations(p,1,2);</span><br><span class="line">&#x2F;&#x2F;	swap(p[0,p[0]]);</span><br><span class="line">&#x2F;&#x2F;	&#x2F;&#x2F;b开头的，后面跟着ac的所有排列</span><br><span class="line">&#x2F;&#x2F;	swap(p[0],p[1]);</span><br><span class="line">&#x2F;&#x2F;	Permutations(p,1,2);</span><br><span class="line">&#x2F;&#x2F;	swap(p[0],p[1]);</span><br><span class="line">&#x2F;&#x2F;	&#x2F;&#x2F;b开头的，后面跟着ac的所有排列</span><br><span class="line">&#x2F;&#x2F;	swap(p[0],p[2]); </span><br><span class="line">&#x2F;&#x2F;	Permutations(p,1,2);</span><br><span class="line">&#x2F;&#x2F;	swap(p[0],p[2]);	</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	char s[] &#x3D; &quot;abc&quot;;</span><br><span class="line">	Permutations(s,0,2);</span><br><span class="line">	</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag">数据结构与算法</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-数据结构与算法-七-递归二分查找" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-%E4%B8%83-%E9%80%92%E5%BD%92%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/"
+    >数据结构与算法(七)-递归二分查找</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-%E4%B8%83-%E9%80%92%E5%BD%92%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" class="article-date">
+  <time datetime="2020-05-31T09:46:30.000Z" itemprop="datePublished">2020-05-31</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int BinarySearch_I(int *a, const int x, const int n);</span><br><span class="line">int BinarySearch_R(int *a, const int x, const int left, const int right);</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int m[] &#x3D; &#123;1,2,3,4,5,6,7,8,9&#125;;</span><br><span class="line">	int result;</span><br><span class="line">	int num &#x3D; 7;</span><br><span class="line">	result &#x3D; BinarySearch_R(m,7,0,8);</span><br><span class="line">	if(result&lt;0)&#123;</span><br><span class="line">		cout &lt;&lt; &quot;没找到！&quot; &lt;&lt; endl;	</span><br><span class="line">	&#125;else&#123;</span><br><span class="line">		cout &lt;&lt; &quot;在m[&quot; &lt;&lt; result &lt;&lt; &quot;]找到&quot; &lt;&lt; num &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">	return 0;	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int BinarySearch_I(int *a, const int x, const int n)&#123;</span><br><span class="line">	int left &#x3D; 0, right &#x3D; 0;</span><br><span class="line">	while(left &lt;&#x3D; right)</span><br><span class="line">	&#123;</span><br><span class="line">		int middle &#x3D; (left + right)&#x2F;2;</span><br><span class="line">		if(x&lt;a[middle]) right &#x3D; middle -1;</span><br><span class="line">		else if(x&gt;a[middle]) left &#x3D; middle +1;</span><br><span class="line">		else return middle;</span><br><span class="line">	&#125;</span><br><span class="line">	return -1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int BinarySearch_R(int *a, const int x, const int left, const int right)&#123;</span><br><span class="line">	if(left&lt;&#x3D;right)</span><br><span class="line">	&#123;</span><br><span class="line">		int middle &#x3D; (left+right)&#x2F;2;</span><br><span class="line">		if(x&lt;a[middle]) return BinarySearch_R(a,x,left,middle);</span><br><span class="line">		else if(x&gt;a[middle]) return BinarySearch_R(a,x,middle,right);</span><br><span class="line">		else return middle;</span><br><span class="line">	&#125;</span><br><span class="line">	return -1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag">数据结构与算法</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-数据结构与算法-六-递归实现阶乘" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -394,343 +734,6 @@
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag">数据结构与算法</a></li></ul>
 
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-数据结构与算法-一-swap函数" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/05/30/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-%E4%B8%80-swap%E5%87%BD%E6%95%B0/"
-    >数据结构与算法(一)-swap函数</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/05/30/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-%E4%B8%80-swap%E5%87%BD%E6%95%B0/" class="article-date">
-  <time datetime="2020-05-30T13:51:12.000Z" itemprop="datePublished">2020-05-30</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int a, b, tmp;</span><br><span class="line">	</span><br><span class="line">	a &#x3D; 1;</span><br><span class="line">	b &#x3D; 10;</span><br><span class="line">	</span><br><span class="line">	cout &lt;&lt; &quot;a &#x3D; &quot; &lt;&lt; a &lt;&lt; &quot;, b &#x3D; &quot;&lt;&lt; b &lt;&lt; endl;</span><br><span class="line">	</span><br><span class="line">	tmp &#x3D; a;</span><br><span class="line">	a &#x3D; b;</span><br><span class="line">	b &#x3D; tmp;</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; &quot;a &#x3D; &quot; &lt;&lt; a &lt;&lt; &quot;, b &#x3D; &quot;&lt;&lt; b &lt;&lt; endl;</span><br><span class="line">		</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">void swap(int x, int y);</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int a, b;</span><br><span class="line">	a &#x3D; 1;</span><br><span class="line">	b &#x3D; 10;</span><br><span class="line">	cout &lt;&lt; &quot;一个不成功的swap方法:&quot; &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;a &#x3D; &quot; &lt;&lt; a &lt;&lt; &quot;, b &#x3D; &quot;&lt;&lt; b &lt;&lt; endl;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;a和b是如何传进去的？</span><br><span class="line">	&#x2F;&#x2F;按值传递：把a，b拷贝一个，传进去 </span><br><span class="line">	swap(a, b); &#x2F;&#x2F;传递参数的方式</span><br><span class="line">	 </span><br><span class="line">	cout &lt;&lt; &quot;a &#x3D; &quot; &lt;&lt; a &lt;&lt; &quot;, b &#x3D; &quot;&lt;&lt; b &lt;&lt; endl;</span><br><span class="line">	</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void swap(int x, int y)</span><br><span class="line">&#123;</span><br><span class="line">	int temp;</span><br><span class="line">	</span><br><span class="line">	temp &#x3D; x;</span><br><span class="line">	x &#x3D; y;</span><br><span class="line">	y &#x3D; temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">void swap(int *px, int *py);</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int a, b;</span><br><span class="line">	a &#x3D; 1;</span><br><span class="line">	b &#x3D; 10;</span><br><span class="line">	cout &lt;&lt; &quot;传指针的方法:&quot; &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;a &#x3D; &quot; &lt;&lt; a &lt;&lt; &quot;, b &#x3D; &quot;&lt;&lt; b &lt;&lt; endl;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F; 拷贝的指针(地址) </span><br><span class="line">	swap(&amp;a, &amp;b);</span><br><span class="line">	</span><br><span class="line">	cout &lt;&lt; &quot;a &#x3D; &quot; &lt;&lt; a &lt;&lt; &quot;, b &#x3D; &quot;&lt;&lt; b &lt;&lt; endl;</span><br><span class="line">	</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void swap(int *px, int *py)</span><br><span class="line">&#123;</span><br><span class="line">	int temp;</span><br><span class="line">	</span><br><span class="line">	temp &#x3D; *px;</span><br><span class="line">	*px &#x3D; *py;</span><br><span class="line">	*py &#x3D; temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">#define SWAP(x ,y ,t)((t)&#x3D;(x), (x)&#x3D;(y), (y)&#x3D;(t))</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int a, b, temp;</span><br><span class="line">	a &#x3D; 1;</span><br><span class="line">	b &#x3D; 10;</span><br><span class="line">	</span><br><span class="line">	cout &lt;&lt; &quot;使用宏定义函数:&quot; &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;a &#x3D; &quot; &lt;&lt; a &lt;&lt; &quot;, b &#x3D; &quot;&lt;&lt; b &lt;&lt; endl;</span><br><span class="line">	SWAP(a, b, temp);</span><br><span class="line">	cout &lt;&lt; &quot;a &#x3D; &quot; &lt;&lt; a &lt;&lt; &quot;, b &#x3D; &quot;&lt;&lt; b &lt;&lt; endl;	</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">void swap(int &amp;rx, int &amp;ry);</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int a, b;</span><br><span class="line">	a &#x3D; 1;</span><br><span class="line">	b &#x3D; 10;</span><br><span class="line">	</span><br><span class="line">	cout &lt;&lt; &quot;传引用:&quot; &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;a &#x3D; &quot; &lt;&lt; a &lt;&lt; &quot;, b &#x3D; &quot; &lt;&lt; b &lt;&lt; endl;</span><br><span class="line">	</span><br><span class="line">	swap(a, b);</span><br><span class="line">	</span><br><span class="line">	cout &lt;&lt; &quot;a &#x3D; &quot; &lt;&lt; a &lt;&lt; &quot;, b &#x3D; &quot; &lt;&lt; b &lt;&lt; endl;	</span><br><span class="line">	return 0;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 引用就是别名 </span><br><span class="line">void swap(int &amp;rx, int &amp;ry)</span><br><span class="line">&#123;</span><br><span class="line">	int tmp;</span><br><span class="line">	tmp &#x3D; rx;</span><br><span class="line">	rx &#x3D; ry;</span><br><span class="line">	ry &#x3D; tmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int a, b;</span><br><span class="line">	a &#x3D; 1;</span><br><span class="line">	b &#x3D; 10;</span><br><span class="line">	</span><br><span class="line">	cout &lt;&lt; &quot;使用std::swap函数:&quot; &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;a &#x3D; &quot; &lt;&lt; a &lt;&lt; &quot;, b &#x3D; &quot; &lt;&lt; b &lt;&lt; endl;</span><br><span class="line">	</span><br><span class="line">	std::swap(a,b);</span><br><span class="line">	</span><br><span class="line">	cout &lt;&lt; &quot;a &#x3D; &quot; &lt;&lt; a &lt;&lt; &quot;, b &#x3D; &quot; &lt;&lt; b &lt;&lt; endl;	</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag">数据结构与算法</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-C-Primer中级-二十六-静态成员与继承" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/05/23/C-Primer%E4%B8%AD%E7%BA%A7-%E4%BA%8C%E5%8D%81%E5%85%AD-%E9%9D%99%E6%80%81%E6%88%90%E5%91%98%E4%B8%8E%E7%BB%A7%E6%89%BF/"
-    >C-Primer中级(二十六)-静态成员与继承</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/05/23/C-Primer%E4%B8%AD%E7%BA%A7-%E4%BA%8C%E5%8D%81%E5%85%AD-%E9%9D%99%E6%80%81%E6%88%90%E5%91%98%E4%B8%8E%E7%BB%A7%E6%89%BF/" class="article-date">
-  <time datetime="2020-05-23T10:56:48.000Z" itemprop="datePublished">2020-05-23</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-C-Primer中级-二十六-友元与继承" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/05/23/C-Primer%E4%B8%AD%E7%BA%A7-%E4%BA%8C%E5%8D%81%E5%85%AD-%E5%8F%8B%E5%85%83%E4%B8%8E%E7%BB%A7%E6%89%BF/"
-    >C-Primer中级(二十六)-友元与继承</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/05/23/C-Primer%E4%B8%AD%E7%BA%A7-%E4%BA%8C%E5%8D%81%E5%85%AD-%E5%8F%8B%E5%85%83%E4%B8%8E%E7%BB%A7%E6%89%BF/" class="article-date">
-  <time datetime="2020-05-23T10:56:35.000Z" itemprop="datePublished">2020-05-23</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-C-Primer中级-二十六-转换与继承" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/05/23/C-Primer%E4%B8%AD%E7%BA%A7-%E4%BA%8C%E5%8D%81%E5%85%AD-%E8%BD%AC%E6%8D%A2%E4%B8%8E%E7%BB%A7%E6%89%BF/"
-    >C-Primer中级(二十六)-转换与继承</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/05/23/C-Primer%E4%B8%AD%E7%BA%A7-%E4%BA%8C%E5%8D%81%E5%85%AD-%E8%BD%AC%E6%8D%A2%E4%B8%8E%E7%BB%A7%E6%89%BF/" class="article-date">
-  <time datetime="2020-05-23T10:56:29.000Z" itemprop="datePublished">2020-05-23</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-C-Primer中级-二十五-派生类的构造函数和析构函数" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/05/23/C-Primer%E4%B8%AD%E7%BA%A7-%E4%BA%8C%E5%8D%81%E4%BA%94-%E6%B4%BE%E7%94%9F%E7%B1%BB%E7%9A%84%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%92%8C%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0/"
-    >C-Primer中级(二十五)-派生类的构造函数和析构函数</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/05/23/C-Primer%E4%B8%AD%E7%BA%A7-%E4%BA%8C%E5%8D%81%E4%BA%94-%E6%B4%BE%E7%94%9F%E7%B1%BB%E7%9A%84%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%92%8C%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0/" class="article-date">
-  <time datetime="2020-05-23T10:56:05.000Z" itemprop="datePublished">2020-05-23</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
 
     </footer>
 

@@ -6,7 +6,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    数据结构与算法(六)-递归实现阶乘 |  畅院士的开山大弟子的博客
+    数据结构与算法(九)-插入排序 |  畅院士的开山大弟子的博客
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -30,7 +30,7 @@
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-数据结构与算法-六-递归实现阶乘" class="article article-type-post" itemscope
+  <article id="post-数据结构与算法-九-插入排序" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -38,7 +38,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  数据结构与算法(六)-递归实现阶乘
+  数据结构与算法(九)-插入排序
 </h1>
   
 
@@ -47,8 +47,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/05/30/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-%E5%85%AD-%E9%80%92%E5%BD%92%E5%AE%9E%E7%8E%B0%E9%98%B6%E4%B9%98/" class="article-date">
-  <time datetime="2020-05-30T13:55:02.000Z" itemprop="datePublished">2020-05-30</time>
+      <a href="/2020/05/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-%E4%B9%9D-%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/" class="article-date">
+  <time datetime="2020-05-31T09:47:10.000Z" itemprop="datePublished">2020-05-31</time>
 </a>
       
       
@@ -58,7 +58,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">203字</span>
+            <span class="post-count">453字</span>
         </span>
     </span>
 
@@ -67,7 +67,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1分钟</span>
+            <span class="post-count">2分钟</span>
         </span>
     </span>
 </div>
@@ -92,7 +92,7 @@
       
 
       
-      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">void doA()</span><br><span class="line">&#123;</span><br><span class="line">	cout &lt;&lt;  &quot;Hello&quot; &lt;&lt; endl;</span><br><span class="line">	doA();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void lnnjgs()</span><br><span class="line">&#123;</span><br><span class="line">	cout &lt;&lt; &quot;从前有座山，山里有座庙，庙里有一个老和尚，老和尚在给小和尚讲故事:&quot; &lt;&lt; endl;</span><br><span class="line">	lnnjgs();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; n! &#x3D; n x (n-1)!</span><br><span class="line">long factorial(int n)</span><br><span class="line">&#123;</span><br><span class="line">	if(n&#x3D;&#x3D;0) </span><br><span class="line">		return 1;</span><br><span class="line">	else</span><br><span class="line">		return n * factorial(n-1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">long factorial2(int n)</span><br><span class="line">&#123;</span><br><span class="line">	long result &#x3D; 1;</span><br><span class="line">	for(int i&#x3D;n; i&gt;0; i--)</span><br><span class="line">		result &#x3D; result * i;</span><br><span class="line">	return result;	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	&#x2F;&#x2F;doA();</span><br><span class="line">	&#x2F;&#x2F;lnnjgs();</span><br><span class="line">	&#x2F;&#x2F;cout &lt;&lt; factorial(5) &lt;&lt; endl;</span><br><span class="line">	&#x2F;&#x2F;cout &lt;&lt; factorial2(5) &lt;&lt; endl;</span><br><span class="line">	</span><br><span class="line">	for(int num&#x3D;0; num&lt;10; num++)&#123;</span><br><span class="line">		cout &lt;&lt; &quot;递归:&quot; &lt;&lt; num &lt;&lt; &quot;! &#x3D; &quot; &lt;&lt; factorial(num) &lt;&lt; endl;</span><br><span class="line">		cout &lt;&lt; &quot;迭代:&quot; &lt;&lt; num &lt;&lt; &quot;! &#x3D; &quot; &lt;&lt; factorial2(num) &lt;&lt; endl;	</span><br><span class="line">	&#125;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;void InsertionSort(int *a, int n);</span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">void InsertionSort(T *a, int n);</span><br><span class="line"></span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">void InsertionSort_2(T *a, int n);</span><br><span class="line"></span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">void Insert(const T&amp; e, T *a, int i);</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">&#x2F;&#x2F;	int x[] &#x3D; &#123;2,4,6,8,0,1,3,5,7,9&#125;;</span><br><span class="line">	double x[] &#x3D; &#123;2.2, 4.5, 6.6, 8, 0, 1, 3, 5, 7, 9&#125;;</span><br><span class="line">	int y[] &#x3D; &#123;0,2,4,6,8,0,1,3,5,7,9&#125;;</span><br><span class="line">	InsertionSort(x,10);</span><br><span class="line">	InsertionSort_2(y,10);</span><br><span class="line">	</span><br><span class="line">	for(int i&#x3D;1;i&lt;10;++i)&#123;</span><br><span class="line">		&#x2F;&#x2F;cout &lt;&lt; x[i] &lt;&lt; endl;</span><br><span class="line">		cout &lt;&lt; y[i] &lt;&lt; endl;	</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">void InsertionSort(T *a, int n)</span><br><span class="line">&#123;</span><br><span class="line">	int in, out; </span><br><span class="line">	for(out&#x3D;1;out&lt;n;++out)</span><br><span class="line">	&#123;</span><br><span class="line">		T temp &#x3D; a[out];</span><br><span class="line">		in &#x3D; out;</span><br><span class="line">		while(in&gt;0 &amp;&amp; a[in-1]&gt;&#x3D;temp)</span><br><span class="line">		&#123;</span><br><span class="line">			a[in] &#x3D; a[in-1];</span><br><span class="line">			--in;</span><br><span class="line">		&#125;</span><br><span class="line">		a[in] &#x3D; temp;</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">void InsertionSort_2(T *a, int n)</span><br><span class="line">&#123;</span><br><span class="line">	&#x2F;&#x2F;a[0]用来保存排序使用，不能保存原始数据</span><br><span class="line">	for(int j&#x3D;2; j&lt;&#x3D;n; ++j)</span><br><span class="line">	&#123;</span><br><span class="line">		T temp &#x3D; a[j];</span><br><span class="line">		Insert(temp,a,j-1);</span><br><span class="line">&#x2F;&#x2F;		a[0] &#x3D; temp;</span><br><span class="line">&#x2F;&#x2F;		int i &#x3D; j-1;</span><br><span class="line">&#x2F;&#x2F;		while(temp &lt; a[i])</span><br><span class="line">&#x2F;&#x2F;		&#123;</span><br><span class="line">&#x2F;&#x2F;			a[i+1] &#x3D; a[i];</span><br><span class="line">&#x2F;&#x2F;			i--;</span><br><span class="line">&#x2F;&#x2F;		&#125;</span><br><span class="line">&#x2F;&#x2F;		a[i+1] &#x3D; temp;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">void Insert(const T&amp; e, T *a, int i)</span><br><span class="line">&#123;</span><br><span class="line">	a[0] &#x3D; e;</span><br><span class="line">	while(e&lt;a[i])</span><br><span class="line">	&#123;</span><br><span class="line">		a[i+1] &#x3D; a[i];</span><br><span class="line">		i--;</span><br><span class="line">	&#125;</span><br><span class="line">	a[i+1] &#x3D; e;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;void InsertionSort(double *a, int n);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;void InsertionSort(int *a, int n)</span><br><span class="line">&#x2F;&#x2F;&#123;	</span><br><span class="line">&#x2F;&#x2F;	int in, out;</span><br><span class="line">&#x2F;&#x2F;	&#x2F;&#x2F;开始时out&#x3D;0这个人已经出去了 </span><br><span class="line">&#x2F;&#x2F;	for(out&#x3D;1;out&lt;n;++out)</span><br><span class="line">&#x2F;&#x2F;	&#123;</span><br><span class="line">&#x2F;&#x2F;		int temp &#x3D; a[out];</span><br><span class="line">&#x2F;&#x2F;		in &#x3D; out;</span><br><span class="line">&#x2F;&#x2F;		while(in&gt;0 &amp;&amp; a[in-1]&gt;&#x3D;temp)</span><br><span class="line">&#x2F;&#x2F;		&#123;</span><br><span class="line">&#x2F;&#x2F;			a[in] &#x3D; a[in-1];</span><br><span class="line">&#x2F;&#x2F;			--in;</span><br><span class="line">&#x2F;&#x2F;		&#125;</span><br><span class="line">&#x2F;&#x2F;		a[in] &#x3D; temp;</span><br><span class="line">&#x2F;&#x2F;	&#125;</span><br><span class="line">&#x2F;&#x2F;&#125;</span><br></pre></td></tr></table></figure>
       
       <!-- reward -->
       
@@ -161,7 +161,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/05/30/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-%E5%85%AD-%E9%80%92%E5%BD%92%E5%AE%9E%E7%8E%B0%E9%98%B6%E4%B9%98/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/05/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-%E4%B9%9D-%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -179,19 +179,19 @@
   
   <nav class="article-nav">
     
-      <a href="/2020/05/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-%E4%B8%83-%E9%80%92%E5%BD%92%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" class="article-nav-link">
+      <a href="/2020/05/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-%E5%8D%81-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            数据结构与算法(七)-递归二分查找
+            数据结构与算法(十)-快速排序
           
         </div>
       </a>
     
     
-      <a href="/2020/05/30/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-%E4%BA%94-%E6%8A%98%E5%8D%8A%E6%9F%A5%E6%89%BE/" class="article-nav-link">
+      <a href="/2020/05/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-%E5%85%AB-%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">数据结构与算法(五)-折半查找</div>
+        <div class="article-nav-title">数据结构与算法(八)-排列组合</div>
       </a>
     
   </nav>
