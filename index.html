@@ -11,17 +11,20 @@
 </style>
 
 <div class="box">
-	<input type="text" style="width:7rem; height:3rem;" value="姓名">
+	<input id="name" name="name" style="width:7rem; height:3rem;" value="姓名">
     <button style="width:3rem; height:6rem;" onclick="jump()">跳转</button>
-	<input type="text" style="width:7rem; height:3rem;" value="密码">
+	<input id="password" name="password" type="text" style="width:7rem; height:3rem;" value="密码">
 </div>
 
 <script>
 
     function jump() {
-      var s = document.getElementsByTagName('input');
-      if(s[1]=='312'){
-	      location.href='mainPage.html?'+'name=' + encodeURI(s[0].value);
+      var s = document.getElementById("name").value;
+      var t = document.getElementById("password").value;
+      document.write(s);
+      document.write(t);
+      if(t=='312'){
+	      location.href='mainPage.html?'+'name=' + encodeURI(s);
       }
     }
 </script>
