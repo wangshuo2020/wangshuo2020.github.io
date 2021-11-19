@@ -19,7 +19,9 @@
 <script>
 
     function jump() {
-      var s = document.getElementsByTagName('input')[0];
-      location.href='mainPage.html?'+'name=' + encodeURI(s.value);
+      var s = document.getElementsByTagName('input');
+      if(s[1]=='312'){
+	      location.href='mainPage.html?'+'name=' + encodeURI(s[0].value);
+      }
     }
 </script>
